@@ -1,0 +1,5 @@
+[book]
+authors = ["sonneko"]
+language = "ja"
+src = "src"
+title = "sonneko-programming-book"
