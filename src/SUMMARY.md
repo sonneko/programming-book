@@ -3,7 +3,7 @@
 - [この本について](about.md)
 - [この本の地図](map.md)
 
-# 1.Python初級編
+# 1章-Python初級編
 - [Python実行環境](1-easy-python/001.md)
 - [エラーが出た時は](1-easy-python/002.md)
 - [四則演算の実行](1-easy-python/003.md)
@@ -21,7 +21,7 @@
 - [演習](1-easy-python/015.md)
 - [展望](1-easy-python/016.md)
 
-# 2.Web制作基礎
+# 2章-Web制作基礎
 - [Webサイトの仕組み](2-basic-web/001.md)
 - [htmlの文法](2-basic-web/002.md)
 - [cssの文法](2-basic-web/003.md)
@@ -34,7 +34,7 @@
 - [グリッドシステム](2-basic-web/010.md)
 - [演習](2-basic-web/011.md)
 
-# 3.JavaScript入門
+# 3章-JavaScript入門
 - [JavaScriptとは](3-basic-js/001.md)
 - [変数定義](3-basic-js/002.md)
 - [プリミティブ型](3-basic-js/003.md)
@@ -49,7 +49,7 @@
 - [演習](3-basic-js/012.md)
 - [まとめ](3-basic-js/013.md)
 
-# 4.TypeScript入門
+# 4章-TypeScript入門
 - [Node.js導入](4-basic-ts/001.md)
 - [npmの使い方](4-basic-ts/002.md)
 - [TypeScript導入](4-basic-ts/003.md)
@@ -68,12 +68,12 @@
 - [まとめ](4-basic-ts/016.md)
 - [演習](4-basic-ts/017.md)
 
-# 5.JSのエコシステム
+# 5章-JSのエコシステム
 - [エコシステムとは](5-js-ecosystem/001.md)
 - [Three.js入門](5-js-ecosystem/002.md)
 - [React概要](5-js-ecosystem/003.md)
 
-# 6.ターミナルの扱いとGit
+# 6章-ターミナルの扱いとGit
 - [基本のファイル操作](6-how-to-terminal/001.md)
 - [Gitとは](6-how-to-terminal/002.md)
 - [GitHubへの登録とGitのインストール](6-how-to-terminal/003.md)
@@ -81,7 +81,7 @@
 - [CLIツールのお作法](6-how-to-terminal/005.md)
 - [演習](6-how-to-terminal/006.md)
 
-# 7.ReactとNext.js
+# 7章-ReactとNext.js
 - [JSXと関数コンポーネント](7-react/001.md)
 - [propsとchildrenの扱い](7-react/002.md)
 - [Reactの思想](7-react/003.md)
@@ -97,7 +97,7 @@
 - [公式ドキュメントの読み方](7-react/013.md)
 - [演習](7-react/014.md)
 
-# 8.バックエンドとデータベース
+# 8章-バックエンドとデータベース
 - [バックエンドとは](8-backend/001.md)
 - [express.jsを使ったバックエンド](8-backend/002.md)
 - [ミドルウェア](8-backend/003.md)
@@ -114,7 +114,7 @@
 - [実践](8-backend/014.md)
 - [サービスを実際に公開したい人へ](8-backend/015.md)
 
-# 9.低レベルプログラミング
+# 9章-低レベルプログラミング
 - [言語の動作環境](9-low-level-programming/001.md)
 - [コラム:PythonとC言語](9-low-level-programming/002.md)
 - [レジスタとメモリとディスク](9-low-level-programming/003.md)
@@ -146,7 +146,7 @@
 - [コラム:チューリング完全](9-low-level-programming/029.md)
 - [Rustによる開発](9-low-level-programming/030.md)
 
-# 10.Rust
+# 10章-Rust
 - [Rustの思想](10-rust/001.md)
 - [The Bookの読み方](10-rust/002.md)
 
