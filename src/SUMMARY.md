@@ -114,7 +114,18 @@
 - [実践](8-backend/014.md)
 - [サービスを実際に公開したい人へ](8-backend/015.md)
 
-# 9.低レベルプログラミング
+# 9.開発効率化
+- [開発効率化の重要性]
+- [GitHubの機能branch]
+- [GitHubの機能PullRequest]
+- [GitHubの機能Issues]
+- [GitFlowとGitHubFlow]
+- [Gitコマンドチートシート]
+- [Copilotの使い道]
+- [GitHubActions]
+- [演習]
+
+# 10.低レベルプログラミング
 - [言語の動作環境](9-low-level-programming/001.md)
 - [コラム:PythonとC言語](9-low-level-programming/002.md)
 - [レジスタとメモリとディスク](9-low-level-programming/003.md)
@@ -146,7 +157,7 @@
 - [コラム:チューリング完全](9-low-level-programming/029.md)
 - [Rustによる開発](9-low-level-programming/030.md)
 
-# 10.Rust
+# 11.Rust
 - [Rustの思想](10-rust/001.md)
 - [The Bookの読み方](10-rust/002.md)
 
