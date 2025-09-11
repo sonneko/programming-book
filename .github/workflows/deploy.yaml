@@ -7,6 +7,8 @@ on:
 
 jobs:
   deploy:
+    permissions:
+      pages: write
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
@@ -23,8 +25,6 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
-        permissions:
-          pages: write
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./book
