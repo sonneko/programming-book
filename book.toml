@@ -3,3 +3,12 @@ authors = ["sonneko"]
 language = "ja"
 src = "src"
 title = "sonneko-programming-book"
+description = "sonnekoのプログラミング入門書"
+
+[output.html]
+git-repository-url = "https://github.com/sonneko/programming-book"
+git-repository-icon = "fa-github"
+input-404 = "not-found.md"
+
+[output.html.print]
+enable = false
