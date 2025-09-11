@@ -23,7 +23,7 @@ jobs:
         run: mdbook build
 
       - name: Create CNAME
-        run: echo "book.sonneko.com" > CNAME
+        run: echo "book.sonneko.com" > book/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
