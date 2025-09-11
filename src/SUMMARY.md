@@ -115,15 +115,14 @@
 - [サービスを実際に公開したい人へ](8-backend/015.md)
 
 # 9.開発効率化
-- [開発効率化の重要性]
-- [GitHubの機能branch]
-- [GitHubの機能PullRequest]
-- [GitHubの機能Issues]
-- [GitFlowとGitHubFlow]
-- [Gitコマンドチートシート]
-- [Copilotの使い道]
-- [GitHubActions]
-- [演習]
+- [開発効率化の重要性](9-ci/001.md)
+- [GitHubの機能branch](9-ci/002.md)
+- [GitHubの機能PullRequest](9-ci/003.md)
+- [GitHubの機能Issues](9-ci/004.md)
+- [GitFlowとGitHubFlow](9-ci/005.md)
+- [Gitコマンドチートシート](9-ci/006.md)
+- [Copilotの使い道](9-ci/007.md)
+- [GitHubActions](9-ci/008.md)
 
 # 10.低レベルプログラミング
 - [言語の動作環境](9-low-level-programming/001.md)
