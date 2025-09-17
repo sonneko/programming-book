@@ -23,7 +23,7 @@ jobs:
         run: mdbook build
 
       - name: Create CNAME
-        run: echo "book.sonneko.com" > book/CNAME
+        run: echo "programming-book.sonneko.com" > book/CNAME
 
       - name: Copy file from ./public
         run: mv ./public ./book
