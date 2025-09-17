@@ -25,6 +25,9 @@ jobs:
       - name: Create CNAME
         run: echo "book.sonneko.com" > book/CNAME
 
+      - name: Copy file from ./public
+        run: mv ./public ./book
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
