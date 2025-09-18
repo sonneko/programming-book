@@ -175,7 +175,68 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="関数の使用"><a class="header" href="#関数の使用">関数の使用</a></h1>
-<p>// TODO: 執筆</p>
+<p>Pythonや他には<code>関数</code>という概念があります。プログラミングにおける関数は数学における<code>関数</code>とは最初は全く別のものとして考えておいてください。</p>
+<h2 id="関数の書き方"><a class="header" href="#関数の書き方">関数の書き方</a></h2>
+<p>関数とは、入力を受け取って出力するようなものです。以下の例では <code>left</code>と<code>right</code>を受け取って<code>output</code>を返しています。</p>
+<pre><code class="language-python">def add(left, right):
+    output = left + right
+    return output
+
+output = add(1, 2)
+print(output) # 3が出力される
+</code></pre>
+<p><code>def</code>は<strong>関数を定義する</strong>という記号で、その後に関数の名前がきます。これは比較的自由に決めることができます。</p>
+<p>その後、<strong>受け取るもののリスト(パラメータ)</strong> がきます。リストはあなたが決めた変数名を<code>,</code>区切りで記入してください。</p>
+<p>それを書くことができたら<code>:</code>で締めくくって、その後関数の中身を書いていきます。ここにこの関数が実行する命令を書いていきます。複数行になって構いません。この関数の中身を書く範囲は右端を<strong>タブ</strong>もしくは<strong>半角の空白4つ</strong>で埋める必要があります。これを<strong>インデント</strong>と言います。</p>
+<p>命令が終わって何かを返す必要があるのであれば<code>return</code>でそのすぐ後に来たものを返しその関数の処理を終了します。</p>
+<blockquote>
+<p>注意点として、<code>return</code>が実行されるとその後の処理は実行されません。</p>
+<pre><code class="language-python">def return_zero():
+   return 0
+   print("You can't find me.")
+</code></pre>
+<p>例えばこの場合は<code>print("You can't find me.)</code>は実行されません。</p>
+</blockquote>
+<p>関数の記法：</p>
+<pre><code class="language-python"># 関数を定義する
+def 関数の名前(引数リスト):
+    処理..
+    ...
+
+# 関数を呼び出す
+関数の名前(引数リスト)
+</code></pre>
+<h2 id="変数の有効範囲について"><a class="header" href="#変数の有効範囲について">変数の有効範囲について</a></h2>
+<h4 id="関数内で新たに作った変数はその外から見ることができない"><a class="header" href="#関数内で新たに作った変数はその外から見ることができない">関数内で新たに作った変数はその外から見ることができない</a></h4>
+<p>以下の例はエラーとなってしまいます。</p>
+<pre><code class="language-python">def add(left, right):
+    output = left + right
+    return output
+
+print(output)
+</code></pre>
+<p>「outputという変数はトップレベルで定義されていません。」というエラーが出るかと思います。関数内部で定義した変数はその関数の外から見ることができません。</p>
+<p>この場合「output変数の有効範囲はadd関数の中身である」ということができます。</p>
+<p>この変数の有効範囲のことを<strong>スコープ</strong>と言います。</p>
+<p>しかし、新たに変数を作って覆い隠すことは可能です。</p>
+<pre><code class="language-python">def do_nothing():
+    a = 10
+
+a = 1 # 再代入ではなく新しく定義している
+print(a) # 1と出力される。同一スコープで定義されているので問題なく使える
+</code></pre>
+<h4 id="変数を見る時はまずは狭いスコープで定義されていないかを確認し定義されていなかったらより広い範囲のスコープで定義されていないかを確認する"><a class="header" href="#変数を見る時はまずは狭いスコープで定義されていないかを確認し定義されていなかったらより広い範囲のスコープで定義されていないかを確認する">変数を「見る」時は、まずは狭いスコープで定義されていないかを確認し、定義されていなかったらより広い範囲のスコープで定義されていないかを確認する。</a></h4>
+<pre><code class="language-python">a = 10
+b = 1
+
+def do_nothing():
+    a = 1 # 再代入ではなく新しく定義している
+    print(a) # aはdo_nothingで定義されているのでそちらが優先され1が出力される
+    print(b) # do_nothingで定義されていないので外側のものを読み取るので1と出力される
+
+print(a) # 10と出力される
+</code></pre>
+<p>Pythonプログラム全体で利用可能な変数のスコープを特別に<code>トップレベルスコープ</code>と呼びます。</p>
 
                     </main>
 

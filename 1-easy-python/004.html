@@ -175,7 +175,76 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="変数定義と使用"><a class="header" href="#変数定義と使用">変数定義と使用</a></h1>
-<p>// TODO: 執筆</p>
+<p>変数と呼ばれる概念とPythonでのその使い方について説明します。</p>
+<h2 id="変数とは"><a class="header" href="#変数とは">変数とは</a></h2>
+<p>変数とはデータを入れるための<code>箱</code>のことです。<code>箱</code>にはデータを入れてそれを後でデータの代わりに使用することができます。</p>
+<p>前回の記事で紹介した足し算をしてそれを出力するプログラムを変数を使って書き直すとこんな感じです。</p>
+<pre><code class="language-python">print(1 + 2)
+</code></pre>
+<p>↓↓↓</p>
+<pre><code class="language-python">one = 1
+two = 2
+print(one + two)
+</code></pre>
+<br />
+<p>今度はレジで合計金額を計算するというより複雑なプログラムの例を紹介します。</p>
+<pre><code class="language-python"># 商品の価格を定義する
+# 商品Aの価格
+price_item_a = 150 
+
+# 商品Bの価格
+price_item_b = 380
+
+# 商品Cの価格
+price_item_c = 220 
+
+# 購入する商品の数を定義する
+# 商品Aの購入数
+quantity_item_a = 2
+
+# 商品Bの購入数
+quantity_item_b = 1
+
+# 商品Cの購入数
+quantity_item_c = 3
+
+# 各商品の小計を計算する
+subtotal_item_a = price_item_a * quantity_item_a
+subtotal_item_b = price_item_b * quantity_item_b
+subtotal_item_c = price_item_c * quantity_item_c
+
+# 合計金額を計算する
+total_amount = subtotal_item_a + subtotal_item_b + subtotal_item_c
+
+# 計算結果を表示する
+print(f"商品Aの小計: {subtotal_item_a}円")
+print(f"商品Bの小計: {subtotal_item_b}円")
+print(f"商品Cの小計: {subtotal_item_c}円")
+print(f"合計金額: {total_amount}円")
+</code></pre>
+<h2 id="変数の中身を変更する"><a class="header" href="#変数の中身を変更する">変数の中身を変更する</a></h2>
+<p>変数の中身は後で変更することもできます。</p>
+<pre><code class="language-python"># リンゴは170円
+apple_prive = 170
+
+# やっぱり値上げする
+apple_price = 190
+
+print(apple_price) # 190が出力される
+</code></pre>
+<p>変更することを<code>再代入</code>と言います。</p>
+<blockquote>
+<p>再代入をするときによくあるミスを紹介しておきます。絶対この後一回は経験するので頭の片隅に入れておいてください。</p>
+<pre><code class="language-python"># リンゴは170円
+apple_price = 170
+
+# やっぱり値上げする（？）
+appple_price = 190
+
+print(apple_price) # 170が出力される。「あれ？？」
+</code></pre>
+<p>以上のように再代入する際に1文字でも違うと、新しい変数を作ったのだと勘違いされるので注意してください。</p>
+</blockquote>
 
                     </main>
 
