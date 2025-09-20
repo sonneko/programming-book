@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>文字列型 - sonneko-programming-book</title>
+        <title>型について - sonneko-programming-book</title>
 
 
         <!-- Custom HTML head -->
@@ -174,8 +174,42 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="文字列型"><a class="header" href="#文字列型">文字列型</a></h1>
-<p>// TODO: 執筆</p>
+                        <h1 id="型について"><a class="header" href="#型について">型について</a></h1>
+<p>プログラミングには<em>型</em>と呼ばれる概念があります。それを文字列型を例に説明していきます。</p>
+<h2 id="型とは"><a class="header" href="#型とは">型とは？</a></h2>
+<p><a href="./004.html">変数定義と使用</a>で述べたようにプログラミングには変数なる概念があり、それはデータを入れる箱であることを説明しました。</p>
+<p><em>型</em>とはその箱の種類のことです。変数といっても入るのは数以外にも他のデータも入ります。<em>型</em>には整数・浮動小数点などを入れることができます。</p>
+<blockquote>
+<p>浮動小数点とはコンピューターで小数を表すための規格の一つです。英語では<code>float</code>と呼びます。</p>
+</blockquote>
+<p>さっき紹介したもの以外にも文字列型があり、pythonでは<code>str</code>という名前がつけられています。</p>
+<pre><code class="language-python">message = "Hello" # "hello"は文字列
+</code></pre>
+<p>以上のようにするとmessage変数は文字列型となります。</p>
+<h2 id="色々な言語の型"><a class="header" href="#色々な言語の型">色々な言語の型</a></h2>
+<p>現代のプログラミング言語でよく使われる代表的かつ原始的な型をまとめます。</p>
+<div class="table-wrapper"><table><thead><tr><th>名前</th><th>書き方</th><th>説明</th><th>覚えかた</th></tr></thead><tbody>
+<tr><td>整数</td><td>int integer i32</td><td>自明</td><td>intergerは整数という意の英単語</td></tr>
+<tr><td>浮動小数点</td><td>float f32</td><td>小数のこと</td><td>floatは浮くという意の英単語</td></tr>
+<tr><td>文字</td><td>char</td><td>一文字</td><td>character(文字)の略</td></tr>
+<tr><td>文字列</td><td>String Str char[]</td><td>char[]は文字の配列という意味</td><td>　stringはひもと言う意味で「長く続く」というニュアンスを継承していると思われる。</td></tr>
+<tr><td>真偽値</td><td>bool boolean</td><td>trueかfalseかの2通りのデータ</td><td>これについての数学でブール代数という分野があります。</td></tr>
+<tr><td>null</td><td>null nil None</td><td>未初期化という意味</td><td>なし</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-python">message = "hello"
+# messge は ここでは文字列型
+
+message = 100
+# message は　ここでは整数型
+</code></pre>
+<p>以上のように、Pythonは動的型言語と呼ばれる言語の一つでプログラム内で同じ変数の型がコロコロ変わることができます。
+世の中には静的型言語と呼ばれる対照的なものもあり、代表例はJavaなどです。</p>
+<pre><code class="language-java">String message = "Hello World"; // message変数はいつでもString型
+
+message = 10 // String型なのにint型の値を代入しているのでエラーが発生する
+</code></pre>
+<p>どちらがいいかは何のために使うかによって変わってくるのですが、最近のトレンドは静的型のようです。ちなみに僕は静的型が好きです。一般には静的型の方が安定で大規模開発に向いていて、逆に動的型はその場限りのプログラムや非エンジニア・アジャイルな開発に向いていると言われています。</p>
 
                     </main>
 
