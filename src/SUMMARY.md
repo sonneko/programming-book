@@ -9,7 +9,7 @@
 - [四則演算の実行](1-easy-python/003.md)
 - [変数定義と使用](1-easy-python/004.md)
 - [関数の使用](1-easy-python/005.md)
-- [文字列型](1-easy-python/006.md)
+- [型について](1-easy-python/006.md)
 - [if文](1-easy-python/007.md)
 - [真偽値](1-easy-python/008.md)
 - [while文](1-easy-python/009.md)
