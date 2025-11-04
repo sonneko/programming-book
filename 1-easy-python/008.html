@@ -175,6 +175,28 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="真偽値"><a class="header" href="#真偽値">真偽値</a></h1>
+<p>今回は真偽値をより深掘りしていきます。</p>
+<p>典型的に中学校の数学で習う論理演算をプログラミングの世界でも使うことができます。</p>
+<p>例えば、<code>x</code>が10から20の範囲にあるかどうかを判定するにはどうすればいいでしょうか？</p>
+<pre><code class="language-python">x = 14
+if (x &gt; 10):
+    if (x &lt; 20):
+        print("x is between 10 and 20.")
+</code></pre>
+<p>このようなこともできますが、以下のようなこともできます。</p>
+<pre><code class="language-python">x = 14
+if (x &gt; 10 and x &lt; 20):
+    print("x is between 10 and 20.")
+</code></pre>
+<p><code>x &gt; 10</code>の結果と、<code>x &lt; 20</code>の結果が<code>and</code>で結ばれることで、どちらも<code>True</code>である時のみ最終的な結果が<code>True</code>になるようにできます。</p>
+<p>数学のように<code>10 &lt; x &lt; 20</code>と書くことはできないので注意してください。</p>
+<p>他にもどちらかが<code>True</code>ならばもう一方がどうであっても<code>True</code>になるという<code>or</code>も使うことができます。</p>
+<pre><code class="language-python">x = 32
+output = x &lt; 10 or x &gt; 20
+print(output) # False
+</code></pre>
+<p>この例では、10未満もしくは20より大きいことを確認しています。</p>
+<p>Pythonでは、<code>and</code>の代わりに<code>&amp;&amp;</code>や、<code>or</code>の代わりに<code>||</code>も使うことができます。他のプログラミング言語だと後者しか使えないことが多いので注意してください。</p>
 
                     </main>
 

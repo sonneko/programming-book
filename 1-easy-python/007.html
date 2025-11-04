@@ -180,6 +180,7 @@
     Trueの時の処理
 </code></pre>
 <p>真偽値によって異なる処理をさせることができます。</p>
+<p>真偽値とは、<code>True</code>か<code>False</code>のどちらかを取るような型のことです。数学で言うと、それぞれ<code>真</code>か<code>偽</code>になります。</p>
 <p>例：</p>
 <pre><code class="language-python">def my_abs(number):
     if (number &lt; 0):
@@ -189,21 +190,9 @@
     else:
         return 0
 </code></pre>
-<p><code>abs()</code>という関数は絶対値をとる関数です。</p>
+<p><code>my_abs()</code>という関数は絶対値をとる関数です。</p>
 <p>ここで、不等号が登場したのでその関係について説明しておきます。</p>
-<p><code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code> <code>==</code>という5つの記号は数の比較に用いられます。
-形式的にいうとこれらは右にあるものと左にあるものを演算して真偽地として返すというある種の関数となっています。</p>
-<pre><code class="language-python"># あくまでもイメージ
-def is_bigger(a, b):
-    if (a &lt; b):
-        return True
-    else:
-        return False
-
-# `is_bigger(a, b)`と`a &lt; b`は同値。
-</code></pre>
-<p>その意味で言うと、if文も真偽値を受け取る関数と見ることもできます。<br />
-（実際には制御構文と関数は全然違います）</p>
+<p><code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code> <code>==</code>という5つの記号は数の比較に用いられます。</p>
 <div class="table-wrapper"><table><thead><tr><th>記号</th><th>意味</th></tr></thead><tbody>
 <tr><td><code>==</code></td><td>等しい</td></tr>
 <tr><td><code>&lt;=</code></td><td>以上</td></tr>
@@ -212,6 +201,19 @@ def is_bigger(a, b):
 <tr><td><code>&gt;</code></td><td>より小さい</td></tr>
 </tbody></table>
 </div>
+<p>このようにすると2つの隣に書いてある数字から、その数字の性質についての真偽値を得ることができて、それを<code>if文</code>に入力しているようなイメージです。</p>
+<p>よって別に<code>if</code>の中に不動号を置かないといけないと言うことはなく、以下のようなこともできます。</p>
+<pre><code class="language-python">x = 10
+is_bigger = x &gt; 20
+
+if (is_bigger):
+    print("it's bigger than 20")
+else:
+    prrint("it's smaller or 20")
+
+</code></pre>
+<p>is_biggerには、右に書いてある不等号の結果つまりは真偽値が代入されて、その中身(この場合は<code>False</code>)が<code>if文</code>の中で使用れています。</p>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
