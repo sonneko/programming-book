@@ -1,0 +1,1022 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>sonneko-programming-book</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="sonnekoのプログラミング入門書">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-9556dba6.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-c4438b08.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">sonneko-programming-book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/sonneko/programming-book" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="この本について"><a class="header" href="#この本について">この本について</a></h1>
+<p>この本は0からプログラミングひいてはITに関わるたくさんの分野を体系的に学ぶための一つの一貫した長い長いチュートリアルのようなものです。またこれとは別の素晴らしい文献を探すための索引でもあるように努めています。しばしば参考必須の別サイトが紹介されることがあります。
+できるだけモダンで一般的な技術を学べるようにしていますが、もしかしたら何かに偏っていたり何かが抜けているかもしれません。<a href="https://github.com/sonneko/programming-book/issues">GitHubのissue</a>でその旨を述べてください。</p>
+<blockquote>
+<p>この本は執筆中であり、まだまだ未完成であることを確認してください。</p>
+</blockquote>
+<h3 id="読み進め方"><a class="header" href="#読み進め方">読み進め方</a></h3>
+<p>基本的に最初から読み進めていくように作られていますが、もしあなたに何らかの背景があれば知っていることを飛ばすことも可能です。
+もしあなたが本当にプログラミングについて何も知らないなら最初から着実に読み進めることをお勧めします。</p>
+<p>もし<em>scratch</em>のようなビジュアル系プログラミング言語に自信があるよという方は、1章Python初級編を飛ばして2章から読んでも良いかもしれません。</p>
+<h3 id="自己紹介"><a class="header" href="#自己紹介">自己紹介</a></h3>
+<p>私は中学2年の時にプログラミングを独学で学び始め幸運なことにエンジニアの端くれになることができました。この本は学習のアウトプットや私のようなプログラミングについて好奇心旺盛な学生を助けるために高校2年生の夏に書き始めました。筆者は生粋の理系でありますから文章についてはあまり気にしないでください。</p>
+<p>ご連絡は、<a href="https://github.com/sonneko">GitHub</a>までお願いいたします。</p>
+<h3 id="修正依頼コントリビュートについて"><a class="header" href="#修正依頼コントリビュートについて">修正依頼・コントリビュートについて</a></h3>
+<p><a href="https://github.com/sonneko/programming-book/issues">GitHubのissue</a>で報告してもらえたらできるだけ対応・修正しようと思っています。</p>
+<p>修正のみ受け付けております。コントリビュートは現在受け付けておりません。</p>
+<h3 id="ライセンスについて"><a class="header" href="#ライセンスについて">ライセンスについて</a></h3>
+<p>この本の著作権は<code>sonneko</code>にあります。無断で再公開・改変することは控えてください。自分用にスマホなどにダウンロードして使うのはもちろんOKです！<sup class="footnote-reference" id="fr-note2-1"><a href="#footnote-note2">1</a></sup>ただこの本は頻繁に更新されますから、最新の情報を得るためにブラウザで閲覧することをお勧めします。</p>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-note2">
+<p>右上の印刷マークからこの本の全てをPDF化してダウンロードすることができます。 <a href="#fr-note2-1">↩</a></p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="この本の地図"><a class="header" href="#この本の地図">この本の地図</a></h1>
+<p>さてまずは全体像を眺めることから始めましょう。一口にプログラミングと言ってもさまざまな分野があります。代表的なものを以下に挙げます。</p>
+<ul>
+<li>Web開発</li>
+<li>アプリ開発</li>
+<li>ゲーム開発</li>
+<li>システム開発</li>
+<li>組み込み開発</li>
+<li>データ分析・AI開発</li>
+</ul>
+<p>分野の難易度を語るのは難しいですが、簡単なものは上の方に難しいものは下の方にあると筆者は思います。</p>
+<p>あなたは何をしたいですか？（もしくは何を知りたいですか？）</p>
+<p>選択肢がわからないと決めようがありませんのでそれぞれについて軽く紹介します。</p>
+<h4 id="web開発"><a class="header" href="#web開発">Web開発</a></h4>
+<p>WebサイトもしくはWebアプリを作ります。おそらく一番とっかかりやすいです。この本では二番目に紹介しようと思っています。WebアプリというのはGoogleDriveのようなWebブラウザで動くアプリのことです。後者と前者には明確な違いはありません。</p>
+<h4 id="アプリ開発"><a class="header" href="#アプリ開発">アプリ開発</a></h4>
+<p>アプリを作ります。アプリ開発と言ってもiOS・Mac・Android・Windowsと何のOSで動くアプリを作るかによってかなり変わってきます。最近はWeb開発を元にしたアプリ開発の手段も増えてきて高度なことをしないのであればWeb開発ができればアプリ開発もできるでしょう。</p>
+<h4 id="ゲーム開発"><a class="header" href="#ゲーム開発">ゲーム開発</a></h4>
+<p>ゲームを作ります。Unityなどのゲームエンジン（ゲームを作るための便利アプリ）を使うかどうかで変わってきますが、単純なプログラミングの知識とともにグラフィックや実行速度を出すための知識も必要になることがあります。筆者はあまり知りません。</p>
+<h4 id="システム開発"><a class="header" href="#システム開発">システム開発</a></h4>
+<p>社内システムなどを構築します。筆者からするととても地味ですが裏側で活躍していると思います。筆者はやったことがありません。</p>
+<h4 id="組み込み開発"><a class="header" href="#組み込み開発">組み込み開発</a></h4>
+<p>冷蔵庫・電子レンジなどの家電や回転寿司の管理システム・電子辞書など機械と情報の狭間となる場所です。CPUの動作に関する高度な知識が必要とされることが多く難しいです。</p>
+<h4 id="データ分析ai開発"><a class="header" href="#データ分析ai開発">データ分析・AI開発</a></h4>
+<p>今が旬な分野です。LLM（chatGPTやGemini）の仕組みや画像処理やPOSシステム（コンビニなどでお客さんの情報をたくさん収集することで仕入れを調整したり利益を予想したりするためのシステムです。）などを学ぶことができます。情報というより線形代数など高度な数学が必要とされます。</p>
+<h2 id="とりあえず"><a class="header" href="#とりあえず">とりあえず…</a></h2>
+<p>あなたがどれを学びたいかに関係なくこの本はあなたの役に立つように設計されています。
+自分がどれをしたいかわからないという大部分の人はこの本を順番通り読み進めていけばいいでしょう。途中で自分のしたいことが見つかるはずです。
+もし何か特定のことを学びたいのであれば、この本の後半（4章以降）はあなたに向いていないかもしれません。なぜなら後ろに行けばいくほどWeb開発・アプリ開発に偏っているからです。しかし1,2,3章はどんな分野でも必要な基礎的なことだと筆者は思います。</p>
+<h2 id="どんな挑戦も最初の一歩から"><a class="header" href="#どんな挑戦も最初の一歩から">どんな挑戦も最初の一歩から</a></h2>
+<p>この本をどのように読むか決められましたか？ぜひスタートしてください。この本はあなたには必要ありませんか？ブラウザバックしましょう。また会えることを願っています。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="python実行環境"><a class="header" href="#python実行環境">Python実行環境</a></h1>
+<p>一番最初に勉強する言語は<strong>Python</strong>です。AIなどの研究分野でよく使われる言語で最近ではよく使われているので勉強しておいて損はありません。実際に最も有名な言語と言われています。<sup class="footnote-reference" id="fr-note1-1"><a href="#footnote-note1">1</a></sup></p>
+<p>このPythonの章は、「Pythonを学ぶ」ではなく「Pythonで学ぶ」構成となっています。Pythonの学習というよりかはPythonを通して各種プログラミング言語に共通する基本的な概念を理解することを目指しています。</p>
+<p>Pythonは筆者がある意味で嫌いな言語ではありますが筆者が一番初めに学んだ言語でもあります。安心してください。とても簡単です。</p>
+<blockquote>
+<p>以下の内容は<a href="https://www.python.jp/train/experience/colab.html">Google Colab の準備: ゼロからのPython入門講座 - python.jp</a>と同時に読み進めることをお勧めします。</p>
+</blockquote>
+<p>プログラマが新しく言語を学ぶ上で最初にすることは、実行環境の整備とHello Worldです。
+あなたはもはやプログラマなのですから、それに倣って実行環境の整備から始めましょう！</p>
+<h2 id="実行環境の整備"><a class="header" href="#実行環境の整備">実行環境の整備</a></h2>
+<p>Python学習に必要な実行環境を用意しましょう。Pythonをパソコンにインストールする方法を紹介することも可能ですが、それに詰まってしまったらあなたがプログラミングに挫折してしまいそうなのでもっと簡単な方法を紹介します。
+それは<a href="https://colab.research.google.com/">GoogleColab</a>というWebサービスを利用することです。無料なので安心して利用してください。</p>
+<p><a href="https://colab.research.google.com/">https://colab.research.google.com/</a></p>
+<p>上記のURLにアクセスしたら実行環境の整備は完了です。
+もしかしたらGoogleにログインするよう迫られるかもしれません。Googleアカウントの作成方法やログイン方法はこの本の範疇を超えるので解説しません。Web上で素晴らしい文献が見つかるでしょう。</p>
+<h2 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h2>
+<p>では<code>Hello World</code>を行いましょう。<code>Hello World</code>とは何ですか？<code>Hello World</code>はプログラマがその言語きちんと動作することを確認するためにしばしばする行為です。具体的には単に<code>Hello World</code>とだけ出力するプログラムを動かすことです。
+<code>Hello World</code>は「こんにちは世界」という意味ですが、特に理由はありません。<sup class="footnote-reference" id="fr-note2-1-1"><a href="#footnote-note2-1">2</a></sup></p>
+<p><img src="1-easy-python/images/colab-init.jpeg" alt="Colabの初期画面"></p>
+<p>赤い印をしている<code>+コード</code>というボタンを押してコードブロック（プログラムを書く場所）を新しく作成しましょう。続けて以下の<code>Hello World</code>プログラムを手打ちもしくはコピ＆ペーストしてください。</p>
+<pre><code class="language-python"># 初めてのHello Worldプログラム
+print("Hello World")
+</code></pre>
+<p>コードブロックの左にある<code>▶️</code>ボタンを押して<code>Hello World</code>を実行してください。最初は少し時間がかかりますが、すぐ下のブロックに結果が表示されます。“Hello World“というテキストをprintするよう指示をしたので、以下のように表示されたら成功です。</p>
+<pre><code>Hello World
+</code></pre>
+<p>もし<code>▶️</code>ボタンが真っ赤になり<code>Hello World</code>と表示されない場合は、もう一度タイプミスがないか確認してください。特に丸括弧やクオテーションマーク（“）が全角ではなく半角で入力されていることを確認してください。コンピュータは厳格なので少しでも違ったら「わかんない！」とエラーを吐き出してしまいます。</p>
+<p>このからあなたはバリバリプログラムを書いていくわけなのでたくさんのエラーに遭遇する可能性が高いです。そうなる前に一般的にエラーに対してどのように対処すればいいか体系的にまとめておきましょう。</p>
+<hr>
+<p>同時に読み進める（必須）：
+<a href="https://www.python.jp/train/experience/colab.html">Google Colab の準備: ゼロからのPython入門講座 - python.jp</a></p>
+<p>発展・辞書（任意）：
+<a href="https://docs.python.org/ja/3.13/">Python公式ドキュメント和訳</a></p>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-note1">
+<p><a href="https://www.tiobe.com/tiobe-index/">TIOBEによる統計</a>より（2025/9/20現在の情報） <a href="#fr-note1-1">↩</a></p>
+</li>
+<li id="footnote-note2-1">
+<p>「<a href="https://web.hazu.jp/hello-world/">どうしてHello, World!なの？</a>」という記事がありました。興味があったらどうぞ。 <a href="#fr-note2-1-1">↩</a></p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="エラーが出た時は"><a class="header" href="#エラーが出た時は">エラーが出た時は</a></h1>
+<p>このページを読むのは、エラーが出てからでいいかもしれません。エラーが出てしまったらこんなページがあったことを思い出してください。</p>
+<p>エラーが出た時にあなたが取るべき行動をまとめてみました。優先順位をつけていますから何かエラーが出た時は上から下に適用できるかを調べていってください。後半にいくほどレベルが高くなります。</p>
+<h3 id="エラーメッセージを読む"><a class="header" href="#エラーメッセージを読む">エラーメッセージを読む</a></h3>
+<p>エラーメッセージとはエラーが出たことを示す文章または記号などのことです。英語のことが多いですが頑張って読みましょう。9割型これで解決します。</p>
+<h3 id="落ち着いてもう一度自分のコードを読んでみる"><a class="header" href="#落ち着いてもう一度自分のコードを読んでみる">落ち着いてもう一度自分のコードを読んでみる</a></h3>
+<p>全角文字など変な文字が入っていないですか？</p>
+<h3 id="エラーメッセージ全体もしくは一部をgoogle検索"><a class="header" href="#エラーメッセージ全体もしくは一部をgoogle検索">エラーメッセージ全体（もしくは一部）をGoogle検索</a></h3>
+<p>多くの人が遭遇するエラーの場合は、もしかしたらそのエラーについて誰かが情報を発信しているかもしれません。ただしどちらにしろエラーメッセージを読み何を検索すればいいかを知ることはあなたがしなければいけません。</p>
+<h3 id="aiに聞く"><a class="header" href="#aiに聞く">AIに聞く</a></h3>
+<p>わからなかったら機械翻訳に通したり LLM=<em>Large Language Model</em>（GeminiやchatGPTなどのこと・大規模言語モデル）に聞いてみましょう。ただし、こうしたらいいよと示されたコードをコピペするのではなくエラーメッセージの意味を理解するよう努めてください。AIがさらに賢くなるだけであなたはAIに使われる人になってしまいますよ。またAIも人間と同じように間違いをするので気をつけてください。後述の「公式のドキュメント・リファレンスを読む」のために検索を依頼するのもいいかもしれません。</p>
+<h3 id="誰かに聞く"><a class="header" href="#誰かに聞く">誰かに聞く</a></h3>
+<p>あなたがどこかですでに働いているのであれば質問する人が絶対いるでしょう。しかしあなたが学生の場合は自分の学校にあなたと同じような境遇の人がいないかもしれませんし見つけ出すのが難しいかもしれません。その場合この選択肢は取ることができませんね。独学というのは難しいものですが特殊な達成感を得ることができます。ぜひ頑張ってください。</p>
+<h3 id="公式のドキュメントリファレンスを読む"><a class="header" href="#公式のドキュメントリファレンスを読む">公式のドキュメント・リファレンスを読む</a></h3>
+<p>リファレンス=<em>reference</em>とはその技術についての全てが述べられている自然言語の文献です。リファレンスから必要な部分を見つけ出したりそれを読むことは大抵の場合とても難しく根気が入りますが、その分あなたは学ぶことができるでしょう。</p>
+<h3 id="各種質問サービスyahoo知恵袋qiitastackovweflowなどで質問する"><a class="header" href="#各種質問サービスyahoo知恵袋qiitastackovweflowなどで質問する">各種質問サービス（Yahoo知恵袋・Qiita・StackOvweFlowなど）で質問する</a></h3>
+<p>Yahoo知恵袋は知っているでしょう。Qiitaというのは日本人プログラマ向けの記事投稿サービスですが質問投稿サービスも存在します。StackOverFlowというのはグローバルバージョンのQiitaです。英語が必須となります。</p>
+<h3 id="githubで質問する"><a class="header" href="#githubで質問する">GitHubで質問する</a></h3>
+<p><strong>GitHub</strong>とはプログラマのSNS兼プログラム置き場みたいなものです。こちらは難易度というかハードルが高いです。英語が使えることは前提条件です。</p>
+<h3 id="ソースコードを読む"><a class="header" href="#ソースコードを読む">ソースコードを読む</a></h3>
+<p>もし対象がOSS（Open Source Software）ならばあなたはGitHubでプログラムを読みエラーが出る原因を突き止めることができます。その対象に対してかなり深く理解していないといけないですし時間がかかります。</p>
+<h3 id="もしかしたらあなたは間違っていないのかも"><a class="header" href="#もしかしたらあなたは間違っていないのかも">もしかしたらあなたは間違っていないのかも</a></h3>
+<p>言語でいうZigやMoonbit・フレームワークでいうSolid.jsなど新しく出てきた技術は往々にしてバグがあります。広く視点を持ってフレームワークや言語のバグである可能性も考えてみてください。ただ、もしあなたがプログラミングを始めたばかりなら確実にそんなことはありません。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="四則演算の実行"><a class="header" href="#四則演算の実行">四則演算の実行</a></h1>
+<p><code>Hello World</code>を出力することができたので、次は計算をコンピュータに依頼してみましょう。</p>
+<p>以下のプログラムを実行してみてください。（もしプログラムの実行の仕方がわからないなら<a href="#python実行環境">Python実行環境</a>を読むことをお勧めします。）</p>
+<pre><code class="language-python"># 1足す2を出力する
+print(1 + 2) # 3
+
+# 1引く2を出力する
+print(1 - 2) # -1
+
+# 2掛ける3を出力する
+print(2 * 3) # 6
+
+# 3割る2の切り下げを出力する
+print(3 / 2) # 1
+
+# 3割る2の小数表記を出力する
+print(3.0 / 2.0) # 1.5
+
+# 5割る3の余りを表示する
+print(5 % 3) # 2
+</code></pre>
+<p>足し算=<em>add</em>と引き算=<em>subtraction</em>と掛け算=<em>multiplication</em>と割り算=<em>division</em>そして余り=<em>remainder</em>を実行し出力してくれましたか？このプログラムから学ぶことはたくさんあります。足し算は<code>+</code>（プラス）、引き算は<code>-</code>（マイナス）、掛け算は<code>*</code>（アスタリスク）、割り算は<code>/</code>（スラッシュ）を用いるみたいですね。足し算・引き算はそのままで何もいうことがありませんが、掛け算や割り算は<code>×</code>や<code>÷</code>と書いてもできないというのは覚えておいてください。あと<code>%</code>などの余りを意味する見慣れない演算子もありますね。</p>
+<p>ここで注意したいのは、二つの割り算の違いです。</p>
+<pre><code class="language-python"># 3割る2の切り下げを出力する
+print(3 / 2) # 1
+
+# 3割る2の小数表記を出力する
+print(3.0 / 2.0) # 1.5
+</code></pre>
+<p>上の割り算における2、3という数字は「整数=<em>Integer</em>」として扱われています。なので計算結果も整数となります。
+しかし、下の割り算では<code>2.0</code>、<code>3.0</code>という数字は「小数=<em>decimal number</em>」として扱われているので、結果も小数です。このように小数であることをプログラムで伝えるには、<code>.0</code>をつける必要があります。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="変数定義と使用"><a class="header" href="#変数定義と使用">変数定義と使用</a></h1>
+<p>変数=<em>Variable</em>と呼ばれる概念とPythonでのその使い方について説明します。</p>
+<h2 id="変数とは"><a class="header" href="#変数とは">変数とは</a></h2>
+<p>変数とはデータを入れるための<code>箱</code>のことです。<code>箱</code>にはデータを入れてそれを後でデータの代わりに使用することができます。</p>
+<p>前回の記事で紹介した足し算をしてそれを出力するプログラムを変数を使って書き直すとこんな感じです。</p>
+<pre><code class="language-python">print(1 + 2)
+</code></pre>
+<p>↓↓↓</p>
+<pre><code class="language-python">one = 1
+two = 2
+print(one + two)
+</code></pre>
+<br />
+<p>今度はレジで合計金額を計算するというより複雑なプログラムの例を紹介します。</p>
+<pre><code class="language-python"># 商品の価格を定義する
+# 商品Aの価格
+price_item_a = 150 
+
+# 商品Bの価格
+price_item_b = 380
+
+# 商品Cの価格
+price_item_c = 220 
+
+# 購入する商品の数を定義する
+# 商品Aの購入数
+quantity_item_a = 2
+
+# 商品Bの購入数
+quantity_item_b = 1
+
+# 商品Cの購入数
+quantity_item_c = 3
+
+# 各商品の小計を計算する
+subtotal_item_a = price_item_a * quantity_item_a
+subtotal_item_b = price_item_b * quantity_item_b
+subtotal_item_c = price_item_c * quantity_item_c
+
+# 合計金額を計算する
+total_amount = subtotal_item_a + subtotal_item_b + subtotal_item_c
+
+# 計算結果を表示する
+print(f"商品Aの小計: {subtotal_item_a}円")
+print(f"商品Bの小計: {subtotal_item_b}円")
+print(f"商品Cの小計: {subtotal_item_c}円")
+print(f"合計金額: {total_amount}円")
+</code></pre>
+<p>これまでの四則演算・変数の組み合わせですね。</p>
+<p>別に写経する必要はありませんが、サンプルコードは読んだ方が良いと思います。<strong>プログラムを意味に落とし込む</strong>のに慣れるためです。</p>
+<h2 id="変数の中身を変更する"><a class="header" href="#変数の中身を変更する">変数の中身を変更する</a></h2>
+<p>変数の中身は後で変更することもできます。</p>
+<pre><code class="language-python"># リンゴは170円
+apple_prive = 170
+
+# やっぱり値上げする
+apple_price = 190
+
+print(apple_price) # 190が出力される
+</code></pre>
+<p>変更することを<code>再代入</code>と言います。</p>
+<blockquote>
+<p>再代入をするときによくあるミスを紹介しておきます。絶対この後一回は経験するので頭の片隅に入れておいてください。</p>
+<pre><code class="language-python"># リンゴは170円
+apple_price = 170
+
+# やっぱり値上げする（？）
+appple_price = 190
+
+print(apple_price) # 170が出力される。「あれ？？」
+</code></pre>
+<p>以上のように再代入する際に1文字でも違うと(小文字が大文字になっただけでも！)、新しい変数を作ったのだと勘違いされるので注意してください。</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="関数の使用"><a class="header" href="#関数の使用">関数の使用</a></h1>
+<p>Pythonや他には<code>関数</code>という概念があります。プログラミングにおける関数は数学における<code>関数</code>とは最初は全く別のものとして考えておいてください。</p>
+<h2 id="関数の書き方"><a class="header" href="#関数の書き方">関数の書き方</a></h2>
+<p>関数とは、入力を受け取って出力するようなものです。以下の例では <code>left</code>と<code>right</code>を受け取って<code>output</code>を返しています。</p>
+<pre><code class="language-python">def add(left, right):
+    output = left + right
+    return output
+
+output = add(1, 2)
+print(output) # 3が出力される
+</code></pre>
+<p><code>def</code>は<strong>関数を定義する</strong>という記号で、その後に関数の名前がきます。これは比較的自由に決めることができます。</p>
+<p>その後、<strong>受け取るもののリスト(パラメータ)</strong> がきます。リストはあなたが決めた変数名を<code>,</code>区切りで記入してください。</p>
+<p>それを書くことができたら<code>:</code>で締めくくって、その後関数の中身を書いていきます。ここにこの関数が実行する命令を書いていきます。複数行になって構いません。この関数の中身を書く範囲は右端を<strong>タブ</strong>もしくは<strong>半角の空白4つ</strong>で埋める必要があります。これを<strong>インデント</strong>と言います。</p>
+<p>命令が終わって何かを返す必要があるのであれば<code>return</code>でそのすぐ後に来たものを返しその関数の処理を終了します。</p>
+<blockquote>
+<p>注意点として、<code>return</code>が実行されるとその後の処理は実行されません。</p>
+<pre><code class="language-python">def return_zero():
+   return 0
+   print("You can't find me.")
+</code></pre>
+<p>例えばこの場合は<code>print("You can't find me.)</code>は実行されません。</p>
+</blockquote>
+<p>関数の記法：</p>
+<pre><code class="language-python"># 関数を定義する
+def 関数の名前(引数リスト):
+    処理..
+    ...
+
+# 関数を呼び出す
+関数の名前(引数リスト)
+</code></pre>
+<h2 id="変数の有効範囲について"><a class="header" href="#変数の有効範囲について">変数の有効範囲について</a></h2>
+<h4 id="関数内で新たに作った変数はその外から見ることができない"><a class="header" href="#関数内で新たに作った変数はその外から見ることができない">関数内で新たに作った変数はその外から見ることができない</a></h4>
+<p>以下の例はエラーとなってしまいます。</p>
+<pre><code class="language-python">def add(left, right):
+    output = left + right
+    return output
+
+print(output)
+</code></pre>
+<p>「outputという変数はトップレベルで定義されていません。」というエラーが出るかと思います。関数内部で定義した変数はその関数の外から見ることができません。</p>
+<p>この場合「output変数の有効範囲はadd関数の中身である」ということができます。</p>
+<p>この変数の有効範囲のことを<strong>スコープ</strong>と言います。</p>
+<p>しかし、新たに変数を作って覆い隠すことは可能です。</p>
+<pre><code class="language-python">def do_nothing():
+    a = 10
+
+a = 1 # 再代入ではなく新しく定義している
+print(a) # 1と出力される。同一スコープで定義されているので問題なく使える
+</code></pre>
+<h4 id="変数を見る時はまずは狭いスコープで定義されていないかを確認し定義されていなかったらより広い範囲のスコープで定義されていないかを確認する"><a class="header" href="#変数を見る時はまずは狭いスコープで定義されていないかを確認し定義されていなかったらより広い範囲のスコープで定義されていないかを確認する">変数を「見る」時は、まずは狭いスコープで定義されていないかを確認し、定義されていなかったらより広い範囲のスコープで定義されていないかを確認する。</a></h4>
+<pre><code class="language-python">a = 10
+b = 1
+
+def do_nothing():
+    a = 1 # 再代入ではなく新しく定義している
+    print(a) # aはdo_nothingで定義されているのでそちらが優先され1が出力される
+    print(b) # do_nothingで定義されていないので外側のものを読み取るので1と出力される
+
+print(a) # 10と出力される
+</code></pre>
+<p>Pythonプログラム全体で利用可能な変数のスコープを特別に<code>トップレベルスコープ</code>と呼びます。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="型について"><a class="header" href="#型について">型について</a></h1>
+<p>プログラミングには<em>型</em>と呼ばれる概念があります。それを文字列型を例に説明していきます。</p>
+<h2 id="型とは"><a class="header" href="#型とは">型とは？</a></h2>
+<p><a href="#変数定義と使用">変数定義と使用</a>で述べたようにプログラミングには変数なる概念があり、それはデータを入れる箱であることを説明しました。</p>
+<p><em>型=type</em>とはその箱の種類のことです。変数といっても入るのは数以外にも他のデータも入ります。<em>型</em>には整数・浮動小数点などを入れることができます。</p>
+<blockquote>
+<p>浮動小数点とはコンピューターで小数を表すための規格の一つです。英語では<code>float</code>と呼びます。</p>
+</blockquote>
+<p>さっき紹介したもの以外にも文字列型があり、pythonでは<code>str</code>という名前がつけられています。</p>
+<pre><code class="language-python">message = "Hello" # "hello"は文字列
+</code></pre>
+<p>以上のようにするとmessage変数は文字列型となります。
+以下のように明示的に記述することもできますが、意味は全く同じです。</p>
+<pre><code class="language-python">message: str = "Hello"
+</code></pre>
+<p>このような<code>: str</code>という構文を「型アノテーション=<em>type annotation</em>」と呼びます。このような明白なパターンは書かなくても問題ないですが、複雑なものになるとこのような記述がプログラム自体の理解を助けることもあります。最初はそのようなものが存在するんだな程度で結構です。</p>
+<h2 id="色々な言語の型"><a class="header" href="#色々な言語の型">色々な言語の型</a></h2>
+<p>現代のプログラミング言語でよく使われる代表的かつ原始的=<em>primitive</em>な型をまとめます。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>名前</th><th>書き方</th><th>説明</th><th>覚えかた</th></tr>
+</thead>
+<tbody>
+<tr><td>整数</td><td>int integer i32</td><td>自明</td><td>intergerは整数という意の英単語</td></tr>
+<tr><td>浮動小数点</td><td>float f32</td><td>小数のこと</td><td>floatは浮くという意の英単語</td></tr>
+<tr><td>文字</td><td>char</td><td>一文字</td><td>character(文字)の略</td></tr>
+<tr><td>文字列</td><td>String Str char[]</td><td>char[]は文字の配列という意味</td><td>　stringはひもと言う意味で「長く続く」というニュアンスを継承していると思われる。</td></tr>
+<tr><td>真偽値</td><td>bool boolean</td><td>trueかfalseかの2通りのデータ</td><td>これについての数学でブール代数という分野があります。</td></tr>
+<tr><td>null</td><td>null nil None</td><td>未初期化という意味</td><td>なし</td></tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-python">message = "hello"
+# messge は ここでは文字列型
+
+message = 100
+# message は　ここでは整数型
+</code></pre>
+<p>以上のように、Pythonは動的型言語と呼ばれる言語の一つでプログラム内で同じ変数の型がコロコロ変わることができます。
+世の中には静的型言語と呼ばれる対照的なものもあり、代表例はJavaなどです。</p>
+<pre><code class="language-java">String message = "Hello World"; // message変数はいつでもString型
+
+message = 10 // String型なのにint型の値を代入しているのでエラーが発生する
+</code></pre>
+<p>どちらがいいかは何のために使うかによって変わってくるのですが、最近のトレンドは静的型のようです。ちなみに僕は静的型が好きです。一般には静的型の方が安定で大規模開発に向いていて、逆に動的型はその場限りのプログラムや非エンジニア・アジャイルな<sup class="footnote-reference" id="fr-note1-1-1"><a href="#footnote-note1-1">1</a></sup>開発に向いていると言われています。</p>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-note1-1">
+<p>アジャイルとは、大雑把にいうと品質ではなく開発速度を優先する開発方法のことです。 <a href="#fr-note1-1-1">↩</a></p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="if文"><a class="header" href="#if文">if文</a></h1>
+<p>ここでは制御構文の一つif文を学びます。</p>
+<pre><code class="language-python">if (真偽値):
+    Trueの時の処理
+</code></pre>
+<p>真偽値によって異なる処理をさせることができます。</p>
+<p>真偽値とは、<code>True</code>か<code>False</code>のどちらかを取るような型のことです。数学で言うと、それぞれ<code>真</code>か<code>偽</code>になります。</p>
+<p>例：</p>
+<pre><code class="language-python">def my_abs(number):
+    if (number &lt; 0):
+        return -number
+    elif (number &gt; 0):
+        return number
+    else:
+        return 0
+</code></pre>
+<p><code>my_abs()</code>という関数は絶対値をとる関数です。</p>
+<p>ここで、不等号が登場したのでその関係について説明しておきます。</p>
+<p><code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code> <code>==</code>という5つの記号は数の比較に用いられます。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>記号</th><th>意味</th></tr>
+</thead>
+<tbody>
+<tr><td><code>==</code></td><td>等しい</td></tr>
+<tr><td><code>&lt;=</code></td><td>以上</td></tr>
+<tr><td><code>&gt;=</code></td><td>以下</td></tr>
+<tr><td><code>&lt;</code></td><td>より大きい</td></tr>
+<tr><td><code>&gt;</code></td><td>より小さい</td></tr>
+</tbody>
+</table>
+</div>
+<p>このようにすると2つの隣に書いてある数字から、その数字の性質についての真偽値を得ることができて、それを<code>if文</code>に入力しているようなイメージです。</p>
+<p>よって別に<code>if</code>の中に不動号を置かないといけないと言うことはなく、以下のようなこともできます。</p>
+<pre><code class="language-python">x = 10
+is_bigger = x &gt; 20
+
+if (is_bigger):
+    print("it's bigger than 20")
+else:
+    prrint("it's smaller or 20")
+
+</code></pre>
+<p>is_biggerには、右に書いてある不等号の結果つまりは真偽値が代入されて、その中身(この場合は<code>False</code>)が<code>if文</code>の中で使用れています。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="真偽値"><a class="header" href="#真偽値">真偽値</a></h1>
+<p>今回は真偽値をより深掘りしていきます。</p>
+<p>典型的に中学校の数学で習う論理演算をプログラミングの世界でも使うことができます。</p>
+<p>例えば、<code>x</code>が10から20の範囲にあるかどうかを判定するにはどうすればいいでしょうか？</p>
+<pre><code class="language-python">x = 14
+if (x &gt; 10):
+    if (x &lt; 20):
+        print("x is between 10 and 20.")
+</code></pre>
+<p>このようなこともできますが、以下のようなこともできます。</p>
+<pre><code class="language-python">x = 14
+if (x &gt; 10 and x &lt; 20):
+    print("x is between 10 and 20.")
+</code></pre>
+<p><code>x &gt; 10</code>の結果と、<code>x &lt; 20</code>の結果が<code>and</code>で結ばれることで、どちらも<code>True</code>である時のみ最終的な結果が<code>True</code>になるようにできます。</p>
+<p>数学のように<code>10 &lt; x &lt; 20</code>と書くことはできないので注意してください。</p>
+<p>他にもどちらかが<code>True</code>ならばもう一方がどうであっても<code>True</code>になるという<code>or</code>も使うことができます。</p>
+<pre><code class="language-python">x = 32
+output = x &lt; 10 or x &gt; 20
+print(output) # False
+</code></pre>
+<p>この例では、10未満もしくは20より大きいことを確認しています。</p>
+<p>Pythonでは、<code>and</code>の代わりに<code>&amp;&amp;</code>や、<code>or</code>の代わりに<code>||</code>も使うことができます。他のプログラミング言語だと後者しか使えないことが多いので注意してください。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="while文"><a class="header" href="#while文">while文</a></h1>
+<p>print関数を100回呼び出したい時を考えます。
+脳筋にprintを100回書くこともできますが、やっぱり1000回にしてと言われた時に対応できません。
+よってそのための構文を紹介します。</p>
+<pre><code class="language-python">while True:
+    print("Hello!")
+</code></pre>
+<p><code>while文</code>は中の処理を繰り返すという構文です。後ろの値が<code>True</code>である間繰り返し実行されます。この場合は無限ループを起こすので実行が止まりません。</p>
+<p>一番最初の例のように100回繰り返したい場合は以下のようにします。</p>
+<pre><code class="language-python">index = 0
+
+while index &lt; 100:
+    print("hello!" + str(index) + "times.")
+    index = index + 1
+</code></pre>
+<p>頭の中で一つずつシミュレーションしてみてから、実際に実行してみてください。</p>
+<p>この場合は、<code>print</code>関数は<code>index</code>という変数が<code>0</code>から<code>99</code>の間実行されます。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="for文"><a class="header" href="#for文">for文</a></h1>
+<pre><code class="language-python">for index in range(10):
+    print(str(index))
+</code></pre>
+<p>for文もwhileと同じく繰り返しを表す構文の一つです。例えば上記のプログラムは以下のようなプログラムと同じ挙動を示します。</p>
+<pre><code class="language-python">index = 0
+print(str(index))
+index = 1
+print(str(index))
+index = 2
+print(str(index))
+# ...(中略)
+index = 9
+print(str(index))
+</code></pre>
+<p>range(10)は、0から9までの数字の羅列を「オンデマンドで」生成する値を返すという関数です。このfor文の後ろ(<code>range(10)</code>)には、イテレータという種類の値ならなんでも入ります。</p>
+<p>例えば、次に学ぶリストもイテレータの一種であるのでここに入れることが可能です。</p>
+<pre><code class="language-python">fruits = ["apple", "banana", "orange"] # リスト型
+
+for fruit in fruits:
+    print(fruit)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="リスト型"><a class="header" href="#リスト型">リスト型</a></h1>
+<p>// TODO: 執筆</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="for-range文"><a class="header" href="#for-range文">for range文</a></h1>
+<p>// TODO: 執筆</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="辞書型"><a class="header" href="#辞書型">辞書型</a></h1>
+<p>// TODO: 執筆</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="関数定義"><a class="header" href="#関数定義">関数定義</a></h1>
+<p>// TODO: 執筆</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="演習"><a class="header" href="#演習">演習</a></h1>
+<p>// TODO: 執筆</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="展望"><a class="header" href="#展望">展望</a></h1>
+<p>// TODO: 執筆</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="webサイトの仕組み"><a class="header" href="#webサイトの仕組み">Webサイトの仕組み</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="htmlの文法"><a class="header" href="#htmlの文法">htmlの文法</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cssの文法"><a class="header" href="#cssの文法">cssの文法</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="よく使うhtmlタグ"><a class="header" href="#よく使うhtmlタグ">よく使うhtmlタグ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cssセレクター"><a class="header" href="#cssセレクター">cssセレクター</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="よく使うcssプロパティ"><a class="header" href="#よく使うcssプロパティ">よく使うcssプロパティ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="visualstudiocodeの導入"><a class="header" href="#visualstudiocodeの導入">VisualStudioCodeの導入</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="アニメーション"><a class="header" href="#アニメーション">アニメーション</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ブロック要素とインライン要素"><a class="header" href="#ブロック要素とインライン要素">ブロック要素とインライン要素</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="グリッドシステム"><a class="header" href="#グリッドシステム">グリッドシステム</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="演習-1"><a class="header" href="#演習-1">演習</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="javascriptとは"><a class="header" href="#javascriptとは">JavaScriptとは</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="変数定義"><a class="header" href="#変数定義">変数定義</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="プリミティブ型"><a class="header" href="#プリミティブ型">プリミティブ型</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="基本の制御構造"><a class="header" href="#基本の制御構造">基本の制御構造</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="switch文"><a class="header" href="#switch文">switch文</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="コレクション型"><a class="header" href="#コレクション型">コレクション型</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="型の明示について"><a class="header" href="#型の明示について">型の明示について</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="関数定義-1"><a class="header" href="#関数定義-1">関数定義</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="オブジェクト型"><a class="header" href="#オブジェクト型">オブジェクト型</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="dom操作"><a class="header" href="#dom操作">DOM操作</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="シンボルの記法"><a class="header" href="#シンボルの記法">シンボルの記法</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="演習-2"><a class="header" href="#演習-2">演習</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="nodejs導入"><a class="header" href="#nodejs導入">Node.js導入</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="npmの使い方"><a class="header" href="#npmの使い方">npmの使い方</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="typescript導入"><a class="header" href="#typescript導入">TypeScript導入</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="型注釈"><a class="header" href="#型注釈">型注釈</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="使ってはいけない集"><a class="header" href="#使ってはいけない集">使ってはいけない集</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="クラスの表記法"><a class="header" href="#クラスの表記法">クラスの表記法</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="静的フィールドメソッド"><a class="header" href="#静的フィールドメソッド">静的フィールド・メソッド</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="インターフェース"><a class="header" href="#インターフェース">インターフェース</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="抽象クラス継承"><a class="header" href="#抽象クラス継承">抽象クラス・継承</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="オブジェクト指向のメリット"><a class="header" href="#オブジェクト指向のメリット">オブジェクト指向のメリット</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="他の言語のオブジェクト指向"><a class="header" href="#他の言語のオブジェクト指向">他の言語のオブジェクト指向</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="オブジェクト指向の用語整理"><a class="header" href="#オブジェクト指向の用語整理">オブジェクト指向の用語整理</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="esmoduleとcommonjs"><a class="header" href="#esmoduleとcommonjs">ESmoduleとcommonJS</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="非同期処理"><a class="header" href="#非同期処理">非同期処理</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="非同期関数"><a class="header" href="#非同期関数">非同期関数</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="まとめ-1"><a class="header" href="#まとめ-1">まとめ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="演習-3"><a class="header" href="#演習-3">演習</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="エコシステムとは"><a class="header" href="#エコシステムとは">エコシステムとは</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="threejs入門"><a class="header" href="#threejs入門">Three.js入門</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="react概要"><a class="header" href="#react概要">React概要</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="基本のファイル操作"><a class="header" href="#基本のファイル操作">基本のファイル操作</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="gitとは"><a class="header" href="#gitとは">Gitとは</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="githubへの登録とgitのインストール"><a class="header" href="#githubへの登録とgitのインストール">GitHubへの登録とGitのインストール</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="gitの基本の使い方"><a class="header" href="#gitの基本の使い方">Gitの基本の使い方</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cliツールのお作法"><a class="header" href="#cliツールのお作法">CLIツールのお作法</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="演習-4"><a class="header" href="#演習-4">演習</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="jsxと関数コンポーネント"><a class="header" href="#jsxと関数コンポーネント">JSXと関数コンポーネント</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="propsとchildrenの扱い"><a class="header" href="#propsとchildrenの扱い">propsとchildrenの扱い</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="reactの思想"><a class="header" href="#reactの思想">Reactの思想</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="dom更新のステップ"><a class="header" href="#dom更新のステップ">DOM更新のステップ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="フック"><a class="header" href="#フック">フック</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="カスタムフック"><a class="header" href="#カスタムフック">カスタムフック</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="spaとは"><a class="header" href="#spaとは">SPAとは</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="reactrouterとは"><a class="header" href="#reactrouterとは">ReactRouterとは</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="nextjsとは"><a class="header" href="#nextjsとは">Next.jsとは</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="approuterについて"><a class="header" href="#approuterについて">AppRouterについて</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="特別な関数たち"><a class="header" href="#特別な関数たち">特別な関数たち</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="動的ルーティング"><a class="header" href="#動的ルーティング">動的ルーティング</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="公式ドキュメントの読み方"><a class="header" href="#公式ドキュメントの読み方">公式ドキュメントの読み方</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="演習-5"><a class="header" href="#演習-5">演習</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="バックエンドとは"><a class="header" href="#バックエンドとは">バックエンドとは</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="expressjsを使ったバックエンド"><a class="header" href="#expressjsを使ったバックエンド">express.jsを使ったバックエンド</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ミドルウェア"><a class="header" href="#ミドルウェア">ミドルウェア</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="jwtによる認証"><a class="header" href="#jwtによる認証">JWTによる認証</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="corsポリシー"><a class="header" href="#corsポリシー">CORSポリシー</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cookieによる認証"><a class="header" href="#cookieによる認証">Cookieによる認証</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="dbとは"><a class="header" href="#dbとは">DBとは</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="sqliteのインストール"><a class="header" href="#sqliteのインストール">SQLiteのインストール</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="sql文1"><a class="header" href="#sql文1">SQL文1</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="sql文2"><a class="header" href="#sql文2">SQL文2</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="sql文3"><a class="header" href="#sql文3">SQL文3</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="sql文4"><a class="header" href="#sql文4">SQL文4</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="db設計最適化バックアップ"><a class="header" href="#db設計最適化バックアップ">DB設計・最適化・バックアップ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="実践"><a class="header" href="#実践">実践</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="サービスを実際に公開したい人へ"><a class="header" href="#サービスを実際に公開したい人へ">サービスを実際に公開したい人へ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="開発効率化の重要性"><a class="header" href="#開発効率化の重要性">開発効率化の重要性</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="githubの機能branch"><a class="header" href="#githubの機能branch">GitHubの機能branch</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="githubの機能pullrequest"><a class="header" href="#githubの機能pullrequest">GitHubの機能PullRequest</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="githubの機能issues"><a class="header" href="#githubの機能issues">GitHubの機能Issues</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="gitflowとgithubflow"><a class="header" href="#gitflowとgithubflow">GitFlowとGitHubFlow</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="gitコマンドチートシート"><a class="header" href="#gitコマンドチートシート">Gitコマンドチートシート</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="copilotの使い道"><a class="header" href="#copilotの使い道">Copilotの使い道</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="githubactions"><a class="header" href="#githubactions">GitHubActions</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="言語の動作環境"><a class="header" href="#言語の動作環境">言語の動作環境</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="コラムpythonとc言語"><a class="header" href="#コラムpythonとc言語">コラム:PythonとC言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="レジスタとメモリとディスク"><a class="header" href="#レジスタとメモリとディスク">レジスタとメモリとディスク</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ポインタと参照"><a class="header" href="#ポインタと参照">ポインタと参照</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="計算量"><a class="header" href="#計算量">計算量</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="コラムアルゴリズムとpnp問題"><a class="header" href="#コラムアルゴリズムとpnp問題">コラム:アルゴリズムとP≠NP問題</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="配列"><a class="header" href="#配列">配列</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ベクター"><a class="header" href="#ベクター">ベクター</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="スタック"><a class="header" href="#スタック">スタック</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ハッシュマップ"><a class="header" href="#ハッシュマップ">ハッシュマップ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ヒープとスタック"><a class="header" href="#ヒープとスタック">ヒープとスタック</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="機械語とアセンブリ"><a class="header" href="#機械語とアセンブリ">機械語とアセンブリ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cpuとosによる仮想化"><a class="header" href="#cpuとosによる仮想化">CPUとOSによる仮想化</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cpuとosによるスケージューリング"><a class="header" href="#cpuとosによるスケージューリング">CPUとOSによるスケージューリング</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cpuとosによるエラーハンドリングセキュリティ"><a class="header" href="#cpuとosによるエラーハンドリングセキュリティ">CPUとOSによるエラーハンドリング・セキュリティ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="osカーネルとシステムコール"><a class="header" href="#osカーネルとシステムコール">OSカーネルとシステムコール</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="コラム2038年問題"><a class="header" href="#コラム2038年問題">コラム:2038年問題</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="gpuとglsl"><a class="header" href="#gpuとglsl">GPUとGLSL</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="プロトコル"><a class="header" href="#プロトコル">プロトコル</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="c言語の基本"><a class="header" href="#c言語の基本">C言語の基本</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cの配列"><a class="header" href="#cの配列">Cの配列</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cのコレクション"><a class="header" href="#cのコレクション">Cのコレクション</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="マクロ"><a class="header" href="#マクロ">マクロ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="コンパイルコンパイラ"><a class="header" href="#コンパイルコンパイラ">コンパイル・コンパイラ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="リンクリンカ"><a class="header" href="#リンクリンカ">リンク・リンカ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="アロケートデアロケート"><a class="header" href="#アロケートデアロケート">アロケート・デアロケート</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="コンパイラによる最適化"><a class="header" href="#コンパイラによる最適化">コンパイラによる最適化</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="llvmについて"><a class="header" href="#llvmについて">LLVMについて</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="コラムチューリング完全"><a class="header" href="#コラムチューリング完全">コラム:チューリング完全</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="rustによる開発"><a class="header" href="#rustによる開発">Rustによる開発</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="rustの思想"><a class="header" href="#rustの思想">Rustの思想</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="the-bookの読み方"><a class="header" href="#the-bookの読み方">The Bookの読み方</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="the-bookに書いていないこと"><a class="header" href="#the-bookに書いていないこと">The Bookに書いていないこと</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="純粋とは"><a href="#純粋とは" class="header">純粋とは</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="haskell"><a href="#haskell" class="header">Haskell</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="カリー化"><a href="#カリー化" class="header">カリー化</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="データ志向"><a href="#データ志向" class="header">データ志向</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="oopでも関数型"><a href="#oopでも関数型" class="header">OOPでも関数型！</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="linemessagingapi"><a class="header" href="#linemessagingapi">LINEMessagingAPI</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="googledriveapi"><a class="header" href="#googledriveapi">GoogleDriveAPI</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="gmailapi"><a class="header" href="#gmailapi">GmailAPI</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="githubapi"><a class="header" href="#githubapi">GitHubAPI</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="geminiapi"><a class="header" href="#geminiapi">GeminiAPI</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="xserver"><a class="header" href="#xserver">XServer</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="kagoya"><a class="header" href="#kagoya">Kagoya</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="googlecloud"><a class="header" href="#googlecloud">GoogleCloud</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="amazonwebservice"><a class="header" href="#amazonwebservice">AmazonWebService</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="vercel"><a class="header" href="#vercel">Vercel</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cloudflare"><a class="header" href="#cloudflare">CloudFlare</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="firebase"><a class="header" href="#firebase">Firebase</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="各言語の共通点"><a class="header" href="#各言語の共通点">各言語の共通点</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="helloworldfizzbazz集"><a class="header" href="#helloworldfizzbazz集">HelloWorld・FizzBazz集</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="スクリプト系言語"><a class="header" href="#スクリプト系言語">スクリプト系言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="apple開発の言語"><a class="header" href="#apple開発の言語">Apple開発の言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="android開発の言語"><a class="header" href="#android開発の言語">Android開発の言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="java言語"><a class="header" href="#java言語">Java言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="go言語"><a class="header" href="#go言語">Go言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="net系言語"><a class="header" href="#net系言語">.NET系言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="システムプログラミング言語"><a class="header" href="#システムプログラミング言語">システムプログラミング言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="関数型言語"><a class="header" href="#関数型言語">関数型言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="マークアップ言語"><a class="header" href="#マークアップ言語">マークアップ言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="マークダウン言語"><a class="header" href="#マークダウン言語">マークダウン言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="著作権ライセンスの扱い"><a class="header" href="#著作権ライセンスの扱い">著作権・ライセンスの扱い</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="広告収益化の扱い"><a class="header" href="#広告収益化の扱い">広告・収益化の扱い</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="筆者の紹介"><a class="header" href="#筆者の紹介">筆者の紹介</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="オレオレ言語"><a href="#オレオレ言語" class="header">オレオレ言語</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="オレオレcpu"><a href="#オレオレcpu" class="header">オレオレCPU</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="オレオレデータベース"><a href="#オレオレデータベース" class="header">オレオレデータベース</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="オレオレvm"><a href="#オレオレvm" class="header">オレオレVM</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="オレオレブラウザchrominium使用"><a href="#オレオレブラウザchrominium使用" class="header">オレオレブラウザ(chrominium使用)</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="オレオレブラウザchrominium不使用"><a href="#オレオレブラウザchrominium不使用" class="header">オレオレブラウザ(chrominium不使用)</a></h1>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>
