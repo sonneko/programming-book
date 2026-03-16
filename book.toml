@@ -7,5 +7,4 @@ description = "sonnekoのプログラミング入門書"
 
 [output.html]
 git-repository-url = "https://github.com/sonneko/programming-book"
-git-repository-icon = "fa-github"
 input-404 = "not-found.md"
