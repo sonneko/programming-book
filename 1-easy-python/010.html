@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-9556dba6.js";
+            window.path_to_searchindex_js = "../searchindex-d1018542.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c4438b08.js"></script>
+        <script src="../toc-7170acbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -192,13 +192,22 @@ print(str(index))
 index = 9
 print(str(index))
 </code></pre>
-<p>range(10)は、0から9までの数字の羅列を「オンデマンドで」生成する値を返すという関数です。このfor文の後ろ(<code>range(10)</code>)には、イテレータという種類の値ならなんでも入ります。</p>
+<p>range(10)は、0から9までの数字の羅列を「オンデマンドで」<sup class="footnote-reference" id="fr-note1-1"><a href="#footnote-note1">1</a></sup>生成する「イテレータ」という値を返すという関数です。このfor文の後ろ(<code>range(10)</code>)には、イテレータという種類の値ならなんでも入ります。
+イテレータとは、値を次々と作る「もの」のことです。
+<code>range</code>関数がイテレータなのではなく、<code>range</code>関数が返す「もの」がイテレータであるということに注意してください。</p>
+<p>イテレータについてはまだ理解できなくても大丈夫です。なかなか最初は難しい概念ですし、また勉強することになりますので。</p>
 <p>例えば、次に学ぶリストもイテレータの一種であるのでここに入れることが可能です。</p>
 <pre><code class="language-python">fruits = ["apple", "banana", "orange"] # リスト型
 
 for fruit in fruits:
-    print(fruit)
+    print(fruit) # apple banana orange
 </code></pre>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-note1">
+<p>「オンデマンドで」というのは「（事前に作るのではなく）必要になった瞬間に」という意味です。プログラミングの文脈では、「遅延評価」も同じ意味です。 <a href="#fr-note1-1">↩</a></p>
+</li>
+</ol>
 
                     </main>
 

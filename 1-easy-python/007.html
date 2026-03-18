@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-9556dba6.js";
+            window.path_to_searchindex_js = "../searchindex-d1018542.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c4438b08.js"></script>
+        <script src="../toc-7170acbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -186,9 +186,9 @@
 <p>真偽値とは、<code>True</code>か<code>False</code>のどちらかを取るような型のことです。数学で言うと、それぞれ<code>真</code>か<code>偽</code>になります。</p>
 <p>例：</p>
 <pre><code class="language-python">def my_abs(number):
-    if (number &lt; 0):
+    if number &lt; 0:
         return -number
-    elif (number &gt; 0):
+    elif number &gt; 0:
         return number
     else:
         return 0
@@ -211,17 +211,20 @@
 </table>
 </div>
 <p>このようにすると2つの隣に書いてある数字から、その数字の性質についての真偽値を得ることができて、それを<code>if文</code>に入力しているようなイメージです。</p>
-<p>よって別に<code>if</code>の中に不動号を置かないといけないと言うことはなく、以下のようなこともできます。</p>
+<p>これは直感的には、数学的な不等式に見えますが、コンピュータ的には単なる演算子です。</p>
+<p>例えば、<code>+</code>は足し算をする演算子です。もっと具体的にいうと、「2つの数を受け取って一つの数を返すような計算」をする演算子です。対して、比較演算子例えば<code>==</code>は、「二つの任意の値を受け取って一つの真偽値を返すような計算」をする演算子です。この間にコンピュータ的に違いはありません。</p>
+<p>このようにコンピュタにおける演算子は、数学的な「演算子」とは異なります。</p>
+<p>よって別に<code>if</code>の中に不動号を置かないといけないということはなく、以下のようなこともできます。</p>
 <pre><code class="language-python">x = 10
 is_bigger = x &gt; 20
 
-if (is_bigger):
+if is_bigger:
     print("it's bigger than 20")
 else:
     prrint("it's smaller or 20")
 
 </code></pre>
-<p>is_biggerには、右に書いてある不等号の結果つまりは真偽値が代入されて、その中身(この場合は<code>False</code>)が<code>if文</code>の中で使用れています。</p>
+<p><code>is_bigger</code>には、右に書いてある不等号の結果つまりは真偽値が代入されて、その中身(この場合は<code>False</code>)が<code>if文</code>の中で使用されています。</p>
 
                     </main>
 

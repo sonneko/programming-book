@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-9556dba6.js";
+            window.path_to_searchindex_js = "../searchindex-d1018542.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-c4438b08.js"></script>
+        <script src="../toc-7170acbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -192,7 +192,8 @@ if (x &gt; 10 and x &lt; 20):
     print("x is between 10 and 20.")
 </code></pre>
 <p><code>x &gt; 10</code>の結果と、<code>x &lt; 20</code>の結果が<code>and</code>で結ばれることで、どちらも<code>True</code>である時のみ最終的な結果が<code>True</code>になるようにできます。</p>
-<p>数学のように<code>10 &lt; x &lt; 20</code>と書くことはできないので注意してください。</p>
+<p>数学のように<code>10 &lt; x &lt; 20</code>と書くことはできないので注意してください。<sup class="footnote-reference" id="fr-note1-1"><a href="#footnote-note1">1</a></sup></p>
+<p>なぜなら、<code>10 &lt; x</code>が返す値は真偽値であり、<code>[真偽値] &lt; 20</code>というような比較はできないからです。</p>
 <p>他にもどちらかが<code>True</code>ならばもう一方がどうであっても<code>True</code>になるという<code>or</code>も使うことができます。</p>
 <pre><code class="language-python">x = 32
 output = x &lt; 10 or x &gt; 20
@@ -200,6 +201,12 @@ print(output) # False
 </code></pre>
 <p>この例では、10未満もしくは20より大きいことを確認しています。</p>
 <p>Pythonでは、<code>and</code>の代わりに<code>&amp;&amp;</code>や、<code>or</code>の代わりに<code>||</code>も使うことができます。他のプログラミング言語だと後者しか使えないことが多いので注意してください。</p>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-note1">
+<p>プログラミング言語によってできることはありますが、少数派です。少なくともPythonではできません。 <a href="#fr-note1-1">↩</a></p>
+</li>
+</ol>
 
                     </main>
 
