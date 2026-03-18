@@ -15,8 +15,6 @@
 - [while文](1-easy-python/009.md)
 - [for文](1-easy-python/010.md)
 - [リスト型](1-easy-python/011.md)
-- [for range文](1-easy-python/012.md)
-- [辞書型](1-easy-python/013.md)
 - [関数定義](1-easy-python/014.md)
 - [演習](1-easy-python/015.md)
 - [展望](1-easy-python/016.md)
