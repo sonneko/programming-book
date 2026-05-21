@@ -15,8 +15,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-0392ca55.css">
+        <link rel="stylesheet" href="../css/chrome-fc474251.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d1018542.js";
+            window.path_to_searchindex_js = "../searchindex-5ca4af2e.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-7170acbe.js"></script>
+        <script src="../toc-23f2e7d7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -189,25 +189,31 @@ print(1 - 2) # -1
 # 2掛ける3を出力する
 print(2 * 3) # 6
 
-# 3割る2の切り下げを出力する
-print(3 / 2) # 1
+# 3割る2の「切り下げ」を出力する
+print(3 // 2) # 1
 
-# 3割る2の小数表記を出力する
-print(3.0 / 2.0) # 1.5
+# 3割る2を小数として出力する
+print(3 / 2) # 1.5
 
 # 5割る3の余りを表示する
 print(5 % 3) # 2
 </code></pre>
 <p>足し算=<em>add</em>と引き算=<em>subtraction</em>と掛け算=<em>multiplication</em>と割り算=<em>division</em>そして余り=<em>remainder</em>を実行し出力してくれましたか？このプログラムから学ぶことはたくさんあります。足し算は<code>+</code>（プラス）、引き算は<code>-</code>（マイナス）、掛け算は<code>*</code>（アスタリスク）、割り算は<code>/</code>（スラッシュ）を用いるみたいですね。足し算・引き算はそのままで何もいうことがありませんが、掛け算や割り算は<code>×</code>や<code>÷</code>と書いてもできないというのは覚えておいてください。あと<code>%</code>などの余りを意味する見慣れない演算子もありますね。</p>
 <p>ここで注意したいのは、二つの割り算の違いです。</p>
-<pre><code class="language-python"># 3割る2の切り下げを出力する
-print(3 / 2) # 1
+<pre><code class="language-python"># 3割る2の「切り下げ」を出力する
+print(3 // 2) # 1
 
-# 3割る2の小数表記を出力する
-print(3.0 / 2.0) # 1.5
+# 3割る2を小数として出力する
+print(3 / 2) # 1.5
 </code></pre>
-<p>上の割り算における2、3という数字は「整数=<em>Integer</em>」として扱われています。なので計算結果も整数となります。
-しかし、下の割り算では<code>2.0</code>、<code>3.0</code>という数字は「小数=<em>decimal number</em>」として扱われているので、結果も小数です。このように小数であることをプログラムで伝えるには、<code>.0</code>をつける必要があります。</p>
+<p><code>/</code>を一つ使うと、結果は「小数=<em>float</em>」になります。対して、<code>/</code>を二つ使った<code>//</code>は「切り下げ除算」と呼ばれ、結果を「整数=<em>Integer</em>」に切り下げます。</p>
+<blockquote>
+<h3 id="コラムコンピュータは小数が苦手"><a class="header" href="#コラムコンピュータは小数が苦手">コラム：コンピュータは小数が苦手？</a></h3>
+<p>コンピュータで小数を扱うときは、少し注意が必要です。試しに、Pythonで <code>0.1 + 0.2</code> を実行してみてください。
+驚くことに、結果は <code>0.3</code> ではなく、 <code>0.30000000000000004</code> のようになります。</p>
+<p>これはコンピュータがすべての数値を「0」と「1」の2進数で扱っているためです。10進数における <code>0.1</code>（1/10）は、2進数に直すと無限小数になってしまい、どこかで切り捨てが発生します。</p>
+<p>銀行のシステムのように、1円の誤差も許されない計算では、小数をそのまま使わず、整数（100円を10000セントとして扱うなど）で計算したり、誤差を専門に扱う特別な道具を使ったりします。</p>
+</blockquote>
 
                     </main>
 
@@ -253,11 +259,11 @@ print(3.0 / 2.0) # 1.5
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
 

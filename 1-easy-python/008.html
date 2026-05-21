@@ -15,8 +15,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-0392ca55.css">
+        <link rel="stylesheet" href="../css/chrome-fc474251.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d1018542.js";
+            window.path_to_searchindex_js = "../searchindex-5ca4af2e.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-7170acbe.js"></script>
+        <script src="../toc-23f2e7d7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -191,22 +191,37 @@ if (x &gt; 10):
 if (x &gt; 10 and x &lt; 20):
     print("x is between 10 and 20.")
 </code></pre>
+<p>数学のように<code>10 &lt; x &lt; 20</code>と書くこともできます。Pythonはこの書き方をサポートしている珍しい言語の一つです。</p>
+<pre><code class="language-python">x = 14
+if 10 &lt; x &lt; 20:
+    print("x is between 10 and 20.")
+</code></pre>
+<p>しかし、基本的には<code>and</code>を使って以下のように書くのが一般的です。なぜなら、他のほとんどのプログラミング言語では上の書き方はできないからです。</p>
+<pre><code class="language-python">x = 14
+if x &gt; 10 and x &lt; 20:
+    print("x is between 10 and 20.")
+</code></pre>
 <p><code>x &gt; 10</code>の結果と、<code>x &lt; 20</code>の結果が<code>and</code>で結ばれることで、どちらも<code>True</code>である時のみ最終的な結果が<code>True</code>になるようにできます。</p>
-<p>数学のように<code>10 &lt; x &lt; 20</code>と書くことはできないので注意してください。<sup class="footnote-reference" id="fr-note1-1"><a href="#footnote-note1">1</a></sup></p>
-<p>なぜなら、<code>10 &lt; x</code>が返す値は真偽値であり、<code>[真偽値] &lt; 20</code>というような比較はできないからです。</p>
+<p>なぜ他の言語で<code>10 &lt; x &lt; 20</code>と書けないかというと、多くの言語では「左から順番に」計算されるからです。
+つまり、まず<code>10 &lt; x</code>が計算されて真偽値（True/False）になり、次に<code>[真偽値] &lt; 20</code>という、数と真偽値を比べるというおかしな計算になってしまうからです。Pythonではこれを特別に数学と同じように扱えるようにしてくれています。</p>
 <p>他にもどちらかが<code>True</code>ならばもう一方がどうであっても<code>True</code>になるという<code>or</code>も使うことができます。</p>
 <pre><code class="language-python">x = 32
 output = x &lt; 10 or x &gt; 20
 print(output) # False
 </code></pre>
 <p>この例では、10未満もしくは20より大きいことを確認しています。</p>
-<p>Pythonでは、<code>and</code>の代わりに<code>&amp;&amp;</code>や、<code>or</code>の代わりに<code>||</code>も使うことができます。他のプログラミング言語だと後者しか使えないことが多いので注意してください。</p>
-<hr>
-<ol class="footnote-definition">
-<li id="footnote-note1">
-<p>プログラミング言語によってできることはありますが、少数派です。少なくともPythonではできません。 <a href="#fr-note1-1">↩</a></p>
-</li>
-</ol>
+<p>Pythonでは、<code>and</code>や<code>or</code>という言葉をそのまま使います。他の多くの言語（C言語やJavaScriptなど）では、<code>and</code>の代わりに<code>&amp;&amp;</code>、<code>or</code>の代わりに<code>||</code>という記号を使いますが、Pythonではこれらは使えないので注意しましょう。</p>
+<blockquote>
+<h3 id="コラムショートサーキット短絡評価の知恵"><a class="header" href="#コラムショートサーキット短絡評価の知恵">コラム：ショートサーキット（短絡評価）の知恵</a></h3>
+<p><code>and</code> や <code>or</code> には、**「結果がわかった時点で計算をやめる」**という賢い性質があります。これをショートサーキットと呼びます。</p>
+<p>例えば、<code>A and B</code> という計算において、もし <code>A</code> が <code>False</code> だったら、 <code>B</code> が何であっても全体の結果は必ず <code>False</code> になりますよね？ そのため、Pythonは <code>B</code> の部分を見ることなく、すぐに <code>False</code> を返します。</p>
+<p>これは単なる効率化だけでなく、エラーを避けるテクニックとしても使われます。</p>
+<pre><code class="language-python"># データの数が1つ以上、かつ、最初のデータが 100 のとき
+if len(my_list) &gt; 0 and my_list[0] == 100:
+    ...
+</code></pre>
+<p>もしリストが空の場合、<code>len(my_list) &gt; 0</code> が <code>False</code> になり、右側の <code>my_list[0]</code> は実行されません。もしショートサーキットがなければ、空のリストの要素にアクセスしようとしてエラーになってしまいます。</p>
+</blockquote>
 
                     </main>
 
@@ -252,11 +267,11 @@ print(output) # False
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
 

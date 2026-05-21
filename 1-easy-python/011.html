@@ -15,8 +15,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-0392ca55.css">
+        <link rel="stylesheet" href="../css/chrome-fc474251.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d1018542.js";
+            window.path_to_searchindex_js = "../searchindex-5ca4af2e.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-7170acbe.js"></script>
+        <script src="../toc-23f2e7d7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -178,7 +178,61 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="リスト型"><a class="header" href="#リスト型">リスト型</a></h1>
-<p>// TODO: 執筆</p>
+<p>これまでは、一つの変数に一つのデータを入れてきました。しかし、現実のプログラムでは大量のデータを扱いたいことが多々あります。例えば、100人の生徒のテストの点数を管理するのに、100個の変数（<code>score1</code>, <code>score2</code>, …）を作るのは効率が悪すぎますね。</p>
+<p>そこで登場するのが**リスト（List）**です。</p>
+<h2 id="リストの基本"><a class="header" href="#リストの基本">リストの基本</a></h2>
+<p>リストは、複数のデータを一列に並べて管理するための型です。Pythonでは <code>[]</code>（角括弧）を使ってリストを作ります。</p>
+<pre><code class="language-python"># 果物のリスト
+fruits = ["apple", "banana", "cherry"]
+print(fruits)
+</code></pre>
+<p>リストの中には、どんな型のデータでも入れることができます。</p>
+<h2 id="要素へのアクセスインデックス"><a class="header" href="#要素へのアクセスインデックス">要素へのアクセス（インデックス）</a></h2>
+<p>リストの中の特定のデータを取り出すには、そのデータの「場所」を指定します。この場所のことを**インデックス（index）**と呼びます。</p>
+<p>ここで重要なのは、<strong>インデックスは0から始まる</strong>ということです。</p>
+<pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+
+print(fruits[0]) # apple
+print(fruits[1]) # banana
+print(fruits[2]) # cherry
+</code></pre>
+<p>なぜ0から始まるのでしょうか？これはコンピュータの低レイヤな仕組みに関係しています。
+リストはメモリ上で「連続した領域」にデータが並んでいます。<code>fruits[0]</code> というのは、「リストの先頭から0個分だけ進んだ場所」という意味になります。<code>fruits[1]</code> は「先頭から1個分進んだ場所」です。
+コンピュータにとっては、先頭からの「ズレ（オフセット）」で場所を特定するのが最も効率的なのです。</p>
+<h2 id="リストの操作"><a class="header" href="#リストの操作">リストの操作</a></h2>
+<p>リストにデータを追加したり、中身を書き換えたりすることも簡単です。</p>
+<pre><code class="language-python">fruits = ["apple", "banana"]
+
+# データの追加
+fruits.append("orange")
+print(fruits) # ["apple", "banana", "orange"]
+
+# データの書き換え
+fruits[0] = "strawberry"
+print(fruits) # ["strawberry", "banana", "orange"]
+
+# リストの長さ（要素の数）を取得
+print(len(fruits)) # 3
+</code></pre>
+<h2 id="なぜリストを使うのか"><a class="header" href="#なぜリストを使うのか">なぜリストを使うのか？</a></h2>
+<p>リストを使う最大のメリットは、<a href="./010.html">for文</a>と組み合わせることで、大量のデータを一気に処理できることです。</p>
+<pre><code class="language-python">prices = [100, 200, 300, 400, 500]
+total = 0
+
+for price in prices:
+    total = total + price
+
+print(f"合計金額は {total} 円です")
+</code></pre>
+<p>このように、リストは「データの集まり」を一つの単位として扱い、それを「計算処理」へと流し込むための非常に強力なツールなのです。</p>
+<blockquote>
+<h3 id="コラムリストがないと書けないプログラム"><a class="header" href="#コラムリストがないと書けないプログラム">コラム：リストがないと書けないプログラム</a></h3>
+<p>「変数をたくさん作るのは面倒だからリストを使う」というのは正しいですが、それだけではありません。
+実は、リストのような仕組みがないと、**「そもそも書くことが不可能なプログラム」**が存在します。</p>
+<p>例えば、「ユーザーが入力した数字をすべて合計し、最後に表示する。ただし、ユーザーが何個数字を入力するかは実行するまでわからない」というプログラムを考えてみてください。
+変数（<code>val1</code>, <code>val2</code> …）を使う方法では、あらかじめ変数の数を決めておかなければなりません。100個用意しても、ユーザーが101個入力したらお手上げです。</p>
+<p>リストを使えば、実行中に要素をいくらでも追加できるため、データの数が事前に決まっていない「動的な」状況にも対応できます。これは現代のソフトウェアにおいて、リスト（やそれに類するデータ構造）が不可欠である最大の理由の一つです。</p>
+</blockquote>
 
                     </main>
 
@@ -224,11 +278,11 @@
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
 
