@@ -30,5 +30,5 @@ jobs:
         env:
           GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
-          model: 'google/gemini-3-flash-preview'
+          model: 'google/gemini-3.1-flash-lite-preview'
           variant: 'high'
