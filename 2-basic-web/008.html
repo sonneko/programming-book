@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-5ca4af2e.js";
+            window.path_to_searchindex_js = "../searchindex-60901765.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-23f2e7d7.js"></script>
+        <script src="../toc-2d6e42b1.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -178,6 +178,39 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="アニメーション"><a class="header" href="#アニメーション">アニメーション</a></h1>
+<p>Webサイトに動きを加えることで、ユーザー体験 (UX) を向上させることができます。</p>
+<h3 id="transition遷移"><a class="header" href="#transition遷移">Transition（遷移）</a></h3>
+<p>最も簡単なアニメーションは、状態が変わったときに滑らかに変化させる <code>transition</code> です。</p>
+<pre><code class="language-css">button {
+  background: blue;
+  transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+  background: red;
+}
+</code></pre>
+<p>「マウスが乗ったときに、背景色を0.3秒かけて変化させる」という指定です。</p>
+<h3 id="keyframesコマ割り"><a class="header" href="#keyframesコマ割り">Keyframes（コマ割り）</a></h3>
+<p>より複雑な動きを作りたいときは、<code>@keyframes</code> を使います。</p>
+<pre><code class="language-css">@keyframes slidein {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.box {
+  animation: slidein 1s infinite alternate;
+}
+</code></pre>
+<h3 id="低レイヤの視点パフォーマンスとgpu"><a class="header" href="#低レイヤの視点パフォーマンスとgpu">低レイヤの視点：パフォーマンスとGPU</a></h3>
+<p>アニメーションを多用するとサイトが重くなることがあります。シニアエンジニアは「何を使って動かすか」を重視します。</p>
+<ul>
+<li><strong>悪い例</strong>: <code>left</code>, <code>top</code>, <code>width</code> などを動かす。</li>
+<li><strong>良い例</strong>: <code>transform</code> (translate, scale, rotate) や <code>opacity</code> を動かす。</li>
+</ul>
+<p>ブラウザには「コンポジット・レイヤー」という概念があります。<code>transform</code> などの特定のプロパティは、CPUではなく <strong>GPU（グラフィックス処理ユニット）</strong> で処理されるため、画面のカクつきが起こりにくく、バッテリー消費も抑えられるのです。</p>
+<p>「ただ動けばいい」のではなく、「コンピュータの資源を効率よく使って動かす」という視点を持ちましょう。</p>
+<p>TODO: CSSアニメーションのパフォーマンス最適化について詳しく解説する記事へのリンクを貼る</p>
 
                     </main>
 

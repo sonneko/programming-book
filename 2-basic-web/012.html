@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Kagoya - sonneko-programming-book</title>
+        <title>演習 - sonneko-programming-book</title>
 
 
         <!-- Custom HTML head -->
@@ -177,17 +177,44 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="kagoya"><a class="header" href="#kagoya">Kagoya</a></h1>
+                        <h1 id="演習自己紹介ページを作ってみよう"><a class="header" href="#演習自己紹介ページを作ってみよう">演習：自己紹介ページを作ってみよう</a></h1>
+<p>2章で学んだ知識を総動員して、簡単な自己紹介ページを作成してみましょう。</p>
+<h3 id="要件"><a class="header" href="#要件">要件</a></h3>
+<ol>
+<li><code>index.html</code> と <code>style.css</code> の2つのファイルを作成する。</li>
+<li>HTMLには以下の要素を含める。
+<ul>
+<li>名前（<code>&lt;h1&gt;</code>）</li>
+<li>自分の趣味や目標（<code>&lt;p&gt;</code>）</li>
+<li>好きなサイトへのリンク（<code>&lt;a&gt;</code>）</li>
+<li>画像（<code>&lt;img&gt;</code> - 何かフリー素材のURLなど）</li>
+</ul>
+</li>
+<li>CSSで以下の装飾を行う。
+<ul>
+<li>背景色を変える。</li>
+<li>全体の幅を制限して、画面の中央に寄せる（<code>margin: 0 auto;</code> を調べてみよう）。</li>
+<li>フォントを読みやすく変える。</li>
+</ul>
+</li>
+</ol>
+<h3 id="ヒント検証ツールを使おう"><a class="header" href="#ヒント検証ツールを使おう">ヒント：検証ツールを使おう</a></h3>
+<p>ブラウザ（Chromeなど）で自分のページを開き、右クリックして「検証」を選ぶと、<strong>デベロッパーツール</strong> が開きます。</p>
+<p>ここでCSSをリアルタイムに書き換えて、見た目がどう変わるかを試行錯誤することができます。これはプロのエンジニアが毎日、数千回と使う最も重要なデバッグ手法です。</p>
+<hr>
+<p>完成したら、ブラウザで正しく表示されるか確認してください。
+もし余裕があれば、Flexboxを使って、画像と文章を横に並べるレイアウトにも挑戦してみましょう。</p>
+<p>TODO: 制作したHTML/CSSを公開（ホスティング）する方法へのリンクを貼る</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../supple-2-hosting/001.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../2-basic-web/011.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../supple-2-hosting/003.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../3-basic-js/001.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -197,11 +224,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../supple-2-hosting/001.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../2-basic-web/011.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../supple-2-hosting/003.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../3-basic-js/001.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

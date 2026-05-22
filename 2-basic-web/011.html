@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>演習 - sonneko-programming-book</title>
+        <title>ブラウザのレンダリングパイプラインとレイアウトの仕組み - sonneko-programming-book</title>
 
 
         <!-- Custom HTML head -->
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-5ca4af2e.js";
+            window.path_to_searchindex_js = "../searchindex-60901765.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-23f2e7d7.js"></script>
+        <script src="../toc-2d6e42b1.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,7 +177,117 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="演習"><a class="header" href="#演習">演習</a></h1>
+                        <h1 id="ブラウザのレンダリングパイプラインとレイアウトの仕組み"><a class="header" href="#ブラウザのレンダリングパイプラインとレイアウトの仕組み">ブラウザのレンダリングパイプラインとレイアウトの仕組み</a></h1>
+<p>CSSを書いていると、「なぜか思った通りの配置にならない」という場面に直面することがあります。これは、ブラウザがどのようにHTMLを「ピクセル」に変換しているのか、その裏側のルールを知ることで解決できます。</p>
+<p>この章の内容は少し発展的です。今すぐ完璧に理解する必要はありません。今後CSSのレイアウトで詰まった時に、辞書のように見返してみてください。</p>
+<h2 id="1-全体像レンダリングパイプラインにおけるlayoutの位置づけ"><a class="header" href="#1-全体像レンダリングパイプラインにおけるlayoutの位置づけ">1. 全体像：レンダリングパイプラインにおけるLayoutの位置づけ</a></h2>
+<p>ブラウザがHTML/CSSを受け取ってから画面にピクセルを描画するまで、裏側では以下のパイプラインが一直線に走っています。Layoutはその中盤の「物理的な形を与える」フェーズです。</p>
+<ol>
+<li><strong>Parse (DOM / CSSOMの構築)</strong></li>
+</ol>
+<ul>
+<li>HTMLを解析して「要素の親子関係（DOM）」を作り、CSSを解析して「どのスタイルが当たるか（CSSOM）」を準備します。</li>
+</ul>
+<ol start="2">
+<li><strong>Style (Render Tree / Layout Treeの構築)</strong></li>
+</ol>
+<ul>
+<li>DOMとCSSOMをガッチャンコします。display: noneの要素はこの時点でツリーから除外されます。</li>
+</ul>
+<ol start="3">
+<li><strong>Layout (配置命令の解決)</strong></li>
+</ol>
+<ul>
+<li>画面の端（ビューポート）からスタートし、ツリーを上から下へ走査（トラバース）しながら、各要素の「絶対的な座標（x, y）」と「サイズ（width, height）」をピクセル単位で確定させます。</li>
+</ul>
+<ol start="4">
+<li><strong>Paint (描画命令の生成)</strong></li>
+</ol>
+<ul>
+<li>「背景色を塗る」「テキストを書く」といった、グラフィックライブラリ（Skiaなど）への命令書を作ります。</li>
+</ul>
+<ol start="5">
+<li><strong>Composite (合成)</strong></li>
+</ol>
+<ul>
+<li>GPUを使って、レイヤー（層）に分かれた描画結果を1つの画面に合成します。</li>
+</ul>
+<h2 id="2-layoutフェーズの本質箱のサイズ計算と流し込み"><a class="header" href="#2-layoutフェーズの本質箱のサイズ計算と流し込み">2. Layoutフェーズの本質：「箱のサイズ計算」と「流し込み」</a></h2>
+<p>Layoutフェーズが何をやっているかを一言で言うと、「親が子に対して『制約』を課し、子が親に『希望サイズ』を返し、最終的な配置を決定する」という親子間の交渉（Constraint-based Layout）です。</p>
+<p>この交渉をコントロールするのが <strong>Formatting Context（整形文脈）</strong> という仕組みです。</p>
+<h3 id="混乱の元を解消する境界線のイメージ"><a class="header" href="#混乱の元を解消する境界線のイメージ">混乱の元を解消する「境界線」のイメージ</a></h3>
+<p>多くの人が混乱するのは、「width: 50% や margin: auto が、状況によって全く違う挙動をするから」です。
+裏側では、その要素が「どの計算エンジン（Formatting Context）の支配下にいるか」によって、プロパティの解釈コード自体が切り替わっています。</p>
+<p>主要な4つの計算エンジン（システム）のイメージを掴みましょう。</p>
+<h2 id="3-layoutを支配する4つのコアシステムformatting-context"><a class="header" href="#3-layoutを支配する4つのコアシステムformatting-context">3. Layoutを支配する4つのコアシステム（Formatting Context）</a></h2>
+<p>ブラウザのLayoutエンジン内部には、レイアウトのルールセット（アルゴリズム）が複数用意されています。要素の display プロパティなどによって、どのエンジンが起動するかが決まります。</p>
+<h3 id="①-block-formatting-context-bfc-縦積みの土木工事"><a class="header" href="#①-block-formatting-context-bfc-縦積みの土木工事">① Block Formatting Context (BFC) —「縦積みの土木工事」</a></h3>
+<ul>
+<li><strong>起動条件:</strong> デフォルトのブロック要素（div, pなど）、または overflow: hidden, display: flow-root などが指定された要素の内部。</li>
+<li><strong>配置ルール:</strong>
+要素は<strong>上から下へ</strong>垂直に積み重なります。デフォルトでは、子要素は親の横幅（Available Width）をめいっぱい占有しようとします。</li>
+<li><strong>裏側の特徴:</strong>
+「マージンの崩壊（Margin Collapsing）」はこのエンジン特有の処理コードです。BFCの内部は完全に独立した空間になり、外側のレイアウトに影響を与えません（浮動要素 float の回り込みをクリアするのもこのエンジンです）。</li>
+</ul>
+<h3 id="②-inline-formatting-context-ifc-文字の流し込み印刷"><a class="header" href="#②-inline-formatting-context-ifc-文字の流し込み印刷">② Inline Formatting Context (IFC) —「文字の流し込み印刷」</a></h3>
+<ul>
+<li><strong>起動条件:</strong> span, em, テキストノードなど。</li>
+<li><strong>配置ルール:</strong>
+要素は<strong>左から右へ</strong>水平に並びます。親の右端に到達すると、自動的に「改行」されて次の行（Line Box）が作られます。</li>
+<li><strong>裏側の特徴:</strong>
+サイズ計算が「文字のフォントサイズや行高（line-height）」に完全に依存します。そのため、インライン要素に width や height を指定しても、IFCの計算コード側がそれを「無視（スキップ）」するように実装されています。</li>
+</ul>
+<h3 id="③-flex-formatting-context-ffc-ゴム紐の一次元伸縮"><a class="header" href="#③-flex-formatting-context-ffc-ゴム紐の一次元伸縮">③ Flex Formatting Context (FFC) —「ゴム紐の一次元伸縮」</a></h3>
+<ul>
+<li><strong>起動条件:</strong> display: flex または inline-flex。</li>
+<li><strong>配置ルール:</strong>
+主軸（Main Axis）に沿って要素を並べます。</li>
+<li><strong>裏側の特徴（2パス計算）:</strong>
+Flexboxの裏側では、ブラウザは最低2回（あるいはそれ以上）要素を測り直しています。</li>
+</ul>
+<ol>
+<li><strong>1パス目:</strong> 各子要素の「理想のサイズ（flex-basis）」を調べ、合計が親の幅を超えるか（または余るか）を計算する。</li>
+<li><strong>2パス目:</strong> 余白（または不足分）を、各子要素の flex-grow や flex-shrink の比率に応じて<strong>分配・伸縮</strong>し、最終的なピクセル値を確定させる。</li>
+</ol>
+<h3 id="④-grid-formatting-context-gfc-2次元の格子マッピング"><a class="header" href="#④-grid-formatting-context-gfc-2次元の格子マッピング">④ Grid Formatting Context (GFC) —「2次元の格子マッピング」</a></h3>
+<ul>
+<li><strong>起動条件:</strong> display: grid。</li>
+<li><strong>配置ルール:</strong>
+縦・横の2次元の格子（Grid Track）を定義し、そこに要素をはめ込みます。</li>
+<li><strong>裏側の特徴:</strong>
+まず親要素側で「縦何ピクセル、横何ピクセルのマス目を作るか」の構造（Gridレジストリ）を解決します。その後、子要素をその座標空間の「何番目の線から何番目の線まで」に配置するかをマッピングします。fr という単位は、全体の幅から固定幅を引いた「残りのパン」を分け合う計算ロジックが走っています。</li>
+</ul>
+<h2 id="4-特殊システムout-of-flow通常の流れから外れた配置"><a class="header" href="#4-特殊システムout-of-flow通常の流れから外れた配置">4. 特殊システム：Out-of-flow（通常の流れから外れた配置）</a></h2>
+<p>上記の4つのシステムは「通常の流し込み（In-flow）」と呼ばれ、お互いに押し合いへし合いして位置を決めます。しかし、これらを無視して「ワープ」するシステムがあります。</p>
+<p>これが position: absolute や position: fixed です。</p>
+<ul>
+<li><strong>裏側の処理:</strong>
+ブラウザがLayout Treeを走査している最中に position: absolute を見つけると、それを通常の流し込み計算から「取り除き（Out-of-flow）」、専用の未解決リストにプールします。</li>
+<li><strong>解決のタイミング:</strong>
+通常の要素のレイアウトがすべて終わった後、その要素の「基準点（containing block：relativeが付いた先祖、またはビューポート）」の最終座標を元に、top, right, bottom, left から一発で絶対座標を算出します。周りの要素をドミノ倒しのように押し退ける計算（リフロー）が発生しないため、計算負荷の毛色が異なります。</li>
+</ul>
+<h2 id="5-配置命令が解決される具体的なイメージ"><a class="header" href="#5-配置命令が解決される具体的なイメージ">5. 配置命令が解決される「具体的なイメージ」</a></h2>
+<p>混乱を解消するために、ブラウザのLayoutエンジンが「上から下への1本のタイムライン（再帰関数）」で動いているイメージを持ってみてください。</p>
+<pre><code>[Layout開始] ビューポートのサイズ（例: 1920x1080）を確定
+  ↓
+【親要素の計算】
+  ブラウザ: 「お前の横幅の限界（Constraint）は1920pxだ。 display: flex が指定されているな。
+            よし、Flex Formatting Context (FFC) エンジンを起動する」
+  ↓
+  【子要素Aの計算】
+    ブラウザ: 「子A、お前の flex-basis は 300px か。幅 300px として仮置きする」
+  【子要素Bの計算】
+    ブラウザ: 「子B、お前は中身のテキストに応じて縮む設定（flex-shrink）だな。
+              テキストの長さを測るために IFC (Inline) エンジンを一時的に回して...よし、200px必要だな」
+  ↓
+【親要素の再計算（分配）】
+  ブラウザ: 「合計500px。親の幅にはまだ余裕がある。
+            子Aに flex-grow: 1 があるから、残りの余白を全部子Aの幅に足し算しよう」
+  ↓
+各要素の `x`, `y`, `width`, `height` が「312.5px」のような絶対的なデジタル数値（ピクセル）として確定し、Paintフェーズへ引き渡される。
+</code></pre>
+<h3 id="まとめ混乱したときの処方箋"><a class="header" href="#まとめ混乱したときの処方箋">まとめ：混乱したときの処方箋</a></h3>
+<p>CSSで配置が思い通りにならないときは、個々のプロパティを疑うのではなく、「今、この要素はどの計算エンジン（BFC / IFC / FFC / GFC / Out-of-flow）のルールで裁かれているのか？」を意識してみてください。</p>
 
                     </main>
 
@@ -187,7 +297,7 @@
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../3-basic-js/001.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../2-basic-web/012.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -201,7 +311,7 @@
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../3-basic-js/001.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../2-basic-web/012.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

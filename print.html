@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-5ca4af2e.js";
+            window.path_to_searchindex_js = "searchindex-60901765.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-23f2e7d7.js"></script>
+        <script src="toc-2d6e42b1.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -901,26 +901,482 @@ my_function()
 <p>準備はいいですか？次はWebの世界でお会いしましょう！</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="webサイトの仕組み"><a class="header" href="#webサイトの仕組み">Webサイトの仕組み</a></h1>
+<p>私たちが普段何気なく見ているWebサイトですが、その裏側ではコンピュータ同士が緻密な情報のやり取りを行っています。プログラミングを学ぶ上で、この「情報の流れ」を理解することは非常に重要です。</p>
+<h3 id="クライアントとサーバー"><a class="header" href="#クライアントとサーバー">クライアントとサーバー</a></h3>
+<p>Webの世界は大きく分けて2つの登場人物で成り立っています。</p>
+<ol>
+<li><strong>クライアント (Client)</strong>: サービスを利用する側。あなたのブラウザ（Chrome, Safari, Edgeなど）のことです。</li>
+<li><strong>サーバー (Server)</strong>: サービスを提供する側。Webサイトのデータ（HTMLや画像など）を保管し、要求に応じて送信するコンピュータです。</li>
+</ol>
+<p>あなたがブラウザのURL欄にアドレスを入力してエンターキーを押した瞬間、あなたのコンピュータ（クライアント）から世界中のどこかにあるコンピュータ（サーバー）へ、「このページを見せてください！」というメッセージが送られます。これを <strong>リクエスト (Request)</strong> と呼びます。</p>
+<p>それに対し、サーバーが「はい、どうぞ！」とデータを送り返してくることを <strong>レスポンス (Response)</strong> と呼びます。</p>
+<h3 id="httpwebの共通言語"><a class="header" href="#httpwebの共通言語">HTTP：Webの共通言語</a></h3>
+<p>このやり取りに使われるルール（プロトコル）が <strong>HTTP (HyperText Transfer Protocol)</strong> です。コンピュータ同士が会話するための「文法」のようなものだと考えてください。</p>
+<p>TODO: HTTPの仕組み（メソッドやステータスコード）を解説する記事へのリンクを貼る</p>
+<h3 id="ブラウザの仕事レンダリング"><a class="header" href="#ブラウザの仕事レンダリング">ブラウザの仕事：レンダリング</a></h3>
+<p>サーバーから送られてくるデータは、実はただのテキスト（文字）です。そのままでは、私たちが知っているような綺麗なWebサイトには見えません。</p>
+<p>ブラウザの最も重要な仕事は、このテキストデータを解析し、画面に美しく描画することです。これを <strong>レンダリング (Rendering)</strong> と呼びます。</p>
+<ol>
+<li><strong>解析 (Parsing)</strong>: 送られてきたHTMLやCSSを読み込み、データの構造を組み立てます。</li>
+<li><strong>計算 (Layout)</strong>: どの要素がどのくらいの大きさで、どこに配置されるべきかを計算します。</li>
+<li><strong>描画 (Painting)</strong>: 計算結果に基づいて、画面の1ピクセルずつに色を置いていきます。</li>
+</ol>
+<p>現代のブラウザは、この一連の処理をミリ秒単位で行っています。裏側では、V8（JavaScriptエンジン）やレンダリングエンジン（BlinkやWebKit）といった巨大なソフトウェアが複雑な最適化を行いながら動いています。</p>
+<blockquote class="blockquote-tag blockquote-tag-tip">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>シニアエンジニアの視点：
+Webサイトは「静的な画像」ではありません。プログラムによって動的に生成され、ネットワークを通じて運ばれ、ブラウザによってリアルタイムに計算・描画される「データの変換プロセス」そのものです。</p>
+</blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="htmlの文法"><a class="header" href="#htmlの文法">htmlの文法</a></h1>
+<p>HTML (HyperText Markup Language) は、Webページの「骨組み」を作るための言語です。名前に「Markup」とある通り、文章に対して「ここは見出し」「ここは段落」といった <strong>意味付け (Markup)</strong> をしていくのが役割です。</p>
+<h3 id="基本的な構造タグ"><a class="header" href="#基本的な構造タグ">基本的な構造：タグ</a></h3>
+<p>HTMLは <strong>タグ (Tag)</strong> と呼ばれる記号を使って記述します。</p>
+<pre><code class="language-html">&lt;tagname&gt;中身の内容&lt;/tagname&gt;
+</code></pre>
+<ul>
+<li><code>&lt;tagname&gt;</code>: 開始タグ</li>
+<li><code>&lt;/tagname&gt;</code>: 終了タグ（スラッシュ <code>/</code> が付きます）</li>
+</ul>
+<p>これらに囲まれた全体を <strong>要素 (Element)</strong> と呼びます。</p>
+<h3 id="属性"><a class="header" href="#属性">属性</a></h3>
+<p>タグには <strong>属性 (Attribute)</strong> を追加して、より詳細な情報を与えることができます。</p>
+<pre><code class="language-html">&lt;a href="https://google.com"&gt;Googleへのリンク&lt;/a&gt;
+</code></pre>
+<p>ここでは <code>href</code> が属性名、<code>"https://google.com"</code> が属性値です。リンク先を指定しています。</p>
+<h3 id="htmlは木であるdom"><a class="header" href="#htmlは木であるdom">HTMLは「木」である：DOM</a></h3>
+<p>HTMLの最も本質的な特徴は、要素の中に別の要素を入れることができる <strong>入れ子 (Nesting)</strong> 構造です。</p>
+<pre><code class="language-html">&lt;body&gt;
+  &lt;h1&gt;私のサイト&lt;/h1&gt;
+  &lt;div&gt;
+    &lt;p&gt;こんにちは、世界！&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+<p>このように、根っこ（ルート）から枝分かれしていく構造を、コンピュータ科学の世界では <strong>木構造 (Tree Structure)</strong> と呼びます。ブラウザはこの木構造を内部的に保持しており、これを <strong>DOM (Document Object Model)</strong> と呼びます。</p>
+<p>JavaScriptで画面を書き換えるときは、実はこの「木」の枝を切り取ったり、新しい枝をくっつけたりする操作を行っているのです。</p>
+<h3 id="基本のテンプレート"><a class="header" href="#基本のテンプレート">基本のテンプレート</a></h3>
+<p>Webページを新しく作るときは、必ず以下の形から始まります。</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;ページのタイトル&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- ここに中身を書く --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<ul>
+<li><code>&lt;!DOCTYPE html&gt;</code>: 「これは最新のHTMLですよ」という宣言。</li>
+<li><code>&lt;head&gt;</code>: 画面には映らない、設定情報を書く場所。</li>
+<li><code>&lt;body&gt;</code>: 実際に画面に表示される中身を書く場所。</li>
+</ul>
+<p>TODO: HTMLの要素一覧やセマンティックなタグの使い方を解説する記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cssの文法"><a class="header" href="#cssの文法">cssの文法</a></h1>
+<p>HTMLが「骨組み（構造）」だとしたら、CSS (Cascading Style Sheets) は「化粧（装飾）」です。CSSを使うことで、文字の色を変えたり、要素を横に並べたり、アニメーションを加えたりすることができます。</p>
+<h3 id="基本的な書き方"><a class="header" href="#基本的な書き方">基本的な書き方</a></h3>
+<p>CSSは「どこ（セレクター）の」「何を（プロパティ）」「どうするか（値）」という形式で書きます。</p>
+<pre><code class="language-css">h1 {
+  color: blue;
+  font-size: 24px;
+}
+</code></pre>
+<ul>
+<li><strong>セレクター (Selector)</strong>: 装飾したい対象（ここでは <code>h1</code> タグ）。</li>
+<li><strong>プロパティ (Property)</strong>: 変えたい項目（ここでは <code>color</code> や <code>font-size</code>）。</li>
+<li><strong>値 (Value)</strong>: 具体的な設定（ここでは <code>blue</code> や <code>24px</code>）。</li>
+</ul>
+<p>これら一式を <strong>宣言ブロック</strong> と呼びます。</p>
+<h3 id="どこに書くか"><a class="header" href="#どこに書くか">どこに書くか？</a></h3>
+<p>CSSを書く方法はいくつかありますが、基本的にはHTMLとは別のファイル（<code>.css</code>）に書き、HTMLから読み込みます。</p>
+<p><strong>index.html</strong></p>
+<pre><code class="language-html">&lt;head&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+</code></pre>
+<p><strong>style.css</strong></p>
+<pre><code class="language-css">p {
+  color: red;
+}
+</code></pre>
+<h3 id="なぜ分けるのか関心の分離"><a class="header" href="#なぜ分けるのか関心の分離">なぜ分けるのか？（関心の分離）</a></h3>
+<p>「HTMLの中に直接デザインも書けばいいじゃないか」と思うかもしれません。しかし、構造とデザインを分離することには大きなメリットがあります。</p>
+<ol>
+<li><strong>保守性</strong>: デザインを一箇所変えるだけで、サイト全体の見た目を変更できる。</li>
+<li><strong>分業</strong>: 骨組みを作る人と、デザインを整える人が同時に作業しやすい。</li>
+<li><strong>計算の最適化</strong>: ブラウザは構造とスタイルを別々に解析し、それらを組み合わせて最終的な描画データを生成します。この役割分担が明確なほど、ブラウザの最適化が効きやすくなります。</li>
+</ol>
+<h3 id="カスケーディング-cascading"><a class="header" href="#カスケーディング-cascading">カスケーディング (Cascading)</a></h3>
+<p>CSSの名前にある「Cascading（滝のように流れる）」とは、複数のルールが衝突したときに、どのルールを優先するかを決める仕組みのことです。</p>
+<p>上から下へ流れるように適用され、より具体的な指定（セレクターの強さ）が勝つようになっています。</p>
+<p>TODO: CSSの優先順位（詳細度）の計算ルールを解説する記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="よく使うhtmlタグ"><a class="header" href="#よく使うhtmlタグ">よく使うhtmlタグ</a></h1>
+<p>HTMLには数百種類のタグがありますが、実際に日常的に使うものは限られています。まずは以下の「主要なタグ」を覚えましょう。</p>
+<h3 id="テキスト関連"><a class="header" href="#テキスト関連">テキスト関連</a></h3>
+<ul>
+<li><code>&lt;h1&gt;</code> 〜 <code>&lt;h6&gt;</code>: 見出し。<code>h1</code>が最も重要。</li>
+<li><code>&lt;p&gt;</code>: 段落 (Paragraph)。</li>
+<li><code>&lt;a&gt;</code>: リンク (Anchor)。<code>href</code>属性で飛び先を指定。</li>
+<li><code>&lt;span&gt;</code>: 文中の特定の部分だけ囲みたいときに使う。</li>
+</ul>
+<h3 id="構造グループ化"><a class="header" href="#構造グループ化">構造・グループ化</a></h3>
+<ul>
+<li><code>&lt;div&gt;</code>: 特に意味を持たない「箱」。レイアウトのために要素をまとめるのに最も多用されます。</li>
+<li><code>&lt;ul&gt;</code> / <code>&lt;li&gt;</code>: 箇条書き。</li>
+<li><code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>: サイトの大きな区切り。</li>
+</ul>
+<h3 id="コンテンツ挿入"><a class="header" href="#コンテンツ挿入">コンテンツ挿入</a></h3>
+<ul>
+<li><code>&lt;img&gt;</code>: 画像。<code>src</code>属性で画像パス、<code>alt</code>属性で説明。</li>
+<li><code>&lt;button&gt;</code>: ボタン。</li>
+</ul>
+<h3 id="インプットフォーム"><a class="header" href="#インプットフォーム">インプット（フォーム）</a></h3>
+<ul>
+<li><code>&lt;input&gt;</code>: 文字入力欄など。</li>
+<li><code>&lt;form&gt;</code>: 入力データをサーバーへ送るためのまとまり。</li>
+</ul>
+<h3 id="セマンティックhtmlの意識"><a class="header" href="#セマンティックhtmlの意識">セマンティックHTMLの意識</a></h3>
+<p>シニアエンジニアは、何でもかんでも <code>&lt;div&gt;</code> で囲む（通称：div地獄）ことを避けます。</p>
+<pre><code class="language-html">&lt;!-- 悪い例 --&gt;
+&lt;div class="header"&gt;見出し&lt;/div&gt;
+
+&lt;!-- 良い例 --&gt;
+&lt;header&gt;見出し&lt;/header&gt;
+</code></pre>
+<p>ブラウザや検索エンジン、音声読み上げソフトなどに対して、「ここはヘッダーですよ」「ここはメインコンテンツですよ」という <strong>意味 (Semantics)</strong> を正しく伝えることで、アクセシビリティやSEO（検索エンジン最適化）が向上します。</p>
+<p>TODO: セマンティックHTMLの重要性をより詳しく解説する記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cssセレクター"><a class="header" href="#cssセレクター">cssセレクター</a></h1>
+<p>セレクターは、CSSを適用するターゲットを特定するための強力な道具です。</p>
+<h3 id="基本的なセレクター"><a class="header" href="#基本的なセレクター">基本的なセレクター</a></h3>
+<ol>
+<li><strong>要素セレクター</strong>: タグ名で指定。
+<pre><code class="language-css">p { color: gray; }
+</code></pre>
+</li>
+<li><strong>クラスセレクター</strong>: HTMLで <code>class="name"</code> と書いたものに指定。先頭に <code>.</code> を付ける。最も多用します。
+<pre><code class="language-css">.main-text { font-weight: bold; }
+</code></pre>
+</li>
+<li><strong>IDセレクター</strong>: HTMLで <code>id="name"</code> と書いたものに指定。先頭に <code>#</code> を付ける。ページ内に1つだけ。
+<pre><code class="language-css">#unique-button { background: red; }
+</code></pre>
+</li>
+</ol>
+<h3 id="組み合わせ階層"><a class="header" href="#組み合わせ階層">組み合わせ・階層</a></h3>
+<p>セレクターを組み合わせることで、より詳細なターゲットを狙えます。</p>
+<ul>
+<li><strong>子孫セレクター</strong>: <code>A B</code> (Aの中にあるBすべて)</li>
+<li><strong>子セレクター</strong>: <code>A &gt; B</code> (Aの直下にあるBだけ)</li>
+<li><strong>複数指定</strong>: <code>A, B</code> (AとBの両方)</li>
+</ul>
+<h3 id="擬似クラス-pseudo-classes"><a class="header" href="#擬似クラス-pseudo-classes">擬似クラス (Pseudo-classes)</a></h3>
+<p>「マウスが乗ったとき」や「1番目の要素」など、特定の状態を指定できます。</p>
+<pre><code class="language-css">button:hover {
+  background: orange;
+}
+
+li:first-child {
+  color: blue;
+}
+</code></pre>
+<h3 id="なぜidよりクラスなのか"><a class="header" href="#なぜidよりクラスなのか">なぜIDよりクラスなのか？</a></h3>
+<p>初心者はよく IDセレクターを使いたがりますが、多くのプロ現場では「原則としてクラスを使う」というルールがあります。</p>
+<p>理由は <strong>再利用性</strong> と <strong>詳細度</strong> です。IDは強すぎて、後からデザインを上書きしたいときに苦労することになります。CSSを「データの集合に対するフィルタ」と捉えるなら、1つしか存在しないフィルタ（ID）よりも、複数の要素に適用できるフィルタ（クラス）の方が柔軟性が高いためです。</p>
+<p>TODO: CSSのセレクターの組み合わせ（結合子）を網羅したチートシートへのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="よく使うcssプロパティ"><a class="header" href="#よく使うcssプロパティ">よく使うcssプロパティ</a></h1>
+<p>CSSプロパティは膨大な数がありますが、まずはレイアウトと文字装飾に関する基本をマスターしましょう。</p>
+<h3 id="ボックスモデル"><a class="header" href="#ボックスモデル">ボックスモデル</a></h3>
+<p>CSSの最も重要な概念は、すべての要素が「箱（ボックス）」であるということです。</p>
+<ol>
+<li><strong>width / height</strong>: 箱の幅と高さ。</li>
+<li><strong>margin</strong>: 箱の外側の余白。</li>
+<li><strong>padding</strong>: 箱の内側の余白。</li>
+<li><strong>border</strong>: 箱の枠線。</li>
+</ol>
+<p>これらの数値をピクセル単位で微調整していくのが、コーディングの基本作業になります。</p>
+<h3 id="文字装飾"><a class="header" href="#文字装飾">文字装飾</a></h3>
+<ul>
+<li><strong>color</strong>: 文字の色。</li>
+<li><strong>font-size</strong>: 文字の大きさ。</li>
+<li><strong>font-family</strong>: フォントの種類（ゴシック体、明朝体など）。</li>
+<li><strong>text-align</strong>: 文字の揃え（left, center, right）。</li>
+</ul>
+<h3 id="色と背景"><a class="header" href="#色と背景">色と背景</a></h3>
+<ul>
+<li><strong>background-color</strong>: 背景色。</li>
+<li><strong>opacity</strong>: 不透明度（0〜1）。</li>
+</ul>
+<h3 id="単位の使い分け"><a class="header" href="#単位の使い分け">単位の使い分け</a></h3>
+<p>初心者はすべて <code>px</code>（ピクセル）で書きがちですが、シニアエンジニアは状況に応じて単位を使い分けます。</p>
+<ul>
+<li><strong>px</strong>: 固定値。</li>
+<li><strong>%</strong>: 親要素に対する割合。</li>
+<li><strong>rem / em</strong>: フォントサイズを基準とした相対値。</li>
+<li><strong>vw / vh</strong>: 画面の幅・高さに対する割合。</li>
+</ul>
+<p>特に <code>rem</code> や <code>%</code> を適切に使うことで、スマートフォンのような画面サイズの異なる端末でも綺麗に見える「レスポンシブデザイン」が実現しやすくなります。</p>
+<p>TODO: CSSボックスモデルの図解を解説する記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="visualstudiocodeの導入"><a class="header" href="#visualstudiocodeの導入">VisualStudioCodeの導入</a></h1>
+<p>プログラミングはメモ帳でもできますが、効率を劇的に上げるために <strong>エディタ</strong> を使いましょう。現在、世界で最も使われているのが Microsoftの開発した <strong>Visual Studio Code (VS Code)</strong> です。</p>
+<h3 id="なぜ-vs-code-なのか"><a class="header" href="#なぜ-vs-code-なのか">なぜ VS Code なのか？</a></h3>
+<ol>
+<li><strong>シンタックスハイライト</strong>: コードに色がつき、読みやすくなる。</li>
+<li><strong>補完機能</strong>: 途中まで打つと候補を出してくれる（ミスが減る）。</li>
+<li><strong>拡張機能</strong>: 自分の好きな機能を追加できる。</li>
+<li><strong>内蔵ターミナル</strong>: 黒い画面（ターミナル）をエディタ内で開ける。</li>
+</ol>
+<p>TODO: VS Codeのインストール方法（公式サイト）へのリンクを貼る</p>
+<h3 id="web制作に必須の拡張機能"><a class="header" href="#web制作に必須の拡張機能">Web制作に必須の拡張機能</a></h3>
+<p>VS Codeをインストールしたら、以下の拡張機能を導入することをお勧めします。</p>
+<ul>
+<li><strong>Japanese Language Pack</strong>: UIを日本語化します。</li>
+<li><strong>Live Server</strong>: 保存するたびにブラウザが自動更新され、制作が爆速になります。</li>
+<li><strong>Prettier</strong>: コードの見た目を自動で綺麗に整えてくれます。</li>
+</ul>
+<h3 id="環境構築という最初の一歩"><a class="header" href="#環境構築という最初の一歩">環境構築という「最初の一歩」</a></h3>
+<p>プログラミングを始めた人の多くが、最初の「環境構築」で挫折します。しかし、自分の道具を使いやすく整えることは、職人がカンナを研ぐのと同じです。一度整えてしまえば、あとの学習がずっと楽になります。</p>
+<p>TODO: VS Codeのおすすめ初期設定を解説する記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="アニメーション"><a class="header" href="#アニメーション">アニメーション</a></h1>
+<p>Webサイトに動きを加えることで、ユーザー体験 (UX) を向上させることができます。</p>
+<h3 id="transition遷移"><a class="header" href="#transition遷移">Transition（遷移）</a></h3>
+<p>最も簡単なアニメーションは、状態が変わったときに滑らかに変化させる <code>transition</code> です。</p>
+<pre><code class="language-css">button {
+  background: blue;
+  transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+  background: red;
+}
+</code></pre>
+<p>「マウスが乗ったときに、背景色を0.3秒かけて変化させる」という指定です。</p>
+<h3 id="keyframesコマ割り"><a class="header" href="#keyframesコマ割り">Keyframes（コマ割り）</a></h3>
+<p>より複雑な動きを作りたいときは、<code>@keyframes</code> を使います。</p>
+<pre><code class="language-css">@keyframes slidein {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.box {
+  animation: slidein 1s infinite alternate;
+}
+</code></pre>
+<h3 id="低レイヤの視点パフォーマンスとgpu"><a class="header" href="#低レイヤの視点パフォーマンスとgpu">低レイヤの視点：パフォーマンスとGPU</a></h3>
+<p>アニメーションを多用するとサイトが重くなることがあります。シニアエンジニアは「何を使って動かすか」を重視します。</p>
+<ul>
+<li><strong>悪い例</strong>: <code>left</code>, <code>top</code>, <code>width</code> などを動かす。</li>
+<li><strong>良い例</strong>: <code>transform</code> (translate, scale, rotate) や <code>opacity</code> を動かす。</li>
+</ul>
+<p>ブラウザには「コンポジット・レイヤー」という概念があります。<code>transform</code> などの特定のプロパティは、CPUではなく <strong>GPU（グラフィックス処理ユニット）</strong> で処理されるため、画面のカクつきが起こりにくく、バッテリー消費も抑えられるのです。</p>
+<p>「ただ動けばいい」のではなく、「コンピュータの資源を効率よく使って動かす」という視点を持ちましょう。</p>
+<p>TODO: CSSアニメーションのパフォーマンス最適化について詳しく解説する記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ブロック要素とインライン要素"><a class="header" href="#ブロック要素とインライン要素">ブロック要素とインライン要素</a></h1>
+<p>CSSでレイアウトを組む際に必ず直面するのが、「要素がどう並ぶか」というルールです。</p>
+<h3 id="2つの基本性質"><a class="header" href="#2つの基本性質">2つの基本性質</a></h3>
+<ol>
+<li><strong>ブロック要素 (<code>display: block</code>)</strong>
+<ul>
+<li>画面の横幅いっぱいを占領する。</li>
+<li>前後に改行が入る。</li>
+<li>例: <code>&lt;div&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code></li>
+</ul>
+</li>
+<li><strong>インライン要素 (<code>display: inline</code>)</strong>
+<ul>
+<li>中身の文章に必要な分だけ幅を取る。</li>
+<li>横に並ぶ。</li>
+<li>幅 (<code>width</code>) や高さ (<code>height</code>) を指定できない。</li>
+<li>例: <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="性質は変えられる"><a class="header" href="#性質は変えられる">性質は変えられる</a></h3>
+<p>実はこれらの性質は、CSSの <code>display</code> プロパティで自由に変更できます。</p>
+<pre><code class="language-css">span {
+  display: block; /* spanなのにブロック要素のように振る舞う */
+}
+</code></pre>
+<p>最近では、これらの中間のような性質を持つ <code>inline-block</code> や、次節で解説する <code>flex</code> など、より高度な並び方の指定が主流になっています。</p>
+<h3 id="なぜこの区別があるのか"><a class="header" href="#なぜこの区別があるのか">なぜこの区別があるのか？</a></h3>
+<p>元々、HTMLは「文書（論文のようなテキスト）」を共有するために作られました。文章の中に埋め込まれる「語句（インライン）」と、文章の区切りとなる「段落（ブロック）」という区別は、文書作成における自然な形だったのです。</p>
+<p>現代のWeb制作では、この「文書のための性質」を <code>display</code> プロパティで「アプリケーションのためのレイアウト」に上書きしていく作業が中心になります。</p>
+<p>TODO: displayプロパティの各値の違いを詳しく解説する記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="グリッドシステム"><a class="header" href="#グリッドシステム">グリッドシステム</a></h1>
+<p>かつてWebサイトのレイアウトを組むのは非常に困難な作業でした。テーブル（表）を悪用したり、<code>float</code> という本来は画像を文章に回り込ませるための機能を無理やり使ったりしていました。</p>
+<p>現代では、<strong>Flexbox</strong> と <strong>CSS Grid</strong> という2つの強力な武器があります。</p>
+<h3 id="flexbox-1次元のレイアウト"><a class="header" href="#flexbox-1次元のレイアウト">Flexbox (1次元のレイアウト)</a></h3>
+<p>要素を横や縦に「一列に」並べるのに適しています。</p>
+<pre><code class="language-css">.container {
+  display: flex;
+  justify-content: space-between; /* 要素を等間隔に配置 */
+  align-items: center; /* 上下中央揃え */
+}
+</code></pre>
+<p>「中央揃え」という、昔は数時間の苦闘が必要だった操作が、今ではたった数行で書けます。</p>
+<h3 id="css-grid-2次元のレイアウト"><a class="header" href="#css-grid-2次元のレイアウト">CSS Grid (2次元のレイアウト)</a></h3>
+<p>行と列（格子状）のレイアウトを組むのに適しています。</p>
+<pre><code class="language-css">.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* 1:2の比率で2列作る */
+  gap: 10px; /* 要素間の隙間 */
+}
+</code></pre>
+<h3 id="抽象化の進化"><a class="header" href="#抽象化の進化">抽象化の進化</a></h3>
+<p>このように、CSSは歴史を経て、人間が直感的にレイアウトを表現できるように進化してきました。</p>
+<p>シニアエンジニアは、闇雲に値を打ち込むのではなく、まずは「このレイアウトは1次元（Flexbox）で解決できるか？それとも2次元（Grid）が必要か？」を判断します。</p>
+<p>ツールやフレームワーク（BootstrapやTailwind CSSなど）を使う際も、その裏側でこれらの Flexboxや Gridが動いていることを理解していれば、どんな複雑なデザインも恐れることはありません。</p>
+<p>TODO: FlexboxとGridの使い分けを視覚的に解説する記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-1"><a class="header" href="#演習-1">演習</a></h1>
+<h1 id="ブラウザのレンダリングパイプラインとレイアウトの仕組み"><a class="header" href="#ブラウザのレンダリングパイプラインとレイアウトの仕組み">ブラウザのレンダリングパイプラインとレイアウトの仕組み</a></h1>
+<p>CSSを書いていると、「なぜか思った通りの配置にならない」という場面に直面することがあります。これは、ブラウザがどのようにHTMLを「ピクセル」に変換しているのか、その裏側のルールを知ることで解決できます。</p>
+<p>この章の内容は少し発展的です。今すぐ完璧に理解する必要はありません。今後CSSのレイアウトで詰まった時に、辞書のように見返してみてください。</p>
+<h2 id="1-全体像レンダリングパイプラインにおけるlayoutの位置づけ"><a class="header" href="#1-全体像レンダリングパイプラインにおけるlayoutの位置づけ">1. 全体像：レンダリングパイプラインにおけるLayoutの位置づけ</a></h2>
+<p>ブラウザがHTML/CSSを受け取ってから画面にピクセルを描画するまで、裏側では以下のパイプラインが一直線に走っています。Layoutはその中盤の「物理的な形を与える」フェーズです。</p>
+<ol>
+<li><strong>Parse (DOM / CSSOMの構築)</strong></li>
+</ol>
+<ul>
+<li>HTMLを解析して「要素の親子関係（DOM）」を作り、CSSを解析して「どのスタイルが当たるか（CSSOM）」を準備します。</li>
+</ul>
+<ol start="2">
+<li><strong>Style (Render Tree / Layout Treeの構築)</strong></li>
+</ol>
+<ul>
+<li>DOMとCSSOMをガッチャンコします。display: noneの要素はこの時点でツリーから除外されます。</li>
+</ul>
+<ol start="3">
+<li><strong>Layout (配置命令の解決)</strong></li>
+</ol>
+<ul>
+<li>画面の端（ビューポート）からスタートし、ツリーを上から下へ走査（トラバース）しながら、各要素の「絶対的な座標（x, y）」と「サイズ（width, height）」をピクセル単位で確定させます。</li>
+</ul>
+<ol start="4">
+<li><strong>Paint (描画命令の生成)</strong></li>
+</ol>
+<ul>
+<li>「背景色を塗る」「テキストを書く」といった、グラフィックライブラリ（Skiaなど）への命令書を作ります。</li>
+</ul>
+<ol start="5">
+<li><strong>Composite (合成)</strong></li>
+</ol>
+<ul>
+<li>GPUを使って、レイヤー（層）に分かれた描画結果を1つの画面に合成します。</li>
+</ul>
+<h2 id="2-layoutフェーズの本質箱のサイズ計算と流し込み"><a class="header" href="#2-layoutフェーズの本質箱のサイズ計算と流し込み">2. Layoutフェーズの本質：「箱のサイズ計算」と「流し込み」</a></h2>
+<p>Layoutフェーズが何をやっているかを一言で言うと、「親が子に対して『制約』を課し、子が親に『希望サイズ』を返し、最終的な配置を決定する」という親子間の交渉（Constraint-based Layout）です。</p>
+<p>この交渉をコントロールするのが <strong>Formatting Context（整形文脈）</strong> という仕組みです。</p>
+<h3 id="混乱の元を解消する境界線のイメージ"><a class="header" href="#混乱の元を解消する境界線のイメージ">混乱の元を解消する「境界線」のイメージ</a></h3>
+<p>多くの人が混乱するのは、「width: 50% や margin: auto が、状況によって全く違う挙動をするから」です。
+裏側では、その要素が「どの計算エンジン（Formatting Context）の支配下にいるか」によって、プロパティの解釈コード自体が切り替わっています。</p>
+<p>主要な4つの計算エンジン（システム）のイメージを掴みましょう。</p>
+<h2 id="3-layoutを支配する4つのコアシステムformatting-context"><a class="header" href="#3-layoutを支配する4つのコアシステムformatting-context">3. Layoutを支配する4つのコアシステム（Formatting Context）</a></h2>
+<p>ブラウザのLayoutエンジン内部には、レイアウトのルールセット（アルゴリズム）が複数用意されています。要素の display プロパティなどによって、どのエンジンが起動するかが決まります。</p>
+<h3 id="①-block-formatting-context-bfc-縦積みの土木工事"><a class="header" href="#①-block-formatting-context-bfc-縦積みの土木工事">① Block Formatting Context (BFC) —「縦積みの土木工事」</a></h3>
+<ul>
+<li><strong>起動条件:</strong> デフォルトのブロック要素（div, pなど）、または overflow: hidden, display: flow-root などが指定された要素の内部。</li>
+<li><strong>配置ルール:</strong>
+要素は<strong>上から下へ</strong>垂直に積み重なります。デフォルトでは、子要素は親の横幅（Available Width）をめいっぱい占有しようとします。</li>
+<li><strong>裏側の特徴:</strong>
+「マージンの崩壊（Margin Collapsing）」はこのエンジン特有の処理コードです。BFCの内部は完全に独立した空間になり、外側のレイアウトに影響を与えません（浮動要素 float の回り込みをクリアするのもこのエンジンです）。</li>
+</ul>
+<h3 id="②-inline-formatting-context-ifc-文字の流し込み印刷"><a class="header" href="#②-inline-formatting-context-ifc-文字の流し込み印刷">② Inline Formatting Context (IFC) —「文字の流し込み印刷」</a></h3>
+<ul>
+<li><strong>起動条件:</strong> span, em, テキストノードなど。</li>
+<li><strong>配置ルール:</strong>
+要素は<strong>左から右へ</strong>水平に並びます。親の右端に到達すると、自動的に「改行」されて次の行（Line Box）が作られます。</li>
+<li><strong>裏側の特徴:</strong>
+サイズ計算が「文字のフォントサイズや行高（line-height）」に完全に依存します。そのため、インライン要素に width や height を指定しても、IFCの計算コード側がそれを「無視（スキップ）」するように実装されています。</li>
+</ul>
+<h3 id="③-flex-formatting-context-ffc-ゴム紐の一次元伸縮"><a class="header" href="#③-flex-formatting-context-ffc-ゴム紐の一次元伸縮">③ Flex Formatting Context (FFC) —「ゴム紐の一次元伸縮」</a></h3>
+<ul>
+<li><strong>起動条件:</strong> display: flex または inline-flex。</li>
+<li><strong>配置ルール:</strong>
+主軸（Main Axis）に沿って要素を並べます。</li>
+<li><strong>裏側の特徴（2パス計算）:</strong>
+Flexboxの裏側では、ブラウザは最低2回（あるいはそれ以上）要素を測り直しています。</li>
+</ul>
+<ol>
+<li><strong>1パス目:</strong> 各子要素の「理想のサイズ（flex-basis）」を調べ、合計が親の幅を超えるか（または余るか）を計算する。</li>
+<li><strong>2パス目:</strong> 余白（または不足分）を、各子要素の flex-grow や flex-shrink の比率に応じて<strong>分配・伸縮</strong>し、最終的なピクセル値を確定させる。</li>
+</ol>
+<h3 id="④-grid-formatting-context-gfc-2次元の格子マッピング"><a class="header" href="#④-grid-formatting-context-gfc-2次元の格子マッピング">④ Grid Formatting Context (GFC) —「2次元の格子マッピング」</a></h3>
+<ul>
+<li><strong>起動条件:</strong> display: grid。</li>
+<li><strong>配置ルール:</strong>
+縦・横の2次元の格子（Grid Track）を定義し、そこに要素をはめ込みます。</li>
+<li><strong>裏側の特徴:</strong>
+まず親要素側で「縦何ピクセル、横何ピクセルのマス目を作るか」の構造（Gridレジストリ）を解決します。その後、子要素をその座標空間の「何番目の線から何番目の線まで」に配置するかをマッピングします。fr という単位は、全体の幅から固定幅を引いた「残りのパン」を分け合う計算ロジックが走っています。</li>
+</ul>
+<h2 id="4-特殊システムout-of-flow通常の流れから外れた配置"><a class="header" href="#4-特殊システムout-of-flow通常の流れから外れた配置">4. 特殊システム：Out-of-flow（通常の流れから外れた配置）</a></h2>
+<p>上記の4つのシステムは「通常の流し込み（In-flow）」と呼ばれ、お互いに押し合いへし合いして位置を決めます。しかし、これらを無視して「ワープ」するシステムがあります。</p>
+<p>これが position: absolute や position: fixed です。</p>
+<ul>
+<li><strong>裏側の処理:</strong>
+ブラウザがLayout Treeを走査している最中に position: absolute を見つけると、それを通常の流し込み計算から「取り除き（Out-of-flow）」、専用の未解決リストにプールします。</li>
+<li><strong>解決のタイミング:</strong>
+通常の要素のレイアウトがすべて終わった後、その要素の「基準点（containing block：relativeが付いた先祖、またはビューポート）」の最終座標を元に、top, right, bottom, left から一発で絶対座標を算出します。周りの要素をドミノ倒しのように押し退ける計算（リフロー）が発生しないため、計算負荷の毛色が異なります。</li>
+</ul>
+<h2 id="5-配置命令が解決される具体的なイメージ"><a class="header" href="#5-配置命令が解決される具体的なイメージ">5. 配置命令が解決される「具体的なイメージ」</a></h2>
+<p>混乱を解消するために、ブラウザのLayoutエンジンが「上から下への1本のタイムライン（再帰関数）」で動いているイメージを持ってみてください。</p>
+<pre><code>[Layout開始] ビューポートのサイズ（例: 1920x1080）を確定
+  ↓
+【親要素の計算】
+  ブラウザ: 「お前の横幅の限界（Constraint）は1920pxだ。 display: flex が指定されているな。
+            よし、Flex Formatting Context (FFC) エンジンを起動する」
+  ↓
+  【子要素Aの計算】
+    ブラウザ: 「子A、お前の flex-basis は 300px か。幅 300px として仮置きする」
+  【子要素Bの計算】
+    ブラウザ: 「子B、お前は中身のテキストに応じて縮む設定（flex-shrink）だな。
+              テキストの長さを測るために IFC (Inline) エンジンを一時的に回して...よし、200px必要だな」
+  ↓
+【親要素の再計算（分配）】
+  ブラウザ: 「合計500px。親の幅にはまだ余裕がある。
+            子Aに flex-grow: 1 があるから、残りの余白を全部子Aの幅に足し算しよう」
+  ↓
+各要素の `x`, `y`, `width`, `height` が「312.5px」のような絶対的なデジタル数値（ピクセル）として確定し、Paintフェーズへ引き渡される。
+</code></pre>
+<h3 id="まとめ混乱したときの処方箋"><a class="header" href="#まとめ混乱したときの処方箋">まとめ：混乱したときの処方箋</a></h3>
+<p>CSSで配置が思い通りにならないときは、個々のプロパティを疑うのではなく、「今、この要素はどの計算エンジン（BFC / IFC / FFC / GFC / Out-of-flow）のルールで裁かれているのか？」を意識してみてください。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="演習自己紹介ページを作ってみよう"><a class="header" href="#演習自己紹介ページを作ってみよう">演習：自己紹介ページを作ってみよう</a></h1>
+<p>2章で学んだ知識を総動員して、簡単な自己紹介ページを作成してみましょう。</p>
+<h3 id="要件"><a class="header" href="#要件">要件</a></h3>
+<ol>
+<li><code>index.html</code> と <code>style.css</code> の2つのファイルを作成する。</li>
+<li>HTMLには以下の要素を含める。
+<ul>
+<li>名前（<code>&lt;h1&gt;</code>）</li>
+<li>自分の趣味や目標（<code>&lt;p&gt;</code>）</li>
+<li>好きなサイトへのリンク（<code>&lt;a&gt;</code>）</li>
+<li>画像（<code>&lt;img&gt;</code> - 何かフリー素材のURLなど）</li>
+</ul>
+</li>
+<li>CSSで以下の装飾を行う。
+<ul>
+<li>背景色を変える。</li>
+<li>全体の幅を制限して、画面の中央に寄せる（<code>margin: 0 auto;</code> を調べてみよう）。</li>
+<li>フォントを読みやすく変える。</li>
+</ul>
+</li>
+</ol>
+<h3 id="ヒント検証ツールを使おう"><a class="header" href="#ヒント検証ツールを使おう">ヒント：検証ツールを使おう</a></h3>
+<p>ブラウザ（Chromeなど）で自分のページを開き、右クリックして「検証」を選ぶと、<strong>デベロッパーツール</strong> が開きます。</p>
+<p>ここでCSSをリアルタイムに書き換えて、見た目がどう変わるかを試行錯誤することができます。これはプロのエンジニアが毎日、数千回と使う最も重要なデバッグ手法です。</p>
+<hr>
+<p>完成したら、ブラウザで正しく表示されるか確認してください。
+もし余裕があれば、Flexboxを使って、画像と文章を横に並べるレイアウトにも挑戦してみましょう。</p>
+<p>TODO: 制作したHTML/CSSを公開（ホスティング）する方法へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="javascriptとは"><a class="header" href="#javascriptとは">JavaScriptとは</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -944,7 +1400,7 @@ my_function()
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="シンボルの記法"><a class="header" href="#シンボルの記法">シンボルの記法</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-2"><a class="header" href="#演習-2">演習</a></h1>
+<h1 id="演習-1"><a class="header" href="#演習-1">演習</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -980,7 +1436,7 @@ my_function()
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="まとめ-1"><a class="header" href="#まとめ-1">まとめ</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-3"><a class="header" href="#演習-3">演習</a></h1>
+<h1 id="演習-2"><a class="header" href="#演習-2">演習</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="エコシステムとは"><a class="header" href="#エコシステムとは">エコシステムとは</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -998,7 +1454,7 @@ my_function()
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cliツールのお作法"><a class="header" href="#cliツールのお作法">CLIツールのお作法</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-4"><a class="header" href="#演習-4">演習</a></h1>
+<h1 id="演習-3"><a class="header" href="#演習-3">演習</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="jsxと関数コンポーネント"><a class="header" href="#jsxと関数コンポーネント">JSXと関数コンポーネント</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -1026,7 +1482,7 @@ my_function()
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="公式ドキュメントの読み方"><a class="header" href="#公式ドキュメントの読み方">公式ドキュメントの読み方</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-5"><a class="header" href="#演習-5">演習</a></h1>
+<h1 id="演習-4"><a class="header" href="#演習-4">演習</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="バックエンドとは"><a class="header" href="#バックエンドとは">バックエンドとは</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
