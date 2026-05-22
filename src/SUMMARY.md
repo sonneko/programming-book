@@ -30,7 +30,8 @@
 - [アニメーション](2-basic-web/008.md)
 - [ブロック要素とインライン要素](2-basic-web/009.md)
 - [グリッドシステム](2-basic-web/010.md)
-- [演習](2-basic-web/011.md)
+- [ブラウザのレンダリングパイプラインとレイアウトの仕組み](2-basic-web/011.md)
+- [演習](2-basic-web/012.md)
 
 # 3章-JavaScript入門
 - [JavaScriptとは](3-basic-js/001.md)
