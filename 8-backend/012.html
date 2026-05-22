@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,15 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="sql文4"><a class="header" href="#sql文4">SQL文4</a></h1>
+<p>高度なデータ集計方法です。</p>
+<ul>
+<li><strong>GROUP BY</strong>: データをグループ化して集計する。</li>
+<li><strong>ORDER BY</strong>: 結果を並び替える。</li>
+<li><strong>LIMIT</strong>: 取得する件数を制限する。</li>
+</ul>
+<pre><code class="language-sql">SELECT category, COUNT(*) FROM posts GROUP BY category ORDER BY COUNT(*) DESC LIMIT 5;
+</code></pre>
+<p>これらの機能を駆使することで、DB内部で効率的に集計処理を行い、アプリケーション側の負荷を軽減できます。</p>
 
                     </main>
 

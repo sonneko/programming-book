@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,14 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="使ってはいけない集"><a class="header" href="#使ってはいけない集">使ってはいけない集</a></h1>
+<p>TypeScriptにおいて、型の安全性を損なったり、予期せぬ挙動を引き起こしたりするため避けるべき機能があります。</p>
+<h3 id="避けるべき機能"><a class="header" href="#避けるべき機能">避けるべき機能</a></h3>
+<ul>
+<li><strong><code>any</code> 型</strong>: 全ての型を許容してしまいます。TypeScriptのメリットを全て無効化するため、使用は厳禁です。</li>
+<li><strong><code>var</code> キーワード</strong>: 関数スコープによる変数の再定義・ホイスティングといった混乱を招くため、<code>let</code> や <code>const</code> を使いましょう。</li>
+<li><strong>暗黙の型変換</strong>: <code>==</code> のような比較演算子は予期せぬ型変換を行うことがあるため、厳密な比較演算子 <code>===</code> を使用してください。</li>
+</ul>
+<p>これらのルールを守ることは、静的型付けによる堅牢性を保つための前提条件です。<code>eslint</code> などのリンターを導入し、これらの違反を自動的に検知・修正する環境を構築しましょう。</p>
 
                     </main>
 

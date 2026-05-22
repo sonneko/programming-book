@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,19 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="gitの基本の使い方"><a class="header" href="#gitの基本の使い方">Gitの基本の使い方</a></h1>
+<p>Gitの基本的なワークフローを覚えましょう。</p>
+<h3 id="基本コマンド"><a class="header" href="#基本コマンド">基本コマンド</a></h3>
+<ol>
+<li><code>git init</code>: リポジトリの初期化。</li>
+<li><code>git add &lt;file&gt;</code>: 変更をステージングエリア（コミット準備）に追加。</li>
+<li><code>git commit -m "message"</code>: 変更をリポジトリに記録。</li>
+<li><code>git push</code>: リモートリポジトリ（GitHub等）に反映。</li>
+</ol>
+<pre><code class="language-bash">git add .
+git commit -m "機能追加"
+git push origin main
+</code></pre>
+<p>この「ステージング」→「コミット」→「プッシュ」の流れがGit開発の基本です。</p>
 
                     </main>
 

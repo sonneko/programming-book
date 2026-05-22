@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,13 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="dom更新のステップ"><a class="header" href="#dom更新のステップ">DOM更新のステップ</a></h1>
+<p>Reactにおいて、状態が変更されたときにDOMが更新されるプロセスは以下のステップで行われます。</p>
+<ol>
+<li><strong>レンダーフェーズ</strong>: コンポーネントが再レンダリングされ、新しい仮想DOMツリーが生成されます。</li>
+<li><strong>差分検知（Reconciliation）</strong>: 新しい仮想DOMと前回の仮想DOMを比較し、変更箇所を特定します。</li>
+<li><strong>コミットフェーズ</strong>: 変更箇所（差分）のみを実際のDOMに反映します。</li>
+</ol>
+<p>このプロセスにより、効率的にDOMを更新し、高いパフォーマンスを維持します。</p>
 
                     </main>
 

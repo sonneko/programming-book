@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,14 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="動的ルーティング"><a class="header" href="#動的ルーティング">動的ルーティング</a></h1>
+<p>動的ルーティングとは、URLの一部を変数として扱い、その値をコンポーネント内で利用する仕組みです。</p>
+<h3 id="nextjsでの例"><a class="header" href="#nextjsでの例">Next.jsでの例</a></h3>
+<p><code>app/posts/[id]/page.tsx</code> のようなディレクトリ構造にすることで、<code>posts/1</code>、<code>posts/2</code> といったURLに対応できます。</p>
+<pre><code class="language-tsx">export default function Post({ params }: { params: { id: string } }) {
+  return &lt;div&gt;Post ID: {params.id}&lt;/div&gt;;
+}
+</code></pre>
+<p>これにより、ブログ記事やユーザープロフィールなど、可変的なデータを持つページを効率的に構築できます。</p>
 
                     </main>
 

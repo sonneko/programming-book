@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -177,7 +177,43 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="変数定義"><a class="header" href="#変数定義">変数定義</a></h1>
+                        <h1 id="変数定義とスコープの深淵"><a class="header" href="#変数定義とスコープの深淵">変数定義とスコープの深淵</a></h1>
+<p>Pythonを学んだあなたにとって、JavaScriptの変数定義は少し違った感覚かもしれません。Pythonではインデントでブロックを表しますが、JavaScriptでは <code>{}</code> （波括弧）がその役割を担います。</p>
+<p>JavaScriptにおける変数定義は、状態管理のための基本的な手段です。<code>let</code> と <code>const</code> を使い分け、メモリとスコープを意識した設計が求められます。</p>
+<h3 id="変数定義letとconst"><a class="header" href="#変数定義letとconst">変数定義：letとconst</a></h3>
+<p>Pythonで変数を扱う感覚に近いのは <code>let</code> です。再代入が可能です。</p>
+<ul>
+<li><code>let</code>: 再代入可能。<code>if</code>ブロック内で値が変わるような、手続き的な処理を行う際に使用します。</li>
+<li><code>const</code>: 再代入不可。値が不変な場合に使用します。</li>
+</ul>
+<pre><code class="language-javascript">// 手続き的な処理の例：letを使用
+let total = 0;
+if (someCondition) {
+  total = 10;
+}
+</code></pre>
+<p>もし <code>if</code> 文の中で変数の再代入を行いたい場合、即時実行関数（IIFE）を使うことで、<code>let</code> による再代入を避け、より関数型に近いスタイルで変数を扱うテクニックがあります。</p>
+<h3 id="ホイスティングとtdztemporal-dead-zone"><a class="header" href="#ホイスティングとtdztemporal-dead-zone">ホイスティングとTDZ（Temporal Dead Zone）</a></h3>
+<p><code>let</code> や <code>const</code> もホイスティング（巻き上げ）の影響を受けますが、宣言されるまでの間、その変数は「一時的なデッドゾーン（TDZ）」に置かれます。TDZにある変数にアクセスすると <code>ReferenceError</code> になります。これは、初期化されるまで変数の使用を防ぐ現代的な設計です。</p>
+<h3 id="constとletの使い分け"><a class="header" href="#constとletの使い分け">constとletの使い分け</a></h3>
+<p><strong>デフォルトで <code>const</code> を使い、どうしても再代入が必要な場合のみ <code>let</code> を使う</strong>というのが最も推奨されるスタイルです。</p>
+<p>注意点として、<code>const</code> で宣言したオブジェクトや配列のプロパティは変更可能です。<code>const</code> は「参照の不変性（Binding）」を保証するものであり、内容の不変性を保証するわけではない点に注意してください。</p>
+<h3 id="スコープと関数を値として扱う"><a class="header" href="#スコープと関数を値として扱う">スコープと関数を値として扱う</a></h3>
+<p>ブロックスコープとは、<code>{}</code> で囲まれた範囲を指します。<code>let</code> や <code>const</code> はこのスコープ内でのみ有効です。</p>
+<p>ここで重要な概念が「クロージャ」です。
+JavaScriptでは、関数を値として変数に代入したり、他の関数の引数として渡したりすることができます。これは、プログラムの動作を柔軟に定義するための非常に強力な手法です。</p>
+<p>例えば、関数を他の関数に渡すことで、処理の一部を動的に切り替えることができます。</p>
+<pre><code class="language-javascript">function createGreeter(greeting) {
+  // 関数を返すことで、変数を保持（クロージャ）
+  return function(name) {
+    console.log(`${greeting}, ${name}!`);
+  };
+}
+
+const sayHello = createGreeter("Hello");
+sayHello("Alice"); // Hello, Alice!
+</code></pre>
+<p>クロージャは、関数が作成されたスコープ内の変数を「取り込んで」保持し続ける仕組みです。変数がスコープを離れても、関数がその変数を保持し続けるため、状態の管理に役立ちます。まずは、JavaScriptにおける「関数を値として扱う」という感覚を養うことから始めましょう。</p>
 
                     </main>
 

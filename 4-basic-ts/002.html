@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,22 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="npmの使い方"><a class="header" href="#npmの使い方">npmの使い方</a></h1>
+<p>npm（Node Package Manager）は、Node.jsの標準パッケージマネージャです。膨大な数のライブラリを簡単にインストール・管理できるため、現代のJavaScript開発では必須です。</p>
+<h3 id="基本的な操作"><a class="header" href="#基本的な操作">基本的な操作</a></h3>
+<p>パッケージをインストールするには、<code>npm install &lt;package-name&gt;</code> を使用します。</p>
+<pre><code class="language-bash"># パッケージのインストール
+npm install axios
+</code></pre>
+<h3 id="packagejsonの管理"><a class="header" href="#packagejsonの管理">package.jsonの管理</a></h3>
+<p><code>package.json</code> はプロジェクトの依存関係を管理する重要なファイルです。</p>
+<ul>
+<li><code>dependencies</code>: 本番環境で必要なライブラリ。</li>
+<li><code>devDependencies</code>: 開発時（テストやビルド）にのみ必要なライブラリ。</li>
+</ul>
+<pre><code class="language-bash"># devDependenciesに追加
+npm install typescript --save-dev
+</code></pre>
+<p>npmを活用することで、コードの再利用性を高め、効率的な開発環境を構築できます。</p>
 
                     </main>
 

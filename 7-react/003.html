@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,12 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="reactの思想"><a class="header" href="#reactの思想">Reactの思想</a></h1>
+<p>Reactの最大の特徴は、UIを「状態（state）の関数」として捉える思想です。</p>
+<h3 id="宣言的ui"><a class="header" href="#宣言的ui">宣言的UI</a></h3>
+<p>命令的に「DOMをこのように変える」という指示を出すのではなく、「この状態のときは、このUIであるべきだ」という状態（state）を宣言します。Reactがその状態の変化を検知し、最適なDOM操作を自動的に行ってくれます。</p>
+<h3 id="データフロー"><a class="header" href="#データフロー">データフロー</a></h3>
+<p>Reactにおけるデータは一方向（トップダウン）で流れます。親から子へpropsを通じてデータが伝播します。</p>
+<p>このシンプルなモデルにより、アプリケーションの状態管理が容易になり、UIの挙動を予測しやすくなります。</p>
 
                     </main>
 

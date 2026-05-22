@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,13 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="特別な関数たち"><a class="header" href="#特別な関数たち">特別な関数たち</a></h1>
+<p>Reactには、レンダリングの最適化や特定の処理を行うための特別なAPIが存在します。</p>
+<ul>
+<li><strong><code>memo</code></strong>: コンポーネントの再レンダリングをpropsが変更されたときのみに制限する。</li>
+<li><strong><code>useMemo</code></strong>: 計算結果をメモ化し、依存関係が変わらない限り再計算をスキップする。</li>
+<li><strong><code>useCallback</code></strong>: 関数をメモ化し、不要な再作成を抑制する。</li>
+</ul>
+<p>これらはパフォーマンスがボトルネックとなる場面でのみ使用し、むやみに使うと逆にコードが複雑になるため注意が必要です。</p>
 
                     </main>
 

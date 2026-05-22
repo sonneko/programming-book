@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,13 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="sql文3"><a class="header" href="#sql文3">SQL文3</a></h1>
+<p>複数のテーブルを組み合わせてデータを取得する「結合 (JOIN)」は、リレーショナルデータベースの真骨頂です。</p>
+<h3 id="テーブル結合"><a class="header" href="#テーブル結合">テーブル結合</a></h3>
+<pre><code class="language-sql">SELECT users.name, posts.title
+FROM users
+JOIN posts ON users.id = posts.user_id;
+</code></pre>
+<p><code>JOIN</code> を使うことで、正規化されたテーブル同士を関連付け、複雑なデータセットを一つの結果として取得できます。</p>
 
                     </main>
 

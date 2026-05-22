@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,24 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="propsとchildrenの扱い"><a class="header" href="#propsとchildrenの扱い">propsとchildrenの扱い</a></h1>
+<p>Reactコンポーネントにおける <code>props</code> は、親コンポーネントから子コンポーネントへデータを渡すための手段です。</p>
+<h3 id="propsの使用法"><a class="header" href="#propsの使用法">propsの使用法</a></h3>
+<p>propsは関数の引数のように受け取ります。</p>
+<pre><code class="language-jsx">function Welcome(props) {
+  return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;
+}
+</code></pre>
+<h3 id="childrenプロパティ"><a class="header" href="#childrenプロパティ">childrenプロパティ</a></h3>
+<p><code>children</code> は特殊なpropsで、コンポーネントの開始タグと終了タグの間に囲まれた要素を指します。</p>
+<pre><code class="language-jsx">function Wrapper({ children }) {
+  return &lt;div className="wrapper"&gt;{children}&lt;/div&gt;;
+}
+
+&lt;Wrapper&gt;
+  &lt;p&gt;囲まれた要素&lt;/p&gt;
+&lt;/Wrapper&gt;
+</code></pre>
+<p>これらを活用することで、コンポーネントの構成を柔軟にし、再利用性の高いUI部品を構築できます。</p>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,23 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="抽象クラス継承"><a class="header" href="#抽象クラス継承">抽象クラス・継承</a></h1>
+<p>抽象クラス（<code>abstract class</code>）は、インスタンス化できないクラスで、派生クラスに実装を強制する基盤として利用します。</p>
+<h3 id="抽象クラスの役割"><a class="header" href="#抽象クラスの役割">抽象クラスの役割</a></h3>
+<pre><code class="language-typescript">abstract class Animal {
+  abstract makeSound(): void;
+  
+  move(): void {
+    console.log('Moving...');
+  }
+}
+
+class Dog extends Animal {
+  makeSound() {
+    console.log('Woof!');
+  }
+}
+</code></pre>
+<p>抽象クラスは「is-a」関係を定義するのに適しています。共通の機能は抽象クラスで実装し、個別の機能は派生クラスで実装することで、コードの重複を防ぎ、設計の統一感を保てます。</p>
 
                     </main>
 

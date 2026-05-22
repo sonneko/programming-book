@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,14 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="非同期処理"><a class="header" href="#非同期処理">非同期処理</a></h1>
+<p>JavaScriptはシングルスレッドで動作するため、時間のかかる処理（ネットワーク通信やファイルI/O）を同期的に行うと、画面がフリーズしてしまいます。これを解決するのが「非同期処理」です。</p>
+<h3 id="非同期処理の進化"><a class="header" href="#非同期処理の進化">非同期処理の進化</a></h3>
+<ol>
+<li><strong>コールバック関数</strong>: 古い手法。ネストが深くなりやすく（コールバック地獄）、エラーハンドリングが困難でした。</li>
+<li><strong>Promise</strong>: 非同期処理の状態（成功・失敗）をオブジェクトとして表現し、チェーンすることで解決します。</li>
+<li><strong>Async/Await</strong>: Promiseをより同期的なコードのように記述できる現代的な構文。</li>
+</ol>
+<p>非同期処理を正しく理解することは、特にフロントエンドにおけるAPI通信や、バックエンドにおけるDB操作において不可欠です。</p>
 
                     </main>
 

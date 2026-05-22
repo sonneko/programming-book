@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -177,7 +177,37 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="switch文"><a class="header" href="#switch文">switch文</a></h1>
+                        <h1 id="switch文制御の分岐と最適化"><a class="header" href="#switch文制御の分岐と最適化">switch文：制御の分岐と最適化</a></h1>
+<p><code>switch</code> 文は、一つの式の値に基づいて、複数のケース（分岐）を扱うための制御構造です。<code>if-else if</code> を連ねるよりも、特定の値を比較する場合にはコードの見通しが良くなる場合があります。</p>
+<h3 id="基本的な構文"><a class="header" href="#基本的な構文">基本的な構文</a></h3>
+<pre><code class="language-javascript">const fruit = 'apple';
+
+switch (fruit) {
+  case 'apple':
+    console.log('りんごです');
+    break;
+  case 'banana':
+    console.log('バナナです');
+    break;
+  default:
+    console.log('その他の果物です');
+}
+</code></pre>
+<h3 id="switch文の挙動と注意点フォールスルー"><a class="header" href="#switch文の挙動と注意点フォールスルー">switch文の挙動と注意点：フォールスルー</a></h3>
+<p><code>switch</code> 文の最も重要な特徴であり、かつバグの温床となるのが「フォールスルー（Fall-through）」です。各 <code>case</code> の後に <code>break</code> 文を記述しないと、そのケースの処理が終わった後、続くすべてのケースの処理が（条件を無視して）実行されてしまいます。</p>
+<p>「意味論的に同じ選択肢のあるswitch文は、一つにまとめるべき」であり、また「長いswitchは、インターフェースを使うべき時かも」しれません。（インターフェースの方はまだ理解するには早いので、後で解説します）</p>
+<h3 id="switch文の代替案オブジェクトとmap"><a class="header" href="#switch文の代替案オブジェクトとmap">switch文の代替案：オブジェクトとMap</a></h3>
+<p>現代のJavaScript開発では、複雑な <code>switch</code> 文よりも、オブジェクトリテラルや <code>Map</code> を使ったマッピングの方が、コードが簡潔で拡張性が高いとみなされることが多いです。</p>
+<pre><code class="language-javascript">// オブジェクトリテラルによるマッピング
+const fruitMessages = {
+  apple: 'りんごです',
+  banana: 'バナナです',
+  default: 'その他の果物です'
+};
+
+const fruit = 'apple';
+console.log(fruitMessages[fruit] || fruitMessages.default);
+</code></pre>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,21 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="threejs入門"><a class="header" href="#threejs入門">Three.js入門</a></h1>
+<p>Three.jsは、ブラウザ上で3Dグラフィックスを表示するための強力なライブラリです。WebGLを直接扱うのは非常に難易度が高いですが、Three.jsはその複雑さをラップし、直感的なAPIを提供します。</p>
+<h3 id="threejsの基本概念"><a class="header" href="#threejsの基本概念">Three.jsの基本概念</a></h3>
+<ul>
+<li><strong>Scene (シーン)</strong>: 3Dオブジェクトを配置する空間。</li>
+<li><strong>Camera (カメラ)</strong>: シーンをどの視点から見るかを決定。</li>
+<li><strong>Renderer (レンダラー)</strong>: シーンとカメラをもとに、最終的な画像を描画。</li>
+</ul>
+<h3 id="簡単な描画"><a class="header" href="#簡単な描画">簡単な描画</a></h3>
+<pre><code class="language-javascript">const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+</code></pre>
+<p>Three.jsは、Webブラウザを単なる文書閲覧ツールではなく、リッチな体験を提供するプラットフォームへと変貌させます。</p>
 
                     </main>
 

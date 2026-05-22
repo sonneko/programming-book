@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -177,7 +177,52 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="演習"><a class="header" href="#演習">演習</a></h1>
+                        <h1 id="演習javascriptの基礎を定着させる"><a class="header" href="#演習javascriptの基礎を定着させる">演習：JavaScriptの基礎を定着させる</a></h1>
+<p>プログラミングは読むだけではなく、実際に手を動かしてコードを書くことで初めて身につきます。ここでは、これまでに学習した基礎知識を統合的に活用するための演習課題を用意しました。</p>
+<h2 id="演習課題"><a class="header" href="#演習課題">演習課題</a></h2>
+<p>以下の課題を、まずは何も見ずに実装してみてください。</p>
+<h3 id="1-高階関数を用いた配列操作"><a class="header" href="#1-高階関数を用いた配列操作">1. 高階関数を用いた配列操作</a></h3>
+<p>1から10までの数値が含まれる配列 <code>numbers</code> があります。</p>
+<ul>
+<li><code>filter</code> メソッドを使用して、偶数のみを抽出した新しい配列を作成してください。</li>
+<li><code>map</code> メソッドを使用して、偶数のみの配列の各要素を2倍にした配列を作成してください。</li>
+<li><code>reduce</code> メソッドを使用して、それらすべての数値の合計を計算してください。</li>
+</ul>
+<h3 id="2-オブジェクトとメソッド"><a class="header" href="#2-オブジェクトとメソッド">2. オブジェクトとメソッド</a></h3>
+<p>ユーザー情報を保持する <code>user</code> オブジェクトを作成してください。</p>
+<ul>
+<li>プロパティには <code>name</code>（文字列）と <code>age</code>（数値）を持たせてください。</li>
+<li><code>rename</code> というメソッドを追加し、引数で渡された名前で <code>name</code> プロパティを書き換える機能を実装してください。</li>
+<li>メソッド実行後、コンソールに更新後のオブジェクトを出力してください。</li>
+</ul>
+<h3 id="3-動的なdom操作"><a class="header" href="#3-動的なdom操作">3. 動的なDOM操作</a></h3>
+<p>HTMLに <code>&lt;button id="btn"&gt;クリック&lt;/button&gt;</code> と <code>&lt;p id="msg"&gt;&lt;/p&gt;</code> があるとします。</p>
+<ul>
+<li>JavaScriptでこのボタン要素を取得し、クリックイベントを登録してください。</li>
+<li>ボタンがクリックされたら、<code>&lt;p&gt;</code> 要素のテキストを「Clicked!」に変更し、さらにスタイルとして <code>color: blue;</code> を適用してください。</li>
+</ul>
+<h2 id="演習の進め方と学習のアドバイス"><a class="header" href="#演習の進め方と学習のアドバイス">演習の進め方と学習のアドバイス</a></h2>
+<ol>
+<li><strong>環境構築</strong>: 簡単なHTMLファイルを作成し、<code>&lt;script&gt;</code>タグでJavaScriptを読み込むか、ブラウザの開発者ツールのコンソールを使って試すのが一番早いです。</li>
+<li><strong>デバッグの活用</strong>: <code>console.log()</code> を積極的に使い、自分の書いたコードが期待通りに動いているか常に確認しましょう。エラーが発生した場合は、ブラウザのコンソールに表示されるエラーメッセージをしっかり読みましょう。</li>
+<li><strong>詰まったら戻る</strong>: 課題で詰まった場合は、前の章（型、関数、オブジェクト、DOM操作）のドキュメントを読み返し、サンプルコードを再現してみてください。</li>
+</ol>
+<h2 id="解説ヒント"><a class="header" href="#解説ヒント">解説（ヒント）</a></h2>
+<p>課題の解き方の一例です。</p>
+<p><strong>課題1のヒント</strong>: 配列メソッドは、元の配列を変更せず、新しい値を返すため、副作用（予期せぬデータの変更）を防ぐことができます。</p>
+<pre><code class="language-javascript">const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const evens = nums.filter(n =&gt; n % 2 === 0);
+const doubled = evens.map(n =&gt; n * 2);
+const sum = doubled.reduce((a, b) =&gt; a + b, 0);
+</code></pre>
+<p><strong>課題3のヒント</strong>: <code>addEventListener</code> を使うことで、HTMLを直接書き換えることなくイベントを分離して記述できます。</p>
+<h2 id="ステップアップ課題"><a class="header" href="#ステップアップ課題">ステップアップ課題</a></h2>
+<p>これらがすぐにできた場合は、さらに以下のことに挑戦してみてください。</p>
+<ul>
+<li>課題2のオブジェクトを、ES6の <code>class</code> 構文に書き換える。</li>
+<li>課題3のクリック回数を記録し、画面に「クリック回数: 3回」のように表示する。</li>
+</ul>
+<p>プログラミングは「試行錯誤」の繰り返しです。まずは自分で動くコードを書くことに集中してください。</p>
 
                     </main>
 

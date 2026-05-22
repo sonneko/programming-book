@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -177,7 +177,63 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="関数定義"><a class="header" href="#関数定義">関数定義</a></h1>
+                        <h1 id="関数定義javascriptにおける関数の本質"><a class="header" href="#関数定義javascriptにおける関数の本質">関数定義：JavaScriptにおける関数の本質</a></h1>
+<p>JavaScriptにおいて、関数は単なる命令の集合体ではなく、「第一級オブジェクト (First-Class Object)」として扱われます。これは関数を変数に代入したり、引数として他の関数に渡したり、関数の戻り値として関数を返したりできることを意味します。この特性がJavaScriptの柔軟性と関数型プログラミング的なアプローチを可能にしています。</p>
+<h2 id="関数宣言と関数式"><a class="header" href="#関数宣言と関数式">関数宣言と関数式</a></h2>
+<p>関数を定義する方法は、主に「関数宣言」と「関数式」の2つに大別されます。</p>
+<h3 id="関数宣言-function-declaration"><a class="header" href="#関数宣言-function-declaration">関数宣言 (Function Declaration)</a></h3>
+<p><code>function</code>キーワードから始まる定義方法です。関数宣言の最大の特徴は「巻き上げ (Hoisting)」が発生することです。これにより、関数が定義される前にコード内で呼び出すことが可能です。</p>
+<pre><code class="language-javascript">sayHello(); // "Hello" （関数宣言はコード全体の上部に巻き上げられる）
+
+function sayHello() {
+  console.log('Hello');
+}
+</code></pre>
+<h3 id="関数式-function-expression"><a class="header" href="#関数式-function-expression">関数式 (Function Expression)</a></h3>
+<p>関数を匿名関数（または名前付き関数）として定義し、それを変数に代入する方法です。関数式では巻き上げは発生せず、定義した行よりも前で呼び出すとエラー（<code>ReferenceError</code>）になります。</p>
+<pre><code class="language-javascript">// sayHi(); // エラー発生: sayHi is not defined
+
+const sayHi = function() {
+  console.log('Hi');
+};
+</code></pre>
+<h2 id="アロー関数-arrow-function"><a class="header" href="#アロー関数-arrow-function">アロー関数 (Arrow Function)</a></h2>
+<p>ES6（ECMAScript 2015）で導入されたアロー関数は、より簡潔な記法を提供します。</p>
+<pre><code class="language-javascript">// 従来の関数式
+const add = function(a, b) { return a + b; };
+
+// アロー関数
+const addArrow = (a, b) =&gt; a + b;
+</code></pre>
+<p>アロー関数の重要な特徴は、<code>this</code> の扱いが通常の関数と異なる点です。通常の関数では <code>this</code> は呼び出し元によって決定されますが、アロー関数では、関数が「定義された」場所のスコープを継承（lexical scoping）します。これにより、コールバック関数内での <code>this</code> のバインド問題が解消され、非常に扱いやすくなりました。</p>
+<h2 id="関数をより強力にする機能"><a class="header" href="#関数をより強力にする機能">関数をより強力にする機能</a></h2>
+<p>モダンなJavaScriptでは、関数をより安全かつ柔軟にするために以下の機能が多用されます。</p>
+<h3 id="1-デフォルト引数"><a class="header" href="#1-デフォルト引数">1. デフォルト引数</a></h3>
+<p>引数が渡されなかった場合に、デフォルト値を設定できます。</p>
+<pre><code class="language-javascript">function greet(name = 'Guest') {
+  console.log(`Hello, ${name}`);
+}
+</code></pre>
+<h3 id="2-レストパラメータ-rest-parameters"><a class="header" href="#2-レストパラメータ-rest-parameters">2. レストパラメータ (Rest Parameters)</a></h3>
+<p>任意の数の引数を配列として受け取ることができます。</p>
+<pre><code class="language-javascript">function sum(...numbers) {
+  return numbers.reduce((acc, curr) =&gt; acc + curr, 0);
+}
+</code></pre>
+<h2 id="クロージャ-closure"><a class="header" href="#クロージャ-closure">クロージャ (Closure)</a></h2>
+<p>関数がその「定義された環境」を記憶している状態を「クロージャ」と呼びます。第一級オブジェクトとしての関数の性質とクロージャを組み合わせることで、プライベートな変数を隠蔽するパターンなどが実現できます。</p>
+<pre><code class="language-javascript">function createCounter() {
+  let count = 0; // プライベート変数
+  return function() {
+    return ++count;
+  };
+}
+
+const counter = createCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2
+</code></pre>
+<p>このように、JavaScriptの関数は非常に高度で多機能なツールです。これらを適切に使い分けることが、クリーンで保守性の高いコードを書くための第一歩となります。</p>
 
                     </main>
 

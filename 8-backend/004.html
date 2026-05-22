@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,13 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="jwtによる認証"><a class="header" href="#jwtによる認証">JWTによる認証</a></h1>
+<p>JWT (JSON Web Token) は、サーバーとクライアント間で安全に情報をやり取りするための認証トークン形式です。</p>
+<h3 id="特徴"><a class="header" href="#特徴">特徴</a></h3>
+<ul>
+<li>ステートレス: サーバー側でセッション情報を保持する必要がないため、スケーラビリティが高い。</li>
+<li>自己完結型: トークン自体にユーザーID等の情報が含まれている。</li>
+</ul>
+<p>クライアントがログイン時にJWTを受け取り、以降のリクエストのヘッダーに含めることで、認証状態をサーバー側に伝えます。</p>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -177,7 +177,33 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="javascriptとは"><a class="header" href="#javascriptとは">JavaScriptとは</a></h1>
+                        <h1 id="javascriptの本質webを動かす言語の正体"><a class="header" href="#javascriptの本質webを動かす言語の正体">JavaScriptの本質：Webを動かす言語の正体</a></h1>
+<p>JavaScriptは、現代のWeb開発において不可欠なプログラミング言語です。その歴史を紐解くと、1995年にNetscape社のブレンダン・アイク（Brendan Eich）によって、わずか10日間で開発されたというエピソードが有名です。当初はブラウザ上で簡単な動的挙動を実現するための「スクリプト言語」という位置づけでしたが、JavaScriptはその後劇的な進化を遂げました。今やWebブラウザを超え、サーバーサイド（Node.js）、デスクトップアプリ（Electron）、モバイルアプリ（React Native）、さらにはIoTデバイスまで、あらゆる場所で動作する言語へと成長しました。</p>
+<h3 id="javascriptの本質webのグルー言語"><a class="header" href="#javascriptの本質webのグルー言語">JavaScriptの本質：Webのグルー言語</a></h3>
+<p>JavaScriptの本質は、Web領域全般、そしてそれ以外の領域も含めた「グルー言語（糊となる言語）」であることです。</p>
+<p>Pythonもまた強力なグルー言語であり、あらゆる分野でデータをつなぎ合わせることができます。しかし、JavaScriptは特に「Web」を中心としたエコシステムにおいて、ブラウザ、サーバー、ツールチェーンの異なる階層を繋ぎ合わせるための糊として機能します。</p>
+<p>また、JavaScriptの速さの本質は、単純な演算の速さではありません。DOM API、ネットワークAPI、ファイルシステムAPIなど、様々な階層のAPI呼び出しが極めて高速に設計されていることにあります。さらに、計算負荷の高いタスクが必要な場合には、WebAssemblyを活用することでJavaScriptの実行環境上でネイティブコード並みの速度を実現することも可能です。</p>
+<h3 id="プログラムはデータの変形である"><a class="header" href="#プログラムはデータの変形である">プログラムは「データの変形」である</a></h3>
+<p>プログラミングを学ぶ際、初心者は「AをしてからBをする」という手順（手続き）に目を奪われがちです。しかし、JavaScriptの真髄は<strong>データの変形</strong>にあります。</p>
+<p>例えば、ユーザーからの入力を受け取り、それをDOM（Document Object Model）として画面に描画するプロセスを考えましょう。これは、非同期のイベントストリーム（入力データ）を、DOMツリーという構造データへと変換し、ブラウザのレンダリングエンジンへ渡す計算処理です。関数型プログラミングのパラダイムを取り入れれば、データの変形プロセスを純粋関数（pure functions）として定義し、それらを組み合わせることで、複雑なアプリケーションの挙動を宣言的に構築できます。</p>
+<h3 id="低レイヤの現実v8エンジンとイベントループ"><a class="header" href="#低レイヤの現実v8エンジンとイベントループ">低レイヤの現実：V8エンジンとイベントループ</a></h3>
+<p>JavaScriptは「インタプリタ言語」と紹介されることが多いですが、現代のモダンなJavaScriptエンジン（Google ChromeのV8、MozillaのSpiderMonkeyなど）は、実行時にバイトコードへコンパイル（JIT: Just-In-Timeコンパイル）を行うため、非常に高速に動作します。</p>
+<p>また、JavaScriptの最大の特徴は「シングルスレッド」であることです。これは、メインスレッドが一度に一つの処理しか行えないことを意味します。では、なぜ複数のネットワークリクエストを同時に処理できるのでしょうか？</p>
+<p>ここに「イベントループ」という概念があります。非同期処理は初心者には特に理解が難しい部分です。例えば、料理店を想像してください。注文（タスク）が入ったら、ウェイター（メインスレッド）はキッチン（Web APIやシステムコールなど）に料理を依頼します。ウェイターは、その注文が完了するのをキッチン前で立ち尽くして待つのではなく、次の注文を受け付けに行きます。料理ができたら、ウェイターに通知が飛び（イベント）、完成した料理を客に届けます。この仕組みが、JavaScriptにおける重いI/O処理の非同期的な扱いを支えています。</p>
+<p>さらに、JavaScriptのメモリ管理はガベージコレクション（GC）に依存しています。V8エンジンのGCは、世代別ガベージコレクション（Generational Garbage Collection）を採用しており、短命なオブジェクト（スタックフレームなど）を高速に回収する一方、長寿命なオブジェクトは別の領域で管理することで、パフォーマンスの低下を抑えています。</p>
+<h3 id="javascriptの言語的特徴"><a class="header" href="#javascriptの言語的特徴">JavaScriptの言語的特徴</a></h3>
+<p>JavaScriptを深く理解するためには、その独特な言語設計を知る必要があります。</p>
+<ol>
+<li><strong>プロトタイプベースのオブジェクト指向</strong>: JavaScriptにおけるオブジェクト指向とは、簡潔に言えば「オブジェクト同士のつながり（プロトタイプチェーン）を通じて、機能やデータを共有する仕組み」です。伝統的なクラス継承とは異なり、オブジェクトが直接他のオブジェクトのプロトタイプとなり、機能を引き継ぎます。</li>
+<li><strong>ファーストクラス関数</strong>: JavaScriptでは関数が「第一級市民」です。つまり、関数を変数に代入したり、関数の引数として渡したり、関数から関数を返したりすることが可能です。これが高階関数（Higher-Order Functions）を強力にし、クロージャ（Closures）の実装を可能にしています。</li>
+<li><strong>動的型付け</strong>: 変数は型を持たず、値そのものが型を持ちます。これにより柔軟なコードが書ける一方、大規模プロジェクトではバグの原因になりやすいため、現在はTypeScriptによる静的型付けが標準となっています。</li>
+</ol>
+<h3 id="なぜjavascriptなのか"><a class="header" href="#なぜjavascriptなのか">なぜJavaScriptなのか</a></h3>
+<p>JavaScriptが存在する理由は、Webというプラットフォームとの結合にあります。HTMLが骨組み、CSSが装飾だとしたら、JavaScriptはその上に「意志」を与えます。</p>
+<p>また、JavaScriptコミュニティの巨大さも重要な要素です。npm（Node Package Manager）を中心とするエコシステムには、世界中の開発者が共有する膨大なパッケージが存在し、開発者はこれらを組み合わせることで短期間で高度なアプリケーションを構築できます。</p>
+<p>この本では、単なる構文解説にとどまらず、JavaScriptがどのようにメモリを管理し、非同期の計算処理を効率的に処理しているのかを本質から理解していきます。JavaScriptの真の力を引き出すための第一歩を、ここから踏み出しましょう。</p>
+<p><a href="TODO_LINK">JavaScriptのイベントループについての解説</a>
+<a href="TODO_LINK">V8エンジンによるコンパイルの仕組み</a></p>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -177,7 +177,12 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="シンボルの記法"><a class="header" href="#シンボルの記法">シンボルの記法</a></h1>
+                        <h1 id="シンボル-symbol一意性の保証とメタプログラミング"><a class="header" href="#シンボル-symbol一意性の保証とメタプログラミング">シンボル (Symbol)：一意性の保証とメタプログラミング</a></h1>
+<p>シンボル（Symbol）は、ES6で導入されたプリミティブデータ型です。他のプリミティブ型（数値、文字列、ブール値など）とは異なり、シンボルは「一意」であり「変更不可能」な値を作成するために使用されます。</p>
+<h3 id="注意symbolは実用上使わない"><a class="header" href="#注意symbolは実用上使わない">注意：Symbolは実用上使わない</a></h3>
+<p>JavaScriptのSymbol型は実用上、ほとんど使う場面がありません。本書でも、基本的には意識しなくてよい概念として扱います。</p>
+<p>JavaScriptにおけるシンボルは、主に言語内部の機能をカスタマイズするために存在します。正規表現やリテラルの表記、あるいは <code>for...of</code> ループでどのようにオブジェクトを反復するかなど、JavaScriptの言語仕様の根幹に関わる部分で、特別なシンボル（Well-known Symbols）が使われています。</p>
+<p>これらは、フレームワークの開発者やメタプログラミングを行う高度なシナリオ以外では、直接触れる必要はありません。</p>
 
                     </main>
 

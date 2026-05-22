@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,13 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="cookieによる認証"><a class="header" href="#cookieによる認証">Cookieによる認証</a></h1>
+<p>Cookieを利用した認証は、ブラウザが自動的にリクエストに含めて送信してくれるため、フロントエンド側の実装が容易です。</p>
+<h3 id="特徴"><a class="header" href="#特徴">特徴</a></h3>
+<ul>
+<li>自動送信: ブラウザが自動的にサーバーへ送信するため、JSでトークンを管理する必要がない。</li>
+<li>HttpOnly属性: JSからのCookieアクセスを禁止することで、XSS攻撃によるトークン盗難のリスクを軽減できる。</li>
+</ul>
+<p>セキュリティ面で適切な設定を行うことが、Cookie認証の安全性を担保する鍵となります。</p>
 
                     </main>
 

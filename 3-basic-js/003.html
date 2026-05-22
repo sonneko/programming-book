@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -177,7 +177,39 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="プリミティブ型"><a class="header" href="#プリミティブ型">プリミティブ型</a></h1>
+                        <h1 id="プリミティブ型データの本質"><a class="header" href="#プリミティブ型データの本質">プリミティブ型：データの本質</a></h1>
+<p>JavaScriptのデータ型は、大きく「プリミティブ型」と「参照型（オブジェクト型）」の2つに分類されます。これはPythonにおける型システムとも通じる概念ですが、JavaScript独自の振る舞いがあります。</p>
+<h3 id="主要なプリミティブ型"><a class="header" href="#主要なプリミティブ型">主要なプリミティブ型</a></h3>
+<p>JavaScriptには、以下の7つのプリミティブ型が存在します。</p>
+<ul>
+<li><strong>String</strong>: 文字列。</li>
+<li><strong>Number</strong>: 数値。すべての数値を64ビット浮動小数点数（IEEE 754形式）として扱います。</li>
+<li><strong>Boolean</strong>: 真偽値。</li>
+<li><strong>Null</strong>: 「データがデータとして成立していないこと」を示します（詳細は後述）。</li>
+<li><strong>Undefined</strong>: 変数が宣言されたが値が代入されていない場合や、関数の引数が不足している場合などに発生します。</li>
+<li><strong>Symbol</strong>: 一意な値。主にJavaScriptの内部的な言語機能の実装（例: オブジェクトの特殊なキー）に使用され、一般的なアプリケーション開発ではほぼ使いません。</li>
+<li><strong>BigInt</strong>: 非常に大きな整数を扱うための型。こちらも特殊な用途に限られ、一般的なWeb開発ではほぼ使いません。</li>
+</ul>
+<h3 id="プリミティブ型の特性イミュータビリティとボクシング"><a class="header" href="#プリミティブ型の特性イミュータビリティとボクシング">プリミティブ型の特性：イミュータビリティとボクシング</a></h3>
+<p>プリミティブ型は「イミュータビリティ（不変）」です。</p>
+<p>ただし、プリミティブ型に対してメソッドが呼び出せるように見えることがあります（例: <code>'hello'.toUpperCase()</code>）。これは、JavaScriptが一時的にプリミティブ値を対応するラッパーオブジェクトに変換（ボクシング）し、メソッド実行後に破棄しているからです。</p>
+<p>この「ボクシング」という概念はJavaから来た少し古い考え方です。メソッドの呼び出しは、昔はテーブルから関数を探して呼び出すという意味でしたが、現代の言語やJavaScriptエンジンでは、静的に呼び出す関数を決定したり、最適化によってメソッド呼び出しそのものが消えたりすることが多く、この考え方は実態に即さなくなっています。</p>
+<h3 id="nullとundefinedそして型比較"><a class="header" href="#nullとundefinedそして型比較">nullとundefined、そして型比較</a></h3>
+<p>「値がない」ことを示す <code>null</code> と <code>undefined</code> ですが、意味は異なります。</p>
+<ul>
+<li><code>undefined</code>: システムが「値が未定義」と判断している状態。</li>
+<li><code>null</code>: データとして成立していないことを開発者が意図的に示すもの。</li>
+</ul>
+<p><em>コラム: Javaとnull</em>
+Javaなどの言語では、nullポインタ参照（NullPointerException）が非常に頻繁に発生し、プログラムを停止させる要因となってきました。これを防ぐために、現代の言語設計ではnullを使わないことが推奨されています。JavaScriptでも同様に、nullの安易な使用は避けるべきです。</p>
+<h4 id="注意すべき型変換等価と厳密等価"><a class="header" href="#注意すべき型変換等価と厳密等価">注意すべき型変換：等価と厳密等価</a></h4>
+<p>JavaScriptにおいて、<code>==</code>（等価演算子）と <code>===</code>（厳密等価演算子）の違いは非常に重要です。<code>==</code> は「暗黙的な型変換」を行い、型が異なっても値が等しければ <code>true</code> を返します。しかし、これは予期せぬ挙動を生むため、<strong>決して使用しないでください</strong>。必ず <code>===</code> を使用しましょう。</p>
+<pre><code class="language-javascript">// 避けるべき挙動
+console.log(0 == '0'); // true! 暗黙の型変換が起こる
+
+// 推奨
+console.log(0 === '0'); // false! 型が違うので正しく判断される
+</code></pre>
 
                     </main>
 

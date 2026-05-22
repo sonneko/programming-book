@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,16 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="nodejs導入"><a class="header" href="#nodejs導入">Node.js導入</a></h1>
+<p>TypeScriptを扱う前段階として、JavaScriptの実行環境であるNode.jsの導入が不可欠です。Node.jsは、ブラウザ以外でJavaScriptを実行可能にするランタイムです。</p>
+<h3 id="nodejsの役割"><a class="header" href="#nodejsの役割">Node.jsの役割</a></h3>
+<p>Node.jsは、Google ChromeのV8エンジンをベースにしており、高いパフォーマンスを提供します。Webサーバーの開発だけでなく、フロントエンド開発ツールの実行基盤としても広く使われています。</p>
+<h3 id="導入方法"><a class="header" href="#導入方法">導入方法</a></h3>
+<p>公式のインストール方法として、<code>nvm</code>（Node Version Manager）を利用することを強く推奨します。</p>
+<pre><code class="language-bash"># nvmを使ったインストール例
+nvm install --lts
+nvm use --lts
+</code></pre>
+<p>これにより、複数のNode.jsバージョンを簡単に切り替えることができ、プロジェクトごとに異なる環境を管理することが可能になります。</p>
 
                     </main>
 

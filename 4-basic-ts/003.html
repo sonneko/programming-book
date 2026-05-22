@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,18 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="typescript導入"><a class="header" href="#typescript導入">TypeScript導入</a></h1>
+<p>TypeScriptは、JavaScriptに強力な静的型付けを追加したスーパーセット（上位互換）言語です。JavaScriptの柔軟性を維持しつつ、コンパイル時に型エラーを検出することで、大規模開発の品質を劇的に向上させます。</p>
+<h3 id="typescriptの仕組み"><a class="header" href="#typescriptの仕組み">TypeScriptの仕組み</a></h3>
+<p>TypeScript自体はブラウザで直接動作しません。JavaScriptに変換（トランスパイル）する必要があります。このプロセスは、TypeScriptコンパイラ（<code>tsc</code>）が行います。</p>
+<h3 id="セットアップ"><a class="header" href="#セットアップ">セットアップ</a></h3>
+<p>プロジェクトにTypeScriptを導入する手順は以下の通りです。</p>
+<pre><code class="language-bash"># 依存関係のインストール
+npm install typescript ts-node --save-dev
+
+# 設定ファイルの生成
+npx tsc --init
+</code></pre>
+<p>生成された <code>tsconfig.json</code> によって、コンパイル設定を細かく管理できます。型チェックを厳しく設定することで、TypeScriptの恩恵を最大化しましょう。</p>
 
                     </main>
 

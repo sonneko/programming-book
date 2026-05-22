@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,17 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="sql文2"><a class="header" href="#sql文2">SQL文2</a></h1>
+<p>データを条件付きで操作する方法を学びます。</p>
+<h3 id="条件操作"><a class="header" href="#条件操作">条件操作</a></h3>
+<ul>
+<li><strong>WHERE</strong>: 条件に一致するデータを絞り込む。</li>
+<li><strong>UPDATE</strong>: データを更新する。</li>
+<li><strong>DELETE</strong>: データを削除する。</li>
+</ul>
+<pre><code class="language-sql">UPDATE users SET name = 'Bob' WHERE id = 1;
+DELETE FROM users WHERE id = 1;
+</code></pre>
+<p>条件を指定せずに更新や削除を行うと全てのデータが影響を受けるため、<code>WHERE</code>句の使用は必須のスキルです。</p>
 
                     </main>
 

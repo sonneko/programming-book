@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-60901765.js";
+            window.path_to_searchindex_js = "searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-2d6e42b1.js"></script>
@@ -341,6 +341,7 @@ print(3 / 2) # 1.5
 <p>コンピュータで小数を扱うときは、少し注意が必要です。試しに、Pythonで <code>0.1 + 0.2</code> を実行してみてください。
 驚くことに、結果は <code>0.3</code> ではなく、 <code>0.30000000000000004</code> のようになります。</p>
 <p>これはコンピュータがすべての数値を「0」と「1」の2進数で扱っているためです。10進数における <code>0.1</code>（1/10）は、2進数に直すと無限小数になってしまい、どこかで切り捨てが発生します。</p>
+<p>TODO: 浮動小数点数（IEEE 754）の仕組みや、コンピュータが2進数で数値を扱う理由についての解説記事を貼る</p>
 <p>銀行のシステムのように、1円の誤差も許されない計算では、小数をそのまま使わず、整数（100円を10000セントとして扱うなど）で計算したり、誤差を専門に扱う特別な道具を使ったりします。</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -1378,157 +1379,1127 @@ Flexboxの裏側では、ブラウザは最低2回（あるいはそれ以上）
 もし余裕があれば、Flexboxを使って、画像と文章を横に並べるレイアウトにも挑戦してみましょう。</p>
 <p>TODO: 制作したHTML/CSSを公開（ホスティング）する方法へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="javascriptとは"><a class="header" href="#javascriptとは">JavaScriptとは</a></h1>
+<h1 id="javascriptの本質webを動かす言語の正体"><a class="header" href="#javascriptの本質webを動かす言語の正体">JavaScriptの本質：Webを動かす言語の正体</a></h1>
+<p>JavaScriptは、現代のWeb開発において不可欠なプログラミング言語です。その歴史を紐解くと、1995年にNetscape社のブレンダン・アイク（Brendan Eich）によって、わずか10日間で開発されたというエピソードが有名です。当初はブラウザ上で簡単な動的挙動を実現するための「スクリプト言語」という位置づけでしたが、JavaScriptはその後劇的な進化を遂げました。今やWebブラウザを超え、サーバーサイド（Node.js）、デスクトップアプリ（Electron）、モバイルアプリ（React Native）、さらにはIoTデバイスまで、あらゆる場所で動作する言語へと成長しました。</p>
+<h3 id="javascriptの本質webのグルー言語"><a class="header" href="#javascriptの本質webのグルー言語">JavaScriptの本質：Webのグルー言語</a></h3>
+<p>JavaScriptの本質は、Web領域全般、そしてそれ以外の領域も含めた「グルー言語（糊となる言語）」であることです。</p>
+<p>Pythonもまた強力なグルー言語であり、あらゆる分野でデータをつなぎ合わせることができます。しかし、JavaScriptは特に「Web」を中心としたエコシステムにおいて、ブラウザ、サーバー、ツールチェーンの異なる階層を繋ぎ合わせるための糊として機能します。</p>
+<p>また、JavaScriptの速さの本質は、単純な演算の速さではありません。DOM API、ネットワークAPI、ファイルシステムAPIなど、様々な階層のAPI呼び出しが極めて高速に設計されていることにあります。さらに、計算負荷の高いタスクが必要な場合には、WebAssemblyを活用することでJavaScriptの実行環境上でネイティブコード並みの速度を実現することも可能です。</p>
+<h3 id="プログラムはデータの変形である"><a class="header" href="#プログラムはデータの変形である">プログラムは「データの変形」である</a></h3>
+<p>プログラミングを学ぶ際、初心者は「AをしてからBをする」という手順（手続き）に目を奪われがちです。しかし、JavaScriptの真髄は<strong>データの変形</strong>にあります。</p>
+<p>例えば、ユーザーからの入力を受け取り、それをDOM（Document Object Model）として画面に描画するプロセスを考えましょう。これは、非同期のイベントストリーム（入力データ）を、DOMツリーという構造データへと変換し、ブラウザのレンダリングエンジンへ渡す計算処理です。関数型プログラミングのパラダイムを取り入れれば、データの変形プロセスを純粋関数（pure functions）として定義し、それらを組み合わせることで、複雑なアプリケーションの挙動を宣言的に構築できます。</p>
+<h3 id="低レイヤの現実v8エンジンとイベントループ"><a class="header" href="#低レイヤの現実v8エンジンとイベントループ">低レイヤの現実：V8エンジンとイベントループ</a></h3>
+<p>JavaScriptは「インタプリタ言語」と紹介されることが多いですが、現代のモダンなJavaScriptエンジン（Google ChromeのV8、MozillaのSpiderMonkeyなど）は、実行時にバイトコードへコンパイル（JIT: Just-In-Timeコンパイル）を行うため、非常に高速に動作します。</p>
+<p>また、JavaScriptの最大の特徴は「シングルスレッド」であることです。これは、メインスレッドが一度に一つの処理しか行えないことを意味します。では、なぜ複数のネットワークリクエストを同時に処理できるのでしょうか？</p>
+<p>ここに「イベントループ」という概念があります。非同期処理は初心者には特に理解が難しい部分です。例えば、料理店を想像してください。注文（タスク）が入ったら、ウェイター（メインスレッド）はキッチン（Web APIやシステムコールなど）に料理を依頼します。ウェイターは、その注文が完了するのをキッチン前で立ち尽くして待つのではなく、次の注文を受け付けに行きます。料理ができたら、ウェイターに通知が飛び（イベント）、完成した料理を客に届けます。この仕組みが、JavaScriptにおける重いI/O処理の非同期的な扱いを支えています。</p>
+<p>さらに、JavaScriptのメモリ管理はガベージコレクション（GC）に依存しています。V8エンジンのGCは、世代別ガベージコレクション（Generational Garbage Collection）を採用しており、短命なオブジェクト（スタックフレームなど）を高速に回収する一方、長寿命なオブジェクトは別の領域で管理することで、パフォーマンスの低下を抑えています。</p>
+<h3 id="javascriptの言語的特徴"><a class="header" href="#javascriptの言語的特徴">JavaScriptの言語的特徴</a></h3>
+<p>JavaScriptを深く理解するためには、その独特な言語設計を知る必要があります。</p>
+<ol>
+<li><strong>プロトタイプベースのオブジェクト指向</strong>: JavaScriptにおけるオブジェクト指向とは、簡潔に言えば「オブジェクト同士のつながり（プロトタイプチェーン）を通じて、機能やデータを共有する仕組み」です。伝統的なクラス継承とは異なり、オブジェクトが直接他のオブジェクトのプロトタイプとなり、機能を引き継ぎます。</li>
+<li><strong>ファーストクラス関数</strong>: JavaScriptでは関数が「第一級市民」です。つまり、関数を変数に代入したり、関数の引数として渡したり、関数から関数を返したりすることが可能です。これが高階関数（Higher-Order Functions）を強力にし、クロージャ（Closures）の実装を可能にしています。</li>
+<li><strong>動的型付け</strong>: 変数は型を持たず、値そのものが型を持ちます。これにより柔軟なコードが書ける一方、大規模プロジェクトではバグの原因になりやすいため、現在はTypeScriptによる静的型付けが標準となっています。</li>
+</ol>
+<h3 id="なぜjavascriptなのか"><a class="header" href="#なぜjavascriptなのか">なぜJavaScriptなのか</a></h3>
+<p>JavaScriptが存在する理由は、Webというプラットフォームとの結合にあります。HTMLが骨組み、CSSが装飾だとしたら、JavaScriptはその上に「意志」を与えます。</p>
+<p>また、JavaScriptコミュニティの巨大さも重要な要素です。npm（Node Package Manager）を中心とするエコシステムには、世界中の開発者が共有する膨大なパッケージが存在し、開発者はこれらを組み合わせることで短期間で高度なアプリケーションを構築できます。</p>
+<p>この本では、単なる構文解説にとどまらず、JavaScriptがどのようにメモリを管理し、非同期の計算処理を効率的に処理しているのかを本質から理解していきます。JavaScriptの真の力を引き出すための第一歩を、ここから踏み出しましょう。</p>
+<p><a href="3-basic-js/TODO_LINK">JavaScriptのイベントループについての解説</a>
+<a href="3-basic-js/TODO_LINK">V8エンジンによるコンパイルの仕組み</a></p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="変数定義"><a class="header" href="#変数定義">変数定義</a></h1>
+<h1 id="変数定義とスコープの深淵"><a class="header" href="#変数定義とスコープの深淵">変数定義とスコープの深淵</a></h1>
+<p>Pythonを学んだあなたにとって、JavaScriptの変数定義は少し違った感覚かもしれません。Pythonではインデントでブロックを表しますが、JavaScriptでは <code>{}</code> （波括弧）がその役割を担います。</p>
+<p>JavaScriptにおける変数定義は、状態管理のための基本的な手段です。<code>let</code> と <code>const</code> を使い分け、メモリとスコープを意識した設計が求められます。</p>
+<h3 id="変数定義letとconst"><a class="header" href="#変数定義letとconst">変数定義：letとconst</a></h3>
+<p>Pythonで変数を扱う感覚に近いのは <code>let</code> です。再代入が可能です。</p>
+<ul>
+<li><code>let</code>: 再代入可能。<code>if</code>ブロック内で値が変わるような、手続き的な処理を行う際に使用します。</li>
+<li><code>const</code>: 再代入不可。値が不変な場合に使用します。</li>
+</ul>
+<pre><code class="language-javascript">// 手続き的な処理の例：letを使用
+let total = 0;
+if (someCondition) {
+  total = 10;
+}
+</code></pre>
+<p>もし <code>if</code> 文の中で変数の再代入を行いたい場合、即時実行関数（IIFE）を使うことで、<code>let</code> による再代入を避け、より関数型に近いスタイルで変数を扱うテクニックがあります。</p>
+<h3 id="ホイスティングとtdztemporal-dead-zone"><a class="header" href="#ホイスティングとtdztemporal-dead-zone">ホイスティングとTDZ（Temporal Dead Zone）</a></h3>
+<p><code>let</code> や <code>const</code> もホイスティング（巻き上げ）の影響を受けますが、宣言されるまでの間、その変数は「一時的なデッドゾーン（TDZ）」に置かれます。TDZにある変数にアクセスすると <code>ReferenceError</code> になります。これは、初期化されるまで変数の使用を防ぐ現代的な設計です。</p>
+<h3 id="constとletの使い分け"><a class="header" href="#constとletの使い分け">constとletの使い分け</a></h3>
+<p><strong>デフォルトで <code>const</code> を使い、どうしても再代入が必要な場合のみ <code>let</code> を使う</strong>というのが最も推奨されるスタイルです。</p>
+<p>注意点として、<code>const</code> で宣言したオブジェクトや配列のプロパティは変更可能です。<code>const</code> は「参照の不変性（Binding）」を保証するものであり、内容の不変性を保証するわけではない点に注意してください。</p>
+<h3 id="スコープと関数を値として扱う"><a class="header" href="#スコープと関数を値として扱う">スコープと関数を値として扱う</a></h3>
+<p>ブロックスコープとは、<code>{}</code> で囲まれた範囲を指します。<code>let</code> や <code>const</code> はこのスコープ内でのみ有効です。</p>
+<p>ここで重要な概念が「クロージャ」です。
+JavaScriptでは、関数を値として変数に代入したり、他の関数の引数として渡したりすることができます。これは、プログラムの動作を柔軟に定義するための非常に強力な手法です。</p>
+<p>例えば、関数を他の関数に渡すことで、処理の一部を動的に切り替えることができます。</p>
+<pre><code class="language-javascript">function createGreeter(greeting) {
+  // 関数を返すことで、変数を保持（クロージャ）
+  return function(name) {
+    console.log(`${greeting}, ${name}!`);
+  };
+}
+
+const sayHello = createGreeter("Hello");
+sayHello("Alice"); // Hello, Alice!
+</code></pre>
+<p>クロージャは、関数が作成されたスコープ内の変数を「取り込んで」保持し続ける仕組みです。変数がスコープを離れても、関数がその変数を保持し続けるため、状態の管理に役立ちます。まずは、JavaScriptにおける「関数を値として扱う」という感覚を養うことから始めましょう。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="プリミティブ型"><a class="header" href="#プリミティブ型">プリミティブ型</a></h1>
+<h1 id="プリミティブ型データの本質"><a class="header" href="#プリミティブ型データの本質">プリミティブ型：データの本質</a></h1>
+<p>JavaScriptのデータ型は、大きく「プリミティブ型」と「参照型（オブジェクト型）」の2つに分類されます。これはPythonにおける型システムとも通じる概念ですが、JavaScript独自の振る舞いがあります。</p>
+<h3 id="主要なプリミティブ型"><a class="header" href="#主要なプリミティブ型">主要なプリミティブ型</a></h3>
+<p>JavaScriptには、以下の7つのプリミティブ型が存在します。</p>
+<ul>
+<li><strong>String</strong>: 文字列。</li>
+<li><strong>Number</strong>: 数値。すべての数値を64ビット浮動小数点数（IEEE 754形式）として扱います。</li>
+<li><strong>Boolean</strong>: 真偽値。</li>
+<li><strong>Null</strong>: 「データがデータとして成立していないこと」を示します（詳細は後述）。</li>
+<li><strong>Undefined</strong>: 変数が宣言されたが値が代入されていない場合や、関数の引数が不足している場合などに発生します。</li>
+<li><strong>Symbol</strong>: 一意な値。主にJavaScriptの内部的な言語機能の実装（例: オブジェクトの特殊なキー）に使用され、一般的なアプリケーション開発ではほぼ使いません。</li>
+<li><strong>BigInt</strong>: 非常に大きな整数を扱うための型。こちらも特殊な用途に限られ、一般的なWeb開発ではほぼ使いません。</li>
+</ul>
+<h3 id="プリミティブ型の特性イミュータビリティとボクシング"><a class="header" href="#プリミティブ型の特性イミュータビリティとボクシング">プリミティブ型の特性：イミュータビリティとボクシング</a></h3>
+<p>プリミティブ型は「イミュータビリティ（不変）」です。</p>
+<p>ただし、プリミティブ型に対してメソッドが呼び出せるように見えることがあります（例: <code>'hello'.toUpperCase()</code>）。これは、JavaScriptが一時的にプリミティブ値を対応するラッパーオブジェクトに変換（ボクシング）し、メソッド実行後に破棄しているからです。</p>
+<p>この「ボクシング」という概念はJavaから来た少し古い考え方です。メソッドの呼び出しは、昔はテーブルから関数を探して呼び出すという意味でしたが、現代の言語やJavaScriptエンジンでは、静的に呼び出す関数を決定したり、最適化によってメソッド呼び出しそのものが消えたりすることが多く、この考え方は実態に即さなくなっています。</p>
+<h3 id="nullとundefinedそして型比較"><a class="header" href="#nullとundefinedそして型比較">nullとundefined、そして型比較</a></h3>
+<p>「値がない」ことを示す <code>null</code> と <code>undefined</code> ですが、意味は異なります。</p>
+<ul>
+<li><code>undefined</code>: システムが「値が未定義」と判断している状態。</li>
+<li><code>null</code>: データとして成立していないことを開発者が意図的に示すもの。</li>
+</ul>
+<p><em>コラム: Javaとnull</em>
+Javaなどの言語では、nullポインタ参照（NullPointerException）が非常に頻繁に発生し、プログラムを停止させる要因となってきました。これを防ぐために、現代の言語設計ではnullを使わないことが推奨されています。JavaScriptでも同様に、nullの安易な使用は避けるべきです。</p>
+<h4 id="注意すべき型変換等価と厳密等価"><a class="header" href="#注意すべき型変換等価と厳密等価">注意すべき型変換：等価と厳密等価</a></h4>
+<p>JavaScriptにおいて、<code>==</code>（等価演算子）と <code>===</code>（厳密等価演算子）の違いは非常に重要です。<code>==</code> は「暗黙的な型変換」を行い、型が異なっても値が等しければ <code>true</code> を返します。しかし、これは予期せぬ挙動を生むため、<strong>決して使用しないでください</strong>。必ず <code>===</code> を使用しましょう。</p>
+<pre><code class="language-javascript">// 避けるべき挙動
+console.log(0 == '0'); // true! 暗黙の型変換が起こる
+
+// 推奨
+console.log(0 === '0'); // false! 型が違うので正しく判断される
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="基本の制御構造"><a class="header" href="#基本の制御構造">基本の制御構造</a></h1>
+<h1 id="基本の制御構造プログラムの流れを操る"><a class="header" href="#基本の制御構造プログラムの流れを操る">基本の制御構造：プログラムの流れを操る</a></h1>
+<p>プログラムの流れを制御することは、開発の基礎です。JavaScriptでは、条件分岐とループ処理を用いて処理の実行順序を柔軟に制御し、動的なロジックを実装します。</p>
+<h3 id="条件分岐の視点何が起きるか"><a class="header" href="#条件分岐の視点何が起きるか">条件分岐の視点：何が起きるか</a></h3>
+<p>読者がPythonの制御構文を把握していると仮定し、冗長な説明は省きます。プログラムを読む際は、上から順に追うのではなく、「このif文が真の時に何が実行され、偽の時に何がスキップされるか」という視点でコードを見つめてください。これが、TypeScriptでの型の絞り込みが起きるか、起きないかを予測する力につながります。</p>
+<pre><code class="language-javascript">const age = 20;
+
+// 上から順に追うのではなく、条件とブロックに注目
+if (age &gt;= 18) {
+  console.log('成人です');
+} else {
+  console.log('未成年です');
+}
+</code></pre>
+<h3 id="三項演算子の可読性"><a class="header" href="#三項演算子の可読性">三項演算子の可読性</a></h3>
+<p>三項演算子（<code>condition ? exprIfTrue : exprIfFalse</code>）を用いる場合、条件式が複雑になったり、<code>exprIfTrue</code> や <code>exprIfFalse</code> が長くなる場合は、<code>()</code> をつけないと非常に読みにくくなります。</p>
+<pre><code class="language-javascript">// 読みにくい
+const message = isAdult ? "あなたは成人です、おめでとうございます。" : "あなたは未成年です、あと数年の辛抱です。";
+
+// 読みやすい
+const message = isAdult ? ("あなたは成人です、おめでとうございます。") : ("あなたは未成年です、あと数年の辛抱です。");
+</code></pre>
+<h3 id="ループ処理とイテレータメソッド"><a class="header" href="#ループ処理とイテレータメソッド">ループ処理とイテレータメソッド</a></h3>
+<p>JavaScriptでは、手続き的な <code>for</code> 文だけでなく、関数型のイテレータメソッドを多用します。</p>
+<ul>
+<li><strong><code>forEach</code></strong>: 配列の各要素に対して処理を行います。</li>
+<li><strong><code>map</code></strong>: 配列の各要素を変形して新しい配列を作成します。</li>
+</ul>
+<p>これらのメソッドを用いることで、コードの意図がより明確に表現できます。</p>
+<h3 id="制御構造のベストプラクティス"><a class="header" href="#制御構造のベストプラクティス">制御構造のベストプラクティス</a></h3>
+<p>プログラムの可読性を高めるためには、複雑な条件式を <code>if</code> 文の中に直接書くのではなく、意味のある名前の変数や関数に抽出することをお勧めします。</p>
+<p>制御構造はプログラミングの骨格です。ただ動くコードを書くのではなく、後から読み返したときにロジックが瞬時に理解できる、清潔なコード構造を目指しましょう。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="switch文"><a class="header" href="#switch文">switch文</a></h1>
+<h1 id="switch文制御の分岐と最適化"><a class="header" href="#switch文制御の分岐と最適化">switch文：制御の分岐と最適化</a></h1>
+<p><code>switch</code> 文は、一つの式の値に基づいて、複数のケース（分岐）を扱うための制御構造です。<code>if-else if</code> を連ねるよりも、特定の値を比較する場合にはコードの見通しが良くなる場合があります。</p>
+<h3 id="基本的な構文"><a class="header" href="#基本的な構文">基本的な構文</a></h3>
+<pre><code class="language-javascript">const fruit = 'apple';
+
+switch (fruit) {
+  case 'apple':
+    console.log('りんごです');
+    break;
+  case 'banana':
+    console.log('バナナです');
+    break;
+  default:
+    console.log('その他の果物です');
+}
+</code></pre>
+<h3 id="switch文の挙動と注意点フォールスルー"><a class="header" href="#switch文の挙動と注意点フォールスルー">switch文の挙動と注意点：フォールスルー</a></h3>
+<p><code>switch</code> 文の最も重要な特徴であり、かつバグの温床となるのが「フォールスルー（Fall-through）」です。各 <code>case</code> の後に <code>break</code> 文を記述しないと、そのケースの処理が終わった後、続くすべてのケースの処理が（条件を無視して）実行されてしまいます。</p>
+<p>「意味論的に同じ選択肢のあるswitch文は、一つにまとめるべき」であり、また「長いswitchは、インターフェースを使うべき時かも」しれません。（インターフェースの方はまだ理解するには早いので、後で解説します）</p>
+<h3 id="switch文の代替案オブジェクトとmap"><a class="header" href="#switch文の代替案オブジェクトとmap">switch文の代替案：オブジェクトとMap</a></h3>
+<p>現代のJavaScript開発では、複雑な <code>switch</code> 文よりも、オブジェクトリテラルや <code>Map</code> を使ったマッピングの方が、コードが簡潔で拡張性が高いとみなされることが多いです。</p>
+<pre><code class="language-javascript">// オブジェクトリテラルによるマッピング
+const fruitMessages = {
+  apple: 'りんごです',
+  banana: 'バナナです',
+  default: 'その他の果物です'
+};
+
+const fruit = 'apple';
+console.log(fruitMessages[fruit] || fruitMessages.default);
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="コレクション型"><a class="header" href="#コレクション型">コレクション型</a></h1>
+<h1 id="コレクション型データの管理と構造化"><a class="header" href="#コレクション型データの管理と構造化">コレクション型：データの管理と構造化</a></h1>
+<p>JavaScriptにおいて、複数のデータをまとめて扱うためのデータ構造を「コレクション」と呼びます（別の言語でも同様にコレクションと呼ぶことが多いです）。主に配列（Array）とオブジェクト（Object）が使われますが、最近では <code>Map</code> や <code>Set</code> といった特殊なコレクションも標準で利用可能になり、用途に応じた使い分けが重要になっています。</p>
+<h3 id="配列-array"><a class="header" href="#配列-array">配列 (Array)</a></h3>
+<p>配列は、順序付けられたデータの集合です。</p>
+<pre><code class="language-javascript">const numbers = [1, 2, 3, 4, 5];
+console.log(numbers[0]); // 1
+</code></pre>
+<p>配列の真の力は、組み込みのイテレータメソッドにあります。これらを使うことで、forループを直接書くよりも宣言的でミスの少ないコードが書けます。なぜなら、ループ変数の管理など、手続き的な記述を排除できるため、意図しないループの終了条件ミスなどが減るからです。</p>
+<h3 id="オブジェクト-object"><a class="header" href="#オブジェクト-object">オブジェクト (Object)</a></h3>
+<p>オブジェクトは、キーと値のペアを保持する集合です。</p>
+<pre><code class="language-javascript">const user = {
+  name: 'Alice',
+  age: 25
+};
+console.log(user.name); // Alice
+</code></pre>
+<p>オブジェクトの操作には、スプレッド構文（<code>...</code>）が非常に強力です。新しいオブジェクトを作成する際、既存のプロパティをコピーしながら新しいプロパティを追加したり、特定のプロパティを上書きしたりする処理が容易に行えます。また、配列・オブジェクトのネストも普通に使えるため、以下のような構造も一般的です。</p>
+<pre><code class="language-javascript">const complexData = {
+  users: [
+    { name: 'Alice', age: 25 },
+    { name: 'Bob', age: 30 }
+  ]
+};
+</code></pre>
+<p>JavaScriptでは何でも配列・オブジェクトでもいけちゃうように見えますが、適切な構造を選ぶことでパフォーマンス向上にも繋がります。</p>
+<h3 id="map-と-set"><a class="header" href="#map-と-set">Map と Set</a></h3>
+<ul>
+<li><strong>Map</strong>: キーと値のペアを保持します。</li>
+<li><strong>Set</strong>: 重複のない値の集合を保持します。</li>
+</ul>
+<p><em>コラム: WeakMap/WeakSet</em>
+<code>WeakMap</code> と <code>WeakSet</code> は、オブジェクトを弱参照（weak reference）として保持するため、オブジェクトが他の場所で参照されなくなると自動的にガベージコレクションの対象となります。これについては、Rustの章で触れ直すので、ここではサッと流します。</p>
+<h3 id="データ構造の選び方"><a class="header" href="#データ構造の選び方">データ構造の選び方</a></h3>
+<p>どのコレクションを使うべきかは、そのデータの性質に依存します。</p>
+<ol>
+<li><strong>データが順序を持つか？</strong> -&gt; 配列</li>
+<li><strong>キーを元にデータにアクセスするか？</strong> -&gt; オブジェクト または Map</li>
+<li><strong>要素の重複を許さないか？</strong> -&gt; Set</li>
+<li><strong>キーに文字列以外の型を使いたいか？</strong> -&gt; Map</li>
+</ol>
+<p>これらのコレクションを正しく使い分けることで、データの効率的な管理が可能になります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="型の明示について"><a class="header" href="#型の明示について">型の明示について</a></h1>
+<h1 id="型の明示についてjavascriptの動的型付けと向き合う"><a class="header" href="#型の明示についてjavascriptの動的型付けと向き合う">型の明示について：JavaScriptの動的型付けと向き合う</a></h1>
+<p>JavaScriptは「動的型付け言語」です。柔軟ですが、大規模開発では型に関するバグの温床になりがちです。</p>
+<h3 id="typeof-演算子"><a class="header" href="#typeof-演算子">typeof 演算子</a></h3>
+<p>値の型を確認するには <code>typeof</code> 演算子を使います。これは単項演算子であり、関数ではありません。</p>
+<pre><code class="language-javascript">console.log(typeof 123); // "number"
+</code></pre>
+<h3 id="エラーメッセージの読み方"><a class="header" href="#エラーメッセージの読み方">エラーメッセージの読み方</a></h3>
+<p>エラーが出た際は、以下の順序で読み解くのが鉄則です。</p>
+<ol>
+<li><strong>分類</strong>：構文ミスなのか、実行時エラーなのか。</li>
+<li><strong>場所</strong>：そのファイルを開き、該当行を確認。</li>
+<li><strong>理由</strong>：<code>Null is not an object</code> や <code>No such named property</code> が多いです。該当変数の中身を <code>console.log</code> で確認しましょう。Nullエラーが出たなら、そもそもNullを使わない設計ができないか検討します。</li>
+<li><strong>スタックトレース</strong>：エラーがどこから発生したか。</li>
+</ol>
+<h3 id="暗黙的な型変換の禁止"><a class="header" href="#暗黙的な型変換の禁止">暗黙的な型変換の禁止</a></h3>
+<p>JavaScriptでは、意図しない型変換が起こるため、<strong>暗黙的な型変換（例: <code>==</code>）は絶対に使わないでください！</strong> 明示的な変換を行うパース関数（<code>parseInt</code>, <code>parseFloat</code>, <code>String()</code> など）を使いましょう。</p>
+<h3 id="jitコンパイルと型"><a class="header" href="#jitコンパイルと型">JITコンパイルと型</a></h3>
+<p>JavaScriptの実行エンジンは、JIT（Just-In-Time）コンパイルの中で、動的に静的型のような処理（型推論など）が行われている可能性があります。これにより、動的型付け言語でありながら、驚異的な速度を実現しています。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="関数定義-1"><a class="header" href="#関数定義-1">関数定義</a></h1>
+<h1 id="関数定義javascriptにおける関数の本質"><a class="header" href="#関数定義javascriptにおける関数の本質">関数定義：JavaScriptにおける関数の本質</a></h1>
+<p>JavaScriptにおいて、関数は単なる命令の集合体ではなく、「第一級オブジェクト (First-Class Object)」として扱われます。これは関数を変数に代入したり、引数として他の関数に渡したり、関数の戻り値として関数を返したりできることを意味します。この特性がJavaScriptの柔軟性と関数型プログラミング的なアプローチを可能にしています。</p>
+<h2 id="関数宣言と関数式"><a class="header" href="#関数宣言と関数式">関数宣言と関数式</a></h2>
+<p>関数を定義する方法は、主に「関数宣言」と「関数式」の2つに大別されます。</p>
+<h3 id="関数宣言-function-declaration"><a class="header" href="#関数宣言-function-declaration">関数宣言 (Function Declaration)</a></h3>
+<p><code>function</code>キーワードから始まる定義方法です。関数宣言の最大の特徴は「巻き上げ (Hoisting)」が発生することです。これにより、関数が定義される前にコード内で呼び出すことが可能です。</p>
+<pre><code class="language-javascript">sayHello(); // "Hello" （関数宣言はコード全体の上部に巻き上げられる）
+
+function sayHello() {
+  console.log('Hello');
+}
+</code></pre>
+<h3 id="関数式-function-expression"><a class="header" href="#関数式-function-expression">関数式 (Function Expression)</a></h3>
+<p>関数を匿名関数（または名前付き関数）として定義し、それを変数に代入する方法です。関数式では巻き上げは発生せず、定義した行よりも前で呼び出すとエラー（<code>ReferenceError</code>）になります。</p>
+<pre><code class="language-javascript">// sayHi(); // エラー発生: sayHi is not defined
+
+const sayHi = function() {
+  console.log('Hi');
+};
+</code></pre>
+<h2 id="アロー関数-arrow-function"><a class="header" href="#アロー関数-arrow-function">アロー関数 (Arrow Function)</a></h2>
+<p>ES6（ECMAScript 2015）で導入されたアロー関数は、より簡潔な記法を提供します。</p>
+<pre><code class="language-javascript">// 従来の関数式
+const add = function(a, b) { return a + b; };
+
+// アロー関数
+const addArrow = (a, b) =&gt; a + b;
+</code></pre>
+<p>アロー関数の重要な特徴は、<code>this</code> の扱いが通常の関数と異なる点です。通常の関数では <code>this</code> は呼び出し元によって決定されますが、アロー関数では、関数が「定義された」場所のスコープを継承（lexical scoping）します。これにより、コールバック関数内での <code>this</code> のバインド問題が解消され、非常に扱いやすくなりました。</p>
+<h2 id="関数をより強力にする機能"><a class="header" href="#関数をより強力にする機能">関数をより強力にする機能</a></h2>
+<p>モダンなJavaScriptでは、関数をより安全かつ柔軟にするために以下の機能が多用されます。</p>
+<h3 id="1-デフォルト引数"><a class="header" href="#1-デフォルト引数">1. デフォルト引数</a></h3>
+<p>引数が渡されなかった場合に、デフォルト値を設定できます。</p>
+<pre><code class="language-javascript">function greet(name = 'Guest') {
+  console.log(`Hello, ${name}`);
+}
+</code></pre>
+<h3 id="2-レストパラメータ-rest-parameters"><a class="header" href="#2-レストパラメータ-rest-parameters">2. レストパラメータ (Rest Parameters)</a></h3>
+<p>任意の数の引数を配列として受け取ることができます。</p>
+<pre><code class="language-javascript">function sum(...numbers) {
+  return numbers.reduce((acc, curr) =&gt; acc + curr, 0);
+}
+</code></pre>
+<h2 id="クロージャ-closure"><a class="header" href="#クロージャ-closure">クロージャ (Closure)</a></h2>
+<p>関数がその「定義された環境」を記憶している状態を「クロージャ」と呼びます。第一級オブジェクトとしての関数の性質とクロージャを組み合わせることで、プライベートな変数を隠蔽するパターンなどが実現できます。</p>
+<pre><code class="language-javascript">function createCounter() {
+  let count = 0; // プライベート変数
+  return function() {
+    return ++count;
+  };
+}
+
+const counter = createCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2
+</code></pre>
+<p>このように、JavaScriptの関数は非常に高度で多機能なツールです。これらを適切に使い分けることが、クリーンで保守性の高いコードを書くための第一歩となります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="オブジェクト型"><a class="header" href="#オブジェクト型">オブジェクト型</a></h1>
+<h1 id="オブジェクト型データの構造化とプロトタイプ継承"><a class="header" href="#オブジェクト型データの構造化とプロトタイプ継承">オブジェクト型：データの構造化とプロトタイプ継承</a></h1>
+<p>JavaScriptにおけるオブジェクトは、複数の値や振る舞いを一つの単位としてまとめることができる、最も強力で中心的なデータ構造です。</p>
+<h3 id="オブジェクト指向的要素thisの扱い"><a class="header" href="#オブジェクト指向的要素thisの扱い">オブジェクト指向的要素：thisの扱い</a></h3>
+<p>オブジェクト指向の要素としてよく使われるのが <code>this</code> です。関数がどのオブジェクトから呼び出されたかによって <code>this</code> の指す対象（コンテキスト）が変わります。</p>
+<pre><code class="language-javascript">const user = {
+  name: 'Alice',
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+};
+user.greet(); // Alice
+</code></pre>
+<h3 id="apiドキュメントの読み方"><a class="header" href="#apiドキュメントの読み方">APIドキュメントの読み方</a></h3>
+<p>MDN Web Docsなどで、オブジェクトやそのメソッドはプロトタイプメソッド（<code>Array.prototype.map()</code> など）として記述されます。これは、その型の全オブジェクトがそのメソッドを持っていることを意味します。APIドキュメントを読む際は、この表記に慣れましょう。</p>
+<h3 id="厳格モード-strict-mode"><a class="header" href="#厳格モード-strict-mode">厳格モード (Strict Mode)</a></h3>
+<p>JavaScriptには「厳格モード（Strict Mode）」があります。ファイルの先頭に <code>'use strict';</code> を記述することで、安全でないコード（未宣言の変数への代入など）に対してエラーを投げるようになります。モダンなJavaScript環境では、基本的には意識せずとも有効になっています。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="dom操作"><a class="header" href="#dom操作">DOM操作</a></h1>
+<h1 id="dom操作ブラウザ上の要素を操る"><a class="header" href="#dom操作ブラウザ上の要素を操る">DOM操作：ブラウザ上の要素を操る</a></h1>
+<p>DOM（Document Object Model）は、HTMLやXMLドキュメントをプログラムが操作可能な「ツリー構造」として表現したものです。ツリー構造とは、親要素から子要素へと枝分かれしていく階層的な構造のことで、DOMはそのHTMLタグの親子関係をメモリ上に再現しています。</p>
+<h3 id="非同期処理の変遷"><a class="header" href="#非同期処理の変遷">非同期処理の変遷</a></h3>
+<p>以前、Webページを動的に更新するためのAPI（XMLHttpRequestなど）は、複雑な非同期処理を扱う必要がありました。現代のWeb開発では、<code>fetch</code> APIと <code>async/await</code> 構文の登場により、非同期処理をまるで同期処理のように書けるようになり、可読性が劇的に向上しました。</p>
+<p>DOM操作の仕組みを理解した上で、複雑な画面構築にはフレームワークの力を借りる、というのが現代のフロントエンド開発におけるベストプラクティスです。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="シンボルの記法"><a class="header" href="#シンボルの記法">シンボルの記法</a></h1>
+<h1 id="シンボル-symbol一意性の保証とメタプログラミング"><a class="header" href="#シンボル-symbol一意性の保証とメタプログラミング">シンボル (Symbol)：一意性の保証とメタプログラミング</a></h1>
+<p>シンボル（Symbol）は、ES6で導入されたプリミティブデータ型です。他のプリミティブ型（数値、文字列、ブール値など）とは異なり、シンボルは「一意」であり「変更不可能」な値を作成するために使用されます。</p>
+<h3 id="注意symbolは実用上使わない"><a class="header" href="#注意symbolは実用上使わない">注意：Symbolは実用上使わない</a></h3>
+<p>JavaScriptのSymbol型は実用上、ほとんど使う場面がありません。本書でも、基本的には意識しなくてよい概念として扱います。</p>
+<p>JavaScriptにおけるシンボルは、主に言語内部の機能をカスタマイズするために存在します。正規表現やリテラルの表記、あるいは <code>for...of</code> ループでどのようにオブジェクトを反復するかなど、JavaScriptの言語仕様の根幹に関わる部分で、特別なシンボル（Well-known Symbols）が使われています。</p>
+<p>これらは、フレームワークの開発者やメタプログラミングを行う高度なシナリオ以外では、直接触れる必要はありません。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-1"><a class="header" href="#演習-1">演習</a></h1>
+<h1 id="演習javascriptの基礎を定着させる"><a class="header" href="#演習javascriptの基礎を定着させる">演習：JavaScriptの基礎を定着させる</a></h1>
+<p>プログラミングは読むだけではなく、実際に手を動かしてコードを書くことで初めて身につきます。ここでは、これまでに学習した基礎知識を統合的に活用するための演習課題を用意しました。</p>
+<h2 id="演習課題"><a class="header" href="#演習課題">演習課題</a></h2>
+<p>以下の課題を、まずは何も見ずに実装してみてください。</p>
+<h3 id="1-高階関数を用いた配列操作"><a class="header" href="#1-高階関数を用いた配列操作">1. 高階関数を用いた配列操作</a></h3>
+<p>1から10までの数値が含まれる配列 <code>numbers</code> があります。</p>
+<ul>
+<li><code>filter</code> メソッドを使用して、偶数のみを抽出した新しい配列を作成してください。</li>
+<li><code>map</code> メソッドを使用して、偶数のみの配列の各要素を2倍にした配列を作成してください。</li>
+<li><code>reduce</code> メソッドを使用して、それらすべての数値の合計を計算してください。</li>
+</ul>
+<h3 id="2-オブジェクトとメソッド"><a class="header" href="#2-オブジェクトとメソッド">2. オブジェクトとメソッド</a></h3>
+<p>ユーザー情報を保持する <code>user</code> オブジェクトを作成してください。</p>
+<ul>
+<li>プロパティには <code>name</code>（文字列）と <code>age</code>（数値）を持たせてください。</li>
+<li><code>rename</code> というメソッドを追加し、引数で渡された名前で <code>name</code> プロパティを書き換える機能を実装してください。</li>
+<li>メソッド実行後、コンソールに更新後のオブジェクトを出力してください。</li>
+</ul>
+<h3 id="3-動的なdom操作"><a class="header" href="#3-動的なdom操作">3. 動的なDOM操作</a></h3>
+<p>HTMLに <code>&lt;button id="btn"&gt;クリック&lt;/button&gt;</code> と <code>&lt;p id="msg"&gt;&lt;/p&gt;</code> があるとします。</p>
+<ul>
+<li>JavaScriptでこのボタン要素を取得し、クリックイベントを登録してください。</li>
+<li>ボタンがクリックされたら、<code>&lt;p&gt;</code> 要素のテキストを「Clicked!」に変更し、さらにスタイルとして <code>color: blue;</code> を適用してください。</li>
+</ul>
+<h2 id="演習の進め方と学習のアドバイス"><a class="header" href="#演習の進め方と学習のアドバイス">演習の進め方と学習のアドバイス</a></h2>
+<ol>
+<li><strong>環境構築</strong>: 簡単なHTMLファイルを作成し、<code>&lt;script&gt;</code>タグでJavaScriptを読み込むか、ブラウザの開発者ツールのコンソールを使って試すのが一番早いです。</li>
+<li><strong>デバッグの活用</strong>: <code>console.log()</code> を積極的に使い、自分の書いたコードが期待通りに動いているか常に確認しましょう。エラーが発生した場合は、ブラウザのコンソールに表示されるエラーメッセージをしっかり読みましょう。</li>
+<li><strong>詰まったら戻る</strong>: 課題で詰まった場合は、前の章（型、関数、オブジェクト、DOM操作）のドキュメントを読み返し、サンプルコードを再現してみてください。</li>
+</ol>
+<h2 id="解説ヒント"><a class="header" href="#解説ヒント">解説（ヒント）</a></h2>
+<p>課題の解き方の一例です。</p>
+<p><strong>課題1のヒント</strong>: 配列メソッドは、元の配列を変更せず、新しい値を返すため、副作用（予期せぬデータの変更）を防ぐことができます。</p>
+<pre><code class="language-javascript">const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const evens = nums.filter(n =&gt; n % 2 === 0);
+const doubled = evens.map(n =&gt; n * 2);
+const sum = doubled.reduce((a, b) =&gt; a + b, 0);
+</code></pre>
+<p><strong>課題3のヒント</strong>: <code>addEventListener</code> を使うことで、HTMLを直接書き換えることなくイベントを分離して記述できます。</p>
+<h2 id="ステップアップ課題"><a class="header" href="#ステップアップ課題">ステップアップ課題</a></h2>
+<p>これらがすぐにできた場合は、さらに以下のことに挑戦してみてください。</p>
+<ul>
+<li>課題2のオブジェクトを、ES6の <code>class</code> 構文に書き換える。</li>
+<li>課題3のクリック回数を記録し、画面に「クリック回数: 3回」のように表示する。</li>
+</ul>
+<p>プログラミングは「試行錯誤」の繰り返しです。まずは自分で動くコードを書くことに集中してください。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h1>
+<h1 id="まとめjavascript基礎からのステップアップ"><a class="header" href="#まとめjavascript基礎からのステップアップ">まとめ：JavaScript基礎からのステップアップ</a></h1>
+<p>この章では、現代のWeb開発の根幹となるJavaScriptの基礎について、包括的に学びました。</p>
+<h2 id="この章の振り返り"><a class="header" href="#この章の振り返り">この章の振り返り</a></h2>
+<p>私たちが習得した主要な概念は以下の通りです。</p>
+<ul>
+<li><strong>変数とデータ型</strong>: <code>const</code> をデフォルトとする不変性の意識と、動的型付け言語におけるデータ型の振る舞い。</li>
+<li><strong>制御構造と関数</strong>: 流れの制御と、第一級オブジェクトとしての関数の柔軟性（アロー関数、クロージャなど）。</li>
+<li><strong>データ構造</strong>: 配列やオブジェクトを用いたデータの構造化、そして不変性を考慮した操作。</li>
+<li><strong>DOM操作</strong>: ブラウザのレンダリングエンジンと対話するためのインターフェースの理解と、そのパフォーマンス上の注意点。</li>
+<li><strong>メタプログラミング</strong>: シンボルを用いた一意性の保証と機能拡張。</li>
+</ul>
+<p>JavaScriptは非常に柔軟で、誰でもすぐに使い始められる言語です。しかし、その柔軟性は時としてバグの原因となります。この章で学んだ「モダンな記法」や「不変性を考慮した設計」、「DOM操作の仕組み」への理解は、この先より複雑なアプリケーションを開発する際の強力な武器となります。</p>
+<h2 id="さらなるステップアップへ"><a class="header" href="#さらなるステップアップへ">さらなるステップアップへ</a></h2>
+<p>JavaScriptの基礎を固めた次は、さらに実践的な技術へと進む準備ができています。</p>
+<h3 id="1-静的型付け言語への挑戦-typescript"><a class="header" href="#1-静的型付け言語への挑戦-typescript">1. 静的型付け言語への挑戦 (TypeScript)</a></h3>
+<p>動的型付けによるバグのリスクを最小化し、大規模開発を支えるための必須技術です。JavaScriptの知識はすべてTypeScriptに引き継がれます。</p>
+<h3 id="2-現代的なフロントエンドフレームワーク-react-vue"><a class="header" href="#2-現代的なフロントエンドフレームワーク-react-vue">2. 現代的なフロントエンドフレームワーク (React, Vue)</a></h3>
+<p>直接的なDOM操作を卒業し、コンポーネント指向に基づいた宣言的なUI構築を学びましょう。</p>
+<h3 id="3-バックエンド開発-nodejs"><a class="header" href="#3-バックエンド開発-nodejs">3. バックエンド開発 (Node.js)</a></h3>
+<p>ブラウザの外側でJavaScriptを動かし、サーバーサイドのロジックやAPI開発を行うことで、フルスタック開発への道が開けます。</p>
+<h2 id="次の学習へのロードマップ"><a class="header" href="#次の学習へのロードマップ">次の学習へのロードマップ</a></h2>
+<p>JavaScriptを習得することは、Web開発という巨大な世界への入り口に立ったことに過ぎません。</p>
+<ol>
+<li><strong>基礎を反復する</strong>: 本章の演習を繰り返し、サンプルコードを見ずに書けるようになるまで練習してください。</li>
+<li><strong>公式ドキュメントに慣れる</strong>: <a href="https://developer.mozilla.org/">MDN Web Docs</a> を常に手元に置いて、不明な点があればすぐに調べる習慣をつけましょう。</li>
+<li><strong>プロジェクトをビルドする</strong>: 小さなタスク管理アプリやToDoアプリなどを、ライブラリを使わずにJavaScriptだけで作成してみてください。</li>
+</ol>
+<p>ここでの学びを基礎として、さらに深淵なるJavaScriptの世界、そしてその先にあるフロントエンド、バックエンドの技術へと突き進んでください。プログラミングの旅は、ここからが本番です！</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="nodejs導入"><a class="header" href="#nodejs導入">Node.js導入</a></h1>
+<p>TypeScriptを扱う前段階として、JavaScriptの実行環境であるNode.jsの導入が不可欠です。Node.jsは、ブラウザ以外でJavaScriptを実行可能にするランタイムです。</p>
+<h3 id="nodejsの役割"><a class="header" href="#nodejsの役割">Node.jsの役割</a></h3>
+<p>Node.jsは、Google ChromeのV8エンジンをベースにしており、高いパフォーマンスを提供します。Webサーバーの開発だけでなく、フロントエンド開発ツールの実行基盤としても広く使われています。</p>
+<h3 id="導入方法"><a class="header" href="#導入方法">導入方法</a></h3>
+<p>公式のインストール方法として、<code>nvm</code>（Node Version Manager）を利用することを強く推奨します。</p>
+<pre><code class="language-bash"># nvmを使ったインストール例
+nvm install --lts
+nvm use --lts
+</code></pre>
+<p>これにより、複数のNode.jsバージョンを簡単に切り替えることができ、プロジェクトごとに異なる環境を管理することが可能になります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="npmの使い方"><a class="header" href="#npmの使い方">npmの使い方</a></h1>
+<p>npm（Node Package Manager）は、Node.jsの標準パッケージマネージャです。膨大な数のライブラリを簡単にインストール・管理できるため、現代のJavaScript開発では必須です。</p>
+<h3 id="基本的な操作"><a class="header" href="#基本的な操作">基本的な操作</a></h3>
+<p>パッケージをインストールするには、<code>npm install &lt;package-name&gt;</code> を使用します。</p>
+<pre><code class="language-bash"># パッケージのインストール
+npm install axios
+</code></pre>
+<h3 id="packagejsonの管理"><a class="header" href="#packagejsonの管理">package.jsonの管理</a></h3>
+<p><code>package.json</code> はプロジェクトの依存関係を管理する重要なファイルです。</p>
+<ul>
+<li><code>dependencies</code>: 本番環境で必要なライブラリ。</li>
+<li><code>devDependencies</code>: 開発時（テストやビルド）にのみ必要なライブラリ。</li>
+</ul>
+<pre><code class="language-bash"># devDependenciesに追加
+npm install typescript --save-dev
+</code></pre>
+<p>npmを活用することで、コードの再利用性を高め、効率的な開発環境を構築できます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="typescript導入"><a class="header" href="#typescript導入">TypeScript導入</a></h1>
+<p>TypeScriptは、JavaScriptに強力な静的型付けを追加したスーパーセット（上位互換）言語です。JavaScriptの柔軟性を維持しつつ、コンパイル時に型エラーを検出することで、大規模開発の品質を劇的に向上させます。</p>
+<h3 id="typescriptの仕組み"><a class="header" href="#typescriptの仕組み">TypeScriptの仕組み</a></h3>
+<p>TypeScript自体はブラウザで直接動作しません。JavaScriptに変換（トランスパイル）する必要があります。このプロセスは、TypeScriptコンパイラ（<code>tsc</code>）が行います。</p>
+<h3 id="セットアップ"><a class="header" href="#セットアップ">セットアップ</a></h3>
+<p>プロジェクトにTypeScriptを導入する手順は以下の通りです。</p>
+<pre><code class="language-bash"># 依存関係のインストール
+npm install typescript ts-node --save-dev
+
+# 設定ファイルの生成
+npx tsc --init
+</code></pre>
+<p>生成された <code>tsconfig.json</code> によって、コンパイル設定を細かく管理できます。型チェックを厳しく設定することで、TypeScriptの恩恵を最大化しましょう。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="型注釈"><a class="header" href="#型注釈">型注釈</a></h1>
+<p>TypeScriptにおける「型注釈（Type Annotation）」は、変数、引数、戻り値に型を明示的に付与する機能です。これにより、コードの意図が明確になり、コンパイラによる自動チェックが可能になります。</p>
+<h3 id="基本的な型注釈"><a class="header" href="#基本的な型注釈">基本的な型注釈</a></h3>
+<pre><code class="language-typescript">let username: string = 'Alice';
+let age: number = 30;
+let isActive: boolean = true;
+</code></pre>
+<h3 id="関数の型注釈"><a class="header" href="#関数の型注釈">関数の型注釈</a></h3>
+<p>関数の引数と戻り値に型を指定することで、呼び出し元と実装の整合性が担保されます。</p>
+<pre><code class="language-typescript">function greet(name: string): string {
+  return `Hello, ${name}`;
+}
+</code></pre>
+<p>型注釈を適切に行うことで、IDEの補完機能が強化され、開発スピードと品質が両立されます。TypeScriptは「ドキュメントとしてのコード」を実現する優れた言語です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="使ってはいけない集"><a class="header" href="#使ってはいけない集">使ってはいけない集</a></h1>
+<p>TypeScriptにおいて、型の安全性を損なったり、予期せぬ挙動を引き起こしたりするため避けるべき機能があります。</p>
+<h3 id="避けるべき機能"><a class="header" href="#避けるべき機能">避けるべき機能</a></h3>
+<ul>
+<li><strong><code>any</code> 型</strong>: 全ての型を許容してしまいます。TypeScriptのメリットを全て無効化するため、使用は厳禁です。</li>
+<li><strong><code>var</code> キーワード</strong>: 関数スコープによる変数の再定義・ホイスティングといった混乱を招くため、<code>let</code> や <code>const</code> を使いましょう。</li>
+<li><strong>暗黙の型変換</strong>: <code>==</code> のような比較演算子は予期せぬ型変換を行うことがあるため、厳密な比較演算子 <code>===</code> を使用してください。</li>
+</ul>
+<p>これらのルールを守ることは、静的型付けによる堅牢性を保つための前提条件です。<code>eslint</code> などのリンターを導入し、これらの違反を自動的に検知・修正する環境を構築しましょう。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="クラスの表記法"><a class="header" href="#クラスの表記法">クラスの表記法</a></h1>
+<p>TypeScriptでは、モダンなJavaScriptのクラス構文をベースに、型定義を加えた強力なクラスを記述できます。</p>
+<h3 id="クラスの基本構造"><a class="header" href="#クラスの基本構造">クラスの基本構造</a></h3>
+<pre><code class="language-typescript">class User {
+  name: string;
+  private age: number;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+
+  getAge(): number {
+    return this.age;
+  }
+}
+</code></pre>
+<h3 id="アクセス修飾子"><a class="header" href="#アクセス修飾子">アクセス修飾子</a></h3>
+<ul>
+<li><code>public</code>（デフォルト）: どこからでもアクセス可能。</li>
+<li><code>private</code>: クラス内からのみアクセス可能。</li>
+<li><code>protected</code>: クラス内および派生クラスからのみアクセス可能。</li>
+</ul>
+<p>これらを利用してデータのカプセル化を行い、外部から直接的なデータ操作を防ぐことで、クラスの設計意図を維持します。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="静的フィールドメソッド"><a class="header" href="#静的フィールドメソッド">静的フィールド・メソッド</a></h1>
+<p>クラスのインスタンスではなく、クラス自体に紐付くフィールドやメソッドを定義するには <code>static</code> キーワードを使用します。</p>
+<h3 id="静的メンバーの活用"><a class="header" href="#静的メンバーの活用">静的メンバーの活用</a></h3>
+<pre><code class="language-typescript">class Config {
+  static readonly API_URL = 'https://api.example.com';
+
+  static getBaseUrl(): string {
+    return this.API_URL;
+  }
+}
+</code></pre>
+<p>インスタンスを作成せずに、直接 <code>Config.API_URL</code> や <code>Config.getBaseUrl()</code> として呼び出せます。これは、設定値の保持やユーティリティ関数のような、状態を保持しない機能の集約によく用いられます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="インターフェース"><a class="header" href="#インターフェース">インターフェース</a></h1>
+<p>インターフェース（<code>interface</code>）は、オブジェクトが持つべきプロパティやメソッドの構造を定義する契約です。</p>
+<h3 id="インターフェースの定義と実装"><a class="header" href="#インターフェースの定義と実装">インターフェースの定義と実装</a></h3>
+<pre><code class="language-typescript">interface User {
+  name: string;
+  age: number;
+}
+
+const alice: User = {
+  name: 'Alice',
+  age: 25
+};
+</code></pre>
+<p>インターフェースはコンパイル後のJavaScriptには残らないため、パフォーマンスへの影響はありません。複数のクラスや関数で共通のデータ構造を定義する場合、クラスを継承するよりもインターフェースで型を定義する方が、疎結合な設計を維持できます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="抽象クラス継承"><a class="header" href="#抽象クラス継承">抽象クラス・継承</a></h1>
+<p>抽象クラス（<code>abstract class</code>）は、インスタンス化できないクラスで、派生クラスに実装を強制する基盤として利用します。</p>
+<h3 id="抽象クラスの役割"><a class="header" href="#抽象クラスの役割">抽象クラスの役割</a></h3>
+<pre><code class="language-typescript">abstract class Animal {
+  abstract makeSound(): void;
+  
+  move(): void {
+    console.log('Moving...');
+  }
+}
+
+class Dog extends Animal {
+  makeSound() {
+    console.log('Woof!');
+  }
+}
+</code></pre>
+<p>抽象クラスは「is-a」関係を定義するのに適しています。共通の機能は抽象クラスで実装し、個別の機能は派生クラスで実装することで、コードの重複を防ぎ、設計の統一感を保てます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="オブジェクト指向のメリット"><a class="header" href="#オブジェクト指向のメリット">オブジェクト指向のメリット</a></h1>
+<p>オブジェクト指向プログラミング（OOP）は、データとそれを操作するメソッドを一つの「オブジェクト」にまとめる手法です。これにより、複雑なシステムを管理しやすくします。</p>
+<h3 id="主なメリット"><a class="header" href="#主なメリット">主なメリット</a></h3>
+<ol>
+<li><strong>カプセル化</strong>: 内部の状態を隠蔽し、公開されたメソッドを通じてのみ操作させることで、不整合を防ぎます。</li>
+<li><strong>再利用性</strong>: クラスという単位でコードをパッケージ化することで、他の箇所で再利用しやすくなります。</li>
+<li><strong>保守性</strong>: 変更箇所が特定のクラスに限定されるため、システム全体への影響を最小限に抑えられます。</li>
+</ol>
+<p>ただし、OOPを適用しすぎるとクラス階層が複雑になりすぎる（過剰設計になる）懸念もあるため、機能要件に合わせて適切に適用することが求められます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="他の言語のオブジェクト指向"><a class="header" href="#他の言語のオブジェクト指向">他の言語のオブジェクト指向</a></h1>
+<p>TypeScriptのオブジェクト指向は、JavaやC#といった静的型付け言語と非常に似ています。</p>
+<h3 id="特徴の比較"><a class="header" href="#特徴の比較">特徴の比較</a></h3>
+<ul>
+<li><strong>Java/C#</strong>: クラスベースの純粋なオブジェクト指向であり、型システムが非常に厳格です。</li>
+<li><strong>TypeScript</strong>: JavaScriptのプロトタイプベースの継承の上に、クラスやインターフェースという強力な抽象化レイヤを重ねています。</li>
+</ul>
+<p>TypeScriptは、これらの伝統的なオブジェクト指向言語の設計パターンをJavaScript環境に持ち込むための強力なツールです。すでに他の言語でOOPを学んだ人にとって、TypeScriptのクラス定義は非常に馴染み深いものになるはずです。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="オブジェクト指向の用語整理"><a class="header" href="#オブジェクト指向の用語整理">オブジェクト指向の用語整理</a></h1>
+<p>オブジェクト指向を正しく理解し、設計するための基本的な用語を整理します。</p>
+<ul>
+<li><strong>クラス (Class)</strong>: オブジェクトの設計図。</li>
+<li><strong>インスタンス (Instance)</strong>: 設計図（クラス）から生成された実体。</li>
+<li><strong>プロパティ (Property)</strong>: オブジェクトが持つ状態（変数）。</li>
+<li><strong>メソッド (Method)</strong>: オブジェクトが持つ振る舞い（関数）。</li>
+<li><strong>継承 (Inheritance)</strong>: 既存のクラスの機能を引き継いで新しいクラスを作成すること。</li>
+<li><strong>ポリモーフィズム (Polymorphism)</strong>: 同じ名前のメソッドを異なるオブジェクトに対して呼び出し、異なる結果を得ること。</li>
+<li><strong>インターフェース (Interface)</strong>: オブジェクトが従うべき契約。</li>
+</ul>
+<p>これらの用語は、チーム開発において設計上の対話を行う際に共通言語となります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="esmoduleとcommonjs"><a class="header" href="#esmoduleとcommonjs">ESmoduleとcommonJS</a></h1>
+<p>JavaScriptには、コードをモジュールとして分割し、再利用するための仕組みが二つ存在します。</p>
+<h3 id="モジュールシステムの変遷"><a class="header" href="#モジュールシステムの変遷">モジュールシステムの変遷</a></h3>
+<ul>
+<li><strong>CommonJS</strong>: Node.jsが初期から採用しているモジュールシステム。<code>require</code> と <code>module.exports</code> を使用します。</li>
+<li><strong>ES Modules (ESM)</strong>: ECMAScriptで標準化された現代的なモジュールシステム。<code>import</code> と <code>export</code> を使用します。</li>
+</ul>
+<h3 id="どちらを使うべきか"><a class="header" href="#どちらを使うべきか">どちらを使うべきか</a></h3>
+<p>現代のTypeScript開発では、<strong>ES Modules (ESM)</strong> の使用を強く推奨します。</p>
+<pre><code class="language-typescript">// エクスポート
+export const add = (a: number, b: number) =&gt; a + b;
+
+// インポート
+import { add } from './math';
+</code></pre>
+<p>ESMはブラウザとNode.jsの両方で利用可能で、静的な解析が容易であるため、バンドラーやTypeScriptによる最適化が効きやすいというメリットがあります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="非同期処理"><a class="header" href="#非同期処理">非同期処理</a></h1>
+<p>JavaScriptはシングルスレッドで動作するため、時間のかかる処理（ネットワーク通信やファイルI/O）を同期的に行うと、画面がフリーズしてしまいます。これを解決するのが「非同期処理」です。</p>
+<h3 id="非同期処理の進化"><a class="header" href="#非同期処理の進化">非同期処理の進化</a></h3>
+<ol>
+<li><strong>コールバック関数</strong>: 古い手法。ネストが深くなりやすく（コールバック地獄）、エラーハンドリングが困難でした。</li>
+<li><strong>Promise</strong>: 非同期処理の状態（成功・失敗）をオブジェクトとして表現し、チェーンすることで解決します。</li>
+<li><strong>Async/Await</strong>: Promiseをより同期的なコードのように記述できる現代的な構文。</li>
+</ol>
+<p>非同期処理を正しく理解することは、特にフロントエンドにおけるAPI通信や、バックエンドにおけるDB操作において不可欠です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="非同期関数"><a class="header" href="#非同期関数">非同期関数</a></h1>
+<p><code>async</code> 関数と <code>await</code> キーワードを使用することで、非同期処理を非常に直感的に記述できます。</p>
+<h3 id="asyncawaitの利用"><a class="header" href="#asyncawaitの利用">async/awaitの利用</a></h3>
+<pre><code class="language-typescript">async function fetchData(): Promise&lt;string&gt; {
+  const response = await fetch('https://api.example.com/data');
+  const data = await response.json();
+  return data;
+}
+</code></pre>
+<ul>
+<li><code>async</code> キーワード: 関数が常に <code>Promise</code> を返すようにします。</li>
+<li><code>await</code> キーワード: <code>Promise</code> が解決（成功）されるまで関数の実行を一時停止します。</li>
+</ul>
+<p><code>try-catch</code> ブロックを使って同期処理と同じようにエラーハンドリングができるため、コードの可読性が大幅に向上します。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="まとめ-1"><a class="header" href="#まとめ-1">まとめ</a></h1>
+<h1 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h1>
+<p>この章では、TypeScriptを用いた堅牢な開発の基本を学びました。</p>
+<ul>
+<li><strong>TypeScriptの利点</strong>: 静的型付けによるバグの早期発見と開発者体験の向上。</li>
+<li><strong>オブジェクト指向</strong>: クラス、インターフェース、継承などを用いた構造化設計。</li>
+<li><strong>モジュール</strong>: <code>import/export</code> によるコードの整理。</li>
+<li><strong>非同期処理</strong>: <code>async/await</code> による安全かつ可読性の高い通信処理。</li>
+</ul>
+<p>TypeScriptは単なるJavaScriptの型定義言語ではなく、大規模開発を支える強力なエコシステムです。ここまでの知識を組み合わせることで、堅牢なアプリケーションを設計・構築する準備が整いました。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-2"><a class="header" href="#演習-2">演習</a></h1>
+<h1 id="演習-1"><a class="header" href="#演習-1">演習</a></h1>
+<p>TypeScriptの基礎を実践的に確認するための演習です。</p>
+<h3 id="課題"><a class="header" href="#課題">課題</a></h3>
+<ol>
+<li><strong>インターフェースの定義</strong>: <code>User</code> インターフェースを定義し、名前、年齢、メールアドレスを持つオブジェクトを型安全に作成してください。</li>
+<li><strong>クラスの継承</strong>: <code>Shape</code> 抽象クラスを作成し、<code>Circle</code> クラスと <code>Square</code> クラスを作成してください。それぞれ <code>getArea</code> メソッドを実装してください。</li>
+<li><strong>非同期処理の書き換え</strong>: 既存の <code>Promise</code> ベースのコードを <code>async/await</code> に書き換えて、エラーハンドリングを実装してください。</li>
+</ol>
+<h3 id="ヒント"><a class="header" href="#ヒント">ヒント</a></h3>
+<ul>
+<li><code>tsconfig.json</code> で <code>strict: true</code> を有効にすると、より厳密な型チェックが行われ、TypeScriptの真価を発揮できます。</li>
+<li>オブジェクト指向の設計では、「インターフェースで振る舞いを定義し、クラスで実装する」という構成を意識しましょう。</li>
+</ul>
+<p>これらの課題を通じて、型システムとオブジェクト指向設計の実践的な感覚を養ってください。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="エコシステムとは"><a class="header" href="#エコシステムとは">エコシステムとは</a></h1>
+<p>JavaScriptの世界は、巨大な「エコシステム」によって支えられています。エコシステムとは、単なるライブラリの集合ではなく、それらが組み合わさり、お互いに影響を与え合いながら進化する「生態系」です。</p>
+<h3 id="パッケージマネージャの存在"><a class="header" href="#パッケージマネージャの存在">パッケージマネージャの存在</a></h3>
+<p>JavaScriptのエコシステムを語る上で避けて通れないのが、<code>npm</code> や <code>yarn</code>、<code>pnpm</code> といったパッケージマネージャです。これらは、膨大なライブラリから必要なものを依存関係を解決しながらインストールします。
+なぜ自作せずにライブラリを使うのか？ それは「巨人の肩の上に立つ」ためです。再利用可能なコンポーネントを組み合わせることで、開発者はビジネスロジックの本質的な部分に集中できます。</p>
+<h3 id="なぜエコシステムは急速に進化するのか"><a class="header" href="#なぜエコシステムは急速に進化するのか">なぜエコシステムは急速に進化するのか</a></h3>
+<p>JavaScriptのエコシステムがこれほどまでに急速に進化する理由は、Web技術が日々変化し、より高度なユーザー体験が求められているためです。例えば、かつては直接DOMを操作していたUI開発も、ReactやVueのような宣言的なフレームワークの登場によって、UIを状態（データ）の関数として表現する手法へと進化しました。</p>
+<p>この変化は、ただ流行り廃りではなく、密結合を避け、凝集度を高めるための設計パターンの探求の歴史でもあります。</p>
+<p>TODO: npmなどのパッケージマネージャが依存関係をどのように解決しているかの詳細記事へのリンクを貼る
+TODO: 宣言的なUIライブラリ（Reactなど）の背景にある関数型パラダイムについての解説記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="threejs入門"><a class="header" href="#threejs入門">Three.js入門</a></h1>
+<p>Three.jsは、ブラウザ上で3Dグラフィックスを表示するための強力なライブラリです。WebGLを直接扱うのは非常に難易度が高いですが、Three.jsはその複雑さをラップし、直感的なAPIを提供します。</p>
+<h3 id="threejsの基本概念"><a class="header" href="#threejsの基本概念">Three.jsの基本概念</a></h3>
+<ul>
+<li><strong>Scene (シーン)</strong>: 3Dオブジェクトを配置する空間。</li>
+<li><strong>Camera (カメラ)</strong>: シーンをどの視点から見るかを決定。</li>
+<li><strong>Renderer (レンダラー)</strong>: シーンとカメラをもとに、最終的な画像を描画。</li>
+</ul>
+<h3 id="簡単な描画"><a class="header" href="#簡単な描画">簡単な描画</a></h3>
+<pre><code class="language-javascript">const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+</code></pre>
+<p>Three.jsは、Webブラウザを単なる文書閲覧ツールではなく、リッチな体験を提供するプラットフォームへと変貌させます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="react概要"><a class="header" href="#react概要">React概要</a></h1>
+<p>Reactは、ユーザーインターフェース（UI）を構築するための、宣言的なJavaScriptライブラリです。Meta社によって開発され、現在フロントエンド開発の事実上の標準となっています。</p>
+<h3 id="reactの核となる思想"><a class="header" href="#reactの核となる思想">Reactの核となる思想</a></h3>
+<ul>
+<li><strong>コンポーネント指向</strong>: UIを小さな部品（コンポーネント）に分割し、再利用可能な形で構築します。</li>
+<li><strong>宣言的UI</strong>: 状態（State）に基づいたUIを記述し、状態が変わればReactが自動的に画面を更新します（DOMを直接操作しません）。</li>
+</ul>
+<h3 id="なぜreactか"><a class="header" href="#なぜreactか">なぜReactか</a></h3>
+<p>Reactは「仮想DOM」という技術を用いて、実際のDOMへのアクセスを最小限に抑えることで、高いパフォーマンスを実現しています。また、膨大なコミュニティとエコシステム（Next.jsなど）があり、学習コストに対するリターンが非常に高い技術です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="基本のファイル操作"><a class="header" href="#基本のファイル操作">基本のファイル操作</a></h1>
+<p>ターミナルでのファイル操作は、プログラミング開発の最も基本的なスキルです。マウスを使わず、キーボード入力だけで高速かつ正確にファイルを管理できます。</p>
+<h3 id="頻出コマンド"><a class="header" href="#頻出コマンド">頻出コマンド</a></h3>
+<ul>
+<li><code>ls</code>: ディレクトリ内のファイル一覧を表示。</li>
+<li><code>cd</code>: ディレクトリの移動。</li>
+<li><code>pwd</code>: 現在のディレクトリを表示。</li>
+<li><code>mkdir</code>: ディレクトリの作成。</li>
+<li><code>rm</code>: ファイルやディレクトリの削除。</li>
+<li><code>cp</code> / <code>mv</code>: ファイルのコピーと移動/名前変更。</li>
+</ul>
+<p>これらのコマンドを使いこなすことで、開発効率は飛躍的に向上します。特に <code>cd</code> と <code>ls</code> は無意識に行えるレベルまで練習しましょう。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="gitとは"><a class="header" href="#gitとは">Gitとは</a></h1>
+<p>Gitは、ソースコードの変更履歴を記録・管理するための「分散型バージョン管理システム」です。開発において、以前のコードに戻したり、誰がいつ変更したかを確認したりするのに不可欠です。</p>
+<h3 id="なぜgitが必要か"><a class="header" href="#なぜgitが必要か">なぜGitが必要か</a></h3>
+<ul>
+<li><strong>履歴管理</strong>: いつでも過去の状態にロールバック可能。</li>
+<li><strong>ブランチ機能</strong>: 開発を分岐させ、実験的な機能追加や修正を安全に行える。</li>
+<li><strong>チーム開発</strong>: 複数人で同時にコードを変更し、安全に統合できる。</li>
+</ul>
+<p>Gitは、現代のソフトウェア開発において「無くてはならない」基盤技術です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="githubへの登録とgitのインストール"><a class="header" href="#githubへの登録とgitのインストール">GitHubへの登録とGitのインストール</a></h1>
+<p>GitをPCに導入し、GitHubというホスティングサービスを活用することで、コードのバックアップとチーム連携が可能になります。</p>
+<h3 id="インストール手順"><a class="header" href="#インストール手順">インストール手順</a></h3>
+<ol>
+<li><strong>Gitのインストール</strong>: 公式サイトまたはパッケージマネージャ (<code>brew install git</code> など) からインストールします。</li>
+<li><strong>GitHubアカウント作成</strong>: GitHub.comにサインアップします。</li>
+<li><strong>SSH設定</strong>: ローカルのPCとGitHubをSSH接続することで、安全な通信が可能になります。</li>
+</ol>
+<p>インストール後は、<code>git config --global user.name</code> 等で設定を済ませておきましょう。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="gitの基本の使い方"><a class="header" href="#gitの基本の使い方">Gitの基本の使い方</a></h1>
+<p>Gitの基本的なワークフローを覚えましょう。</p>
+<h3 id="基本コマンド"><a class="header" href="#基本コマンド">基本コマンド</a></h3>
+<ol>
+<li><code>git init</code>: リポジトリの初期化。</li>
+<li><code>git add &lt;file&gt;</code>: 変更をステージングエリア（コミット準備）に追加。</li>
+<li><code>git commit -m "message"</code>: 変更をリポジトリに記録。</li>
+<li><code>git push</code>: リモートリポジトリ（GitHub等）に反映。</li>
+</ol>
+<pre><code class="language-bash">git add .
+git commit -m "機能追加"
+git push origin main
+</code></pre>
+<p>この「ステージング」→「コミット」→「プッシュ」の流れがGit開発の基本です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cliツールのお作法"><a class="header" href="#cliツールのお作法">CLIツールのお作法</a></h1>
+<p>ターミナル上のCLI（Command Line Interface）ツールには、使いやすくするための共通の流儀があります。</p>
+<h3 id="覚えておくべき作法"><a class="header" href="#覚えておくべき作法">覚えておくべき作法</a></h3>
+<ul>
+<li><strong>ヘルプを表示する</strong>: <code>--help</code> または <code>-h</code> オプションで使い方が表示されます。</li>
+<li><strong>パイプ (<code>|</code>) の活用</strong>: あるコマンドの出力を別のコマンドに渡す（例: <code>ls | grep .txt</code>）。</li>
+<li><strong>エイリアス (<code>alias</code>)</strong>: よく使う長いコマンドを短縮形に登録する。</li>
+<li><strong>履歴 (<code>history</code>)</strong>: 過去に実行したコマンドを再利用する。</li>
+</ul>
+<p>これらの作法を身につけることで、CLI環境がより強力で快適な開発ツールになります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-3"><a class="header" href="#演習-3">演習</a></h1>
+<h1 id="演習-2"><a class="header" href="#演習-2">演習</a></h1>
+<p>ターミナルとGitの操作に慣れるための演習です。</p>
+<h3 id="課題-1"><a class="header" href="#課題-1">課題</a></h3>
+<ol>
+<li><strong>ディレクトリ操作</strong>: 任意の場所に新しいディレクトリを作成し、その中にテキストファイルを作成して移動・コピー・削除を行ってください。</li>
+<li><strong>Git操作</strong>: 新しいGitリポジトリを作成し、ファイルを追加・コミットし、変更履歴（<code>git log</code>）を確認してください。</li>
+<li><strong>コマンド練習</strong>: <code>history</code> コマンドで最近使ったコマンドを確認し、<code>alias</code> を設定してみてください。</li>
+</ol>
+<h3 id="ヒント-1"><a class="header" href="#ヒント-1">ヒント</a></h3>
+<ul>
+<li>失敗しても怖がる必要はありません。<code>rm -rf</code> を行うときは慎重に。</li>
+<li>Gitの操作で詰まったら <code>git status</code> で現在の状態を確認する習慣をつけましょう。</li>
+</ul>
+<p>これらの操作を繰り返すことで、ターミナルはあなたの強力な味方になります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="jsxと関数コンポーネント"><a class="header" href="#jsxと関数コンポーネント">JSXと関数コンポーネント</a></h1>
+<p>Reactは、現在のフロントエンド開発において最も普及しているライブラリの一つです。その本質は「UIを状態の関数として表現する」ことにあります。</p>
+<h3 id="jsxの正体"><a class="header" href="#jsxの正体">JSXの正体</a></h3>
+<p>JSXは、JavaScriptの中にHTMLのような記法を書くための構文拡張です。一見するとテンプレートエンジンのようですが、JSXは単なる「見た目」の記述ではありません。JSXはビルド時に <code>React.createElement</code> という関数呼び出しに変換され、最終的にはJavaScriptのオブジェクト（仮想DOM）を生成します。</p>
+<h3 id="関数コンポーネントと不変性"><a class="header" href="#関数コンポーネントと不変性">関数コンポーネントと不変性</a></h3>
+<p>関数コンポーネントは、props（入力データ）を受け取り、UI（出力データ）を返す純粋な関数です。Reactの理念として「propsを直接変更してはならない」という不変性の原則があります。データが変更されたら、古いオブジェクトを修正するのではなく、新しい状態を持つ新しいオブジェクトを生成します。</p>
+<p>この計算モデルにより、Reactは「どのデータが変更されたか」を効率的に検知し、必要最小限のDOM操作を行うことができます。</p>
+<p>TODO: 仮想DOMの仕組みと、Reactの差分検出アルゴリズムについての解説記事へのリンクを貼る
+TODO: 関数型プログラミングにおける不変性（Immutability）の重要性についての解説記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="propsとchildrenの扱い"><a class="header" href="#propsとchildrenの扱い">propsとchildrenの扱い</a></h1>
+<p>Reactコンポーネントにおける <code>props</code> は、親コンポーネントから子コンポーネントへデータを渡すための手段です。</p>
+<h3 id="propsの使用法"><a class="header" href="#propsの使用法">propsの使用法</a></h3>
+<p>propsは関数の引数のように受け取ります。</p>
+<pre><code class="language-jsx">function Welcome(props) {
+  return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;
+}
+</code></pre>
+<h3 id="childrenプロパティ"><a class="header" href="#childrenプロパティ">childrenプロパティ</a></h3>
+<p><code>children</code> は特殊なpropsで、コンポーネントの開始タグと終了タグの間に囲まれた要素を指します。</p>
+<pre><code class="language-jsx">function Wrapper({ children }) {
+  return &lt;div className="wrapper"&gt;{children}&lt;/div&gt;;
+}
+
+&lt;Wrapper&gt;
+  &lt;p&gt;囲まれた要素&lt;/p&gt;
+&lt;/Wrapper&gt;
+</code></pre>
+<p>これらを活用することで、コンポーネントの構成を柔軟にし、再利用性の高いUI部品を構築できます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="reactの思想"><a class="header" href="#reactの思想">Reactの思想</a></h1>
+<p>Reactの最大の特徴は、UIを「状態（state）の関数」として捉える思想です。</p>
+<h3 id="宣言的ui"><a class="header" href="#宣言的ui">宣言的UI</a></h3>
+<p>命令的に「DOMをこのように変える」という指示を出すのではなく、「この状態のときは、このUIであるべきだ」という状態（state）を宣言します。Reactがその状態の変化を検知し、最適なDOM操作を自動的に行ってくれます。</p>
+<h3 id="データフロー"><a class="header" href="#データフロー">データフロー</a></h3>
+<p>Reactにおけるデータは一方向（トップダウン）で流れます。親から子へpropsを通じてデータが伝播します。</p>
+<p>このシンプルなモデルにより、アプリケーションの状態管理が容易になり、UIの挙動を予測しやすくなります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="dom更新のステップ"><a class="header" href="#dom更新のステップ">DOM更新のステップ</a></h1>
+<p>Reactにおいて、状態が変更されたときにDOMが更新されるプロセスは以下のステップで行われます。</p>
+<ol>
+<li><strong>レンダーフェーズ</strong>: コンポーネントが再レンダリングされ、新しい仮想DOMツリーが生成されます。</li>
+<li><strong>差分検知（Reconciliation）</strong>: 新しい仮想DOMと前回の仮想DOMを比較し、変更箇所を特定します。</li>
+<li><strong>コミットフェーズ</strong>: 変更箇所（差分）のみを実際のDOMに反映します。</li>
+</ol>
+<p>このプロセスにより、効率的にDOMを更新し、高いパフォーマンスを維持します。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="フック"><a class="header" href="#フック">フック</a></h1>
+<p>フック（Hooks）は、関数コンポーネントでstateやライフサイクル機能を利用するための特別な関数です。</p>
+<h3 id="主要なフック"><a class="header" href="#主要なフック">主要なフック</a></h3>
+<ul>
+<li><strong><code>useState</code></strong>: 状態（state）を保持・管理する。</li>
+<li><strong><code>useEffect</code></strong>: 副作用（副作用処理：API通信、DOM操作、タイマーなど）を実行する。</li>
+</ul>
+<p>フックはコンポーネント間で状態管理ロジックを再利用可能にするための革命的な仕組みであり、Reactの現在の開発スタイルにおける基盤です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="カスタムフック"><a class="header" href="#カスタムフック">カスタムフック</a></h1>
+<p>カスタムフックを作成することで、コンポーネントロジックを抽出して再利用可能にできます。</p>
+<h3 id="定義方法"><a class="header" href="#定義方法">定義方法</a></h3>
+<p>関数名の先頭に <code>use</code> をつけるのが慣習です。</p>
+<pre><code class="language-jsx">function useCounter(initialValue) {
+  const [count, setCount] = useState(initialValue);
+  return { count, increment: () =&gt; setCount(count + 1) };
+}
+</code></pre>
+<p>カスタムフックを利用することで、コンポーネント自体はUIの描画に集中し、ビジネスロジックをフックに隔離することで、コードの保守性が大きく向上します。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="spaとは"><a class="header" href="#spaとは">SPAとは</a></h1>
+<p>SPA（Single Page Application）は、ページ全体を再読み込みすることなく、必要な箇所だけを動的に書き換えることで高速な操作感を実現するWebアプリケーションの形態です。</p>
+<h3 id="spaのメリット"><a class="header" href="#spaのメリット">SPAのメリット</a></h3>
+<ul>
+<li><strong>高速な画面遷移</strong>: サーバーからのデータ取得のみを行い、UIはブラウザ側で更新するため、アプリのようなサクサクとした操作感を実現。</li>
+<li><strong>UXの向上</strong>: 状態を維持したまま画面の一部を更新できる。</li>
+</ul>
+<p>Reactは、このSPAの構築に最適なライブラリの一つです。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="reactrouterとは"><a class="header" href="#reactrouterとは">ReactRouterとは</a></h1>
+<p>React Routerは、Reactアプリケーションにおいてページルーティングを実現するための標準的なライブラリです。</p>
+<h3 id="基本機能"><a class="header" href="#基本機能">基本機能</a></h3>
+<p>URLに基づいて表示するコンポーネントを切り替えることで、SPAにおける画面遷移を実現します。</p>
+<pre><code class="language-jsx">&lt;Routes&gt;
+  &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+  &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+&lt;/Routes&gt;
+</code></pre>
+<p>React Routerを利用することで、複雑なアプリケーションでもURLと画面状態を同期させることが可能になります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="nextjsとは"><a class="header" href="#nextjsとは">Next.jsとは</a></h1>
+<p>Next.jsは、Reactをベースにしたフレームワークで、本番環境での開発に必要な機能（ルーティング、レンダリング手法、最適化）があらかじめ組み込まれています。</p>
+<h3 id="主な特徴"><a class="header" href="#主な特徴">主な特徴</a></h3>
+<ul>
+<li><strong>レンダリングの柔軟性</strong>: SSR（サーバーサイドレンダリング）、SSG（静的サイト生成）、ISR（インクリメンタル静的再生）をサポートし、パフォーマンスとSEOを最適化。</li>
+<li><strong>ファイルベースルーティング</strong>: ファイルシステム自体がルーティング設定となります。</li>
+</ul>
+<p>現代のReact開発では、Next.jsを採用するのが一般的です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="approuterについて"><a class="header" href="#approuterについて">AppRouterについて</a></h1>
+<p>Next.jsのApp Routerは、Reactの最新機能を最大限に活用する、新世代のルーティングシステムです。</p>
+<h3 id="app-routerの利点"><a class="header" href="#app-routerの利点">App Routerの利点</a></h3>
+<ul>
+<li><strong>React Server Components</strong>: サーバー側でコンポーネントをレンダリングし、JSバンドルサイズを大幅に削減。</li>
+<li><strong>データ取得の最適化</strong>: サーバーサイドで効率的にデータをフェッチし、クライアントへ渡すことが可能。</li>
+</ul>
+<p>App Routerによって、パフォーマンスと開発体験が飛躍的に向上しました。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="特別な関数たち"><a class="header" href="#特別な関数たち">特別な関数たち</a></h1>
+<p>Reactには、レンダリングの最適化や特定の処理を行うための特別なAPIが存在します。</p>
+<ul>
+<li><strong><code>memo</code></strong>: コンポーネントの再レンダリングをpropsが変更されたときのみに制限する。</li>
+<li><strong><code>useMemo</code></strong>: 計算結果をメモ化し、依存関係が変わらない限り再計算をスキップする。</li>
+<li><strong><code>useCallback</code></strong>: 関数をメモ化し、不要な再作成を抑制する。</li>
+</ul>
+<p>これらはパフォーマンスがボトルネックとなる場面でのみ使用し、むやみに使うと逆にコードが複雑になるため注意が必要です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="動的ルーティング"><a class="header" href="#動的ルーティング">動的ルーティング</a></h1>
+<p>動的ルーティングとは、URLの一部を変数として扱い、その値をコンポーネント内で利用する仕組みです。</p>
+<h3 id="nextjsでの例"><a class="header" href="#nextjsでの例">Next.jsでの例</a></h3>
+<p><code>app/posts/[id]/page.tsx</code> のようなディレクトリ構造にすることで、<code>posts/1</code>、<code>posts/2</code> といったURLに対応できます。</p>
+<pre><code class="language-tsx">export default function Post({ params }: { params: { id: string } }) {
+  return &lt;div&gt;Post ID: {params.id}&lt;/div&gt;;
+}
+</code></pre>
+<p>これにより、ブログ記事やユーザープロフィールなど、可変的なデータを持つページを効率的に構築できます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="公式ドキュメントの読み方"><a class="header" href="#公式ドキュメントの読み方">公式ドキュメントの読み方</a></h1>
+<p>Reactの公式ドキュメントは、非常に質が高く、最新のベストプラクティスが網羅されています。</p>
+<h3 id="読み方のコツ"><a class="header" href="#読み方のコツ">読み方のコツ</a></h3>
+<ul>
+<li><strong>「Learn React」</strong>: 基礎を体系的に学ぶためのチュートリアル。まずはここを熟読する。</li>
+<li><strong>「Reference」</strong>: 特定のフックやAPIの仕様を確認する際に利用。</li>
+<li><strong>「Examples」</strong>: 実践的なコード例を探す際に参照。</li>
+</ul>
+<p>技術書を読むよりも、常に公式ドキュメントをブラウザのタブに開いておくことが、Reactエンジニアへの近道です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-4"><a class="header" href="#演習-4">演習</a></h1>
+<h1 id="演習-3"><a class="header" href="#演習-3">演習</a></h1>
+<p>Reactの基礎を実践的に確認するための演習です。</p>
+<h3 id="課題-2"><a class="header" href="#課題-2">課題</a></h3>
+<ol>
+<li><strong>カウンター</strong>: <code>useState</code> を使って、ボタンを押すと数字が増減するカウンターを作成してください。</li>
+<li><strong>リスト表示</strong>: 配列データを受け取り、それをリスト (<code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>) として描画するコンポーネントを作成してください。</li>
+<li><strong>副作用</strong>: <code>useEffect</code> を使って、コンポーネントがマウントされた際にAPIからデータを取得する処理を書いてください。</li>
+</ol>
+<h3 id="ヒント-2"><a class="header" href="#ヒント-2">ヒント</a></h3>
+<ul>
+<li>コンポーネントは常にシンプルに保ち、複雑なロジックはフックへ逃がしましょう。</li>
+<li>React DevTools をインストールして、stateの変化を可視化しましょう。</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="バックエンドとは"><a class="header" href="#バックエンドとは">バックエンドとは</a></h1>
+<p>バックエンド（サーバーサイド）は、フロントエンドが送信したリクエストを受け取り、処理し、結果を返すシステムです。Webアプリケーションにおける「データ」の永続化と、計算処理の大部分を担います。</p>
+<h3 id="ステートフルとステートレス"><a class="header" href="#ステートフルとステートレス">ステートフルとステートレス</a></h3>
+<p>Webの基盤であるHTTPプロトコルは本来「ステートレス」です。つまり、リクエストごとに互いに独立しており、前のリクエストを覚えることができません。
+しかし、Webアプリケーションには「ログイン中かどうか」という状態が必要です。この矛盾を解決するために、CookieやJWT（JSON Web Token）を使って「セッション」を管理します。</p>
+<h3 id="データベースの本質"><a class="header" href="#データベースの本質">データベースの本質</a></h3>
+<p>バックエンド開発において、データベースはアプリケーションの「記憶」です。SQLは、データを操作するための数学的な言語（関係代数）に基づいています。単なる保存場所としてではなく、データ間の整合性を保証するための強力なメカニズムとして機能します。</p>
+<p>TODO: HTTPプロトコルのステートレス性と、セッション管理の仕組み（Cookie/JWT）についての解説記事へのリンクを貼る
+TODO: リレーショナルデータベース（RDBMS）と関係代数の基礎に関する解説記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="expressjsを使ったバックエンド"><a class="header" href="#expressjsを使ったバックエンド">express.jsを使ったバックエンド</a></h1>
+<p>Express.jsは、Node.jsで最も広く利用されている軽量なWebアプリケーションフレームワークです。</p>
+<h3 id="シンプルなサーバー"><a class="header" href="#シンプルなサーバー">シンプルなサーバー</a></h3>
+<pre><code class="language-javascript">const express = require('express');
+const app = express();
+
+app.get('/', (req, res) =&gt; {
+  res.send('Hello World!');
+});
+
+app.listen(3000, () =&gt; console.log('Server running on port 3000'));
+</code></pre>
+<p>Expressは、ルーティング、ミドルウェア、リクエスト・レスポンスの処理を極めて直感的に記述できます。小規模なAPIサーバーから複雑なバックエンドまで、柔軟に構築可能です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ミドルウェア"><a class="header" href="#ミドルウェア">ミドルウェア</a></h1>
+<p>ミドルウェアは、リクエストとレスポンスのサイクルの間に挟み込まれる関数です。</p>
+<h3 id="役割"><a class="header" href="#役割">役割</a></h3>
+<ul>
+<li>リクエストボディのパース（JSON化）。</li>
+<li>認証チェック。</li>
+<li>ログ出力。</li>
+<li>エラーハンドリング。</li>
+</ul>
+<pre><code class="language-javascript">app.use((req, res, next) =&gt; {
+  console.log('Request received');
+  next(); // 次のミドルウェアへ
+});
+</code></pre>
+<p>ミドルウェアを連鎖させることで、共通処理をモジュール化し、コントローラーのコードを簡潔に保つことができます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="jwtによる認証"><a class="header" href="#jwtによる認証">JWTによる認証</a></h1>
+<p>JWT (JSON Web Token) は、サーバーとクライアント間で安全に情報をやり取りするための認証トークン形式です。</p>
+<h3 id="特徴"><a class="header" href="#特徴">特徴</a></h3>
+<ul>
+<li>ステートレス: サーバー側でセッション情報を保持する必要がないため、スケーラビリティが高い。</li>
+<li>自己完結型: トークン自体にユーザーID等の情報が含まれている。</li>
+</ul>
+<p>クライアントがログイン時にJWTを受け取り、以降のリクエストのヘッダーに含めることで、認証状態をサーバー側に伝えます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="corsポリシー"><a class="header" href="#corsポリシー">CORSポリシー</a></h1>
+<p>CORS (Cross-Origin Resource Sharing) は、異なるオリジン（ドメイン、ポート）からのブラウザ経由のアクセスを制御する仕組みです。</p>
+<h3 id="なぜ必要か"><a class="header" href="#なぜ必要か">なぜ必要か</a></h3>
+<p>ブラウザのセキュリティ上の制約として、Webページと同じドメインのサーバーにしかリクエストを送れない「同一オリジンポリシー」があります。APIサーバーを別ドメインで運用する場合、この制約によりブラウザからリクエストが拒否されます。</p>
+<p>サーバー側で許可されたオリジンを設定することで、この制約を安全に緩和し、クロスドメイン通信を可能にします。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cookieによる認証"><a class="header" href="#cookieによる認証">Cookieによる認証</a></h1>
+<p>Cookieを利用した認証は、ブラウザが自動的にリクエストに含めて送信してくれるため、フロントエンド側の実装が容易です。</p>
+<h3 id="特徴-1"><a class="header" href="#特徴-1">特徴</a></h3>
+<ul>
+<li>自動送信: ブラウザが自動的にサーバーへ送信するため、JSでトークンを管理する必要がない。</li>
+<li>HttpOnly属性: JSからのCookieアクセスを禁止することで、XSS攻撃によるトークン盗難のリスクを軽減できる。</li>
+</ul>
+<p>セキュリティ面で適切な設定を行うことが、Cookie認証の安全性を担保する鍵となります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="dbとは"><a class="header" href="#dbとは">DBとは</a></h1>
+<p>データベース（DB）は、データを永続化して管理するためのシステムです。バックエンド開発における最も重要な要素の一つです。</p>
+<h3 id="rdbmsとnosql"><a class="header" href="#rdbmsとnosql">RDBMSとNoSQL</a></h3>
+<ul>
+<li><strong>RDBMS (リレーショナルデータベース)</strong>: SQLを使用してデータを管理。厳密なデータ構造（スキーマ）を定義。PostgreSQL, MySQL, SQLiteなど。</li>
+<li><strong>NoSQL</strong>: スキーマが柔軟。JSON形式などでデータを保存。MongoDBなど。</li>
+</ul>
+<p>アプリケーションの要件に応じて、適切なDBを選択することが不可欠です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="sqliteのインストール"><a class="header" href="#sqliteのインストール">SQLiteのインストール</a></h1>
+<p>SQLiteは、サーバープロセスを必要としない軽量なファイルベースのRDBMSです。学習や小規模プロジェクトに最適です。</p>
+<h3 id="インストール"><a class="header" href="#インストール">インストール</a></h3>
+<pre><code class="language-bash"># npmでインストール（Node.jsから扱う場合）
+npm install sqlite3
+</code></pre>
+<p>SQLiteは一つのファイルに全てのデータが保存されるため、バックアップや移動が極めて簡単です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="sql文1"><a class="header" href="#sql文1">SQL文1</a></h1>
+<p>SQL（Structured Query Language）は、DBを操作するための標準言語です。まずはデータの作成と取得から始めます。</p>
+<h3 id="基本操作"><a class="header" href="#基本操作">基本操作</a></h3>
+<ul>
+<li><strong>CREATE TABLE</strong>: テーブルを作成する。</li>
+<li><strong>INSERT</strong>: データを挿入する。</li>
+<li><strong>SELECT</strong>: データを取得する。</li>
+</ul>
+<pre><code class="language-sql">CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT);
+INSERT INTO users (name) VALUES ('Alice');
+SELECT * FROM users;
+</code></pre>
+<p>これらの基本的なSQL文を理解することが、データ駆動型アプリケーション開発の第一歩です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="sql文2"><a class="header" href="#sql文2">SQL文2</a></h1>
+<p>データを条件付きで操作する方法を学びます。</p>
+<h3 id="条件操作"><a class="header" href="#条件操作">条件操作</a></h3>
+<ul>
+<li><strong>WHERE</strong>: 条件に一致するデータを絞り込む。</li>
+<li><strong>UPDATE</strong>: データを更新する。</li>
+<li><strong>DELETE</strong>: データを削除する。</li>
+</ul>
+<pre><code class="language-sql">UPDATE users SET name = 'Bob' WHERE id = 1;
+DELETE FROM users WHERE id = 1;
+</code></pre>
+<p>条件を指定せずに更新や削除を行うと全てのデータが影響を受けるため、<code>WHERE</code>句の使用は必須のスキルです。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="sql文3"><a class="header" href="#sql文3">SQL文3</a></h1>
+<p>複数のテーブルを組み合わせてデータを取得する「結合 (JOIN)」は、リレーショナルデータベースの真骨頂です。</p>
+<h3 id="テーブル結合"><a class="header" href="#テーブル結合">テーブル結合</a></h3>
+<pre><code class="language-sql">SELECT users.name, posts.title
+FROM users
+JOIN posts ON users.id = posts.user_id;
+</code></pre>
+<p><code>JOIN</code> を使うことで、正規化されたテーブル同士を関連付け、複雑なデータセットを一つの結果として取得できます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="sql文4"><a class="header" href="#sql文4">SQL文4</a></h1>
+<p>高度なデータ集計方法です。</p>
+<ul>
+<li><strong>GROUP BY</strong>: データをグループ化して集計する。</li>
+<li><strong>ORDER BY</strong>: 結果を並び替える。</li>
+<li><strong>LIMIT</strong>: 取得する件数を制限する。</li>
+</ul>
+<pre><code class="language-sql">SELECT category, COUNT(*) FROM posts GROUP BY category ORDER BY COUNT(*) DESC LIMIT 5;
+</code></pre>
+<p>これらの機能を駆使することで、DB内部で効率的に集計処理を行い、アプリケーション側の負荷を軽減できます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="db設計最適化バックアップ"><a class="header" href="#db設計最適化バックアップ">DB設計・最適化・バックアップ</a></h1>
+<p>DB運用の重要な要素です。</p>
+<ul>
+<li><strong>設計</strong>: データの正規化（重複を避ける）と、アクセス頻度を考慮したテーブル設計。</li>
+<li><strong>最適化</strong>: インデックスの作成による検索速度の向上。</li>
+<li><strong>バックアップ</strong>: データの損失を防ぐための定期的なダンプ（エクスポート）。</li>
+</ul>
+<p>DBを長期的に運用するためには、開発段階からの適切な設計と定期的なメンテナンス計画が欠かせません。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="実践"><a class="header" href="#実践">実践</a></h1>
+<p>ここまでのバックエンドの知識を統合し、実際にAPIを構築しましょう。</p>
+<h3 id="課題-3"><a class="header" href="#課題-3">課題</a></h3>
+<ol>
+<li><strong>APIサーバーの立ち上げ</strong>: Expressで簡単なGET/POST APIを作成してください。</li>
+<li><strong>データベース接続</strong>: SQLiteを使って、データを永続化するAPIに改修してください。</li>
+<li><strong>バリデーション</strong>: リクエストデータが正しい形式か検証する処理を追加してください。</li>
+</ol>
+<p>理論を学ぶだけでなく、手を動かしてAPIを動かすことで、バックエンドの全体像が明確になります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="サービスを実際に公開したい人へ"><a class="header" href="#サービスを実際に公開したい人へ">サービスを実際に公開したい人へ</a></h1>
+<p>作成したAPIサーバーを公開するには、クラウドプラットフォームを利用するのが一般的です。</p>
+<h3 id="公開への道"><a class="header" href="#公開への道">公開への道</a></h3>
+<ul>
+<li><strong>Vercel / Render / Fly.io</strong>: Node.jsアプリケーションを簡単にデプロイできるプラットフォーム。</li>
+<li><strong>Docker</strong>: アプリをコンテナ化し、環境依存を排除する。</li>
+<li><strong>ドメインとSSL</strong>: 独自ドメインを取得し、HTTPSで安全に公開する。</li>
+</ul>
+<p>公開環境では、ローカル環境とは異なる設定（環境変数、セキュリティ設定）が必要になるため、段階的に学習していきましょう。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="開発効率化の重要性"><a class="header" href="#開発効率化の重要性">開発効率化の重要性</a></h1>
+<p>開発効率化は、単に「速く書く」ことではありません。開発プロセス全体を通じた「手戻りの削減」と「信頼性の向上」です。</p>
+<h3 id="なぜci継続的インテグレーションが必要なのか"><a class="header" href="#なぜci継続的インテグレーションが必要なのか">なぜCI（継続的インテグレーション）が必要なのか</a></h3>
+<p>CIは、コードの統合（マージ）を自動化し、テストを継続的に行うことで、バグを早期に発見する仕組みです。ソフトウェアの規模が大きくなるほど、一人での開発では限界が生じ、チーム全体での協力が必要となります。CIは、チームのコミュニケーションコストを減らし、技術的な負債の蓄積を防ぐための基盤です。</p>
+<h3 id="自動化の背後にある思想"><a class="header" href="#自動化の背後にある思想">自動化の背後にある思想</a></h3>
+<p>開発効率化の本質は「人間にしかできない創造的な作業」と「機械が自動化できる作業」を厳格に分離することです。テスト、ビルド、デプロイは機械に任せ、エンジニアは設計やロジックの改善に集中できる環境を整えるべきです。</p>
+<p>TODO: CI/CDの概念とGitHub Actionsの設定方法に関する詳細解説記事へのリンクを貼る
+TODO: 自動テストがなぜ重要なのか、テスト自動化のピラミッドに関する解説記事へのリンクを貼る</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="githubの機能branch"><a class="header" href="#githubの機能branch">GitHubの機能branch</a></h1>
+<p>ブランチは、メインのコードベースに影響を与えずに開発を進めるための独立した作業空間です。</p>
+<h3 id="活用法"><a class="header" href="#活用法">活用法</a></h3>
+<ul>
+<li><code>main</code> ブランチは常に本番環境と同じ状態を保つ。</li>
+<li>新機能の開発やバグ修正は必ず別のブランチで行い、完了したら <code>main</code> にマージする。</li>
+</ul>
+<p>この運用により、チーム開発におけるコードの安全性が保たれます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="githubの機能pullrequest"><a class="header" href="#githubの機能pullrequest">GitHubの機能PullRequest</a></h1>
+<p>プルリクエスト（PR）は、自分の開発したブランチの変更をメインブランチにマージするよう依頼するための機能です。</p>
+<h3 id="prの役割"><a class="header" href="#prの役割">PRの役割</a></h3>
+<ul>
+<li>コードレビュー: 他のメンバーがコードを読み、フィードバックを行う。</li>
+<li>品質担保: 動作確認やテストがパスしているかチェックする。</li>
+</ul>
+<p>PRは、コードの品質を高め、チーム全員で知識を共有するための最も重要なコミュニケーションツールです。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="githubの機能issues"><a class="header" href="#githubの機能issues">GitHubの機能Issues</a></h1>
+<p>Issuesは、タスク管理やバグ報告、機能のアイデア出しなどを行うためのトラッカーです。</p>
+<h3 id="活用法-1"><a class="header" href="#活用法-1">活用法</a></h3>
+<ul>
+<li>バグの報告: 再現手順を明確に記入する。</li>
+<li>タスク管理: 誰が何をいつまでにやるかを明確にする。</li>
+<li>プロジェクトの可視化: 開発状況を一目で確認できる。</li>
+</ul>
+<p>Issuesを活用することで、プロジェクトが何をすべきかを明確にし、効率的なタスク管理を実現します。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="gitflowとgithubflow"><a class="header" href="#gitflowとgithubflow">GitFlowとGitHubFlow</a></h1>
+<p>ブランチの運用ルール（ブランチ戦略）です。</p>
+<ul>
+<li><strong>GitFlow</strong>: 複雑なブランチ構成（<code>master</code>, <code>develop</code>, <code>feature</code>, <code>release</code>, <code>hotfix</code>）を持つ。大規模なリリース管理に適しているが、複雑。</li>
+<li><strong>GitHubFlow</strong>: 非常にシンプル（<code>main</code> と <code>feature</code> ブランチのみ）。現代のWebアプリケーション開発では、こちらのほうが一般的。</li>
+</ul>
+<p>プロジェクトの規模やリリース頻度に合わせて、最適な運用ルールを選択しましょう。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="gitコマンドチートシート"><a class="header" href="#gitコマンドチートシート">Gitコマンドチートシート</a></h1>
+<p>覚えておくと便利なGitコマンド集。</p>
+<ul>
+<li><code>git status</code>: 現在の状態確認（頻繁に使う）。</li>
+<li><code>git diff</code>: 変更内容の確認。</li>
+<li><code>git branch</code>: ブランチ一覧。</li>
+<li><code>git checkout -b &lt;name&gt;</code>: 新しいブランチを作成して移動。</li>
+<li><code>git pull</code>: リモートの変更をローカルに取り込む。</li>
+<li><code>git stash</code>: 変更を一時退避させる。</li>
+</ul>
+<p>これらを手に馴染ませることで、開発中のGit操作におけるストレスが激減します。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="copilotの使い道"><a class="header" href="#copilotの使い道">Copilotの使い道</a></h1>
+<p>GitHub Copilotは、AIによるコーディング支援ツールです。</p>
+<h3 id="活用シーン"><a class="header" href="#活用シーン">活用シーン</a></h3>
+<ul>
+<li><strong>ボイラープレートの生成</strong>: 反復的なコード（型定義、テストデータなど）を自動生成。</li>
+<li><strong>コード説明</strong>: 複雑なコードの意味をAIに解説してもらう。</li>
+<li><strong>リファクタリング支援</strong>: より効率的な書き方を提案してもらう。</li>
+</ul>
+<p>AIを「優秀なペアプログラマー」として使いこなし、開発スピードと質を大幅に高めましょう。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="githubactions"><a class="header" href="#githubactions">GitHubActions</a></h1>
+<p>GitHub Actionsは、ワークフローの自動化ツール（CI/CD）です。</p>
+<h3 id="できること"><a class="header" href="#できること">できること</a></h3>
+<ul>
+<li><strong>テストの自動実行</strong>: プルリクエストを作成するたびにテストを実行し、品質を担保。</li>
+<li><strong>デプロイの自動化</strong>: <code>main</code> ブランチにマージされたら自動的にサーバーへデプロイ。</li>
+</ul>
+<p><code>.github/workflows</code> ディレクトリにYAMLファイルを置くだけで、開発プロセスを劇的に自動化できます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="言語の動作環境"><a class="header" href="#言語の動作環境">言語の動作環境</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,18 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="expressjsを使ったバックエンド"><a class="header" href="#expressjsを使ったバックエンド">express.jsを使ったバックエンド</a></h1>
+<p>Express.jsは、Node.jsで最も広く利用されている軽量なWebアプリケーションフレームワークです。</p>
+<h3 id="シンプルなサーバー"><a class="header" href="#シンプルなサーバー">シンプルなサーバー</a></h3>
+<pre><code class="language-javascript">const express = require('express');
+const app = express();
+
+app.get('/', (req, res) =&gt; {
+  res.send('Hello World!');
+});
+
+app.listen(3000, () =&gt; console.log('Server running on port 3000'));
+</code></pre>
+<p>Expressは、ルーティング、ミドルウェア、リクエスト・レスポンスの処理を極めて直感的に記述できます。小規模なAPIサーバーから複雑なバックエンドまで、柔軟に構築可能です。</p>
 
                     </main>
 

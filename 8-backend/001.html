@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,14 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="バックエンドとは"><a class="header" href="#バックエンドとは">バックエンドとは</a></h1>
+<p>バックエンド（サーバーサイド）は、フロントエンドが送信したリクエストを受け取り、処理し、結果を返すシステムです。Webアプリケーションにおける「データ」の永続化と、計算処理の大部分を担います。</p>
+<h3 id="ステートフルとステートレス"><a class="header" href="#ステートフルとステートレス">ステートフルとステートレス</a></h3>
+<p>Webの基盤であるHTTPプロトコルは本来「ステートレス」です。つまり、リクエストごとに互いに独立しており、前のリクエストを覚えることができません。
+しかし、Webアプリケーションには「ログイン中かどうか」という状態が必要です。この矛盾を解決するために、CookieやJWT（JSON Web Token）を使って「セッション」を管理します。</p>
+<h3 id="データベースの本質"><a class="header" href="#データベースの本質">データベースの本質</a></h3>
+<p>バックエンド開発において、データベースはアプリケーションの「記憶」です。SQLは、データを操作するための数学的な言語（関係代数）に基づいています。単なる保存場所としてではなく、データ間の整合性を保証するための強力なメカニズムとして機能します。</p>
+<p>TODO: HTTPプロトコルのステートレス性と、セッション管理の仕組み（Cookie/JWT）についての解説記事へのリンクを貼る
+TODO: リレーショナルデータベース（RDBMS）と関係代数の基礎に関する解説記事へのリンクを貼る</p>
 
                     </main>
 

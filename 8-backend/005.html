@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,6 +178,10 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="corsポリシー"><a class="header" href="#corsポリシー">CORSポリシー</a></h1>
+<p>CORS (Cross-Origin Resource Sharing) は、異なるオリジン（ドメイン、ポート）からのブラウザ経由のアクセスを制御する仕組みです。</p>
+<h3 id="なぜ必要か"><a class="header" href="#なぜ必要か">なぜ必要か</a></h3>
+<p>ブラウザのセキュリティ上の制約として、Webページと同じドメインのサーバーにしかリクエストを送れない「同一オリジンポリシー」があります。APIサーバーを別ドメインで運用する場合、この制約によりブラウザからリクエストが拒否されます。</p>
+<p>サーバー側で許可されたオリジンを設定することで、この制約を安全に緩和し、クロスドメイン通信を可能にします。</p>
 
                     </main>
 

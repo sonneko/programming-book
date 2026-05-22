@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -177,7 +177,37 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="基本の制御構造"><a class="header" href="#基本の制御構造">基本の制御構造</a></h1>
+                        <h1 id="基本の制御構造プログラムの流れを操る"><a class="header" href="#基本の制御構造プログラムの流れを操る">基本の制御構造：プログラムの流れを操る</a></h1>
+<p>プログラムの流れを制御することは、開発の基礎です。JavaScriptでは、条件分岐とループ処理を用いて処理の実行順序を柔軟に制御し、動的なロジックを実装します。</p>
+<h3 id="条件分岐の視点何が起きるか"><a class="header" href="#条件分岐の視点何が起きるか">条件分岐の視点：何が起きるか</a></h3>
+<p>読者がPythonの制御構文を把握していると仮定し、冗長な説明は省きます。プログラムを読む際は、上から順に追うのではなく、「このif文が真の時に何が実行され、偽の時に何がスキップされるか」という視点でコードを見つめてください。これが、TypeScriptでの型の絞り込みが起きるか、起きないかを予測する力につながります。</p>
+<pre><code class="language-javascript">const age = 20;
+
+// 上から順に追うのではなく、条件とブロックに注目
+if (age &gt;= 18) {
+  console.log('成人です');
+} else {
+  console.log('未成年です');
+}
+</code></pre>
+<h3 id="三項演算子の可読性"><a class="header" href="#三項演算子の可読性">三項演算子の可読性</a></h3>
+<p>三項演算子（<code>condition ? exprIfTrue : exprIfFalse</code>）を用いる場合、条件式が複雑になったり、<code>exprIfTrue</code> や <code>exprIfFalse</code> が長くなる場合は、<code>()</code> をつけないと非常に読みにくくなります。</p>
+<pre><code class="language-javascript">// 読みにくい
+const message = isAdult ? "あなたは成人です、おめでとうございます。" : "あなたは未成年です、あと数年の辛抱です。";
+
+// 読みやすい
+const message = isAdult ? ("あなたは成人です、おめでとうございます。") : ("あなたは未成年です、あと数年の辛抱です。");
+</code></pre>
+<h3 id="ループ処理とイテレータメソッド"><a class="header" href="#ループ処理とイテレータメソッド">ループ処理とイテレータメソッド</a></h3>
+<p>JavaScriptでは、手続き的な <code>for</code> 文だけでなく、関数型のイテレータメソッドを多用します。</p>
+<ul>
+<li><strong><code>forEach</code></strong>: 配列の各要素に対して処理を行います。</li>
+<li><strong><code>map</code></strong>: 配列の各要素を変形して新しい配列を作成します。</li>
+</ul>
+<p>これらのメソッドを用いることで、コードの意図がより明確に表現できます。</p>
+<h3 id="制御構造のベストプラクティス"><a class="header" href="#制御構造のベストプラクティス">制御構造のベストプラクティス</a></h3>
+<p>プログラムの可読性を高めるためには、複雑な条件式を <code>if</code> 文の中に直接書くのではなく、意味のある名前の変数や関数に抽出することをお勧めします。</p>
+<p>制御構造はプログラミングの骨格です。ただ動くコードを書くのではなく、後から読み返したときにロジックが瞬時に理解できる、清潔なコード構造を目指しましょう。</p>
 
                     </main>
 

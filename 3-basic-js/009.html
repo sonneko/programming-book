@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-60901765.js";
+            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -177,7 +177,22 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="オブジェクト型"><a class="header" href="#オブジェクト型">オブジェクト型</a></h1>
+                        <h1 id="オブジェクト型データの構造化とプロトタイプ継承"><a class="header" href="#オブジェクト型データの構造化とプロトタイプ継承">オブジェクト型：データの構造化とプロトタイプ継承</a></h1>
+<p>JavaScriptにおけるオブジェクトは、複数の値や振る舞いを一つの単位としてまとめることができる、最も強力で中心的なデータ構造です。</p>
+<h3 id="オブジェクト指向的要素thisの扱い"><a class="header" href="#オブジェクト指向的要素thisの扱い">オブジェクト指向的要素：thisの扱い</a></h3>
+<p>オブジェクト指向の要素としてよく使われるのが <code>this</code> です。関数がどのオブジェクトから呼び出されたかによって <code>this</code> の指す対象（コンテキスト）が変わります。</p>
+<pre><code class="language-javascript">const user = {
+  name: 'Alice',
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+};
+user.greet(); // Alice
+</code></pre>
+<h3 id="apiドキュメントの読み方"><a class="header" href="#apiドキュメントの読み方">APIドキュメントの読み方</a></h3>
+<p>MDN Web Docsなどで、オブジェクトやそのメソッドはプロトタイプメソッド（<code>Array.prototype.map()</code> など）として記述されます。これは、その型の全オブジェクトがそのメソッドを持っていることを意味します。APIドキュメントを読む際は、この表記に慣れましょう。</p>
+<h3 id="厳格モード-strict-mode"><a class="header" href="#厳格モード-strict-mode">厳格モード (Strict Mode)</a></h3>
+<p>JavaScriptには「厳格モード（Strict Mode）」があります。ファイルの先頭に <code>'use strict';</code> を記述することで、安全でないコード（未宣言の変数への代入など）に対してエラーを投げるようになります。モダンなJavaScript環境では、基本的には意識せずとも有効になっています。</p>
 
                     </main>
 
