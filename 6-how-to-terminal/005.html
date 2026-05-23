@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -186,6 +186,8 @@
 <li><strong>エイリアス (<code>alias</code>)</strong>: よく使う長いコマンドを短縮形に登録する。</li>
 <li><strong>履歴 (<code>history</code>)</strong>: 過去に実行したコマンドを再利用する。</li>
 </ul>
+<h3 id="設計思想unix哲学とストリーム"><a class="header" href="#設計思想unix哲学とストリーム">設計思想：UNIX哲学とストリーム</a></h3>
+<p>UNIXのCLIツールは「一つのことをうまくやる」ことを目指して設計されています。ツール間でデータを繋ぐために「標準ストリーム（stdin, stdout, stderr）」を利用するのが核心です。パイプライン（<code>|</code>）を利用した結合は、まさにこのストリーム構造があるからこそ実現できるアーキテクチャの勝利です。</p>
 <p>これらの作法を身につけることで、CLI環境がより強力で快適な開発ツールになります。</p>
 
                     </main>

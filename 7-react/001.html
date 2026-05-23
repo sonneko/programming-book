@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -179,13 +179,16 @@
                     <main>
                         <h1 id="jsxと関数コンポーネント"><a class="header" href="#jsxと関数コンポーネント">JSXと関数コンポーネント</a></h1>
 <p>Reactは、現在のフロントエンド開発において最も普及しているライブラリの一つです。その本質は「UIを状態の関数として表現する」ことにあります。</p>
-<h3 id="jsxの正体"><a class="header" href="#jsxの正体">JSXの正体</a></h3>
-<p>JSXは、JavaScriptの中にHTMLのような記法を書くための構文拡張です。一見するとテンプレートエンジンのようですが、JSXは単なる「見た目」の記述ではありません。JSXはビルド時に <code>React.createElement</code> という関数呼び出しに変換され、最終的にはJavaScriptのオブジェクト（仮想DOM）を生成します。</p>
+<h3 id="jsxの正体とトランスパイル"><a class="header" href="#jsxの正体とトランスパイル">JSXの正体とトランスパイル</a></h3>
+<p>JSXは、JavaScriptの中にHTMLのような記法を書くための構文拡張です。これは単なるテンプレートエンジンではなく、ビルド時にBabelやSWCなどのコンパイラによって <code>React.createElement</code> 関数呼び出しへと変換されます。最終的に生成されるのは、JavaScriptのヒープ上に確保されたプレーンなオブジェクト（仮想DOMツリー）です。この中間表現があることで、ブラウザのネイティブDOMという「重い」リソースへの直接アクセスを最小化し、宣言的なUI更新が可能になっています。</p>
 <h3 id="関数コンポーネントと不変性"><a class="header" href="#関数コンポーネントと不変性">関数コンポーネントと不変性</a></h3>
-<p>関数コンポーネントは、props（入力データ）を受け取り、UI（出力データ）を返す純粋な関数です。Reactの理念として「propsを直接変更してはならない」という不変性の原則があります。データが変更されたら、古いオブジェクトを修正するのではなく、新しい状態を持つ新しいオブジェクトを生成します。</p>
-<p>この計算モデルにより、Reactは「どのデータが変更されたか」を効率的に検知し、必要最小限のDOM操作を行うことができます。</p>
-<p>TODO: 仮想DOMの仕組みと、Reactの差分検出アルゴリズムについての解説記事へのリンクを貼る
-TODO: 関数型プログラミングにおける不変性（Immutability）の重要性についての解説記事へのリンクを貼る</p>
+<p>関数コンポーネントは、props（入力データ）を受け取り、UI（出力データ）を返す純粋な関数です。Reactの設計思想において「propsを直接変更してはならない」という不変性（Immutability）は極めて重要です。データが変更されたら、既存オブジェクトのメモリを書き換えるのではなく、新しいメモリ領域に新しい状態を持つオブジェクトを生成します。</p>
+<p>この計算モデル（Stateの変化 -&gt; 新しい仮想DOMツリーの生成）により、Reactは「どのデータが変更されたか」を参照の等価性チェックで効率的に検知し、必要最小限のDOM操作のみをブラウザに指示できます。これは、命令的にDOM操作を繰り返す手法に比べ、レンダリングパイプライン（レイアウトや描画の計算）の負荷を劇的に低減します。</p>
+<hr>
+<ul>
+<li>参考: <a href="...">仮想DOMの仕組みとReconciliation(差分検出)のアルゴリズム</a></li>
+<li>参考: <a href="...">JavaScriptのイミュータビリティとメモリ管理の設計思想</a></li>
+</ul>
 
                     </main>
 

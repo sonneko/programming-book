@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -185,6 +185,12 @@
 <li>自己完結型: トークン自体にユーザーID等の情報が含まれている。</li>
 </ul>
 <p>クライアントがログイン時にJWTを受け取り、以降のリクエストのヘッダーに含めることで、認証状態をサーバー側に伝えます。</p>
+<h3 id="技術的な深み"><a class="header" href="#技術的な深み">技術的な深み</a></h3>
+<p>JWTは3つのパート（Header.Payload.Signature）から構成され、署名（HMACまたはRSA/ECDSA）によってデータの改ざんを防ぎます。サーバー側では秘密鍵を用いて検証を行うため、DBアクセスなしで認証可能です。</p>
+<h3 id="低レイヤーの現実"><a class="header" href="#低レイヤーの現実">低レイヤーの現実</a></h3>
+<p>トークン検証にはCPUコストがかかります（特に非対称暗号の場合）。また、署名検証の回数が増えると全体的なCPU負荷が上がるため、トークンの有効期限（TTL）を適切に管理して検証頻度とのバランスを取る必要があります。</p>
+<h3 id="設計思想"><a class="header" href="#設計思想">設計思想</a></h3>
+<p>認証と認可の疎結合な設計を実現します。サーバーはトークンに含まれる情報だけを信頼するため、スケーラブルなステートレス設計が可能ですが、即時的な無効化（ログアウト等）が困難になるため、リフレッシュトークンとの組み合わせが一般的です。</p>
 
                     </main>
 

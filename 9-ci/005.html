@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -182,6 +182,12 @@
 <ul>
 <li><strong>GitFlow</strong>: 複雑なブランチ構成（<code>master</code>, <code>develop</code>, <code>feature</code>, <code>release</code>, <code>hotfix</code>）を持つ。大規模なリリース管理に適しているが、複雑。</li>
 <li><strong>GitHubFlow</strong>: 非常にシンプル（<code>main</code> と <code>feature</code> ブランチのみ）。現代のWebアプリケーション開発では、こちらのほうが一般的。</li>
+</ul>
+<h3 id="深い理解のために"><a class="header" href="#深い理解のために">深い理解のために</a></h3>
+<ul>
+<li><strong>技術的深み</strong>: どちらもコミット履歴のトポロジーに大きな影響を与えます。GitHubFlowは直線的な履歴を作りやすく、継続的デリバリー（CD）との親和性が高いです。</li>
+<li><strong>低レイヤーの現実</strong>: 複雑な戦略は<code>merge</code>時のコンフリクト解決や再構築コストを増大させます。シンプルさはパフォーマンス（マージ処理の速さ）と安全性に直結します。</li>
+<li><strong>設計思想</strong>: “リリース“の概念をどう捉えるか（定期的 vs 継続的）という組織の哲学がブランチ戦略を決定します。</li>
 </ul>
 <p>プロジェクトの規模やリリース頻度に合わせて、最適な運用ルールを選択しましょう。</p>
 

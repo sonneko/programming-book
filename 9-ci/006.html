@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -186,6 +186,12 @@
 <li><code>git checkout -b &lt;name&gt;</code>: 新しいブランチを作成して移動。</li>
 <li><code>git pull</code>: リモートの変更をローカルに取り込む。</li>
 <li><code>git stash</code>: 変更を一時退避させる。</li>
+</ul>
+<h3 id="深い理解のために"><a class="header" href="#深い理解のために">深い理解のために</a></h3>
+<ul>
+<li><strong>技術的深み</strong>: これらのコマンドは、Gitの「インデックス」「オブジェクトデータベース」「HEAD」を操作します。特に<code>status</code>はワークツリーとインデックスの差分を計算しています。</li>
+<li><strong>低レイヤーの現実</strong>: <code>git stash</code>は、変更内容をコミットオブジェクトとしてデータベースに書き込み、ポインタを移動させています。メモリへの負荷は非常に低いです。</li>
+<li><strong>設計思想</strong>: Gitはコンテンツアドレサブルなストレージであり、すべてのデータはSHAハッシュで識別される不変のオブジェクトです。この思想を理解するとコマンドの挙動が納得できるようになります。</li>
 </ul>
 <p>これらを手に馴染ませることで、開発中のGit操作におけるストレスが激減します。</p>
 

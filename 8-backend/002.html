@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -190,6 +190,12 @@ app.get('/', (req, res) =&gt; {
 app.listen(3000, () =&gt; console.log('Server running on port 3000'));
 </code></pre>
 <p>Expressは、ルーティング、ミドルウェア、リクエスト・レスポンスの処理を極めて直感的に記述できます。小規模なAPIサーバーから複雑なバックエンドまで、柔軟に構築可能です。</p>
+<h3 id="技術的な深み"><a class="header" href="#技術的な深み">技術的な深み</a></h3>
+<p>Node.jsのイベントループ（libuv）を最大限に活用し、非同期I/Oをノンブロッキングで処理することで、単一スレッドでありながら高いスループットを実現します。</p>
+<h3 id="低レイヤーの現実"><a class="header" href="#低レイヤーの現実">低レイヤーの現実</a></h3>
+<p>Expressのミドルウェアの連鎖はJSのコールスタックを消費します。深い呼び出しや複雑な処理はイベントループをブロックし、サーバー全体のレスポンスを低下させる可能性があるため、パフォーマンス最適化には注意が必要です。</p>
+<h3 id="設計思想"><a class="header" href="#設計思想">設計思想</a></h3>
+<p>Expressは、抽象化によるコードの簡潔さを優先する宣言的アプローチを採用しています。これにより、ルーティングとビジネスロジックの関心事を分離し、コンポーネント指向的な開発を促進します。</p>
 
                     </main>
 

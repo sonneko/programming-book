@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -185,6 +185,12 @@ FROM users
 JOIN posts ON users.id = posts.user_id;
 </code></pre>
 <p><code>JOIN</code> を使うことで、正規化されたテーブル同士を関連付け、複雑なデータセットを一つの結果として取得できます。</p>
+<h3 id="知識の拡充"><a class="header" href="#知識の拡充">知識の拡充</a></h3>
+<ul>
+<li><strong>技術的深み</strong>: <code>JOIN</code>アルゴリズムには Nested Loop Join や Hash Join などがあり、インデックスの有無で性能が劇的に変化します。</li>
+<li><strong>低レイヤーの現実</strong>: 大規模なデータセットでの結合はメモリとCPUを大量に消費するため、クエリの最適化が不可欠です。</li>
+<li><strong>設計思想</strong>: データの重複を排除する正規化により、データ整合性を保ちつつ、必要な関係性のみを動的に構築するアプローチです。</li>
+</ul>
 
                     </main>
 

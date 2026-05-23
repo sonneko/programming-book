@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -185,6 +185,12 @@
 <li>HttpOnly属性: JSからのCookieアクセスを禁止することで、XSS攻撃によるトークン盗難のリスクを軽減できる。</li>
 </ul>
 <p>セキュリティ面で適切な設定を行うことが、Cookie認証の安全性を担保する鍵となります。</p>
+<h3 id="技術的な深み"><a class="header" href="#技術的な深み">技術的な深み</a></h3>
+<p>Cookieの <code>HttpOnly</code> 属性はブラウザ側でJSからのアクセスを制限し、<code>SameSite</code> 属性はクロスサイトリクエスト時の送信を制御します。これらは、CSRFおよびXSS攻撃に対する重要な防護壁となります。</p>
+<h3 id="低レイヤーの現実"><a class="header" href="#低レイヤーの現実">低レイヤーの現実</a></h3>
+<p>ブラウザは Cookie を独自の内部ストレージに保持し、ドメインごとに管理しています。サーバーはHTTPレスポンスヘッダー（<code>Set-Cookie</code>）を通じてブラウザに保存を指示します。このやり取りはメモリやディスク容量を消費するため、不要なCookieは送信しない工夫が必要です。</p>
+<h3 id="設計思想"><a class="header" href="#設計思想">設計思想</a></h3>
+<p>「多層防御（Defense in Depth）」の観点から、Cookieへのアクセス制御、転送時の暗号化（Secure属性）、およびクロスサイトでの利用制限を組み合わせることで、強固な認証モデルを構築します。トークンベースと組み合わせる手法も一般的です。</p>
 
                     </main>
 

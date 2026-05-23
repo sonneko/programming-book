@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -184,6 +184,12 @@
 しかし、Webアプリケーションには「ログイン中かどうか」という状態が必要です。この矛盾を解決するために、CookieやJWT（JSON Web Token）を使って「セッション」を管理します。</p>
 <h3 id="データベースの本質"><a class="header" href="#データベースの本質">データベースの本質</a></h3>
 <p>バックエンド開発において、データベースはアプリケーションの「記憶」です。SQLは、データを操作するための数学的な言語（関係代数）に基づいています。単なる保存場所としてではなく、データ間の整合性を保証するための強力なメカニズムとして機能します。</p>
+<h3 id="技術的な深み"><a class="header" href="#技術的な深み">技術的な深み</a></h3>
+<p>リクエストはHTTP/1.1やHTTP/2といったプロトコル上をTCPソケットで流れます。サーバー側ではリクエストを処理するためにスレッドや非同期I/O（イベントループ）を利用し、高並行処理を実現しています。</p>
+<h3 id="低レイヤーの現実"><a class="header" href="#低レイヤーの現実">低レイヤーの現実</a></h3>
+<p>TCPコネクションはOSレベルのリソースであり、適切にクローズされないとファイルディスクリプタを枯渇させる原因となります。Node.jsやGoのサーバーは、このリソース管理を抽象化して提供していますが、負荷試験でのチューニングは必須です。</p>
+<h3 id="設計思想"><a class="header" href="#設計思想">設計思想</a></h3>
+<p>バックエンドは「ステートレス」に設計することで、水平スケーラビリティが確保されます。状態を分離（Redis等の外部メモリ管理）することで、サーバーの増減に柔軟に対応できます。</p>
 <p>TODO: HTTPプロトコルのステートレス性と、セッション管理の仕組み（Cookie/JWT）についての解説記事へのリンクを貼る
 TODO: リレーショナルデータベース（RDBMS）と関係代数の基礎に関する解説記事へのリンクを貼る</p>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,14 +178,34 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="オブジェクト指向のメリット"><a class="header" href="#オブジェクト指向のメリット">オブジェクト指向のメリット</a></h1>
-<p>オブジェクト指向プログラミング（OOP）は、データとそれを操作するメソッドを一つの「オブジェクト」にまとめる手法です。これにより、複雑なシステムを管理しやすくします。</p>
-<h3 id="主なメリット"><a class="header" href="#主なメリット">主なメリット</a></h3>
+<p>オブジェクト指向プログラミング（OOP）は、データとそれを操作するメソッドを一つの「オブジェクト」にまとめることで、大規模なソフトウェア開発における複雑性を管理する設計手法です。</p>
+<h3 id="オブジェクト指向の主なメリット"><a class="header" href="#オブジェクト指向の主なメリット">オブジェクト指向の主なメリット</a></h3>
 <ol>
-<li><strong>カプセル化</strong>: 内部の状態を隠蔽し、公開されたメソッドを通じてのみ操作させることで、不整合を防ぎます。</li>
-<li><strong>再利用性</strong>: クラスという単位でコードをパッケージ化することで、他の箇所で再利用しやすくなります。</li>
-<li><strong>保守性</strong>: 変更箇所が特定のクラスに限定されるため、システム全体への影響を最小限に抑えられます。</li>
+<li><strong>カプセル化 (Encapsulation)</strong>: 内部状態を隠蔽し、公開されたメソッドを通じて操作させ、データの整合性を守る。</li>
+<li><strong>継承 (Inheritance)</strong>: 共通機能を基底クラスに集約し、重複コードを削減する。</li>
+<li><strong>ポリモーフィズム (Polymorphism)</strong>: 型に依存せず、インターフェースを介して共通の振る舞いを呼び出す。</li>
 </ol>
-<p>ただし、OOPを適用しすぎるとクラス階層が複雑になりすぎる（過剰設計になる）懸念もあるため、機能要件に合わせて適切に適用することが求められます。</p>
+<h3 id="solid原則"><a class="header" href="#solid原則">SOLID原則</a></h3>
+<p>OOPの真価を発揮するためには、SOLID原則の理解が不可欠です。</p>
+<ul>
+<li><strong>S (単一責任の原則)</strong>: クラスは1つの責任のみを持つべき。</li>
+<li><strong>O (開放閉鎖の原則)</strong>: 拡張に対して開かれ、修正に対して閉じているべき。</li>
+<li><strong>L (リスコフの置換原則)</strong>: 派生クラスは基底クラスと置き換え可能であるべき。</li>
+<li><strong>I (インターフェース分離の原則)</strong>: 大きなインターフェースより小さなインターフェース。</li>
+<li><strong>D (依存性逆転の原則)</strong>: 具体的な実装ではなく、抽象に依存する。</li>
+</ul>
+<h3 id="継承-vs-コンポジション"><a class="header" href="#継承-vs-コンポジション">継承 vs コンポジション</a></h3>
+<p>現代的な開発では「継承よりもコンポジション（合成）」が推奨されます。継承は深い階層を作りがちで、変更の影響範囲が広くなりやすい（「脆弱な基底クラス問題」）ためです。代わりに、必要な機能を保持するクラスを内部に保持（委譲）することで、より柔軟な設計が可能です。</p>
+<pre><code class="language-typescript">// 継承ではなくコンポジション
+class Engine { start() { ... } }
+class Car {
+  private engine = new Engine();
+  drive() { this.engine.start(); }
+}
+</code></pre>
+<h3 id="oopはいつ使うべきか"><a class="header" href="#oopはいつ使うべきか">OOPはいつ使うべきか</a></h3>
+<p>オブジェクト指向は、コードの整理と再利用を助ける強力なツールです。しかし、すべてのアプリケーションが複雑なオブジェクト指向設計を必要とするわけではありません。単純なデータ構造の操作であれば、関数型アプローチのほうが簡潔でテストもしやすい場合があります。</p>
+<p>過剰設計はコードを複雑にします。単純な構成から始め、機能要件が増大し複雑性が増した段階で、リファクタリングとしてOOPの技術を適用するのが効率的です。設計は常にトレードオフであり、過度な抽象化を避け、ビジネス要件の変化に合わせて柔軟に設計を進めることが最も重要です。</p>
 
                     </main>
 

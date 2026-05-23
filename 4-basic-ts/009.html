@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,23 +178,45 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="抽象クラス継承"><a class="header" href="#抽象クラス継承">抽象クラス・継承</a></h1>
-<p>抽象クラス（<code>abstract class</code>）は、インスタンス化できないクラスで、派生クラスに実装を強制する基盤として利用します。</p>
+<p>抽象クラス（<code>abstract class</code>）は、それ自体をインスタンス化（<code>new</code>）することはできません。派生クラス（継承クラス）に対して、特定の構造や実装の強制（コントラクト）を行うための基盤として設計されます。</p>
 <h3 id="抽象クラスの役割"><a class="header" href="#抽象クラスの役割">抽象クラスの役割</a></h3>
+<p>共通の属性や振る舞いを持つクラス群において、抽象クラスを使用することで、共通のロジックを再利用しつつ、派生クラスに固有の実装を強制できます。</p>
 <pre><code class="language-typescript">abstract class Animal {
+  constructor(public name: string) {}
+
+  // 派生クラスで実装を強制する抽象メソッド
   abstract makeSound(): void;
-  
+
+  // 共通のメソッド実装
   move(): void {
-    console.log('Moving...');
+    console.log(`${this.name} は移動しています...`);
   }
 }
 
 class Dog extends Animal {
-  makeSound() {
-    console.log('Woof!');
-  }
+  makeSound() { console.log('Woof!'); }
 }
 </code></pre>
-<p>抽象クラスは「is-a」関係を定義するのに適しています。共通の機能は抽象クラスで実装し、個別の機能は派生クラスで実装することで、コードの重複を防ぎ、設計の統一感を保てます。</p>
+<h3 id="テンプレートメソッドパターン"><a class="header" href="#テンプレートメソッドパターン">テンプレートメソッドパターン</a></h3>
+<p>抽象クラスは「テンプレートメソッドパターン」の実装に最適です。基底クラスで大枠のアルゴリズムを定義し、具体的な処理ステップを派生クラスで実装する設計です。これにより、アルゴリズムの全体的な流れを保持しつつ、詳細部分のカスタマイズを派生クラスに委ねることができます。</p>
+<h3 id="抽象クラスとインターフェースの比較"><a class="header" href="#抽象クラスとインターフェースの比較">抽象クラスとインターフェースの比較</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">特徴</th><th style="text-align: left">抽象クラス (<code>abstract class</code>)</th><th style="text-align: left">インターフェース (<code>interface</code>)</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"><strong>多重継承</strong></td><td style="text-align: left">不可 (単一継承のみ)</td><td style="text-align: left">可能 (複数実装可)</td></tr>
+<tr><td style="text-align: left"><strong>実装の共有</strong></td><td style="text-align: left">可能 (共通メソッドなど)</td><td style="text-align: left">不可 (型定義のみ)</td></tr>
+<tr><td style="text-align: left"><strong>目的</strong></td><td style="text-align: left">「AはBである」という階層関係</td><td style="text-align: left">「Aは〜ができる」という機能能力</td></tr>
+<tr><td style="text-align: left"><strong>アクセス修飾子</strong></td><td style="text-align: left">使用可能 (<code>protected</code> など)</td><td style="text-align: left">不可 (すべてpublic)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="どちらを使うべきか"><a class="header" href="#どちらを使うべきか">どちらを使うべきか</a></h3>
+<p>抽象クラスは、「共通の機能実装」をクラス階層で共有したい場合に適しています。一方、インターフェースは、「クラスがどのような機能を持つべきか（契約）」を定義し、実装の詳細は各クラスに完全に任せたい場合に適しています。</p>
+<h3 id="継承の注意点とリファクタリング"><a class="header" href="#継承の注意点とリファクタリング">継承の注意点とリファクタリング</a></h3>
+<p>継承階層が深くなると、クラス間の結合度が高まり、コードの変更が困難になります。インターフェースを優先的に利用し、クラス間の結合度を低く保つ設計が推奨されます。もし抽象クラスが純粋なインターフェースの役割しか果たさなくなったら、インターフェースへ移行するリファクタリングを検討すべきです。</p>
 
                     </main>
 

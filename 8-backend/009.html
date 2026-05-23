@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -190,6 +190,12 @@ INSERT INTO users (name) VALUES ('Alice');
 SELECT * FROM users;
 </code></pre>
 <p>これらの基本的なSQL文を理解することが、データ駆動型アプリケーション開発の第一歩です。</p>
+<h3 id="知識の拡充"><a class="header" href="#知識の拡充">知識の拡充</a></h3>
+<ul>
+<li><strong>技術的深み</strong>: SQLパーサーがクエリを抽象構文木（AST）に変換し、クエリプランナーが最適な実行計画を生成します。</li>
+<li><strong>低レイヤーの現実</strong>: <code>INSERT</code>はディスクのページ単位で書き込まれるため、頻繁な挿入はディスクI/O負荷を増大させます。</li>
+<li><strong>設計思想</strong>: 宣言的な言語仕様により、データの物理的な格納方法を意識せずにビジネスロジックに集中できる設計です。</li>
+</ul>
 
                     </main>
 

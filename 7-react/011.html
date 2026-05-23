@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -184,7 +184,13 @@
 <li><strong><code>useMemo</code></strong>: 計算結果をメモ化し、依存関係が変わらない限り再計算をスキップする。</li>
 <li><strong><code>useCallback</code></strong>: 関数をメモ化し、不要な再作成を抑制する。</li>
 </ul>
-<p>これらはパフォーマンスがボトルネックとなる場面でのみ使用し、むやみに使うと逆にコードが複雑になるため注意が必要です。</p>
+<h3 id="技術的深みとパフォーマンスの現実"><a class="header" href="#技術的深みとパフォーマンスの現実">技術的深みとパフォーマンスの現実</a></h3>
+<ul>
+<li><strong>参照の等価性 (Reference Equality)</strong>: Reactはpropsの比較にシャロー比較（<code>===</code>）を用います。<code>useCallback</code>などで関数をメモ化しないと、親のレンダリングのたびに新しい関数インスタンスが生成され、子コンポーネントの最適化が無効化されます。</li>
+<li><strong>最適化のコスト</strong>: メモ化にはメモリ使用量が増加するコストと、依存配列の比較計算コストが存在します。</li>
+<li><strong>アンチパターン</strong>: あらゆる箇所にメモ化を適用するのは避けるべきです。パフォーマンスボトルネックを React DevTools の Profiler で特定し、再レンダリングによる影響が大きい計算や、重いコンポーネントに対して戦略的に適用するのがベストプラクティスです。</li>
+</ul>
+<p>不必要なメモ化はコードの複雑性を増し、デバッグを困難にします。「まずはシンプルに書く、問題があれば最適化する」というエンジニアリング原則が特に重要です。</p>
 
                     </main>
 

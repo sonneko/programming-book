@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -188,6 +188,10 @@
 <li><code>rm</code>: ファイルやディレクトリの削除。</li>
 <li><code>cp</code> / <code>mv</code>: ファイルのコピーと移動/名前変更。</li>
 </ul>
+<h3 id="低レイヤーの視点ファイルシステムとinode"><a class="header" href="#低レイヤーの視点ファイルシステムとinode">低レイヤーの視点：ファイルシステムとinode</a></h3>
+<p>OSのファイルシステムは、実際にはファイル名ではなく「inode（アイノード）」という数値でファイルを管理しています。例えば <code>rm</code> コマンドでファイルを削除するのは、厳密には「inodeへのリンクを削除し、参照カウントが0になった時にストレージ上のブロックを解放する」というプロセスです。ファイル操作コマンドを理解することは、OSがどのようにデータ構造を維持しているかを理解することに繋がります。</p>
+<h3 id="設計思想シェル展開とパイプライン"><a class="header" href="#設計思想シェル展開とパイプライン">設計思想：シェル展開とパイプライン</a></h3>
+<p>UNIXの設計思想には「すべてはファイルである」という考え方があります。<code>ls</code> や <code>cd</code> などのコマンドは独立したプログラムであり、シェルが提供する環境（ワイルドカード展開など）と組み合わせることで、極めて強力な自動化が可能になります。</p>
 <p>これらのコマンドを使いこなすことで、開発効率は飛躍的に向上します。特に <code>cd</code> と <code>ls</code> は無意識に行えるレベルまで練習しましょう。</p>
 
                     </main>

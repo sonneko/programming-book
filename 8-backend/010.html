@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -189,6 +189,12 @@
 DELETE FROM users WHERE id = 1;
 </code></pre>
 <p>条件を指定せずに更新や削除を行うと全てのデータが影響を受けるため、<code>WHERE</code>句の使用は必須のスキルです。</p>
+<h3 id="知識の拡充"><a class="header" href="#知識の拡充">知識の拡充</a></h3>
+<ul>
+<li><strong>技術的深み</strong>: <code>UPDATE</code>や<code>DELETE</code>時には、データの一貫性を保つためにトランザクションログ（WALなど）への書き込みが発生します。</li>
+<li><strong>低レイヤーの現実</strong>: データの物理的な削除（<code>DELETE</code>）は即座にディスク容量を解放しないことが多く、VACUUM処理が必要になります。</li>
+<li><strong>設計思想</strong>: データの冪等性と一貫性を保証するため、意図しない変更を防ぐための慎重なクエリ設計が求められます。</li>
+</ul>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -185,6 +185,12 @@
 <li><strong>NoSQL</strong>: スキーマが柔軟。JSON形式などでデータを保存。MongoDBなど。</li>
 </ul>
 <p>アプリケーションの要件に応じて、適切なDBを選択することが不可欠です。</p>
+<h3 id="技術的な深み"><a class="header" href="#技術的な深み">技術的な深み</a></h3>
+<p>RDBMSはACID特性（原子性、整合性、分離性、耐久性）を保証し、データの一貫性を保ちます。インデックス（B-Treeなど）を利用した検索の最適化は、クエリパフォーマンスの決定要因となります。一方、NoSQLはスケーラビリティを優先し、データ構造の柔軟性を最大化します。</p>
+<h3 id="低レイヤーの現実"><a class="header" href="#低レイヤーの現実">低レイヤーの現実</a></h3>
+<p>ストレージエンジンはデータファイルをOSレベルで操作し、メモリ上のページキャッシュを利用して高速化します。クエリの効率が悪ければディスクI/Oがボトルネックとなり、サーバー全体の性能を著しく低下させます。</p>
+<h3 id="設計思想"><a class="header" href="#設計思想">設計思想</a></h3>
+<p>「CAP定理」に基づいて、一貫性（Consistency）、可用性（Availability）、分断耐性（Partition Tolerance）のトレードオフを慎重に判断します。設計時には、将来のデータ増加とアクセスパターンを予測し、正規化や非正規化の判断を行います。</p>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -185,6 +185,8 @@
 <li><strong>ブランチ機能</strong>: 開発を分岐させ、実験的な機能追加や修正を安全に行える。</li>
 <li><strong>チーム開発</strong>: 複数人で同時にコードを変更し、安全に統合できる。</li>
 </ul>
+<h3 id="技術的な深みgitのオブジェクトモデル"><a class="header" href="#技術的な深みgitのオブジェクトモデル">技術的な深み：Gitのオブジェクトモデル</a></h3>
+<p>Gitは、単なるテキストエディタの履歴機能ではありません。実体は「コンテンツ指向」のデータベースです。データはハッシュ値（SHA-1等）で識別される「blob（ファイル内容）」「tree（ディレクトリ構造）」「commit（メタデータとスナップショット）」の3つの基本オブジェクトで構成されています。この設計により、効率的なスナップショット管理と高い整合性を実現しています。</p>
 <p>Gitは、現代のソフトウェア開発において「無くてはならない」基盤技術です。</p>
 
                     </main>

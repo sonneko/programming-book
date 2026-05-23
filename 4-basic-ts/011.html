@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,13 +178,30 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="他の言語のオブジェクト指向"><a class="header" href="#他の言語のオブジェクト指向">他の言語のオブジェクト指向</a></h1>
-<p>TypeScriptのオブジェクト指向は、JavaやC#といった静的型付け言語と非常に似ています。</p>
-<h3 id="特徴の比較"><a class="header" href="#特徴の比較">特徴の比較</a></h3>
+<p>TypeScriptのオブジェクト指向プログラミング（OOP）は、JavaやC#といった静的型付け言語と非常に似た概念で設計されています。しかし、JavaScriptの動的な性質の上に構築されているため、いくつかの興味深い違いと特徴があります。</p>
+<h3 id="伝統的言語とtypescriptの比較"><a class="header" href="#伝統的言語とtypescriptの比較">伝統的言語とTypeScriptの比較</a></h3>
 <ul>
-<li><strong>Java/C#</strong>: クラスベースの純粋なオブジェクト指向であり、型システムが非常に厳格です。</li>
-<li><strong>TypeScript</strong>: JavaScriptのプロトタイプベースの継承の上に、クラスやインターフェースという強力な抽象化レイヤを重ねています。</li>
+<li><strong>Java/C#</strong>: クラスベースの純粋なオブジェクト指向言語であり、コンパイル時に型システムが厳格にチェックされます。継承、インターフェース、アクセス修飾子などが言語仕様の核心として深く組み込まれています。</li>
+<li><strong>TypeScript</strong>: JavaScriptのプロトタイプベースの継承メカニズムの上に、クラスやインターフェースという強力な抽象化レイヤを重ねています。これにより、JSの柔軟性を保ちつつ、堅牢なOOP構造を導入できます。</li>
 </ul>
-<p>TypeScriptは、これらの伝統的なオブジェクト指向言語の設計パターンをJavaScript環境に持ち込むための強力なツールです。すでに他の言語でOOPを学んだ人にとって、TypeScriptのクラス定義は非常に馴染み深いものになるはずです。</p>
+<h3 id="クラス定義と便利な機能"><a class="header" href="#クラス定義と便利な機能">クラス定義と便利な機能</a></h3>
+<p>TypeScriptでは、他の言語でお馴染みのアクセス修飾子（<code>public</code>, <code>private</code>, <code>protected</code>）をサポートしており、プロパティの可視性を制御できます。</p>
+<pre><code class="language-typescript">class Employee {
+  // コンストラクタの引数で修飾子を付けると、自動的にプロパティとして定義される（短縮記法）
+  constructor(
+    public name: string,
+    private id: number,
+    protected department: string
+  ) {}
+
+  public getDetails(): string {
+    return `${this.name} (ID: ${this.id}) - ${this.department}`;
+  }
+}
+</code></pre>
+<p>この「コンストラクタの引数でのプロパティ宣言」は、TypeScript特有の非常に便利な短縮記法です。</p>
+<h3 id="抽象クラスとインターフェース"><a class="header" href="#抽象クラスとインターフェース">抽象クラスとインターフェース</a></h3>
+<p>さらにTypeScriptは <code>abstract</code> キーワードもサポートしています。これにより、インスタンス化できない抽象クラスを作成し、継承先での実装を強制できます。また、インターフェース（<code>interface</code>）は実装を持たず、クラスの「契約」としてのみ機能します。他のOOP言語を学んだ人にとって、TypeScriptのクラス定義は非常に馴染み深いものになるはずです。</p>
 
                     </main>
 

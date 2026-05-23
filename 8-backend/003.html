@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -192,6 +192,12 @@
 });
 </code></pre>
 <p>ミドルウェアを連鎖させることで、共通処理をモジュール化し、コントローラーのコードを簡潔に保つことができます。</p>
+<h3 id="技術的な深み"><a class="header" href="#技術的な深み">技術的な深み</a></h3>
+<p>ミドルウェアは「責任連鎖パターン（Chain of Responsibility）」の一種です。<code>next()</code>関数の呼び出しは、JSの関数呼び出しのスタックを制御することで、リクエスト処理のパイプラインを構築します。</p>
+<h3 id="低レイヤーの現実"><a class="header" href="#低レイヤーの現実">低レイヤーの現実</a></h3>
+<p>すべてのミドルウェアは同一の実行コンテキスト（リクエスト・レスポンスオブジェクト）を共有します。このオブジェクトの汚染（pollution）を防ぐため、ミドルウェア間でのデータ受け渡しは最小限にする設計が必要です。</p>
+<h3 id="設計思想"><a class="header" href="#設計思想">設計思想</a></h3>
+<p>パイプラインアーキテクチャを採用することで、関心事の分離（Separation of Concerns）を徹底します。認証、ロギング、エラーハンドリングを個別のパイプライン要素として定義し、再利用性を向上させます。</p>
 
                     </main>
 

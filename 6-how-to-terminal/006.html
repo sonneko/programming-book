@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -185,12 +185,13 @@
 <li><strong>Git操作</strong>: 新しいGitリポジトリを作成し、ファイルを追加・コミットし、変更履歴（<code>git log</code>）を確認してください。</li>
 <li><strong>コマンド練習</strong>: <code>history</code> コマンドで最近使ったコマンドを確認し、<code>alias</code> を設定してみてください。</li>
 </ol>
-<h3 id="ヒント"><a class="header" href="#ヒント">ヒント</a></h3>
+<h3 id="ヒント低レイヤーとデバッグ"><a class="header" href="#ヒント低レイヤーとデバッグ">ヒント：低レイヤーとデバッグ</a></h3>
 <ul>
-<li>失敗しても怖がる必要はありません。<code>rm -rf</code> を行うときは慎重に。</li>
-<li>Gitの操作で詰まったら <code>git status</code> で現在の状態を確認する習慣をつけましょう。</li>
+<li><strong><code>rm -rf</code></strong>: 危険な操作ですが、OSがどうファイルを消去するかを理解するきっかけになります。</li>
+<li><strong>Gitの理解</strong>: <code>git status</code> がどのように「ステージングエリア」と「作業ディレクトリ」を比較しているのか（<code>git hash-object</code> などを使えば裏側を覗けます）に思いを馳せてください。</li>
+<li><strong>エラー処理</strong>: Gitの操作で詰まったら <code>git status</code> だけでなく、<code>.git/</code> ディレクトリの中身を覗いてみるのも一つの手です。</li>
 </ul>
-<p>これらの操作を繰り返すことで、ターミナルはあなたの強力な味方になります。</p>
+<p>これらの操作を繰り返すことで、ターミナルとGitはあなたの開発における最も信頼できるパートナーになります。</p>
 
                     </main>
 

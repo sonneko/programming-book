@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -177,16 +177,18 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="カスタムフック"><a class="header" href="#カスタムフック">カスタムフック</a></h1>
+                        <h1 id="カスタムフックとロジックの関数合成"><a class="header" href="#カスタムフックとロジックの関数合成">カスタムフックとロジックの関数合成</a></h1>
 <p>カスタムフックを作成することで、コンポーネントロジックを抽出して再利用可能にできます。</p>
-<h3 id="定義方法"><a class="header" href="#定義方法">定義方法</a></h3>
-<p>関数名の先頭に <code>use</code> をつけるのが慣習です。</p>
+<h3 id="定義と設計思想"><a class="header" href="#定義と設計思想">定義と設計思想</a></h3>
+<p>関数名の先頭に <code>use</code> をつけるのが慣習であり、Reactのツールチェーン（静的解析など）がフックのルールを強制するために使用されます。</p>
 <pre><code class="language-jsx">function useCounter(initialValue) {
   const [count, setCount] = useState(initialValue);
+  // 返り値は状態と操作関数のセット
   return { count, increment: () =&gt; setCount(count + 1) };
 }
 </code></pre>
-<p>カスタムフックを利用することで、コンポーネント自体はUIの描画に集中し、ビジネスロジックをフックに隔離することで、コードの保守性が大きく向上します。</p>
+<p>カスタムフックは、ReactのState管理能力を「純粋なJavaScript関数」へ拡張する手段です。これにより、コンポーネントはUIの描画に専念し、ビジネスロジックはフック内に隔離されます。この「責務の分離」は、コードのテスト容易性（ロジックをUIから切り離して単体テスト可能にする）を劇的に向上させます。</p>
+<p>また、カスタムフックは他のフックを内部で合成できるため、複雑なステート管理ロジックを宣言的に構築できます。大規模アプリケーションにおいては、このようにロジックを部品化することが、保守性を維持する上で不可欠な設計思想となっています。</p>
 
                     </main>
 

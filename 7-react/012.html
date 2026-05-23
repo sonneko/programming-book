@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -185,6 +185,13 @@
   return &lt;div&gt;Post ID: {params.id}&lt;/div&gt;;
 }
 </code></pre>
+<h3 id="技術的深みと実装戦略"><a class="header" href="#技術的深みと実装戦略">技術的深みと実装戦略</a></h3>
+<ul>
+<li><strong><code>generateStaticParams</code></strong>: ビルド時に動的ルーティングのパラメータを静的に確定させるためのAPI。SSG（静的サイト生成）を行い、リクエストごとのレンダリング負荷をゼロにします。</li>
+<li><strong>データ取得戦略</strong>: 動的ルートでのデータ取得は、リクエスト時（SSR）に行うか、ビルド時（SSG）に行うかでパフォーマンスが大きく異なります。データ更新頻度に基づき、適切な戦略を選択する必要があります。</li>
+<li><strong>SEOへの影響</strong>: 動的なページを正しくインデックスさせるため、適切なメタデータ管理（<code>generateMetadata</code>）が必須です。</li>
+</ul>
+<p>動的ルーティングは柔軟性とパフォーマンスのトレードオフを慎重に設計する必要があります。</p>
 <p>これにより、ブログ記事やユーザープロフィールなど、可変的なデータを持つページを効率的に構築できます。</p>
 
                     </main>

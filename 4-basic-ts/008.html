@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -178,19 +178,59 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="インターフェース"><a class="header" href="#インターフェース">インターフェース</a></h1>
-<p>インターフェース（<code>interface</code>）は、オブジェクトが持つべきプロパティやメソッドの構造を定義する契約です。</p>
-<h3 id="インターフェースの定義と実装"><a class="header" href="#インターフェースの定義と実装">インターフェースの定義と実装</a></h3>
+<p>インターフェース（<code>interface</code>）は、オブジェクトが持つべきプロパティやメソッドの構造を定義する「契約（コントラクト）」です。TypeScriptにおいて型安全性を確保し、コードの意図を明確にするための不可欠な機能です。</p>
+<h3 id="インターフェースの基本定義"><a class="header" href="#インターフェースの基本定義">インターフェースの基本定義</a></h3>
 <pre><code class="language-typescript">interface User {
+  readonly id: number; // 読み取り専用
   name: string;
-  age: number;
+  email: string;
+  age?: number; // 省略可能
 }
 
-const alice: User = {
-  name: 'Alice',
-  age: 25
-};
+const alice: User = { id: 1, name: 'Alice', email: 'alice@example.com' };
 </code></pre>
-<p>インターフェースはコンパイル後のJavaScriptには残らないため、パフォーマンスへの影響はありません。複数のクラスや関数で共通のデータ構造を定義する場合、クラスを継承するよりもインターフェースで型を定義する方が、疎結合な設計を維持できます。</p>
+<p>インターフェースはコンパイル後のJavaScriptには残らないため、パフォーマンスへの影響はありません。</p>
+<h3 id="インターフェースの高度な機能"><a class="header" href="#インターフェースの高度な機能">インターフェースの高度な機能</a></h3>
+<ol>
+<li>
+<p><strong>インデックスシグネチャ</strong>: プロパティ名が動的に決まるオブジェクトの構造を定義できます。</p>
+<pre><code class="language-typescript">interface StringMap {
+  [key: string]: string; // どんな文字列のキーでも値は文字列
+}
+</code></pre>
+<p>ただし、インデックスシグネチャを使用すると、定義されたキー以外へのアクセスも許可してしまうため、型安全性がやや低下することに注意が必要です。</p>
+</li>
+<li>
+<p><strong>継承</strong>: <code>extends</code> を使用して他のインターフェースを拡張できます。</p>
+<pre><code class="language-typescript">interface Animal { name: string; }
+interface Dog extends Animal { breed: string; }
+</code></pre>
+</li>
+<li>
+<p><strong>宣言の結合 (Declaration Merging)</strong>: 同じ名前でインターフェースを複数回定義すると、それらが自動的に結合されます。これはライブラリ開発において非常に強力な機能です。</p>
+</li>
+</ol>
+<h3 id="インターフェース-vs-型エイリアスtype"><a class="header" href="#インターフェース-vs-型エイリアスtype">インターフェース vs 型エイリアス（type）</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">特徴</th><th style="text-align: left">インターフェース (<code>interface</code>)</th><th style="text-align: left">型エイリアス (<code>type</code>)</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"><strong>拡張方法</strong></td><td style="text-align: left"><code>extends</code></td><td style="text-align: left">交叉型 (<code>&amp;</code>)</td></tr>
+<tr><td style="text-align: left"><strong>宣言の結合</strong></td><td style="text-align: left">可能</td><td style="text-align: left">不可</td></tr>
+<tr><td style="text-align: left"><strong>用途</strong></td><td style="text-align: left">主にオブジェクトの定義</td><td style="text-align: left">プリミティブ、ユニオン、タプルなど</td></tr>
+<tr><td style="text-align: left"><strong>オブジェクト</strong></td><td style="text-align: left">基本的に <code>interface</code> を推奨</td><td style="text-align: left">複雑な型計算が必要な場合は <code>type</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>交叉型（Intersection types, <code>type A = B &amp; C</code>）を使用すれば、<code>interface</code> と同様の拡張が可能ですが、<code>interface</code> の方がコンパイル時のエラーメッセージが読みやすく、拡張性も高いため、オブジェクトの構造定義には <code>interface</code> を優先するのがベストプラクティスです。</p>
+<h3 id="クラスへの実装implements"><a class="header" href="#クラスへの実装implements">クラスへの実装（<code>implements</code>）</a></h3>
+<p>クラスがインターフェースの構造を保証するために <code>implements</code> を使用します。これにより、インターフェースを介した疎結合な設計が可能となり、依存性注入（DI）などを用いてテスト容易性を向上させることができます。</p>
+<h3 id="マップされた型とインターフェース"><a class="header" href="#マップされた型とインターフェース">マップされた型とインターフェース</a></h3>
+<p>インターフェースは、マップされた型（Mapped Types）と組み合わせることで、動的にプロパティを持つオブジェクトを型定義するのにも使えます。これにより、プロパティ名をキーとして別の型を割り当てることが可能です。</p>
+<h3 id="インターフェースの実用的な設計"><a class="header" href="#インターフェースの実用的な設計">インターフェースの実用的な設計</a></h3>
+<p>インターフェースを活用することで、APIのレスポンスやコンポーネントのプロパティ（Props）など、アプリケーションの境界線における型定義を厳格に保つことができます。これにより、APIの変更がクライアントコードに与える影響をコンパイル時に検知しやすくなります。</p>
 
                     </main>
 

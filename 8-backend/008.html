@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -184,6 +184,12 @@
 npm install sqlite3
 </code></pre>
 <p>SQLiteは一つのファイルに全てのデータが保存されるため、バックアップや移動が極めて簡単です。</p>
+<h3 id="知識の拡充"><a class="header" href="#知識の拡充">知識の拡充</a></h3>
+<ul>
+<li><strong>技術的深み</strong>: SQLiteはB-Tree構造を用いてデータを管理しており、クエリエンジンがファイルシステム上のページ単位でI/Oを制御しています。</li>
+<li><strong>低レイヤーの現実</strong>: ファイルロックによる並行書き込みの制約（排他制御）が存在し、高負荷な書き込み環境ではパフォーマンスがボトルネックとなります。</li>
+<li><strong>設計思想</strong>: “Serverless“なDBとして、アプリケーション内に直接埋め込むことで、ネットワークオーバーヘッドを極小化する設計です。</li>
+</ul>
 
                     </main>
 

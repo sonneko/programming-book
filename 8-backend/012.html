@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -187,6 +187,12 @@
 <pre><code class="language-sql">SELECT category, COUNT(*) FROM posts GROUP BY category ORDER BY COUNT(*) DESC LIMIT 5;
 </code></pre>
 <p>これらの機能を駆使することで、DB内部で効率的に集計処理を行い、アプリケーション側の負荷を軽減できます。</p>
+<h3 id="知識の拡充"><a class="header" href="#知識の拡充">知識の拡充</a></h3>
+<ul>
+<li><strong>技術的深み</strong>: 集計関数（<code>COUNT</code>, <code>SUM</code>など）はクエリエンジンのパイプライン処理の一部として高速に実行されます。</li>
+<li><strong>低レイヤーの現実</strong>: <code>ORDER BY</code>や<code>GROUP BY</code>は、メモリ上でソート処理を行うため、対象データが巨大な場合は一時ファイル（Temporary Files）への退避が発生します。</li>
+<li><strong>設計思想</strong>: データの「転送」ではなく「計算」をデータがある場所（DB側）で行う、データ近接（Data Locality）の原則に基づいています。</li>
+</ul>
 
                     </main>
 

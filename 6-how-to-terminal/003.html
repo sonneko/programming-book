@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -185,6 +185,8 @@
 <li><strong>GitHubアカウント作成</strong>: GitHub.comにサインアップします。</li>
 <li><strong>SSH設定</strong>: ローカルのPCとGitHubをSSH接続することで、安全な通信が可能になります。</li>
 </ol>
+<h3 id="設計思想公開鍵認証と設定階層"><a class="header" href="#設計思想公開鍵認証と設定階層">設計思想：公開鍵認証と設定階層</a></h3>
+<p>SSH通信では、非対称暗号（公開鍵・秘密鍵）を利用して安全に認証を行います。Gitの設定には <code>system</code> (システム全体)、<code>global</code> (ユーザーごと)、<code>local</code> (リポジトリごと) の階層があり、後者が前者を上書きする仕組みで柔軟性を確保しています。</p>
 <p>インストール後は、<code>git config --global user.name</code> 等で設定を済ませておきましょう。</p>
 
                     </main>

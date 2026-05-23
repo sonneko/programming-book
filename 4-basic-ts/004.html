@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-7cbb88f0.js";
+            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2d6e42b1.js"></script>
@@ -177,20 +177,22 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="型注釈"><a class="header" href="#型注釈">型注釈</a></h1>
-<p>TypeScriptにおける「型注釈（Type Annotation）」は、変数、引数、戻り値に型を明示的に付与する機能です。これにより、コードの意図が明確になり、コンパイラによる自動チェックが可能になります。</p>
-<h3 id="基本的な型注釈"><a class="header" href="#基本的な型注釈">基本的な型注釈</a></h3>
+                        <h1 id="型注釈プログラムの宣言的意図"><a class="header" href="#型注釈プログラムの宣言的意図">型注釈：プログラムの宣言的意図</a></h1>
+<p>TypeScriptにおける「型注釈（Type Annotation）」は、変数、引数、戻り値に型を明示的に付与する機能です。しかし、初心者が陥りがちな罠があります。「型注釈は、コンパイラに型を教えるための機能だ」という誤解です。そうではありません。型注釈は、「このデータはこうあるべきだ」という、あなた自身の「宣言的意図」をコードに刻み込む行為です。</p>
+<h3 id="構造的型付けの哲学"><a class="header" href="#構造的型付けの哲学">構造的型付けの哲学</a></h3>
+<p>TypeScriptは「構造的型付け（Structural Typing）」を採用しています。これは、JavaやC++のような名前ベース（Nominal Typing）の言語とは異なり、「そのオブジェクトがどういう構造を持っているか」で型を判定する仕組みです。</p>
 <pre><code class="language-typescript">let username: string = 'Alice';
 let age: number = 30;
 let isActive: boolean = true;
 </code></pre>
-<h3 id="関数の型注釈"><a class="header" href="#関数の型注釈">関数の型注釈</a></h3>
-<p>関数の引数と戻り値に型を指定することで、呼び出し元と実装の整合性が担保されます。</p>
+<p>もし、あなたが <code>User</code> というオブジェクトを作った場合、その型が定義されていなくても、プロパティさえ合致していればTypeScriptはそのデータを同等とみなします。この柔軟性がJavaScriptの本質的な特性と調和しています。</p>
+<h3 id="関数シグネチャによる保証"><a class="header" href="#関数シグネチャによる保証">関数シグネチャによる保証</a></h3>
+<p>関数の型注釈は、まさにデータの変換規則そのものを定義します。</p>
 <pre><code class="language-typescript">function greet(name: string): string {
   return `Hello, ${name}`;
 }
 </code></pre>
-<p>型注釈を適切に行うことで、IDEの補完機能が強化され、開発スピードと品質が両立されます。TypeScriptは「ドキュメントとしてのコード」を実現する優れた言語です。</p>
+<p>この関数は、「文字列を受け取り、文字列を返す」という変換規則を強制します。もし数値を渡そうとすれば、コンパイラは即座に停止します。型注釈を適切に行うことで、IDEの補完機能が強化され、開発スピードが上がるのは副次的な効果に過ぎません。真の目的は、データの変換がプログラム全体で一貫していることを保証することです。TypeScriptは「ドキュメントとしてのコード」を実現する優れた言語であり、型注釈はその最も強力な構文なのです。</p>
 
                     </main>
 
