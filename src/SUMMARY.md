@@ -211,3 +211,6 @@
 - [オレオレVM](supple-6-your-own/004.md)
 - [オレオレブラウザ(chrominium使用)](supple-6-your-own/005.md)
 - [オレオレブラウザ(chrominium不使用)](supple-6-your-own/006.md)
+
+# ＊
+- [プライバシーポリシー](privacy.md)
