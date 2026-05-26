@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
+            window.path_to_searchindex_js = "../searchindex-f0e761e5.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-2d6e42b1.js"></script>
+        <script src="../toc-025eac40.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -178,42 +178,139 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="リスト型"><a class="header" href="#リスト型">リスト型</a></h1>
-<p>これまでは、一つの変数に一つのデータを入れてきました。しかし、現実のプログラムでは大量のデータを扱いたいことが多々あります。例えば、100人の生徒のテストの点数を管理するのに、100個の変数（<code>score1</code>, <code>score2</code>, …）を作るのは効率が悪すぎますね。</p>
+<p>これまでは、一つの変数に一つのデータ（整数や文字列）を入れてきました。しかし、実際のプログラミングでは「クラス全員の名前」や「一週間分の気温データ」のように、関連する複数のデータをまとめて扱いたい場面が多々あります。</p>
 <p>そこで登場するのが**リスト（List）**です。</p>
-<h2 id="リストの基本"><a class="header" href="#リストの基本">リストの基本</a></h2>
-<p>リストは、複数のデータを一列に並べて管理するための型です。Pythonでは <code>[]</code>（角括弧）を使ってリストを作ります。</p>
-<pre><code class="language-python"># 果物のリスト
+<h2 id="リストとは"><a class="header" href="#リストとは">リストとは</a></h2>
+<p>リストは、複数のデータを一つの「入れ物」の中に順番に並べて管理するための型です。他の言語では「配列」と呼ばれることもありますが、Pythonのリストは非常に柔軟で、異なる型（整数と文字列など）を混ぜて入れることも可能です。<sup class="footnote-reference" id="fr-note1-1"><a href="#footnote-note1">1</a></sup></p>
+<pre><code class="language-python"># リストの定義
 fruits = ["apple", "banana", "cherry"]
+numbers = [10, 20, 30, 40]
+mixed = ["Alice", 100, True] # 混ぜることもできる
+
 print(fruits)
 </code></pre>
-<p>リストの中には、どんな型のデータでも入れることができます。</p>
-<h2 id="要素へのアクセスインデックス"><a class="header" href="#要素へのアクセスインデックス">要素へのアクセス（インデックス）</a></h2>
-<p>リストの中の特定のデータを取り出すには、そのデータの「場所」を指定します。この場所のことを**インデックス（index）**と呼びます。</p>
-<p>ここで重要なのは、<strong>インデックスは0から始まる</strong>ということです。</p>
+<h2 id="インデックス添え字によるアクセス"><a class="header" href="#インデックス添え字によるアクセス">インデックス（添え字）によるアクセス</a></h2>
+<p>リストの中の特定のデータを取り出すには、<strong>インデックス</strong>と呼ばれる番号を使います。
+<a href="./009.html">while文の章</a>でも触れましたが、コンピュータの世界では番号は <strong>0番から始まります</strong>。</p>
+<p>なぜ0から始まるのでしょうか？これはコンピュータの低レイヤな仕組みに関係しています。
+リストはメモリ上で「連続した領域」にデータが並んでいます。<code>fruits[0]</code> というのは、「リストの先頭から0個分だけ進んだ場所」という意味になります。<code>fruits[1]</code> は「先頭から1個分進んだ場所」です。
+コンピュータにとっては、先頭からの「ズレ（オフセット）」で場所を特定するのが最も自然なので、歴史的にそうなっています。</p>
 <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
 
 print(fruits[0]) # apple
 print(fruits[1]) # banana
 print(fruits[2]) # cherry
 </code></pre>
-<p>なぜ0から始まるのでしょうか？これはコンピュータの低レイヤな仕組みに関係しています。
-リストはメモリ上で「連続した領域」にデータが並んでいます。<code>fruits[0]</code> というのは、「リストの先頭から0個分だけ進んだ場所」という意味になります。<code>fruits[1]</code> は「先頭から1個分進んだ場所」です。
-コンピュータにとっては、先頭からの「ズレ（オフセット）」で場所を特定するのが最も効率的なのです。</p>
+<p>もし存在しない番号（例えば3番など）を指定すると、<code>IndexError</code> というエラーが出てコンピュータに怒られます。「そんな場所には何もないよ！」という意味です。</p>
 <h2 id="リストの操作"><a class="header" href="#リストの操作">リストの操作</a></h2>
+<p>リストは後から中身を変えたり、追加したりできます。</p>
+<pre><code class="language-python"># 中身の書き換え
+fruits[1] = "grape"
+print(fruits) # ["apple", "grape", "cherry"]
+
+# 要素の追加
+fruits.append("orange")
+print(fruits) # 末尾にorangeが追加される
+
+# リストの長さを知る
+print(len(fruits)) # 4
+</code></pre>
+<p>リストの長さは、私が直感的に思う長さであって、最後のインデックスの数ではありません。整理すると、長さnの配列は0から始まりn-1で終わるインデックスを持ちます。</p>
+<h2 id="リストの操作-1"><a class="header" href="#リストの操作-1">リストの操作</a></h2>
 <p>リストにデータを追加したり、中身を書き換えたりすることも簡単です。</p>
 <pre><code class="language-python">fruits = ["apple", "banana"]
 
-# データの追加
+# データの末尾への追加(push・appendと呼ばれる)
 fruits.append("orange")
 print(fruits) # ["apple", "banana", "orange"]
 
-# データの書き換え
+# データの書き換え(ランダムアクセス)
 fruits[0] = "strawberry"
 print(fruits) # ["strawberry", "banana", "orange"]
 
 # リストの長さ（要素の数）を取得
 print(len(fruits)) # 3
 </code></pre>
+<p>この<code>.append()</code>と言うような記法を、メソッド呼び出しと言います。要は、リスト型に便利な関数が紐づけられていて、その関数を呼び出すイメージです。</p>
+<p>この配列操作は、あらゆる言語で出てきます。なので、このようなアクションの名称をなんとなく整理して覚えておきましょう。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>アクション</th><th>名前</th><th>言語の例</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>末尾に追加</strong></td><td><code>push</code></td><td>JavaScript, Ruby, Rust, Perl</td></tr>
+<tr><td></td><td><code>append</code></td><td>Python, Go (<code>append</code>), Swift</td></tr>
+<tr><td></td><td><code>add</code></td><td>Java (<code>ArrayList</code>), C# (<code>List</code>)</td></tr>
+<tr><td></td><td><code>[]=</code> や <code>&lt;&lt;</code></td><td>PHP (<code>$arr[] =</code>), Ruby (<code>&lt;&lt;</code>)</td></tr>
+<tr><td><strong>先頭に追加</strong></td><td><code>unshift</code></td><td>JavaScript, Ruby, Perl</td></tr>
+<tr><td></td><td><code>insert(0, x)</code></td><td>Python, Swift</td></tr>
+<tr><td></td><td><code>Prepend</code></td><td>C#, PHP (<code>array_unshift</code>)</td></tr>
+<tr><td><strong>位置指定で挿入</strong></td><td><code>insert</code></td><td>Python, Ruby, Java, C#, Swift, Rust</td></tr>
+<tr><td></td><td><code>splice</code></td><td>JavaScript</td></tr>
+<tr><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><strong>末尾を削除</strong></td><td><code>pop</code></td><td>JavaScript, Python, Ruby, Rust, Swift</td></tr>
+<tr><td></td><td><code>removeLast</code></td><td>Swift, Java/C# (特定コレクション)</td></tr>
+<tr><td><strong>先頭を削除</strong></td><td><code>shift</code></td><td>JavaScript, Ruby, Perl</td></tr>
+<tr><td></td><td><code>pop(0)</code> / <code>remove(0)</code></td><td>Python, Java</td></tr>
+<tr><td></td><td><code>RemoveAt(0)</code></td><td>C#</td></tr>
+<tr><td><strong>位置指定で削除</strong></td><td><code>splice</code></td><td>JavaScript</td></tr>
+<tr><td></td><td><code>removeAt</code> / <code>RemoveAt</code></td><td>Swift, C#</td></tr>
+<tr><td></td><td><code>del</code> / <code>pop</code></td><td>Python</td></tr>
+<tr><td><strong>値指定で削除</strong></td><td><code>remove</code> / <code>Remove</code></td><td>Python, Java, C#, Swift</td></tr>
+<tr><td></td><td><code>delete</code></td><td>Ruby</td></tr>
+<tr><td></td><td><code>array_diff</code> / <code>unset</code></td><td>PHP</td></tr>
+<tr><td><strong>全削除（クリア）</strong></td><td><code>clear</code> / <code>Clear</code></td><td>Python, Java, C#, Ruby</td></tr>
+<tr><td></td><td><code>length = 0</code></td><td>JavaScript</td></tr>
+<tr><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><strong>値からインデックスを探す</strong></td><td><code>indexOf</code> / <code>IndexOf</code></td><td>JavaScript, Java, C#</td></tr>
+<tr><td></td><td><code>index</code></td><td>Python, Ruby, Swift</td></tr>
+<tr><td></td><td><code>array_search</code></td><td>PHP</td></tr>
+<tr><td><strong>条件に合う最初の1つ</strong></td><td><code>find</code></td><td>JavaScript, Ruby, Rust</td></tr>
+<tr><td></td><td><code>FirstOrDefault</code> / <code>Find</code></td><td>C#</td></tr>
+<tr><td></td><td><code>next(...)</code></td><td>Python (ジェネレータ式と併用)</td></tr>
+<tr><td><strong>存在するか確認 (Bool)</strong></td><td><code>includes</code></td><td>JavaScript</td></tr>
+<tr><td></td><td><code>in</code></td><td>Python (演算子)</td></tr>
+<tr><td></td><td><code>contains</code> / <code>Contains</code></td><td>Java, C#, Swift, Rust</td></tr>
+<tr><td></td><td><code>include?</code></td><td>Ruby</td></tr>
+<tr><td></td><td><code>in_array</code></td><td>PHP</td></tr>
+<tr><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><strong>全要素を変換 (1対1)</strong></td><td><code>map</code></td><td>JavaScript, Ruby, Python (<code>map()</code>), Swift, Rust</td></tr>
+<tr><td></td><td><code>Select</code></td><td>C# (LINQ)</td></tr>
+<tr><td></td><td><code>stream().map</code></td><td>Java</td></tr>
+<tr><td></td><td><code>array_map</code></td><td>PHP</td></tr>
+<tr><td><strong>条件で絞り込む</strong></td><td><code>filter</code></td><td>JavaScript, Python (<code>filter()</code>), Swift, Rust</td></tr>
+<tr><td></td><td><code>select</code> / <code>filter</code></td><td>Ruby</td></tr>
+<tr><td></td><td><code>Where</code></td><td>C# (LINQ)</td></tr>
+<tr><td></td><td><code>stream().filter</code></td><td>Java</td></tr>
+<tr><td></td><td><code>array_filter</code></td><td>PHP</td></tr>
+<tr><td><strong>1つの値に畳み込む</strong></td><td><code>reduce</code></td><td>JavaScript, Ruby (<code>inject</code>), Swift, Rust</td></tr>
+<tr><td></td><td><code>Aggregate</code></td><td>C# (LINQ)</td></tr>
+<tr><td></td><td><code>stream().reduce</code></td><td>Java</td></tr>
+<tr><td></td><td><code>reduce</code> / <code>fold</code></td><td>Kotlin, Scala</td></tr>
+<tr><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><strong>並び替え (破壊的)</strong></td><td><code>sort</code> / <code>Sort</code></td><td>JavaScript, Python, Ruby, Java, C#</td></tr>
+<tr><td><strong>並び替え (非破壊)</strong></td><td><code>sorted</code></td><td>Python, Swift</td></tr>
+<tr><td></td><td><code>toSorted</code></td><td>JavaScript (比較的新しい仕様)</td></tr>
+<tr><td></td><td><code>OrderBy</code></td><td>C# (LINQ)</td></tr>
+<tr><td><strong>逆順 (破壊的)</strong></td><td><code>reverse</code> / <code>Reverse</code></td><td>JavaScript, Python, Ruby, C#</td></tr>
+<tr><td><strong>逆順 (非破壊)</strong></td><td><code>reversed</code></td><td>Python, Swift</td></tr>
+<tr><td></td><td><code>toReversed</code></td><td>JavaScript</td></tr>
+<tr><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><strong>部分切り出し</strong></td><td><code>slice</code></td><td>JavaScript, Ruby, Python (<code>[:]</code> スライス構文)</td></tr>
+<tr><td></td><td><code>Substring</code> / <code>Skip().Take()</code></td><td>C#</td></tr>
+<tr><td></td><td><code>array_slice</code></td><td>PHP</td></tr>
+<tr><td><strong>配列同士の結合</strong></td><td><code>concat</code></td><td>JavaScript, Ruby, Java (<code>addAll</code>)</td></tr>
+<tr><td></td><td><code>+</code> (演算子)</td><td>Python, Ruby, C# (<code>Concat</code>)</td></tr>
+<tr><td></td><td><code>array_merge</code></td><td>PHP</td></tr>
+<tr><td><strong>文字列に変換</strong></td><td><code>join</code></td><td>JavaScript, Ruby, Python (<code>" ".join()</code>)</td></tr>
+<tr><td></td><td><code>string.Join</code> / <code>ToString</code></td><td>C#</td></tr>
+<tr><td></td><td><code>implode</code></td><td>PHP</td></tr>
+<tr><td><strong>多次元配列の平坦化</strong></td><td><code>flat</code> / <code>flatten</code></td><td>JavaScript, Ruby, Swift (<code>flatMap</code>)</td></tr>
+<tr><td></td><td><code>SelectMany</code></td><td>C# (LINQ)</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="なぜリストを使うのか"><a class="header" href="#なぜリストを使うのか">なぜリストを使うのか？</a></h2>
 <p>リストを使う最大のメリットは、<a href="./010.html">for文</a>と組み合わせることで、大量のデータを一気に処理できることです。</p>
 <pre><code class="language-python">prices = [100, 200, 300, 400, 500]
@@ -233,6 +330,12 @@ print(f"合計金額は {total} 円です")
 変数（<code>val1</code>, <code>val2</code> …）を使う方法では、あらかじめ変数の数を決めておかなければなりません。100個用意しても、ユーザーが101個入力したらお手上げです。</p>
 <p>リストを使えば、実行中に要素をいくらでも追加できるため、データの数が事前に決まっていない「動的な」状況にも対応できます。これは現代のソフトウェアにおいて、リスト（やそれに類するデータ構造）が不可欠である最大の理由の一つです。</p>
 </blockquote>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-note1">
+<p>効率や安全性の観点から、実際の開発では同じ型のデータだけを並べることが一般的です。 <a href="#fr-note1-1">↩</a></p>
+</li>
+</ol>
 
                     </main>
 

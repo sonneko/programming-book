@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-2f4c91ff.js";
+            window.path_to_searchindex_js = "../searchindex-f0e761e5.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-2d6e42b1.js"></script>
+        <script src="../toc-025eac40.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -205,7 +205,7 @@ message = 100
 
 message = 10 // String型なのにint型の値を代入しているのでエラーが発生する
 </code></pre>
-<p>どちらがいいかは何のために使うかによって変わってくるのですが、最近のトレンドは静的型のようです。ちなみに僕は静的型が好きです。一般には静的型の方が安定で大規模開発に向いていて、逆に動的型はその場限りのプログラムや非エンジニア・アジャイルな<sup class="footnote-reference" id="fr-note1-1"><a href="#footnote-note1">1</a></sup>開発に向いていると言われています。</p>
+<p>どちらがいいかは何のために使うかによって変わってくるのですが、最近のトレンドは静的型のようです。一般には静的型の方が安定で大規模開発に向いていて、逆に動的型はその場限りのプログラムや非エンジニア・アジャイルな<sup class="footnote-reference" id="fr-note1-1"><a href="#footnote-note1">1</a></sup>開発に向いていると言われています。</p>
 <h2 id="型の分類"><a class="header" href="#型の分類">型の分類</a></h2>
 <p>型はたくさんあります。作ることもできます（というか、一部の言語では「型を作る」＝「プログラミング」です）。
 たくさんあるものを、本質的な性質を見ながら分類して整理していきましょう。</p>
@@ -232,10 +232,20 @@ numbers = [1, 2, 3, 4, 5]
 <p>例えば、メモリ上に <code>01000001</code> というデータがあったとします。</p>
 <ul>
 <li>これを <strong>整数型</strong> として読むと、数値の <code>65</code> になります。</li>
-<li>これを <strong>文字列型（ASCII）</strong> として読むと、アルファベットの <code>'A'</code> になります。</li>
+<li>これを <strong>文字列型</strong> として読むと、アルファベットの <code>'A'</code> になります。</li>
 </ul>
 <p>つまり、「型」とは、メモリ上にある無機質な「0」と「1」の塊に対して、<strong>「これはどういう意味のデータなのか」を定義するメガネ</strong>のようなものです。同じデータでも、どの型（メガネ）を通して見るかによって、その意味は全く変わってしまうのです。</p>
 </blockquote>
+<blockquote>
+<h3 id="コラム型は実は集合"><a class="header" href="#コラム型は実は集合">コラム：型は実は集合</a></h3>
+<p>型は、数学的には集合と全く同じです。</p>
+<p>数学的な集合の(少しぼかした)定義は以下の通りです。</p>
+<pre><code>(大体の)任意のモノに対して、それが含まれているか含まれていないかを一意に判断できるモノ。
+</code></pre>
+<p>よって、型の相互関係は、集合の相互関係に酷似しています。</p>
+</blockquote>
+<p>発展（任意）
+<a href="https://zenn.dev/masahiro_toba/articles/235e3c1236ee2d">集合としてのデータ型(物理的・論理的な捉え方)</a></p>
 <hr>
 <ol class="footnote-definition">
 <li id="footnote-note1">

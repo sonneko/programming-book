@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2f4c91ff.js";
+            window.path_to_searchindex_js = "searchindex-f0e761e5.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-2d6e42b1.js"></script>
+        <script src="toc-025eac40.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -179,7 +179,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="この本について"><a class="header" href="#この本について">この本について</a></h1>
-<p>この本は0からプログラミングひいてはITに関わるたくさんの分野を体系的に学ぶための一つの一貫した長い長いチュートリアルのようなものです。またこれとは別の素晴らしい文献を探すための索引でもあるように努めています。しばしば参考必須の別サイトが紹介されることがあります。
+<p>この本は0からプログラミングひいてはITに関わるたくさんの分野を体系的に学ぶための一つの一貫した長い長いチュートリアルのようなものです。また、これとは別の素晴らしい文献を探すための索引でもあるように努めています。しばしば参考必須の別サイトが紹介されることがあります。
 できるだけモダンで一般的な技術を学べるようにしていますが、もしかしたら何かに偏っていたり何かが抜けているかもしれません。<a href="https://github.com/sonneko/programming-book/issues">GitHubのissue</a>でその旨を述べてください。</p>
 <blockquote>
 <p>この本は執筆中であり、まだまだ未完成であることを確認してください。</p>
@@ -208,7 +208,7 @@
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="この本の地図"><a class="header" href="#この本の地図">この本の地図</a></h1>
-<p>さてまずは全体像を眺めることから始めましょう。一口にプログラミングと言ってもさまざまな分野があります。代表的なものを以下に挙げます。</p>
+<p>さて、まずは全体像を眺めることから始めましょう。一口にプログラミングと言ってもさまざまな分野があります。代表的なものを以下に挙げます。</p>
 <ul>
 <li>Web開発</li>
 <li>アプリ開発</li>
@@ -216,6 +216,7 @@
 <li>システム開発</li>
 <li>組み込み開発</li>
 <li>データ分析・AI開発</li>
+<li>その他</li>
 </ul>
 <p>分野の難易度を語るのは難しいですが、簡単なものは上の方に難しいものは下の方にあると筆者は思います。</p>
 <p>あなたは何をしたいですか？（もしくは何を知りたいですか？）</p>
@@ -232,6 +233,10 @@
 <p>冷蔵庫・電子レンジなどの家電や回転寿司の管理システム・電子辞書など機械と情報の狭間となる場所です。CPUの動作に関する高度な知識が必要とされることが多く難しいです。</p>
 <h4 id="データ分析ai開発"><a class="header" href="#データ分析ai開発">データ分析・AI開発</a></h4>
 <p>今が旬な分野です。LLM（chatGPTやGemini）の仕組みや画像処理やPOSシステム（コンビニなどでお客さんの情報をたくさん収集することで仕入れを調整したり利益を予想したりするためのシステムです。）などを学ぶことができます。情報というより線形代数など高度な数学が必要とされます。</p>
+<h4 id="その他オレオレ開発"><a class="header" href="#その他オレオレ開発">その他：オレオレ開発</a></h4>
+<p>「オレオレ開発」という言葉は、自分で車輪の再発明を行うことを趣味にするということを指します。例えば、ブラウザやネットワークプロトコル、OS、CPUなどを1から一人で作ることになります。継続力と高い技術レベルが必要です。その延長線上にライブラリなどの開発があります。</p>
+<h4 id="その他ライブラリなどの開発"><a class="header" href="#その他ライブラリなどの開発">その他：ライブラリなどの開発</a></h4>
+<p>現代の情報空間の基礎にあたる部分の一部は、実は企業主体ではなくコミュニティ主体で開発・運用されています。そのような基盤をボランティアで構築している非常に能力の高いエンジニアたちのおかげで世の中は成り立っています。それに貢献するという選択肢もあります。往々にして、革命的なアイデア・非常に高い技術レベル・野心のすべてが必要です。</p>
 <h2 id="とりあえず"><a class="header" href="#とりあえず">とりあえず…</a></h2>
 <p>あなたがどれを学びたいかに関係なくこの本はあなたの役に立つように設計されています。
 自分がどれをしたいかわからないという大部分の人はこの本を順番通り読み進めていけばいいでしょう。途中で自分のしたいことが見つかるはずです。
@@ -268,10 +273,10 @@ print("Hello World")
 <p>もし<code>▶️</code>ボタンが真っ赤になり<code>Hello World</code>と表示されない場合は、もう一度タイプミスがないか確認してください。特に丸括弧やクオテーションマーク（“）が全角ではなく半角で入力されていることを確認してください。コンピュータは厳格なので少しでも違ったら「わかんない！」とエラーを吐き出してしまいます。</p>
 <p>このからあなたはバリバリプログラムを書いていくわけなのでたくさんのエラーに遭遇する可能性が高いです。そうなる前に一般的にエラーに対してどのように対処すればいいか体系的にまとめておきましょう。</p>
 <hr>
-<p>同時に読み進める（必須）：
+<p>参考（必須）：
 <a href="https://www.python.jp/train/experience/colab.html">Google Colab の準備: ゼロからのPython入門講座 - python.jp</a></p>
-<p>発展・辞書（任意）：
-TODO: Pythonのインストール方法（Windows/Mac）を解説する記事へのリンクを貼る</p>
+<p>発展（任意）：
+<a href="https://www.python.jp/install/windows/install.html">Windows版Pythonのインストール</a></p>
 <hr>
 <ol class="footnote-definition">
 <li id="footnote-note1">
@@ -298,14 +303,15 @@ TODO: Pythonのインストール方法（Windows/Mac）を解説する記事へ
 <h3 id="公式のドキュメントリファレンスを読む"><a class="header" href="#公式のドキュメントリファレンスを読む">公式のドキュメント・リファレンスを読む</a></h3>
 <p>リファレンス=<em>reference</em>とはその技術についての全てが述べられている自然言語の文献です。リファレンスから必要な部分を見つけ出したりそれを読むことは大抵の場合とても難しく根気が入りますが、その分あなたは学ぶことができるでしょう。</p>
 <h3 id="各種質問サービスyahoo知恵袋qiitastackovweflowなどで質問する"><a class="header" href="#各種質問サービスyahoo知恵袋qiitastackovweflowなどで質問する">各種質問サービス（Yahoo知恵袋・Qiita・StackOvweFlowなど）で質問する</a></h3>
-<p>Yahoo知恵袋は知っているでしょう。Qiitaというのは日本人プログラマ向けの記事投稿サービスですが質問投稿サービスも存在します。StackOverFlowというのはグローバルバージョンのQiitaです。英語が必須となります。</p>
+<p>Yahoo知恵袋は知っているでしょう。Qiitaというのは日本人プログラマ向けの記事投稿サービスですが質問投稿機能も存在します。StackOverFlowというのはグローバルバージョンのQiitaです。英語が必須となります。</p>
 <h3 id="githubで質問する"><a class="header" href="#githubで質問する">GitHubで質問する</a></h3>
 <p><strong>GitHub</strong>とはプログラマのSNS兼プログラム置き場みたいなものです。こちらは難易度というかハードルが高いです。英語が使えることは前提条件です。</p>
 <h3 id="ソースコードを読む"><a class="header" href="#ソースコードを読む">ソースコードを読む</a></h3>
 <p>もし対象がOSS（Open Source Software）ならばあなたはGitHubでプログラムを読みエラーが出る原因を突き止めることができます。その対象に対してかなり深く理解していないといけないですし時間がかかります。</p>
 <h3 id="もしかしたらあなたは間違っていないのかも"><a class="header" href="#もしかしたらあなたは間違っていないのかも">もしかしたらあなたは間違っていないのかも</a></h3>
 <p>言語でいうZigやMoonbit・フレームワークでいうSolid.jsなど新しく出てきた技術は往々にしてバグがあります。広く視点を持ってフレームワークや言語のバグである可能性も考えてみてください。ただ、もしあなたがプログラミングを始めたばかりなら確実にそんなことはありません。</p>
-<p>TODO: エラーの読み方を詳しく解説する記事へのリンクを貼る</p>
+<p>参考（任意）：
+<a href="https://qiita.com/cannorin/items/eb062aae88bfe2ad6fe5">エラーメッセージの読み方と対処，検索や質問の原則</a></p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="四則演算の実行"><a class="header" href="#四則演算の実行">四則演算の実行</a></h1>
 <p><code>Hello World</code>を出力することができたので、次は計算をコンピュータに依頼してみましょう。</p>
@@ -342,9 +348,11 @@ print(3 / 2) # 1.5
 <p>コンピュータで小数を扱うときは、少し注意が必要です。試しに、Pythonで <code>0.1 + 0.2</code> を実行してみてください。
 驚くことに、結果は <code>0.3</code> ではなく、 <code>0.30000000000000004</code> のようになります。</p>
 <p>これはコンピュータがすべての数値を「0」と「1」の2進数で扱っているためです。10進数における <code>0.1</code>（1/10）は、2進数に直すと無限小数になってしまい、どこかで切り捨てが発生します。</p>
-<p>TODO: 浮動小数点数（IEEE 754）の仕組みや、コンピュータが2進数で数値を扱う理由についての解説記事を貼る</p>
 <p>銀行のシステムのように、1円の誤差も許されない計算では、小数をそのまま使わず、整数（100円を10000セントとして扱うなど）で計算したり、誤差を専門に扱う特別な道具を使ったりします。</p>
 </blockquote>
+<p>発展（任意）：
+<a href="https://qiita.com/angel_p_57/items/24078ba4aa5881805ab2">浮動小数点って何？</a>
+<a href="https://wa3.i-3-i.info/word14959.html">浮動小数点</a></p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="変数定義と使用"><a class="header" href="#変数定義と使用">変数定義と使用</a></h1>
 <p>変数=<em>Variable</em>と呼ばれる概念とPythonでのその使い方について説明します。</p>
@@ -463,7 +471,7 @@ print(output)
 </code></pre>
 <p>「outputという変数はトップレベルで定義されていません。」というエラーが出るかと思います。関数内部で定義した変数はその関数の外から見ることができません。</p>
 <p>この場合「output変数の有効範囲はadd関数の中身である」ということができます。</p>
-<p>この変数の有効範囲のことを<strong>スコープ</strong>と言います。</p>
+<p>この変数の有効範囲のことを<strong>スコープ</strong>と言います。また、関数の中の変数を<strong>ローカル変数</strong>・関数の外の変数を<strong>グローバル変数</strong>と言います。</p>
 <p>しかし、新たに変数を作って覆い隠すことは可能です。</p>
 <pre><code class="language-python">def do_nothing():
     a = 10
@@ -483,6 +491,25 @@ def do_nothing():
 print(a) # 10と出力される
 </code></pre>
 <p>Pythonプログラム全体で利用可能な変数のスコープを特別に<code>トップレベルスコープ</code>と呼びます。</p>
+<blockquote>
+<h3 id="コラム"><a class="header" href="#コラム">コラム</a></h3>
+<p>このローカル変数という考え方は数学にも登場します。もしかすると、こちらを知っていたらスッと理解できるかもしれません。</p>
+<p>$$
+\int f(x) dx = \int f(t) dt
+$$
+$$
+\sum_{k} a_{k} = \sum_{l} a_{l}
+$$
+これらの数式でいう、x, t, k, lがローカル変数です。ローカル変数はただのプレイスホルダーなので、名前を変えても全く問題ありません。</p>
+</blockquote>
+<h4 id="なぜ関数を作るのか"><a class="header" href="#なぜ関数を作るのか">なぜ関数を作るのか？</a></h4>
+<p>プログラミングには <strong>DRY (Don’t Repeat Yourself)</strong> という原則があります。「同じことを二度書くな」という意味です。</p>
+<blockquote>
+<p>このような原則はこの後たくさん出てきますから、その都度覚えていきましょう。</p>
+</blockquote>
+<p>何度も出てくる処理を関数にまとめておけば、修正が必要になったときにその関数一箇所を直すだけで済みます。</p>
+<p>また、複雑なプログラムに名前（関数名）をつけて小分けにすることで、人間がコードを読んだ時に「あぁ、ここでは合計金額を計算しているんだな」と理解しやすくなります。</p>
+<p>また、再帰などの複雑な実行順序をわかりやすく＝意味論的=<em>semantically</em>に記述することができます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="型について"><a class="header" href="#型について">型について</a></h1>
 <p>プログラミングには<em>型</em>と呼ばれる概念があります。それを説明していきます。プログラミングにおいて、「プログラマ」と「プログラムを書いたことがある人」の違いはここにあると思います。それぐらい重要です。</p>
@@ -512,7 +539,7 @@ message = 100
 
 message = 10 // String型なのにint型の値を代入しているのでエラーが発生する
 </code></pre>
-<p>どちらがいいかは何のために使うかによって変わってくるのですが、最近のトレンドは静的型のようです。ちなみに僕は静的型が好きです。一般には静的型の方が安定で大規模開発に向いていて、逆に動的型はその場限りのプログラムや非エンジニア・アジャイルな<sup class="footnote-reference" id="fr-note1-1-1"><a href="#footnote-note1-1">1</a></sup>開発に向いていると言われています。</p>
+<p>どちらがいいかは何のために使うかによって変わってくるのですが、最近のトレンドは静的型のようです。一般には静的型の方が安定で大規模開発に向いていて、逆に動的型はその場限りのプログラムや非エンジニア・アジャイルな<sup class="footnote-reference" id="fr-note1-1-1"><a href="#footnote-note1-1">1</a></sup>開発に向いていると言われています。</p>
 <h2 id="型の分類"><a class="header" href="#型の分類">型の分類</a></h2>
 <p>型はたくさんあります。作ることもできます（というか、一部の言語では「型を作る」＝「プログラミング」です）。
 たくさんあるものを、本質的な性質を見ながら分類して整理していきましょう。</p>
@@ -539,10 +566,20 @@ numbers = [1, 2, 3, 4, 5]
 <p>例えば、メモリ上に <code>01000001</code> というデータがあったとします。</p>
 <ul>
 <li>これを <strong>整数型</strong> として読むと、数値の <code>65</code> になります。</li>
-<li>これを <strong>文字列型（ASCII）</strong> として読むと、アルファベットの <code>'A'</code> になります。</li>
+<li>これを <strong>文字列型</strong> として読むと、アルファベットの <code>'A'</code> になります。</li>
 </ul>
 <p>つまり、「型」とは、メモリ上にある無機質な「0」と「1」の塊に対して、<strong>「これはどういう意味のデータなのか」を定義するメガネ</strong>のようなものです。同じデータでも、どの型（メガネ）を通して見るかによって、その意味は全く変わってしまうのです。</p>
 </blockquote>
+<blockquote>
+<h3 id="コラム型は実は集合"><a class="header" href="#コラム型は実は集合">コラム：型は実は集合</a></h3>
+<p>型は、数学的には集合と全く同じです。</p>
+<p>数学的な集合の(少しぼかした)定義は以下の通りです。</p>
+<pre><code>(大体の)任意のモノに対して、それが含まれているか含まれていないかを一意に判断できるモノ。
+</code></pre>
+<p>よって、型の相互関係は、集合の相互関係に酷似しています。</p>
+</blockquote>
+<p>発展（任意）
+<a href="https://zenn.dev/masahiro_toba/articles/235e3c1236ee2d">集合としてのデータ型(物理的・論理的な捉え方)</a></p>
 <hr>
 <ol class="footnote-definition">
 <li id="footnote-note1-1">
@@ -648,7 +685,7 @@ if len(my_list) &gt; 0 and my_list[0] == 100:
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="while文"><a class="header" href="#while文">while文</a></h1>
 <p>print関数を100回呼び出したい時を考えます。
-脳筋にprintを100回書くこともできますが、やっぱり1000回にしてと言われた時、はたまた、繰り返しを行う回数が計算してみないといけない場合に対応できません。
+脳筋にprintを100回書くこともできますが、やっぱり1000回にしてと言われた時、はたまた、繰り返しを行う回数が計算してみないといけない場合に対応できません。また、もっと本質的には「今から言う回数繰り返して」と言われた時に対応できません。
 よってそのための構文を紹介します。</p>
 <pre><code class="language-python">while True:
     print("Hello!")
@@ -698,42 +735,139 @@ for fruit in fruits:
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="リスト型"><a class="header" href="#リスト型">リスト型</a></h1>
-<p>これまでは、一つの変数に一つのデータを入れてきました。しかし、現実のプログラムでは大量のデータを扱いたいことが多々あります。例えば、100人の生徒のテストの点数を管理するのに、100個の変数（<code>score1</code>, <code>score2</code>, …）を作るのは効率が悪すぎますね。</p>
+<p>これまでは、一つの変数に一つのデータ（整数や文字列）を入れてきました。しかし、実際のプログラミングでは「クラス全員の名前」や「一週間分の気温データ」のように、関連する複数のデータをまとめて扱いたい場面が多々あります。</p>
 <p>そこで登場するのが**リスト（List）**です。</p>
-<h2 id="リストの基本"><a class="header" href="#リストの基本">リストの基本</a></h2>
-<p>リストは、複数のデータを一列に並べて管理するための型です。Pythonでは <code>[]</code>（角括弧）を使ってリストを作ります。</p>
-<pre><code class="language-python"># 果物のリスト
+<h2 id="リストとは"><a class="header" href="#リストとは">リストとは</a></h2>
+<p>リストは、複数のデータを一つの「入れ物」の中に順番に並べて管理するための型です。他の言語では「配列」と呼ばれることもありますが、Pythonのリストは非常に柔軟で、異なる型（整数と文字列など）を混ぜて入れることも可能です。<sup class="footnote-reference" id="fr-note1-1-3"><a href="#footnote-note1-3">1</a></sup></p>
+<pre><code class="language-python"># リストの定義
 fruits = ["apple", "banana", "cherry"]
+numbers = [10, 20, 30, 40]
+mixed = ["Alice", 100, True] # 混ぜることもできる
+
 print(fruits)
 </code></pre>
-<p>リストの中には、どんな型のデータでも入れることができます。</p>
-<h2 id="要素へのアクセスインデックス"><a class="header" href="#要素へのアクセスインデックス">要素へのアクセス（インデックス）</a></h2>
-<p>リストの中の特定のデータを取り出すには、そのデータの「場所」を指定します。この場所のことを**インデックス（index）**と呼びます。</p>
-<p>ここで重要なのは、<strong>インデックスは0から始まる</strong>ということです。</p>
+<h2 id="インデックス添え字によるアクセス"><a class="header" href="#インデックス添え字によるアクセス">インデックス（添え字）によるアクセス</a></h2>
+<p>リストの中の特定のデータを取り出すには、<strong>インデックス</strong>と呼ばれる番号を使います。
+<a href="#while文">while文の章</a>でも触れましたが、コンピュータの世界では番号は <strong>0番から始まります</strong>。</p>
+<p>なぜ0から始まるのでしょうか？これはコンピュータの低レイヤな仕組みに関係しています。
+リストはメモリ上で「連続した領域」にデータが並んでいます。<code>fruits[0]</code> というのは、「リストの先頭から0個分だけ進んだ場所」という意味になります。<code>fruits[1]</code> は「先頭から1個分進んだ場所」です。
+コンピュータにとっては、先頭からの「ズレ（オフセット）」で場所を特定するのが最も自然なので、歴史的にそうなっています。</p>
 <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
 
 print(fruits[0]) # apple
 print(fruits[1]) # banana
 print(fruits[2]) # cherry
 </code></pre>
-<p>なぜ0から始まるのでしょうか？これはコンピュータの低レイヤな仕組みに関係しています。
-リストはメモリ上で「連続した領域」にデータが並んでいます。<code>fruits[0]</code> というのは、「リストの先頭から0個分だけ進んだ場所」という意味になります。<code>fruits[1]</code> は「先頭から1個分進んだ場所」です。
-コンピュータにとっては、先頭からの「ズレ（オフセット）」で場所を特定するのが最も効率的なのです。</p>
+<p>もし存在しない番号（例えば3番など）を指定すると、<code>IndexError</code> というエラーが出てコンピュータに怒られます。「そんな場所には何もないよ！」という意味です。</p>
 <h2 id="リストの操作"><a class="header" href="#リストの操作">リストの操作</a></h2>
+<p>リストは後から中身を変えたり、追加したりできます。</p>
+<pre><code class="language-python"># 中身の書き換え
+fruits[1] = "grape"
+print(fruits) # ["apple", "grape", "cherry"]
+
+# 要素の追加
+fruits.append("orange")
+print(fruits) # 末尾にorangeが追加される
+
+# リストの長さを知る
+print(len(fruits)) # 4
+</code></pre>
+<p>リストの長さは、私が直感的に思う長さであって、最後のインデックスの数ではありません。整理すると、長さnの配列は0から始まりn-1で終わるインデックスを持ちます。</p>
+<h2 id="リストの操作-1"><a class="header" href="#リストの操作-1">リストの操作</a></h2>
 <p>リストにデータを追加したり、中身を書き換えたりすることも簡単です。</p>
 <pre><code class="language-python">fruits = ["apple", "banana"]
 
-# データの追加
+# データの末尾への追加(push・appendと呼ばれる)
 fruits.append("orange")
 print(fruits) # ["apple", "banana", "orange"]
 
-# データの書き換え
+# データの書き換え(ランダムアクセス)
 fruits[0] = "strawberry"
 print(fruits) # ["strawberry", "banana", "orange"]
 
 # リストの長さ（要素の数）を取得
 print(len(fruits)) # 3
 </code></pre>
+<p>この<code>.append()</code>と言うような記法を、メソッド呼び出しと言います。要は、リスト型に便利な関数が紐づけられていて、その関数を呼び出すイメージです。</p>
+<p>この配列操作は、あらゆる言語で出てきます。なので、このようなアクションの名称をなんとなく整理して覚えておきましょう。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>アクション</th><th>名前</th><th>言語の例</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>末尾に追加</strong></td><td><code>push</code></td><td>JavaScript, Ruby, Rust, Perl</td></tr>
+<tr><td></td><td><code>append</code></td><td>Python, Go (<code>append</code>), Swift</td></tr>
+<tr><td></td><td><code>add</code></td><td>Java (<code>ArrayList</code>), C# (<code>List</code>)</td></tr>
+<tr><td></td><td><code>[]=</code> や <code>&lt;&lt;</code></td><td>PHP (<code>$arr[] =</code>), Ruby (<code>&lt;&lt;</code>)</td></tr>
+<tr><td><strong>先頭に追加</strong></td><td><code>unshift</code></td><td>JavaScript, Ruby, Perl</td></tr>
+<tr><td></td><td><code>insert(0, x)</code></td><td>Python, Swift</td></tr>
+<tr><td></td><td><code>Prepend</code></td><td>C#, PHP (<code>array_unshift</code>)</td></tr>
+<tr><td><strong>位置指定で挿入</strong></td><td><code>insert</code></td><td>Python, Ruby, Java, C#, Swift, Rust</td></tr>
+<tr><td></td><td><code>splice</code></td><td>JavaScript</td></tr>
+<tr><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><strong>末尾を削除</strong></td><td><code>pop</code></td><td>JavaScript, Python, Ruby, Rust, Swift</td></tr>
+<tr><td></td><td><code>removeLast</code></td><td>Swift, Java/C# (特定コレクション)</td></tr>
+<tr><td><strong>先頭を削除</strong></td><td><code>shift</code></td><td>JavaScript, Ruby, Perl</td></tr>
+<tr><td></td><td><code>pop(0)</code> / <code>remove(0)</code></td><td>Python, Java</td></tr>
+<tr><td></td><td><code>RemoveAt(0)</code></td><td>C#</td></tr>
+<tr><td><strong>位置指定で削除</strong></td><td><code>splice</code></td><td>JavaScript</td></tr>
+<tr><td></td><td><code>removeAt</code> / <code>RemoveAt</code></td><td>Swift, C#</td></tr>
+<tr><td></td><td><code>del</code> / <code>pop</code></td><td>Python</td></tr>
+<tr><td><strong>値指定で削除</strong></td><td><code>remove</code> / <code>Remove</code></td><td>Python, Java, C#, Swift</td></tr>
+<tr><td></td><td><code>delete</code></td><td>Ruby</td></tr>
+<tr><td></td><td><code>array_diff</code> / <code>unset</code></td><td>PHP</td></tr>
+<tr><td><strong>全削除（クリア）</strong></td><td><code>clear</code> / <code>Clear</code></td><td>Python, Java, C#, Ruby</td></tr>
+<tr><td></td><td><code>length = 0</code></td><td>JavaScript</td></tr>
+<tr><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><strong>値からインデックスを探す</strong></td><td><code>indexOf</code> / <code>IndexOf</code></td><td>JavaScript, Java, C#</td></tr>
+<tr><td></td><td><code>index</code></td><td>Python, Ruby, Swift</td></tr>
+<tr><td></td><td><code>array_search</code></td><td>PHP</td></tr>
+<tr><td><strong>条件に合う最初の1つ</strong></td><td><code>find</code></td><td>JavaScript, Ruby, Rust</td></tr>
+<tr><td></td><td><code>FirstOrDefault</code> / <code>Find</code></td><td>C#</td></tr>
+<tr><td></td><td><code>next(...)</code></td><td>Python (ジェネレータ式と併用)</td></tr>
+<tr><td><strong>存在するか確認 (Bool)</strong></td><td><code>includes</code></td><td>JavaScript</td></tr>
+<tr><td></td><td><code>in</code></td><td>Python (演算子)</td></tr>
+<tr><td></td><td><code>contains</code> / <code>Contains</code></td><td>Java, C#, Swift, Rust</td></tr>
+<tr><td></td><td><code>include?</code></td><td>Ruby</td></tr>
+<tr><td></td><td><code>in_array</code></td><td>PHP</td></tr>
+<tr><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><strong>全要素を変換 (1対1)</strong></td><td><code>map</code></td><td>JavaScript, Ruby, Python (<code>map()</code>), Swift, Rust</td></tr>
+<tr><td></td><td><code>Select</code></td><td>C# (LINQ)</td></tr>
+<tr><td></td><td><code>stream().map</code></td><td>Java</td></tr>
+<tr><td></td><td><code>array_map</code></td><td>PHP</td></tr>
+<tr><td><strong>条件で絞り込む</strong></td><td><code>filter</code></td><td>JavaScript, Python (<code>filter()</code>), Swift, Rust</td></tr>
+<tr><td></td><td><code>select</code> / <code>filter</code></td><td>Ruby</td></tr>
+<tr><td></td><td><code>Where</code></td><td>C# (LINQ)</td></tr>
+<tr><td></td><td><code>stream().filter</code></td><td>Java</td></tr>
+<tr><td></td><td><code>array_filter</code></td><td>PHP</td></tr>
+<tr><td><strong>1つの値に畳み込む</strong></td><td><code>reduce</code></td><td>JavaScript, Ruby (<code>inject</code>), Swift, Rust</td></tr>
+<tr><td></td><td><code>Aggregate</code></td><td>C# (LINQ)</td></tr>
+<tr><td></td><td><code>stream().reduce</code></td><td>Java</td></tr>
+<tr><td></td><td><code>reduce</code> / <code>fold</code></td><td>Kotlin, Scala</td></tr>
+<tr><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><strong>並び替え (破壊的)</strong></td><td><code>sort</code> / <code>Sort</code></td><td>JavaScript, Python, Ruby, Java, C#</td></tr>
+<tr><td><strong>並び替え (非破壊)</strong></td><td><code>sorted</code></td><td>Python, Swift</td></tr>
+<tr><td></td><td><code>toSorted</code></td><td>JavaScript (比較的新しい仕様)</td></tr>
+<tr><td></td><td><code>OrderBy</code></td><td>C# (LINQ)</td></tr>
+<tr><td><strong>逆順 (破壊的)</strong></td><td><code>reverse</code> / <code>Reverse</code></td><td>JavaScript, Python, Ruby, C#</td></tr>
+<tr><td><strong>逆順 (非破壊)</strong></td><td><code>reversed</code></td><td>Python, Swift</td></tr>
+<tr><td></td><td><code>toReversed</code></td><td>JavaScript</td></tr>
+<tr><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><strong>部分切り出し</strong></td><td><code>slice</code></td><td>JavaScript, Ruby, Python (<code>[:]</code> スライス構文)</td></tr>
+<tr><td></td><td><code>Substring</code> / <code>Skip().Take()</code></td><td>C#</td></tr>
+<tr><td></td><td><code>array_slice</code></td><td>PHP</td></tr>
+<tr><td><strong>配列同士の結合</strong></td><td><code>concat</code></td><td>JavaScript, Ruby, Java (<code>addAll</code>)</td></tr>
+<tr><td></td><td><code>+</code> (演算子)</td><td>Python, Ruby, C# (<code>Concat</code>)</td></tr>
+<tr><td></td><td><code>array_merge</code></td><td>PHP</td></tr>
+<tr><td><strong>文字列に変換</strong></td><td><code>join</code></td><td>JavaScript, Ruby, Python (<code>" ".join()</code>)</td></tr>
+<tr><td></td><td><code>string.Join</code> / <code>ToString</code></td><td>C#</td></tr>
+<tr><td></td><td><code>implode</code></td><td>PHP</td></tr>
+<tr><td><strong>多次元配列の平坦化</strong></td><td><code>flat</code> / <code>flatten</code></td><td>JavaScript, Ruby, Swift (<code>flatMap</code>)</td></tr>
+<tr><td></td><td><code>SelectMany</code></td><td>C# (LINQ)</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="なぜリストを使うのか"><a class="header" href="#なぜリストを使うのか">なぜリストを使うのか？</a></h2>
 <p>リストを使う最大のメリットは、<a href="#for文">for文</a>と組み合わせることで、大量のデータを一気に処理できることです。</p>
 <pre><code class="language-python">prices = [100, 200, 300, 400, 500]
@@ -753,6 +887,12 @@ print(f"合計金額は {total} 円です")
 変数（<code>val1</code>, <code>val2</code> …）を使う方法では、あらかじめ変数の数を決めておかなければなりません。100個用意しても、ユーザーが101個入力したらお手上げです。</p>
 <p>リストを使えば、実行中に要素をいくらでも追加できるため、データの数が事前に決まっていない「動的な」状況にも対応できます。これは現代のソフトウェアにおいて、リスト（やそれに類するデータ構造）が不可欠である最大の理由の一つです。</p>
 </blockquote>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-note1-3">
+<p>効率や安全性の観点から、実際の開発では同じ型のデータだけを並べることが一般的です。 <a href="#fr-note1-1-3">↩</a></p>
+</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="関数定義"><a class="header" href="#関数定義">関数定義</a></h1>
 <p><a href="#関数の使用">関数の使用</a>の章でも触れましたが、ここでは「なぜ関数を自分で作るのか」という、より深い設計の視点から関数について考えてみましょう。</p>
@@ -813,7 +953,32 @@ my_function()
 <p>関数が終了すると、その領域はきれいに片付けられ、中の変数も消えてしまいます。この仕組みがあるおかげで、私たちは「他の場所で同じ変数名が使われていないか？」をいちいち心配することなく、安心して関数を自作できるのです。</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習"><a class="header" href="#演習">演習</a></h1>
+<h1 id="演習python基礎の総仕上げ"><a class="header" href="#演習python基礎の総仕上げ">演習：Python基礎の総仕上げ</a></h1>
+<p>これまでに学んだ「変数」「条件分岐」「ループ」「リスト」「関数」を組み合わせて、いくつかプログラムを書いてみましょう。
+答えを見る前に、まずは自分で Google Colab を開いて手を動かしてみてください。</p>
+<h2 id="課題1平均点を計算しよう"><a class="header" href="#課題1平均点を計算しよう">課題1：平均点を計算しよう</a></h2>
+<p>以下のリスト（テストの点数）の平均値を計算し、出力するプログラムを書いてください。</p>
+<pre><code class="language-python">scores = [80, 95, 60, 75, 100]
+# ここに処理を書く
+</code></pre>
+<h2 id="課題2fizzbuzz問題"><a class="header" href="#課題2fizzbuzz問題">課題2：FizzBuzz問題</a></h2>
+<p>プログラミングの超定番問題です。
+1から30までの数字を順番に表示してください。ただし：</p>
+<ul>
+<li>3の倍数のときは数字の代わりに <code>"Fizz"</code> と表示する</li>
+<li>5の倍数のときは数字の代わりに <code>"Buzz"</code> と表示する</li>
+<li>3と5の両方の倍数（つまり15の倍数）のときは <code>"FizzBuzz"</code> と表示する</li>
+</ul>
+<h2 id="課題3最大値を探す関数"><a class="header" href="#課題3最大値を探す関数">課題3：最大値を探す関数</a></h2>
+<p>数字のリストを受け取って、その中から一番大きな数字を返す関数 <code>find_max(numbers)</code> を作成してください。</p>
+<hr>
+<h3 id="ヒントと解説"><a class="header" href="#ヒントと解説">ヒントと解説</a></h3>
+<p><strong>課題1の考え方:</strong>
+「合計」を保持する変数を用意して、<code>for</code> でリストの中身を全部足します。最後に <code>len(scores)</code> で割れば平均が出ますね。</p>
+<p><strong>課題2の考え方:</strong>
+<code>if</code> と <code>elif</code> を使います。注意点は「15の倍数（両方の倍数）」の判定を一番最初に持ってくることです。そうしないと、15の時に先に <code>Fizz</code> の条件に引っかかってしまいます。</p>
+<p><strong>課題3の考え方:</strong>
+「これまでの暫定チャンピオン（最大値）」を保存する変数を用意します。リストを一つずつ見ていき、今のチャンピオンより大きい数字が現れたら、チャンピオンを交代させます。</p>
 <p>これまでに学んだ知識を総動員して、いくつかの課題に取り組んでみましょう。
 プログラムは「書く」ことでしか身につきません。自分の手で考え、エラーと格闘しながら完成させてください。</p>
 <h2 id="課題1合計と平均の計算"><a class="header" href="#課題1合計と平均の計算">課題1：合計と平均の計算</a></h2>
@@ -2261,7 +2426,7 @@ async function fetchData(): Promise&lt;string&gt; {
 </ol>
 <p>TypeScriptは単なるJavaScriptの型定義言語ではなく、大規模開発を支える強力なエコシステムです。ここまでの知識を組み合わせることで、堅牢なアプリケーションを設計・構築する準備が整いました。ぜひ、実際にプロジェクトを作成して、これらの概念をコードに落とし込んでみてください。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-1"><a class="header" href="#演習-1">演習</a></h1>
+<h1 id="演習"><a class="header" href="#演習">演習</a></h1>
 <p>TypeScriptの基礎知識を実践的に確認するための演習です。これらの課題は、実際の開発現場で遭遇するシナリオを簡略化したものです。</p>
 <h3 id="課題リスト"><a class="header" href="#課題リスト">課題リスト</a></h3>
 <ol>
@@ -2432,7 +2597,7 @@ git push origin main
 <p>UNIXのCLIツールは「一つのことをうまくやる」ことを目指して設計されています。ツール間でデータを繋ぐために「標準ストリーム（stdin, stdout, stderr）」を利用するのが核心です。パイプライン（<code>|</code>）を利用した結合は、まさにこのストリーム構造があるからこそ実現できるアーキテクチャの勝利です。</p>
 <p>これらの作法を身につけることで、CLI環境がより強力で快適な開発ツールになります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-2"><a class="header" href="#演習-2">演習</a></h1>
+<h1 id="演習-1"><a class="header" href="#演習-1">演習</a></h1>
 <p>ターミナルとGitの操作に慣れるための演習です。</p>
 <h3 id="課題"><a class="header" href="#課題">課題</a></h3>
 <ol>
@@ -2627,7 +2792,7 @@ git push origin main
 </ul>
 <p>ドキュメントだけでなく、設計思想の裏側にある議論を追うことで、一歩先のReactエンジニアへと成長できます。</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="演習-3"><a class="header" href="#演習-3">演習</a></h1>
+<h1 id="演習-2"><a class="header" href="#演習-2">演習</a></h1>
 <p>Reactの基礎を実践的に確認するための演習です。</p>
 <h3 id="課題-1"><a class="header" href="#課題-1">課題</a></h3>
 <ol>
@@ -3158,6 +3323,11 @@ JOIN posts ON users.id = posts.user_id;
 <h1 id="オレオレブラウザchrominium使用"><a href="#オレオレブラウザchrominium使用" class="header">オレオレブラウザ(chrominium使用)</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="オレオレブラウザchrominium不使用"><a href="#オレオレブラウザchrominium不使用" class="header">オレオレブラウザ(chrominium不使用)</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="プライバシーポリシー"><a class="header" href="#プライバシーポリシー">プライバシーポリシー</a></h1>
+<p>このWebサイトは、ユーザーに関する一切の情報を収集しません。</p>
+<p>プライバシーポリシーは予告なく変更される可能性があります。</p>
+<p>（2026/5/25）</p>
 
                     </main>
 
