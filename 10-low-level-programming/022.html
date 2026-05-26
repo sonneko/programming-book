@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f0e761e5.js";
+            window.path_to_searchindex_js = "../searchindex-03920d66.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-025eac40.js"></script>
@@ -178,6 +178,34 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="cのコレクション"><a class="header" href="#cのコレクション">Cのコレクション</a></h1>
+<p>C言語には、他の言語にあるような便利な「コレクションライブラリ（リスト、マップ、セット等）」は標準で存在しません。</p>
+<h3 id="なければ作るの精神"><a class="header" href="#なければ作るの精神">「なければ作る」の精神</a></h3>
+<p>C言語でリスト（可変長配列）を使いたい場合、あなたは自分で構造体を作り、メモリを確保し、要素を追加する関数を書く必要があります。</p>
+<pre><code class="language-c">typedef struct {
+    int *data;
+    size_t size;
+    size_t capacity;
+} Vector;
+</code></pre>
+<p>これは面倒に思えるかもしれませんが、教育的な観点からはこれ以上ない教材です。ベクターが内部でどのように <code>realloc</code> を呼び、ポインタを更新しているのかを一行ずつ書くことで、データ構造の「コスト」を肌で感じることができます。</p>
+<h3 id="連結リストlinked-list"><a class="header" href="#連結リストlinked-list">連結リスト（Linked List）</a></h3>
+<p>「メモリ上に連続して並ぶ」配列とは対照的に、「次のデータの場所（ポインタ）をデータ自身が持っている」のが連結リストです。</p>
+<ul>
+<li><strong>メリット</strong>: 途中の要素の挿入・削除が O(1) でできる。</li>
+<li><strong>デメリット</strong>: 特定の番目へのアクセスが O(n) になる。また、データがメモリ上に散らばるため、CPUキャッシュが効きにくく、実測速度は配列に完敗することが多いです。</li>
+</ul>
+<h3 id="低レイヤーの現実抽象化のコスト"><a class="header" href="#低レイヤーの現実抽象化のコスト">低レイヤーの現実：抽象化のコスト</a></h3>
+<p>高レベル言語のコレクションは非常に便利ですが、裏側では「あらゆる用途に耐える汎用性」のために、わずかな余分なメモリや計算時間を消費しています。
+極限のパフォーマンスが必要なC言語の世界では、その問題に「特化した専用のデータ構造」を自前で構築することで、汎用ライブラリでは到達できない領域を目指します。</p>
+<h3 id="ミクロな要件定義データ構造の選定"><a class="header" href="#ミクロな要件定義データ構造の選定">ミクロな要件定義：データ構造の選定</a></h3>
+<ul>
+<li>検索が多いなら、ハッシュマップやソート済み配列。</li>
+<li>データの追加・削除が激しいなら、連結リストや木構造。</li>
+<li>メモリ効率とキャッシュを最優先するなら、単純な配列。
+どのような「データの変形」を行いたいのかによって、最適な「器（コレクション）」を選ぶ。これがエンジニアリングの真髄です。</li>
+</ul>
+<p>TODO: C言語で実装する動的配列（Vector）のサンプルコード記事へのリンクを貼る
+TODO: 配列と連結リストのパフォーマンス比較（ベンチマーク）についての記事へのリンクを貼る</p>
 
                     </main>
 

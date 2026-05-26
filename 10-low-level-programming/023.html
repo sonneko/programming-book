@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f0e761e5.js";
+            window.path_to_searchindex_js = "../searchindex-03920d66.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-025eac40.js"></script>
@@ -178,6 +178,28 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="マクロ"><a class="header" href="#マクロ">マクロ</a></h1>
+<p>C言語における「マクロ」は、コンパイルの本当の直前に実行される「テキストの置換」機能です。</p>
+<h3 id="プリプロセッサの仕事"><a class="header" href="#プリプロセッサの仕事">プリプロセッサの仕事</a></h3>
+<p>コンパイラがコードの論理を解析する前に、「プリプロセッサ」というプログラムがコードをスキャンします。</p>
+<ul>
+<li><code>#define PI 3.14</code>: コード中の <code>PI</code> をすべて <code>3.14</code> に書き換える。</li>
+<li><code>#include &lt;stdio.h&gt;</code>: その場所に指定されたファイルの内容を丸ごと埋め込む。</li>
+</ul>
+<h3 id="マクロの強力さと危険性"><a class="header" href="#マクロの強力さと危険性">マクロの強力さと危険性</a></h3>
+<p>マクロを使うと、関数呼び出しのオーバーヘッドなしに、小さなロジックを共通化できます。</p>
+<pre><code class="language-c">#define SQUARE(x) ((x) * (x))
+</code></pre>
+<p>しかし、マクロは単なる「文字の置き換え」であり、C言語の文法や型のルールを知りません。
+<code>SQUARE(1 + 1)</code> と書くと、期待される <code>4</code> (2*2) ではなく、<code>1 + 1 * 1 + 1</code> つまり <code>3</code> に展開されてしまいます。このため、マクロの引数には常に括弧をつけるといった、低レベル特有の「お作法」が求められます。</p>
+<h3 id="条件付きコンパイル"><a class="header" href="#条件付きコンパイル">条件付きコンパイル</a></h3>
+<p><code>#ifdef DEBUG</code> のように使うことで、「デバッグ時だけ実行するコード」や「WindowsとLinuxで切り替えるコード」を記述できます。これは、異なる環境（ハードウェア）に対応するための低レイヤープログラミングの必須テクニックです。</p>
+<h3 id="低レイヤーの現実コード生成"><a class="header" href="#低レイヤーの現実コード生成">低レイヤーの現実：コード生成</a></h3>
+<p>マクロは一種の「メタプログラミング（コードを書くためのコード）」です。
+複雑なデータ構造の定義を簡略化したり、大量の似たような関数を自動生成したりするのに使われます。しかし、使いすぎると「実際にどんなコードがコンパイラに渡っているのか」が人間に見えなくなり、メンテナンス不能な「魔術的なコード」に陥る危険もあります。</p>
+<h3 id="設計思想定数に名前を付ける"><a class="header" href="#設計思想定数に名前を付ける">設計思想：定数に名前を付ける</a></h3>
+<p>マジックナンバー（意味不明な生数字）を排除し、<code>#define MAX_BUFFER_SIZE 1024</code> のように定義することは、計算資源の「制約」を明示することに繋がります。</p>
+<p>TODO: Cプリプロセッサの仕組みとディレクティブ一覧の記事へのリンクを貼る
+TODO: マクロを使う際の注意点と「罠」についての解説記事へのリンクを貼る</p>
 
                     </main>
 

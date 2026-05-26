@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f0e761e5.js";
+            window.path_to_searchindex_js = "../searchindex-03920d66.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-025eac40.js"></script>
@@ -178,6 +178,37 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="ベクター"><a class="header" href="#ベクター">ベクター</a></h1>
+<p>JavaScriptの <code>Array</code> や Pythonの <code>list</code>、Rustの <code>Vec</code> のように、サイズが自由に変えられる配列を「動的配列（Dynamic Array）」あるいは「ベクター」と呼びます。</p>
+<h3 id="内部的な再確保"><a class="header" href="#内部的な再確保">内部的な「再確保」</a></h3>
+<p>ベクターは魔法ではなく、内部的には「固定長配列」を使っています。</p>
+<ol>
+<li>最初に少し余裕を持ったサイズの配列を確保する。</li>
+<li>要素が増えて足りなくなったら、<strong>より大きな新しい配列を別の場所に確保する</strong>。</li>
+<li>古い配列から新しい配列へデータをすべてコピーする。</li>
+<li>古い配列を解放する。</li>
+</ol>
+<p>この「再確保とコピー」が発生した瞬間、処理時間は一時的に O(n) に跳ね上がります。</p>
+<h3 id="均し計算量amortized-complexity"><a class="header" href="#均し計算量amortized-complexity">均し計算量（Amortized Complexity）</a></h3>
+<p>再確保はたまにしか起きないため、多くの追加操作を平均すると、1回あたりの追加時間は <strong>O(1)</strong> とみなせます。これを「均し計算量」と呼びます。
+シニアエンジニアは、この「たまに発生する重い処理」がリアルタイム性が求められるシステム（ゲームや制御系）で致命傷にならないかを常に意識します。</p>
+<h3 id="低レイヤーの現実キャパシティと長さ"><a class="header" href="#低レイヤーの現実キャパシティと長さ">低レイヤーの現実：キャパシティと長さ</a></h3>
+<p>ベクターには二つの「サイズ」があります。</p>
+<ul>
+<li><strong>長さ (Length)</strong>: 実際に中に入っている要素の数。</li>
+<li><strong>容量 (Capacity)</strong>: 内部の配列が保持できる最大の要素数。
+あらかじめ入るデータの数がわかっている場合、最初に <code>reserve</code> 等のメソッドで容量を確保しておくことで、無駄な再確保とコピーを避けることができます。これは低レベルな最適化の鉄則です。</li>
+</ul>
+<h3 id="データの変形フロー"><a class="header" href="#データの変形フロー">データの変形フロー</a></h3>
+<p>ベクターは「データの蓄積」に適した構造です。
+「どれくらい来るかわからない入力」を、一時的にバッファ（ベクター）に溜め込み、最後に「確定した配列」として出力する。このプロセスにおいて、メモリの動的確保という「OSへの依頼」がどれだけ発生しているかを意識してください。</p>
+<h3 id="ミクロな要件定義ベクターの設計"><a class="header" href="#ミクロな要件定義ベクターの設計">ミクロな要件定義：ベクターの設計</a></h3>
+<ul>
+<li><code>push</code>: 容量が足りなければ再確保して追加。</li>
+<li><code>pop</code>: 最後の要素を取り除く。メモリの解放は通常行わない（再利用のため）。</li>
+<li><code>clear</code>: 長さを0にするが、容量（メモリ）は保持し続ける。</li>
+</ul>
+<p>TODO: 動的配列の拡張戦略（なぜ1.5倍や2倍ずつ増やすのか）についての記事へのリンクを貼る
+TODO: Rustの <code>Vec</code> の内部構造についての公式ドキュメントへのリンクを貼る</p>
 
                     </main>
 

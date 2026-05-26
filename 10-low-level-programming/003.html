@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f0e761e5.js";
+            window.path_to_searchindex_js = "../searchindex-03920d66.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-025eac40.js"></script>
@@ -178,6 +178,50 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="レジスタとメモリとディスク"><a class="header" href="#レジスタとメモリとディスク">レジスタとメモリとディスク</a></h1>
+<p>コンピュータにおけるデータの保存場所は、大きく分けて「レジスタ」「メモリ」「ディスク」の3層構造（記憶階層）になっています。</p>
+<h3 id="記憶のピラミッド"><a class="header" href="#記憶のピラミッド">記憶のピラミッド</a></h3>
+<p>これらは「速さ」と「容量」においてトレードオフの関係にあります。</p>
+<ol>
+<li><strong>レジスタ (Register)</strong>
+<ul>
+<li><strong>場所</strong>: CPUの内部。</li>
+<li><strong>速度</strong>: 極めて高速（CPUのサイクルと同じ）。</li>
+<li><strong>容量</strong>: 数百バイト程度。</li>
+<li><strong>役割</strong>: 今まさに計算に使っているデータを一時的に保持する。</li>
+</ul>
+</li>
+<li><strong>メモリ (RAM - Random Access Memory)</strong>
+<ul>
+<li><strong>場所</strong>: CPUの外にある専用チップ。</li>
+<li><strong>速度</strong>: 高速だが、レジスタに比べると数百倍遅い。</li>
+<li><strong>容量</strong>: 数GB〜数百GB。</li>
+<li><strong>役割</strong>: 実行中のプログラムやデータを保持する。</li>
+</ul>
+</li>
+<li><strong>ディスク (SSD/HDD)</strong>
+<ul>
+<li><strong>場所</strong>: 外部ストレージ。</li>
+<li><strong>速度</strong>: 低速（メモリよりさらに数千倍〜数万倍遅い）。</li>
+<li><strong>容量</strong>: 数TB。</li>
+<li><strong>役割</strong>: 電源を切っても消えないデータを永続的に保存する。</li>
+</ul>
+</li>
+</ol>
+<h3 id="データの変形フロー"><a class="header" href="#データの変形フロー">データの変形フロー</a></h3>
+<p>プログラミングの視点で見ると、データは以下のように流れます。</p>
+<ol>
+<li>ディスクからメモリにロードされる（ファイルを開く）。</li>
+<li>メモリからCPU内のキャッシュ、そしてレジスタへと転送される。</li>
+<li>レジスタ上で演算が行われる。</li>
+<li>結果がメモリ、そしてディスクへと書き戻される。</li>
+</ol>
+<p>シニアエンジニアは、この「データの移動」そのものにコストがかかっていることを意識します。</p>
+<h3 id="低レイヤーの現実"><a class="header" href="#低レイヤーの現実">低レイヤーの現実</a></h3>
+<p>CPUがメモリからデータを読み出すとき、実は「指定した1バイト」だけを読み出すのではありません。その周辺のデータをまとめて（キャッシュライン単位で）読み出します。これを「空間的局所性」と呼び、この特性を活かしたデータ配置をすることで、プログラムの速度は劇的に向上します。</p>
+<h3 id="設計思想ioを減らす"><a class="header" href="#設計思想ioを減らす">設計思想：I/Oを減らす</a></h3>
+<p>ソフトウェア設計において、もっとも遅いのはディスク（またはネットワーク）へのアクセス（I/O）です。そのため、頻繁に使うデータをメモリ上に置いておく「キャッシュ」というパターンが生まれます。しかし、メモリも有限です。どのデータをメモリに残し、どのデータをディスクに追い出すかという戦略（アルゴリズム）が、システムのパフォーマンスを左右します。</p>
+<p>TODO: 記憶階層（メモリハイアラキー）の図解記事へのリンクを貼る
+TODO: SSDとHDDの物理的な仕組みと速度差についての解説記事へのリンクを貼る</p>
 
                     </main>
 

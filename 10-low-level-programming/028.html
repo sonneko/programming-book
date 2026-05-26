@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f0e761e5.js";
+            window.path_to_searchindex_js = "../searchindex-03920d66.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-025eac40.js"></script>
@@ -178,6 +178,28 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="llvmについて"><a class="header" href="#llvmについて">LLVMについて</a></h1>
+<p>現代のコンパイラ開発において、避けては通れない巨大な基盤、それが「LLVM」です。</p>
+<h3 id="コンパイラの再利用可能な部品"><a class="header" href="#コンパイラの再利用可能な部品">コンパイラの「再利用可能な部品」</a></h3>
+<p>かつて、新しいプログラミング言語を作るには、各CPU（x86, ARM, RISC-V…）向けの機械語生成をすべて自前で書く必要がありました。
+LLVMは、この「バックエンド」の部分を高度に共通化したプロジェクトです。</p>
+<ol>
+<li><strong>フロントエンド</strong>: 言語（C, Rust, Swift…）を解析し、LLVM独自の共通言語「LLVM IR」に変換する。</li>
+<li><strong>オプティマイザ</strong>: 「LLVM IR」を分析し、どんなCPUでも共通して効く最適化をかける。</li>
+<li><strong>バックエンド</strong>: 「LLVM IR」から、ターゲットとするCPUの機械語を生成する。</li>
+</ol>
+<h3 id="llvm-ir理想の機械語"><a class="header" href="#llvm-ir理想の機械語">LLVM IR：理想の機械語</a></h3>
+<p>LLVM IRは、人間が読めるアセンブリのような形式ですが、無限個のレジスタを使えるなど、解析と最適化に特化した設計になっています。
+この「中間表現」というクッションを置くことで、新しい言語の作者は「LLVM IRさえ出力できれば、世界中のCPUで高速に動く」という恩恵を受けられます。</p>
+<h3 id="低レイヤーの現実jitコンパイルへの応用"><a class="header" href="#低レイヤーの現実jitコンパイルへの応用">低レイヤーの現実：JITコンパイルへの応用</a></h3>
+<p>LLVMは「実行時にコンパイルする（JIT）」ためのライブラリとしても使われています。
+Webブラウザの中のJavaScriptエンジンや、シェーダー言語のコンパイルなど、私たちが意識しない場所でLLVMは「データの変形」を支え続けています。</p>
+<h3 id="設計思想エコシステムへの乗り込み"><a class="header" href="#設計思想エコシステムへの乗り込み">設計思想：エコシステムへの乗り込み</a></h3>
+<p>あなたが新しい言語を作りたいなら、LLVMの背中に乗るのがもっとも賢明な近道です。
+一方で、LLVMがあまりに強力すぎて、現代の多くの言語のパフォーマンスが「LLVMがどれだけ頑張ってくれるか」に依存しているという側面もあります。</p>
+<h3 id="シニアエンジニアの視点"><a class="header" href="#シニアエンジニアの視点">シニアエンジニアの視点</a></h3>
+<p>LLVMを知ることは、現代のコンパイラが「何を前提に最適化を行っているか」を知ることです。IRのレベルでどのような変形が行われているかを想像できるようになれば、言語の壁を越えた本質的なパフォーマンス向上の技術が身につきます。</p>
+<p>TODO: LLVMの公式サイトと、そのアーキテクチャの解説記事へのリンクを貼る
+TODO: LLVM IRを実際に書いて動かしてみる入門チュートリアルへのリンクを貼る</p>
 
                     </main>
 

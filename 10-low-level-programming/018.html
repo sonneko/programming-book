@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f0e761e5.js";
+            window.path_to_searchindex_js = "../searchindex-03920d66.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-025eac40.js"></script>
@@ -178,6 +178,28 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="gpuとglsl"><a class="header" href="#gpuとglsl">GPUとGLSL</a></h1>
+<p>CPUが「一人の天才（何でもできるが一度に一つずつ）」なら、GPUは「数千人の作業員（単純なことしかできないが全員同時に動ける）」です。</p>
+<h3 id="並列計算の爆発力"><a class="header" href="#並列計算の爆発力">並列計算の爆発力</a></h3>
+<p>GPU（画像処理装置）は、もともと3Dグラフィックスの計算（数万個の頂点やピクセルの色の計算）のために進化しました。
+これらの計算は、一つ一つのピクセルが隣のピクセルの結果を待つ必要がないため、「一斉に同じ計算を適用する（SIMD: Single Instruction, Multiple Data）」という並列処理が圧倒的に得意です。</p>
+<h3 id="glsl画面を描くための言語"><a class="header" href="#glsl画面を描くための言語">GLSL：画面を描くための言語</a></h3>
+<p>GPUに命令を出すための専用の言語が <code>GLSL</code> (OpenGL Shading Language) です。
+JavaScriptなどで書く通常のプログラムと異なり、GLSLで書かれた「シェーダー」は、数千個のコアで同時に実行されます。</p>
+<ul>
+<li><strong>頂点シェーダー</strong>: 3Dモデルの形（座標）を計算する。</li>
+<li><strong>フラグメントシェーダー</strong>: 画面上の1ドットごとの色を計算する。</li>
+</ul>
+<h3 id="計算処理のパラダイムシフト"><a class="header" href="#計算処理のパラダイムシフト">計算処理のパラダイムシフト</a></h3>
+<p>現代では、グラフィックス以外（AIの学習、物理シミュレーションなど）にもGPUのパワーを使う「GPGPU」が一般的です。
+「データを順番に処理する」という思考から、「すべてのデータを同じルールで一変形させる」という思考への転換が、GPUプログラミングの本質です。</p>
+<h3 id="低レイヤーの現実cpu-gpu間のボトルネック"><a class="header" href="#低レイヤーの現実cpu-gpu間のボトルネック">低レイヤーの現実：CPU-GPU間のボトルネック</a></h3>
+<p>GPUは計算自体は速いですが、CPU（メインメモリ）からGPU（ビデオメモリ）へデータを転送するには、相応の時間がかかります。
+シニアエンジニアは、「計算をGPUに投げるコスト」と「GPUで速くなるメリット」を天秤にかけます。少量の計算なら、そのままCPUでやったほうが速いことも多いのです。</p>
+<h3 id="設計思想ハードウェアのポテンシャルを引き出す"><a class="header" href="#設計思想ハードウェアのポテンシャルを引き出す">設計思想：ハードウェアのポテンシャルを引き出す</a></h3>
+<p>Web技術においても、<code>WebGL</code> や最新の <code>WebGPU</code> を通じて、ブラウザから直接GPUの力を引き出すことができます。
+単にライブラリ（Three.jsなど）を使うだけでなく、裏側でどのようにデータがGPUへと流され、並列変形されているかを理解することが、次世代のフロントエンド開発には不可欠です。</p>
+<p>TODO: WebGL/WebGPUの基礎とシェーダー入門の記事へのリンクを貼る
+TODO: CPUとGPUのアーキテクチャの違いについての分かりやすい比較記事へのリンクを貼る</p>
 
                     </main>
 
