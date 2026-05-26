@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-03920d66.js";
+            window.path_to_searchindex_js = "../searchindex-ee5d92dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-025eac40.js"></script>
@@ -186,9 +186,24 @@
 <li><strong>エイリアス (<code>alias</code>)</strong>: よく使う長いコマンドを短縮形に登録する。</li>
 <li><strong>履歴 (<code>history</code>)</strong>: 過去に実行したコマンドを再利用する。</li>
 </ul>
+<blockquote>
+<p><strong>TODO: 標準ストリーム（stdin, stdout, stderr）とリダイレクト・パイプの仕組みについて解説している記事へのリンクを貼る</strong></p>
+</blockquote>
+<h3 id="詰まりポイントと解決策"><a class="header" href="#詰まりポイントと解決策">詰まりポイントと解決策</a></h3>
+<ul>
+<li><strong>パイプでの失敗</strong>: パイプ（<code>|</code>）で繋いだ後半のコマンドでエラーが出ても、標準エラー出力の確認が漏れがち。エラーを確認したい場合は <code>2&gt;&amp;1</code> でエラー出力を標準出力にリダイレクトするテクニックを使う。</li>
+<li><strong>エイリアスの衝突</strong>: 便利なエイリアスを作ったつもりが、既存のコマンドと名前が被り、本来のコマンドが使えなくなることがある。<code>type &lt;command_name&gt;</code> でエイリアスかどうか確認できる。</li>
+</ul>
 <h3 id="設計思想unix哲学とストリーム"><a class="header" href="#設計思想unix哲学とストリーム">設計思想：UNIX哲学とストリーム</a></h3>
-<p>UNIXのCLIツールは「一つのことをうまくやる」ことを目指して設計されています。ツール間でデータを繋ぐために「標準ストリーム（stdin, stdout, stderr）」を利用するのが核心です。パイプライン（<code>|</code>）を利用した結合は、まさにこのストリーム構造があるからこそ実現できるアーキテクチャの勝利です。</p>
-<p>これらの作法を身につけることで、CLI環境がより強力で快適な開発ツールになります。</p>
+<p>UNIXのCLIツールは「一つのことをうまくやる」ことを目指して設計されています。
+ツール間でデータを繋ぐために「標準ストリーム」を利用するのが核心です。</p>
+<ul>
+<li><strong>標準入力 (stdin)</strong>: プログラムへのデータ供給口。</li>
+<li><strong>標準出力 (stdout)</strong>: プログラムの正常な結果。</li>
+<li><strong>標準エラー出力 (stderr)</strong>: エラーメッセージ。</li>
+</ul>
+<p>これらをパイプライン（<code>|</code>）で繋ぐことで、個々の単純なツールを組み合わせて複雑なデータ処理パイプラインを構築できます。これはまさに、データがプログラムという関数の間を流れて変形されていくという「データフロープログラミング」の現実世界での実装です。</p>
+<p>この作法を身につけることで、CLI環境は単なる操作画面から、極めて強力で快適な開発ツールになります。</p>
 
                     </main>
 

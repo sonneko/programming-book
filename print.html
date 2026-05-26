@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-03920d66.js";
+            window.path_to_searchindex_js = "searchindex-ee5d92dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-025eac40.js"></script>
@@ -2528,44 +2528,88 @@ animate();
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="基本のファイル操作"><a class="header" href="#基本のファイル操作">基本のファイル操作</a></h1>
 <p>ターミナルでのファイル操作は、プログラミング開発の最も基本的なスキルです。マウスを使わず、キーボード入力だけで高速かつ正確にファイルを管理できます。</p>
+<h3 id="ファイルシステムの基本"><a class="header" href="#ファイルシステムの基本">ファイルシステムの基本</a></h3>
+<p>コンピュータは、ディレクトリ（フォルダ）の木構造によってファイルを管理しています。</p>
+<ul>
+<li><strong>絶対パス</strong>: <code>/</code> (ルート) からの完全な道順。例: <code>/home/user/project/README.md</code></li>
+<li><strong>相対パス</strong>: 現在の場所 (<code>.</code>) からの道順。親ディレクトリは <code>..</code> 。</li>
+</ul>
 <h3 id="頻出コマンド"><a class="header" href="#頻出コマンド">頻出コマンド</a></h3>
 <ul>
-<li><code>ls</code>: ディレクトリ内のファイル一覧を表示。</li>
-<li><code>cd</code>: ディレクトリの移動。</li>
-<li><code>pwd</code>: 現在のディレクトリを表示。</li>
-<li><code>mkdir</code>: ディレクトリの作成。</li>
-<li><code>rm</code>: ファイルやディレクトリの削除。</li>
+<li><code>ls</code>: ディレクトリ内のファイル一覧を表示。オプション <code>-l</code> で詳細表示、<code>-a</code> で隠しファイルも表示。</li>
+<li><code>cd</code>: ディレクトリの移動。<code>cd ..</code> で一つ上へ。</li>
+<li><code>pwd</code>: 現在のディレクトリを表示。自分がどこにいるか見失った時に必須。</li>
+<li><code>mkdir</code>: ディレクトリの作成。<code>-p</code> で親ディレクトリも含めて作成可能。</li>
+<li><code>rm</code>: ファイルやディレクトリの削除。強力なため慎重に。</li>
 <li><code>cp</code> / <code>mv</code>: ファイルのコピーと移動/名前変更。</li>
 </ul>
+<blockquote>
+<p><strong>TODO: ターミナル初心者向けの基本操作（パスの概念、相対/絶対パスの違い）を解説している記事へのリンクを貼る</strong></p>
+</blockquote>
+<h3 id="詰まりポイントと解決策"><a class="header" href="#詰まりポイントと解決策">詰まりポイントと解決策</a></h3>
+<ul>
+<li><strong><code>cd</code> で迷子になる</strong>: 自分が今どこにいるか分からなくなったら、即座に <code>pwd</code> を実行する癖をつけましょう。</li>
+<li><strong><code>Permission denied</code></strong>: ファイル操作でこのエラーが出たら、権限不足を疑ってください。<code>ls -l</code> で自分に書き込み権限があるか確認します。</li>
+<li><strong>削除コマンドの恐怖</strong>: <code>rm -rf</code> は破壊力が高いです。実行前に必ず対象が正しいか、一つ前のコマンドで <code>ls</code> を使って確認しましょう。</li>
+</ul>
+<h3 id="パーミッションと属性"><a class="header" href="#パーミッションと属性">パーミッションと属性</a></h3>
+<p>Linuxにおいてファイルには「誰が読めるか」「誰が書けるか」「誰が実行できるか」という権限（パーミッション）が設定されています。<code>ls -l</code> で表示される <code>rwxr-xr-x</code> などの文字列はこれを表しています。<code>chmod</code> コマンドで変更可能です。</p>
 <h3 id="低レイヤーの視点ファイルシステムとinode"><a class="header" href="#低レイヤーの視点ファイルシステムとinode">低レイヤーの視点：ファイルシステムとinode</a></h3>
-<p>OSのファイルシステムは、実際にはファイル名ではなく「inode（アイノード）」という数値でファイルを管理しています。例えば <code>rm</code> コマンドでファイルを削除するのは、厳密には「inodeへのリンクを削除し、参照カウントが0になった時にストレージ上のブロックを解放する」というプロセスです。ファイル操作コマンドを理解することは、OSがどのようにデータ構造を維持しているかを理解することに繋がります。</p>
+<p>OSのファイルシステムは、実際にはファイル名ではなく「inode（アイノード）」という数値でファイルを管理しています。
+例えば <code>rm</code> コマンドでファイルを削除するのは、厳密には「inodeへのリンクを削除し、参照カウントが0になった時にストレージ上のブロックを解放する」というプロセスです。ファイル操作コマンドを理解することは、OSがどのようにデータ構造を維持しているかを理解することに繋がります。ファイルシステム上のデータの物理的なレイアウトを意識すると、I/O負荷を考慮した設計ができるようになります。</p>
 <h3 id="設計思想シェル展開とパイプライン"><a class="header" href="#設計思想シェル展開とパイプライン">設計思想：シェル展開とパイプライン</a></h3>
-<p>UNIXの設計思想には「すべてはファイルである」という考え方があります。<code>ls</code> や <code>cd</code> などのコマンドは独立したプログラムであり、シェルが提供する環境（ワイルドカード展開など）と組み合わせることで、極めて強力な自動化が可能になります。</p>
-<p>これらのコマンドを使いこなすことで、開発効率は飛躍的に向上します。特に <code>cd</code> と <code>ls</code> は無意識に行えるレベルまで練習しましょう。</p>
+<p>UNIXの設計思想には「すべてはファイルである」という考え方があります。<code>ls</code> や <code>cd</code> などのコマンドは独立したプログラムであり、シェルが提供する環境（ワイルドカード展開 <code>*</code> など）と組み合わせることで、極めて強力な自動化が可能になります。</p>
+<p>これらのコマンドを使いこなすことで、開発効率は飛躍的に向上します。特に <code>cd</code> と <code>ls</code> は無意識に行えるレベルまで練習しましょう。単にコマンドを叩くのではなく、「今どの位置からどのデータに対して処理を行っているか」というデータフローを常に意識してください。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="gitとは"><a class="header" href="#gitとは">Gitとは</a></h1>
 <p>Gitは、ソースコードの変更履歴を記録・管理するための「分散型バージョン管理システム」です。開発において、以前のコードに戻したり、誰がいつ変更したかを確認したりするのに不可欠です。</p>
+<h3 id="バージョン管理の歴史と分散型"><a class="header" href="#バージョン管理の歴史と分散型">バージョン管理の歴史と分散型</a></h3>
+<p>かつてはSubversionのような「集中型」バージョン管理システムが主流でしたが、サーバーへの通信が必要なことや単一障害点（Single Point of Failure）が課題でした。Gitは各クライアントが履歴の全データを持つ「分散型」であるため、オフラインでも開発が進められ、ローカルでのコミットが非常に高速です。</p>
 <h3 id="なぜgitが必要か"><a class="header" href="#なぜgitが必要か">なぜGitが必要か</a></h3>
 <ul>
 <li><strong>履歴管理</strong>: いつでも過去の状態にロールバック可能。</li>
 <li><strong>ブランチ機能</strong>: 開発を分岐させ、実験的な機能追加や修正を安全に行える。</li>
 <li><strong>チーム開発</strong>: 複数人で同時にコードを変更し、安全に統合できる。</li>
 </ul>
+<blockquote>
+<p><strong>TODO: Gitの歴史と集中型 vs 分散型の違いについて解説している記事へのリンクを貼る</strong></p>
+</blockquote>
+<h3 id="詰まりポイントと解決策-1"><a class="header" href="#詰まりポイントと解決策-1">詰まりポイントと解決策</a></h3>
+<ul>
+<li><strong>初期化忘れ</strong>: <code>git init</code> を忘れて <code>git add</code> が動かない。まずはディレクトリがGitリポジトリになっているか <code>git status</code> で確認。</li>
+<li><strong><code>.gitignore</code> の設定</strong>: ビルド成果物や秘密鍵をコミットしてしまう。プロジェクト作成時には必ず <code>.gitignore</code> を作成・設定すること。</li>
+<li><strong>コマンドにこだわる必要はない</strong>: 最初はコマンドのみにこだわらず、SourcetreeなどのGit GUIツールで「何が起きているか（コミットグラフ）」を視覚的に理解するのも一つの手です。</li>
+</ul>
 <h3 id="技術的な深みgitのオブジェクトモデル"><a class="header" href="#技術的な深みgitのオブジェクトモデル">技術的な深み：Gitのオブジェクトモデル</a></h3>
-<p>Gitは、単なるテキストエディタの履歴機能ではありません。実体は「コンテンツ指向」のデータベースです。データはハッシュ値（SHA-1等）で識別される「blob（ファイル内容）」「tree（ディレクトリ構造）」「commit（メタデータとスナップショット）」の3つの基本オブジェクトで構成されています。この設計により、効率的なスナップショット管理と高い整合性を実現しています。</p>
-<p>Gitは、現代のソフトウェア開発において「無くてはならない」基盤技術です。</p>
+<p>Gitは、単なるテキストエディタの履歴機能ではありません。実体は「コンテンツ指向」のデータベースです。データはハッシュ値（SHA-1等）で識別される「blob（ファイル内容）」「tree（ディレクトリ構造）」「commit（メタデータとスナップショット）」の3つの基本オブジェクトで構成されています。</p>
+<p>この設計は、「データの内容（コンテンツ）」が同じであれば、ファイルパスが異なろうがコミットが異なろうが、同じハッシュを持つことを意味します。この「不変性（Immutability）」を前提としたデータ構造によって、効率的なスナップショット管理と高い整合性を実現しています。Gitは、現代のソフトウェア開発において「無くてはならない」基盤技術です。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="githubへの登録とgitのインストール"><a class="header" href="#githubへの登録とgitのインストール">GitHubへの登録とGitのインストール</a></h1>
 <p>GitをPCに導入し、GitHubというホスティングサービスを活用することで、コードのバックアップとチーム連携が可能になります。</p>
 <h3 id="インストール手順"><a class="header" href="#インストール手順">インストール手順</a></h3>
 <ol>
-<li><strong>Gitのインストール</strong>: 公式サイトまたはパッケージマネージャ (<code>brew install git</code> など) からインストールします。</li>
+<li><strong>Gitのインストール</strong>: 公式サイトまたはパッケージマネージャ (<code>brew install git</code>, <code>sudo apt install git</code> など) からインストールします。</li>
 <li><strong>GitHubアカウント作成</strong>: GitHub.comにサインアップします。</li>
 <li><strong>SSH設定</strong>: ローカルのPCとGitHubをSSH接続することで、安全な通信が可能になります。</li>
 </ol>
-<h3 id="設計思想公開鍵認証と設定階層"><a class="header" href="#設計思想公開鍵認証と設定階層">設計思想：公開鍵認証と設定階層</a></h3>
-<p>SSH通信では、非対称暗号（公開鍵・秘密鍵）を利用して安全に認証を行います。Gitの設定には <code>system</code> (システム全体)、<code>global</code> (ユーザーごと)、<code>local</code> (リポジトリごと) の階層があり、後者が前者を上書きする仕組みで柔軟性を確保しています。</p>
-<p>インストール後は、<code>git config --global user.name</code> 等で設定を済ませておきましょう。</p>
+<blockquote>
+<p><strong>TODO: 公開鍵認証（SSH）の仕組みについて解説している記事へのリンクを貼る</strong></p>
+</blockquote>
+<h3 id="詰まりポイントと解決策-2"><a class="header" href="#詰まりポイントと解決策-2">詰まりポイントと解決策</a></h3>
+<ul>
+<li><strong>SSH鍵のパスフレーズ忘れ</strong>: 鍵生成時に設定したパスフレーズを忘れると、次回からSSH接続できなくなる。安全な場所で管理すること。</li>
+<li><strong>Gitユーザー設定ミス</strong>: <code>git config</code> で名前やメールアドレスを間違えてコミットすると、GitHub上で正しいアカウントと紐付かない。<code>git config --list</code> で確認。</li>
+<li><strong>リモートURLの混同</strong>: HTTPSとSSHでリモートURLが異なる。どちらを使っているか確認し、SSHを使う場合は適切な秘密鍵が登録されているか確認する。</li>
+</ul>
+<h3 id="なぜgithubを使うのか"><a class="header" href="#なぜgithubを使うのか">なぜGitHubを使うのか</a></h3>
+<p>Gitは分散型なのでローカルだけでも使えますが、GitHubのようなプラットフォームがなければ、チーム開発での「共有リポジトリ」のハブが存在しません。さらにGitHubは、プルリクエスト、Issue、GitHub Actionsなどのエコシステムを備えており、Gitを単なる履歴管理から「開発コラボレーションツール」に進化させています。</p>
+<h3 id="設計思想設定階層"><a class="header" href="#設計思想設定階層">設計思想：設定階層</a></h3>
+<p>Gitの設定には <code>system</code> (システム全体)、<code>global</code> (ユーザーごと)、<code>local</code> (リポジトリごと) の階層があり、後者が前者を上書きする仕組みで柔軟性を確保しています。</p>
+<p>インストール後は、必ず以下の設定を済ませておきましょう。</p>
+<pre><code class="language-bash">git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+</code></pre>
+<p>ここで指定した名前とメールアドレスが、コミット履歴に残ります。身分証明書のようなものなので、正確に設定してください。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="gitの基本の使い方"><a class="header" href="#gitの基本の使い方">Gitの基本の使い方</a></h1>
 <p>Gitの基本的なワークフローを覚えましょう。</p>
@@ -2580,9 +2624,21 @@ animate();
 git commit -m "機能追加"
 git push origin main
 </code></pre>
+<h3 id="gitの状態遷移とステージングエリア"><a class="header" href="#gitの状態遷移とステージングエリア">Gitの状態遷移とステージングエリア</a></h3>
+<p>Gitには「作業ディレクトリ」「ステージングエリア（Index）」「リポジトリ」の3つの領域があります。
+<code>git add</code> は作業ディレクトリからステージングエリアへ変更をコピーし、<code>git commit</code> はステージングエリアの内容をスナップショットとしてリポジトリに保存します。この「ステージング」のステップがあることで、コミット内容を細かく制御できるのです。</p>
+<h3 id="詰まりポイントと解決策-3"><a class="header" href="#詰まりポイントと解決策-3">詰まりポイントと解決策</a></h3>
+<ul>
+<li><strong>不要なファイルの追加</strong>: <code>git add .</code> で一時ファイルや不要なファイルまでステージングしてしまう。<code>git status</code> で追加対象を確認してから <code>git add</code> する癖を。</li>
+<li><strong>コミットメッセージ</strong>: 何をしたか不明なコミットは後で困る。<code>git commit -m</code> の際は「何をしたか」を端的に記述する。</li>
+<li><strong>Gitの「取り消し」</strong>: 失敗した場合は焦らず <code>git status</code> を見る。多くの場合、解決策が提案されています。</li>
+</ul>
 <h3 id="技術的な深みheadとブランチ"><a class="header" href="#技術的な深みheadとブランチ">技術的な深み：HEADとブランチ</a></h3>
-<p>Gitにおける「ブランチ」とは、単なる特定のコミットを指し示す「ポインタ（参照）」に過ぎません。<code>HEAD</code> は現在作業中のコミットまたはブランチを指す特殊なポインタです。Gitの強力さは、これらのポインタを自由に動かすことで実現されるコミットグラフの柔軟性にあります。</p>
-<p>この「ステージング」→「コミット」→「プッシュ」の流れがGit開発の基本です。</p>
+<p>Gitにおける「ブランチ」とは、単なる特定のコミットを指し示す「ポインタ（参照）」に過ぎません。<code>HEAD</code> は現在作業中のコミットまたはブランチを指す特殊なポインタです。</p>
+<pre><code class="language-text">[コミットA] &lt;- [コミットB] &lt;- [コミットC (HEAD/main)]
+</code></pre>
+<p>この状態で新しいコミットを行うと、<code>main</code> ポインタが新しいコミットを指すように進みます。Gitの強力さは、これらのポインタを自由に動かすことで実現されるコミットグラフの柔軟性にあります。</p>
+<p>この「ステージング」→「コミット」→「プッシュ」の流れがGit開発の基本ですが、各ステップでデータがどこからどこへ移動し、どのように変形されているかを常に意識してください。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cliツールのお作法"><a class="header" href="#cliツールのお作法">CLIツールのお作法</a></h1>
 <p>ターミナル上のCLI（Command Line Interface）ツールには、使いやすくするための共通の流儀があります。</p>
@@ -2593,23 +2649,47 @@ git push origin main
 <li><strong>エイリアス (<code>alias</code>)</strong>: よく使う長いコマンドを短縮形に登録する。</li>
 <li><strong>履歴 (<code>history</code>)</strong>: 過去に実行したコマンドを再利用する。</li>
 </ul>
+<blockquote>
+<p><strong>TODO: 標準ストリーム（stdin, stdout, stderr）とリダイレクト・パイプの仕組みについて解説している記事へのリンクを貼る</strong></p>
+</blockquote>
+<h3 id="詰まりポイントと解決策-4"><a class="header" href="#詰まりポイントと解決策-4">詰まりポイントと解決策</a></h3>
+<ul>
+<li><strong>パイプでの失敗</strong>: パイプ（<code>|</code>）で繋いだ後半のコマンドでエラーが出ても、標準エラー出力の確認が漏れがち。エラーを確認したい場合は <code>2&gt;&amp;1</code> でエラー出力を標準出力にリダイレクトするテクニックを使う。</li>
+<li><strong>エイリアスの衝突</strong>: 便利なエイリアスを作ったつもりが、既存のコマンドと名前が被り、本来のコマンドが使えなくなることがある。<code>type &lt;command_name&gt;</code> でエイリアスかどうか確認できる。</li>
+</ul>
 <h3 id="設計思想unix哲学とストリーム"><a class="header" href="#設計思想unix哲学とストリーム">設計思想：UNIX哲学とストリーム</a></h3>
-<p>UNIXのCLIツールは「一つのことをうまくやる」ことを目指して設計されています。ツール間でデータを繋ぐために「標準ストリーム（stdin, stdout, stderr）」を利用するのが核心です。パイプライン（<code>|</code>）を利用した結合は、まさにこのストリーム構造があるからこそ実現できるアーキテクチャの勝利です。</p>
-<p>これらの作法を身につけることで、CLI環境がより強力で快適な開発ツールになります。</p>
+<p>UNIXのCLIツールは「一つのことをうまくやる」ことを目指して設計されています。
+ツール間でデータを繋ぐために「標準ストリーム」を利用するのが核心です。</p>
+<ul>
+<li><strong>標準入力 (stdin)</strong>: プログラムへのデータ供給口。</li>
+<li><strong>標準出力 (stdout)</strong>: プログラムの正常な結果。</li>
+<li><strong>標準エラー出力 (stderr)</strong>: エラーメッセージ。</li>
+</ul>
+<p>これらをパイプライン（<code>|</code>）で繋ぐことで、個々の単純なツールを組み合わせて複雑なデータ処理パイプラインを構築できます。これはまさに、データがプログラムという関数の間を流れて変形されていくという「データフロープログラミング」の現実世界での実装です。</p>
+<p>この作法を身につけることで、CLI環境は単なる操作画面から、極めて強力で快適な開発ツールになります。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="演習-1"><a class="header" href="#演習-1">演習</a></h1>
-<p>ターミナルとGitの操作に慣れるための演習です。</p>
+<p>ターミナルとGitの操作に慣れるための演習です。単にコマンドを叩くのではなく、「今何が起きているのか」を観察してください。</p>
 <h3 id="課題"><a class="header" href="#課題">課題</a></h3>
 <ol>
-<li><strong>ディレクトリ操作</strong>: 任意の場所に新しいディレクトリを作成し、その中にテキストファイルを作成して移動・コピー・削除を行ってください。</li>
-<li><strong>Git操作</strong>: 新しいGitリポジトリを作成し、ファイルを追加・コミットし、変更履歴（<code>git log</code>）を確認してください。</li>
-<li><strong>コマンド練習</strong>: <code>history</code> コマンドで最近使ったコマンドを確認し、<code>alias</code> を設定してみてください。</li>
+<li><strong>ディレクトリ操作</strong>: 任意の場所に新しいディレクトリを作成し、その中にテキストファイルを作成して移動・コピー・削除を行ってください。<code>ls -la</code> でパーミッションの変化も確認しましょう。</li>
+<li><strong>Git操作</strong>: 新しいGitリポジトリを作成し、ファイルを追加・コミットし、<code>git log</code> で履歴を確認してください。さらに <code>git checkout</code> や <code>git branch</code> でブランチの移動も試してください。</li>
+<li><strong>コマンド練習</strong>: <code>history</code> コマンドで最近使ったコマンドを確認し、<code>alias</code> を設定してみてください。例えば <code>alias gs='git status'</code> など。</li>
 </ol>
 <h3 id="ヒント低レイヤーとデバッグ"><a class="header" href="#ヒント低レイヤーとデバッグ">ヒント：低レイヤーとデバッグ</a></h3>
 <ul>
 <li><strong><code>rm -rf</code></strong>: 危険な操作ですが、OSがどうファイルを消去するかを理解するきっかけになります。</li>
 <li><strong>Gitの理解</strong>: <code>git status</code> がどのように「ステージングエリア」と「作業ディレクトリ」を比較しているのか（<code>git hash-object</code> などを使えば裏側を覗けます）に思いを馳せてください。</li>
-<li><strong>エラー処理</strong>: Gitの操作で詰まったら <code>git status</code> だけでなく、<code>.git/</code> ディレクトリの中身を覗いてみるのも一つの手です。</li>
+<li><strong>エラー処理</strong>: Gitの操作で詰まったら <code>git status</code> だけでなく、<code>.git/</code> ディレクトリの中身（設定ファイルやオブジェクトデータベース）を覗いてみるのも一つの手です。</li>
+</ul>
+<blockquote>
+<p><strong>TODO: Linuxのパーミッション設定 (<code>chmod</code>) の詳しい解説記事へのリンクを貼る</strong>
+<strong>TODO: Gitの内部構造（ハッシュオブジェクト、ツリー、コミット）を解説している記事へのリンクを貼る</strong></p>
+</blockquote>
+<h3 id="詰まりポイントと解決策-5"><a class="header" href="#詰まりポイントと解決策-5">詰まりポイントと解決策</a></h3>
+<ul>
+<li><strong>演習後のクリーンアップ</strong>: 練習で作成した不要なリポジトリやディレクトリを放置しがち。ディスク容量の節約と、迷子防止のために不要になったものは削除しよう。</li>
+<li><strong>削除コマンドの破壊力</strong>: 演習中に <code>rm -rf</code> で本当に重要なファイルを消してしまう悲劇がよくあります。「自分のPCのどこを操作しているか」という感覚を養う訓練だと思って、常に慎重に。</li>
 </ul>
 <p>これらの操作を繰り返すことで、ターミナルとGitはあなたの開発における最も信頼できるパートナーになります。</p>
 <div style="break-before: page; page-break-before: always;"></div>

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-03920d66.js";
+            window.path_to_searchindex_js = "../searchindex-ee5d92dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-025eac40.js"></script>
@@ -190,9 +190,21 @@
 git commit -m "機能追加"
 git push origin main
 </code></pre>
+<h3 id="gitの状態遷移とステージングエリア"><a class="header" href="#gitの状態遷移とステージングエリア">Gitの状態遷移とステージングエリア</a></h3>
+<p>Gitには「作業ディレクトリ」「ステージングエリア（Index）」「リポジトリ」の3つの領域があります。
+<code>git add</code> は作業ディレクトリからステージングエリアへ変更をコピーし、<code>git commit</code> はステージングエリアの内容をスナップショットとしてリポジトリに保存します。この「ステージング」のステップがあることで、コミット内容を細かく制御できるのです。</p>
+<h3 id="詰まりポイントと解決策"><a class="header" href="#詰まりポイントと解決策">詰まりポイントと解決策</a></h3>
+<ul>
+<li><strong>不要なファイルの追加</strong>: <code>git add .</code> で一時ファイルや不要なファイルまでステージングしてしまう。<code>git status</code> で追加対象を確認してから <code>git add</code> する癖を。</li>
+<li><strong>コミットメッセージ</strong>: 何をしたか不明なコミットは後で困る。<code>git commit -m</code> の際は「何をしたか」を端的に記述する。</li>
+<li><strong>Gitの「取り消し」</strong>: 失敗した場合は焦らず <code>git status</code> を見る。多くの場合、解決策が提案されています。</li>
+</ul>
 <h3 id="技術的な深みheadとブランチ"><a class="header" href="#技術的な深みheadとブランチ">技術的な深み：HEADとブランチ</a></h3>
-<p>Gitにおける「ブランチ」とは、単なる特定のコミットを指し示す「ポインタ（参照）」に過ぎません。<code>HEAD</code> は現在作業中のコミットまたはブランチを指す特殊なポインタです。Gitの強力さは、これらのポインタを自由に動かすことで実現されるコミットグラフの柔軟性にあります。</p>
-<p>この「ステージング」→「コミット」→「プッシュ」の流れがGit開発の基本です。</p>
+<p>Gitにおける「ブランチ」とは、単なる特定のコミットを指し示す「ポインタ（参照）」に過ぎません。<code>HEAD</code> は現在作業中のコミットまたはブランチを指す特殊なポインタです。</p>
+<pre><code class="language-text">[コミットA] &lt;- [コミットB] &lt;- [コミットC (HEAD/main)]
+</code></pre>
+<p>この状態で新しいコミットを行うと、<code>main</code> ポインタが新しいコミットを指すように進みます。Gitの強力さは、これらのポインタを自由に動かすことで実現されるコミットグラフの柔軟性にあります。</p>
+<p>この「ステージング」→「コミット」→「プッシュ」の流れがGit開発の基本ですが、各ステップでデータがどこからどこへ移動し、どのように変形されているかを常に意識してください。</p>
 
                     </main>
 

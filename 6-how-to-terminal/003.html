@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-03920d66.js";
+            window.path_to_searchindex_js = "../searchindex-ee5d92dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-025eac40.js"></script>
@@ -181,13 +181,28 @@
 <p>GitをPCに導入し、GitHubというホスティングサービスを活用することで、コードのバックアップとチーム連携が可能になります。</p>
 <h3 id="インストール手順"><a class="header" href="#インストール手順">インストール手順</a></h3>
 <ol>
-<li><strong>Gitのインストール</strong>: 公式サイトまたはパッケージマネージャ (<code>brew install git</code> など) からインストールします。</li>
+<li><strong>Gitのインストール</strong>: 公式サイトまたはパッケージマネージャ (<code>brew install git</code>, <code>sudo apt install git</code> など) からインストールします。</li>
 <li><strong>GitHubアカウント作成</strong>: GitHub.comにサインアップします。</li>
 <li><strong>SSH設定</strong>: ローカルのPCとGitHubをSSH接続することで、安全な通信が可能になります。</li>
 </ol>
-<h3 id="設計思想公開鍵認証と設定階層"><a class="header" href="#設計思想公開鍵認証と設定階層">設計思想：公開鍵認証と設定階層</a></h3>
-<p>SSH通信では、非対称暗号（公開鍵・秘密鍵）を利用して安全に認証を行います。Gitの設定には <code>system</code> (システム全体)、<code>global</code> (ユーザーごと)、<code>local</code> (リポジトリごと) の階層があり、後者が前者を上書きする仕組みで柔軟性を確保しています。</p>
-<p>インストール後は、<code>git config --global user.name</code> 等で設定を済ませておきましょう。</p>
+<blockquote>
+<p><strong>TODO: 公開鍵認証（SSH）の仕組みについて解説している記事へのリンクを貼る</strong></p>
+</blockquote>
+<h3 id="詰まりポイントと解決策"><a class="header" href="#詰まりポイントと解決策">詰まりポイントと解決策</a></h3>
+<ul>
+<li><strong>SSH鍵のパスフレーズ忘れ</strong>: 鍵生成時に設定したパスフレーズを忘れると、次回からSSH接続できなくなる。安全な場所で管理すること。</li>
+<li><strong>Gitユーザー設定ミス</strong>: <code>git config</code> で名前やメールアドレスを間違えてコミットすると、GitHub上で正しいアカウントと紐付かない。<code>git config --list</code> で確認。</li>
+<li><strong>リモートURLの混同</strong>: HTTPSとSSHでリモートURLが異なる。どちらを使っているか確認し、SSHを使う場合は適切な秘密鍵が登録されているか確認する。</li>
+</ul>
+<h3 id="なぜgithubを使うのか"><a class="header" href="#なぜgithubを使うのか">なぜGitHubを使うのか</a></h3>
+<p>Gitは分散型なのでローカルだけでも使えますが、GitHubのようなプラットフォームがなければ、チーム開発での「共有リポジトリ」のハブが存在しません。さらにGitHubは、プルリクエスト、Issue、GitHub Actionsなどのエコシステムを備えており、Gitを単なる履歴管理から「開発コラボレーションツール」に進化させています。</p>
+<h3 id="設計思想設定階層"><a class="header" href="#設計思想設定階層">設計思想：設定階層</a></h3>
+<p>Gitの設定には <code>system</code> (システム全体)、<code>global</code> (ユーザーごと)、<code>local</code> (リポジトリごと) の階層があり、後者が前者を上書きする仕組みで柔軟性を確保しています。</p>
+<p>インストール後は、必ず以下の設定を済ませておきましょう。</p>
+<pre><code class="language-bash">git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+</code></pre>
+<p>ここで指定した名前とメールアドレスが、コミット履歴に残ります。身分証明書のようなものなので、正確に設定してください。</p>
 
                     </main>
 
