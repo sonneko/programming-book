@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ee5d92dc.js";
+            window.path_to_searchindex_js = "../searchindex-4343d2d5.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-025eac40.js"></script>
@@ -177,7 +177,17 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        
+                        <h1 id="カリー化"><a class="header" href="#カリー化">カリー化</a></h1>
+<p>カリー化とは、複数の引数をとる関数を、引数を1つだけとる関数の連鎖に変換するテクニックです。</p>
+<pre><code class="language-haskell">-- 通常の関数
+add x y = x + y
+
+-- カリー化された関数
+add x = \y -&gt; x + y
+</code></pre>
+<p>これにより、関数の部分適用が可能になり、高階関数との相性が飛躍的に向上します。
+ロジックの再利用性が高まる重要な概念です。</p>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
