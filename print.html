@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-4343d2d5.js";
+            window.path_to_searchindex_js = "searchindex-ca751c32.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-025eac40.js"></script>
+        <script src="toc-b1f5f0ac.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -893,6 +893,35 @@ print(f"合計金額は {total} 円です")
 <p>効率や安全性の観点から、実際の開発では同じ型のデータだけを並べることが一般的です。 <a href="#fr-note1-1-3">↩</a></p>
 </li>
 </ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="再利用性設計のキソ"><a class="header" href="#再利用性設計のキソ">再利用性・設計のキソ</a></h1>
+<pre><code class="language-python">prices = [100, 200, 300]
+total = 0
+
+for price in prices:
+    total = total + price
+
+print(f"合計金額は {total} 円です")
+</code></pre>
+<p>（再掲）</p>
+<p>このプログラムは、リストにあるデータ全てに対して同じ処理（この場合は足し算）をリストの長さにかかわらずに行うことができます。言い方を変えると、値段のリストなら何でもかんでもこのプログラムに「注入」することができ、期待通りに動作するということです。</p>
+<pre><code class="language-python">prices = [200, 300, 400, 1000]
+</code></pre>
+<p>別に上記のように<code>prices</code>変数の中身を変えても別に問題はないですよね。</p>
+<p>それと以下の書き方を比べてみましょう。</p>
+<pre><code class="language-python">total = 100 + 200 + 300
+print(f"合計金額は {total} 円です")
+</code></pre>
+<p>別に合計金額の計算は上記のように書いても良いです。ただし大きな問題があります。</p>
+<p>さっきのようにこのプログラムを、別の値段リストに書き換えるにはどうすれば良いですか？</p>
+<pre><code class="language-python">total = 200 + 300 + 400 + 1000
+print(f"合計金額は {total} 円です")
+</code></pre>
+<p>こうすればいいですね。このコードでは、本来変更したかった「値段リストの内容」が変更されています。
+しかし、合計金額計算のロジック=<em>logic</em>すなわち計算処理も一緒に変更されてしまっています。</p>
+<p>このように非常に小規模なプログラムでは何も問題にならないですが、大きなプログラムになると大問題になってきます。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="コレクション型"><a class="header" href="#コレクション型">コレクション型</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="関数定義"><a class="header" href="#関数定義">関数定義</a></h1>
 <p><a href="#関数の使用">関数の使用</a>の章でも触れましたが、ここでは「なぜ関数を自分で作るのか」という、より深い設計の視点から関数について考えてみましょう。</p>

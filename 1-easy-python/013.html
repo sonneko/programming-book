@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>演習 - sonneko-programming-book</title>
+        <title>コレクション型 - sonneko-programming-book</title>
 
 
         <!-- Custom HTML head -->
@@ -177,50 +177,17 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="演習"><a class="header" href="#演習">演習</a></h1>
-<p>TypeScriptの基礎知識を実践的に確認するための演習です。これらの課題は、実際の開発現場で遭遇するシナリオを簡略化したものです。</p>
-<h3 id="課題リスト"><a class="header" href="#課題リスト">課題リスト</a></h3>
-<ol>
-<li>
-<p><strong>インターフェースの定義と活用</strong>:</p>
-<ul>
-<li><code>User</code> インターフェースを定義してください。名前（string）、年齢（number）、オプションでメールアドレス（string）を持つようにします。</li>
-<li>このインターフェースを実装したユーザーデータを作成する関数を作成してください。</li>
-</ul>
-</li>
-<li>
-<p><strong>クラスの継承とポリモーフィズム</strong>:</p>
-<ul>
-<li><code>Shape</code> 抽象クラスを作成し、<code>getArea()</code> 抽象メソッドを持たせてください。</li>
-<li><code>Shape</code> を継承した <code>Circle</code> クラスと <code>Square</code> クラスを作成してください。</li>
-<li>形状の配列を渡すと、それぞれの面積の合計を返す関数 <code>calculateTotalArea</code> を実装してください。</li>
-</ul>
-</li>
-<li>
-<p><strong>非同期処理の書き換えとエラーハンドリング</strong>:</p>
-<ul>
-<li><code>setTimeout</code> を使用した古いコールバックベースの非同期関数を、<code>Promise</code> を返す関数に書き換えてください。</li>
-<li>最後に、その Promise を使用して、<code>async/await</code> と <code>try-catch</code> を用いた堅牢な呼び出し処理を実装してください。</li>
-</ul>
-</li>
-</ol>
-<h3 id="成功のためのヒントと指針"><a class="header" href="#成功のためのヒントと指針">成功のためのヒントと指針</a></h3>
-<ul>
-<li><code>tsconfig.json</code> で <code>strict: true</code> を有効にすると、より厳密な型チェックが行われ、TypeScriptの真価を発揮できます。</li>
-<li>オブジェクト指向の設計では、「インターフェースで振る舞いを定義し、クラスで実装する」という依存関係の逆転の原則を意識してください。</li>
-<li><code>async/await</code> を使用する際は、呼び出し元で必ずエラーがキャッチされるように考慮してください。</li>
-</ul>
-<p>これらの課題を通じて、型システムとオブジェクト指向設計、非同期処理の実践的な感覚を養ってください。完成したら、コンパイルして <code>tsc</code> でエラーが出ないことを確認してみましょう。</p>
+                        <h1 id="コレクション型"><a class="header" href="#コレクション型">コレクション型</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../4-basic-ts/016.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../1-easy-python/012.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../5-js-ecosystem/001.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../1-easy-python/014.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -230,11 +197,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../4-basic-ts/016.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../1-easy-python/012.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../5-js-ecosystem/001.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../1-easy-python/014.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
