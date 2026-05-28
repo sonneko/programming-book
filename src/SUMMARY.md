@@ -15,6 +15,8 @@
 - [while文](1-easy-python/009.md)
 - [for文](1-easy-python/010.md)
 - [リスト型](1-easy-python/011.md)
+- [再利用性・設計の基礎](1-easy-python/012.md)
+- [コレクション型](1-easy-python/013.md)
 - [関数定義](1-easy-python/014.md)
 - [演習](1-easy-python/015.md)
 - [展望](1-easy-python/016.md)
