@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-174712ce.js";
+            window.path_to_searchindex_js = "../searchindex-53346933.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-b1f5f0ac.js"></script>
@@ -232,7 +232,7 @@ print(fruits) # ["strawberry", "banana", "orange"]
 print(len(fruits)) # 3
 </code></pre>
 <p>この<code>.append()</code>と言うような記法を、メソッド呼び出しと言います。要は、リスト型に便利な関数が紐づけられていて、その関数を呼び出すイメージです。</p>
-<p>この配列操作は、あらゆる言語で出てきます。なので、このようなアクションの名称をなんとなく整理して覚えておきましょう。</p>
+<p>この配列操作は、あらゆる言語で出てきます。なのでこのようなアクションの名称をなんとなく整理して覚えておきましょう。</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -311,6 +311,9 @@ print(len(fruits)) # 3
 </tbody>
 </table>
 </div>
+<p>配列操作は、最も基本的で最初に覚えるべきAPIです。</p>
+<pre><code class="language-admonish info">APIとは、*Application Programming Interface*の略で、何らかの別のプログラムとあなたのいま書いているプログラムを合成し強調して動作させるための仕組みです。例えば、誰かが書いて公開してくれているプログラムの集合体をライブラリと言いますが、それを使うためにはAPIを使います。また、例えばあなたのプログラムを使ってLINEでメッセージを送るためには、LINEを動かしているプログラムと強調して動作する必要がありますが、これもAPIと呼ばれます。特に、Webで使われる通信規格すなわちHTTP(S)を介したAPIのことを、WebAPIと言います。単にAPIと言ってWebAPIを意味することもあります。
+</code></pre>
 <h2 id="なぜリストを使うのか"><a class="header" href="#なぜリストを使うのか">なぜリストを使うのか？</a></h2>
 <p>リストを使う最大のメリットは、<a href="./010.html">for文</a>と組み合わせることで、大量のデータを一気に処理できることです。</p>
 <pre><code class="language-python">prices = [100, 200, 300, 400, 500]
