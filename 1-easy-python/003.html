@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,8 +178,8 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="四則演算の実行"><a class="header" href="#四則演算の実行">四則演算の実行</a></h1>
-<p><code>Hello World</code>を出力することができたので、次は計算をコンピュータに依頼してみましょう。</p>
-<p>以下のプログラムを実行してみてください。（もしプログラムの実行の仕方がわからないなら<a href="./001.html">Python実行環境</a>を読むことをお勧めします。）</p>
+<p><code>Hello World</code>を出力することができたので、次はコンピュータに「計算」を依頼してみましょう。コンピュータの語源は <em>Compute</em>（計算する）ですから、これこそが彼らの本業です。</p>
+<p>以下のプログラムを、エディタに入力して実行してみてください。</p>
 <pre><code class="language-python"># 1足す2を出力する
 print(1 + 2) # 3
 
@@ -197,26 +197,56 @@ print(3 / 2) # 1.5
 
 # 5割る3の余りを表示する
 print(5 % 3) # 2
+
+# 2の10乗（べき乗）を表示する
+print(2 ** 10) # 1024
 </code></pre>
-<p>足し算=<em>add</em>と引き算=<em>subtraction</em>と掛け算=<em>multiplication</em>と割り算=<em>division</em>そして余り=<em>remainder</em>を実行し出力してくれましたか？このプログラムから学ぶことはたくさんあります。足し算は<code>+</code>（プラス）、引き算は<code>-</code>（マイナス）、掛け算は<code>*</code>（アスタリスク）、割り算は<code>/</code>（スラッシュ）を用いるみたいですね。足し算・引き算はそのままで何もいうことがありませんが、掛け算や割り算は<code>×</code>や<code>÷</code>と書いてもできないというのは覚えておいてください。あと<code>%</code>などの余りを意味する見慣れない演算子もありますね。</p>
-<p>ここで注意したいのは、二つの割り算の違いです。</p>
-<pre><code class="language-python"># 3割る2の「切り下げ」を出力する
+<p>足し算（<em>addition</em>）、引き算（<em>subtraction</em>）、掛け算（<em>multiplication</em>）、割り算（<em>division</em>）、そして余り（<em>remainder</em>）が正しく出力されましたか？</p>
+<h2 id="pythonの演算子ルール"><a class="header" href="#pythonの演算子ルール">Pythonの演算子ルール</a></h2>
+<p>このプログラムから学べることはたくさんあります。</p>
+<ol>
+<li><strong>記号の違い</strong>: 掛け算は <code>*</code>（アスタリスク）、割り算は <code>/</code>（スラッシュ）を使います。数学で使う <code>×</code> や <code>÷</code> はキーボードにありませんし、プログラミング言語では一般的にこれらの代わりの記号が使われます。</li>
+<li><strong>べき乗</strong>: Pythonでは <code>**</code> を使うことで「〜の何乗」という計算が簡単にできます。<code>2 ** 10</code> は $2^{10}$ つまり 1024 です。</li>
+<li><strong>優先順位</strong>: 数学と同じく、掛け算・割り算は足し算・引き算よりも先に計算されます。括弧 <code>()</code> を使うことで計算の順序を明示することもできます。</li>
+</ol>
+<h2 id="二つの割り算を使い分ける"><a class="header" href="#二つの割り算を使い分ける">二つの「割り算」を使い分ける</a></h2>
+<p>Pythonで特に面白いのが、割り算が二種類あることです。</p>
+<pre><code class="language-python"># 切り下げ除算（整数を返す）
 print(3 // 2) # 1
 
-# 3割る2を小数として出力する
+# 通常の除算（小数を返す）
 print(3 / 2) # 1.5
 </code></pre>
-<p><code>/</code>を一つ使うと、結果は「小数=<em>float</em>」になります。対して、<code>/</code>を二つ使った<code>//</code>は「切り下げ除算」と呼ばれ、結果を「整数=<em>Integer</em>」に切り下げます。</p>
-<blockquote>
-<h3 id="コラムコンピュータは小数が苦手"><a class="header" href="#コラムコンピュータは小数が苦手">コラム：コンピュータは小数が苦手？</a></h3>
-<p>コンピュータで小数を扱うときは、少し注意が必要です。試しに、Pythonで <code>0.1 + 0.2</code> を実行してみてください。
-驚くことに、結果は <code>0.3</code> ではなく、 <code>0.30000000000000004</code> のようになります。</p>
-<p>これはコンピュータがすべての数値を「0」と「1」の2進数で扱っているためです。10進数における <code>0.1</code>（1/10）は、2進数に直すと無限小数になってしまい、どこかで切り捨てが発生します。</p>
-<p>銀行のシステムのように、1円の誤差も許されない計算では、小数をそのまま使わず、整数（100円を10000セントとして扱うなど）で計算したり、誤差を専門に扱う特別な道具を使ったりします。</p>
-</blockquote>
-<p>発展（任意）：
-<a href="https://qiita.com/angel_p_57/items/24078ba4aa5881805ab2">浮動小数点って何？</a>
-<a href="https://wa3.i-3-i.info/word14959.html">浮動小数点</a></p>
+<p><code>/</code> を一つ使うと、結果は必ず「小数（<em>float</em>）」になります。一方、<code>//</code> を使うと、小数点以下を切り捨てた「整数（<em>integer</em>）」が返ってきます。</p>
+<p>これは「10個のお菓子を3人で分けるとき、一人何個もらえるか（余りは無視）」という計算をしたいときに <code>10 // 3</code> と書けるので便利です。</p>
+<h2 id="低レイヤーの視点cpuの中の計算機"><a class="header" href="#低レイヤーの視点cpuの中の計算機">低レイヤーの視点：CPUの中の計算機</a></h2>
+<p>私たちが <code>+</code> や <code>*</code> と書くとき、コンピュータの内部（CPU）では何が起きているのでしょうか。</p>
+<p>CPUの中には <strong>ALU（<em>Arithmetic Logic Unit</em>：算術論理演算ユニット）</strong> という、計算専用の回路があります。
+私たちがPythonで <code>1 + 2</code> と命令すると、Pythonの実行エンジンがそれを解釈し、最終的にCPUに対して「レジスタAの数字とレジスタBの数字を足して、結果をレジスタCに入れろ」という命令（機械語）を送ります。</p>
+<p>TODO: [CPUとレジスタ]を解説する記事へのリンクを貼る</p>
+<p>掛け算や割り算は、足し算に比べると回路が複雑で、計算に時間がかかる（クロック数を多く消費する）傾向があります。昔のコンピュータでは割り算を避けるような工夫もされていましたが、現代のCPUは非常に強力なので、日常的なプログラミングで気にする必要はほとんどありません。</p>
+<h2 id="コラムコンピュータは小数が苦手"><a class="header" href="#コラムコンピュータは小数が苦手">コラム：コンピュータは小数が苦手？</a></h2>
+<p>コンピュータで小数を扱うときは、少し注意が必要です。試しに、Pythonで <code>0.1 + 0.2</code> を実行してみてください。</p>
+<p>驚くことに、結果は <code>0.3</code> ではなく、 <code>0.30000000000000004</code> のようになります。</p>
+<p>これはバグではありません。コンピュータがすべての数値を「0」と「1」の2進数で扱っているために起こる、<strong>「丸め誤差」</strong> という現象です。
+10進数における <code>0.1</code>（1/10）は、2進数に直すと無限小数になってしまい、有限のメモリに収めるためにどこかで切り捨てが発生します。</p>
+<p>これを標準化した規格を <strong>IEEE 754（浮動小数点数）</strong> と呼びます。</p>
+<p>TODO: [2進数と10進数]を解説する記事へのリンクを貼る</p>
+<p>銀行のシステムのように、1円の誤差も許されない計算では、小数をそのまま使わず、整数（100円を10000セントとして扱うなど）で計算したり、誤差を専門に扱う <code>decimal</code> モジュールのような特別な道具を使ったりします。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>足し算・引き算・掛け算・割り算の記号を覚えよう。</li>
+<li><code>/</code> は小数、<code>//</code> は整数の結果を返す。</li>
+<li>コンピュータの内部では ALU が計算を担当している。</li>
+<li>小数の計算には「誤差」がつきもの。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>次は、計算した結果を保存しておくための「変数」という魔法の箱について学んでいきましょう。これを使えるようになると、一気にプログラミングらしくなりますよ！</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://docs.python.org/ja/3/library/stdtypes.html#numeric-types-int-float-complex">Python公式ドキュメント: 数値型</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/IEEE_754">IEEE 754 (Wikipedia)</a></li>
+</ul>
 
                     </main>
 

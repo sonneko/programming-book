@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,40 +178,80 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="よく使うhtmlタグ"><a class="header" href="#よく使うhtmlタグ">よく使うhtmlタグ</a></h1>
-<p>HTMLには数百種類のタグがありますが、実際に日常的に使うものは限られています。まずは以下の「主要なタグ」を覚えましょう。</p>
-<h3 id="テキスト関連"><a class="header" href="#テキスト関連">テキスト関連</a></h3>
+<p>HTML には、実は 100 種類以上のタグが存在します。全部覚える必要があるかというと、答えは <strong>「NO」</strong> です。プロのエンジニアでも、日常的に使うのはそのうちの 20 種類程度です。</p>
+<p>大切なのは、たくさん覚えることではなく、<strong>「それぞれのタグが持つ『意味』を正しく使い分けること」</strong> です。ここでは、実際の開発現場で「これさえあればサイトが作れる」という主要なタグを厳選して紹介します。</p>
+<h2 id="1-テキストを形作るタグ"><a class="header" href="#1-テキストを形作るタグ">1. テキストを形作るタグ</a></h2>
+<p>もっとも基本となる、文章のためのタグです。</p>
 <ul>
-<li><code>&lt;h1&gt;</code> 〜 <code>&lt;h6&gt;</code>: 見出し。<code>h1</code>が最も重要。</li>
-<li><code>&lt;p&gt;</code>: 段落 (Paragraph)。</li>
-<li><code>&lt;a&gt;</code>: リンク (Anchor)。<code>href</code>属性で飛び先を指定。</li>
-<li><code>&lt;span&gt;</code>: 文中の特定の部分だけ囲みたいときに使う。</li>
-</ul>
-<h3 id="構造グループ化"><a class="header" href="#構造グループ化">構造・グループ化</a></h3>
+<li><strong><code>&lt;h1&gt;</code> 〜 <code>&lt;h6&gt;</code> (Heading)</strong>: 見出しです。<code>h1</code> が最も大きく（重要）、<code>h6</code> に向かって小さくなります。
 <ul>
-<li><code>&lt;div&gt;</code>: 特に意味を持たない「箱」。レイアウトのために要素をまとめるのに最も多用されます。</li>
-<li><code>&lt;ul&gt;</code> / <code>&lt;li&gt;</code>: 箇条書き。</li>
-<li><code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>: サイトの大きな区切り。</li>
+<li>ルール：<code>h1</code> は 1 ページに原則 1 つだけにしましょう。見出しのレベルを飛ばして（<code>h1</code> の次にいきなり <code>h3</code> を使うなど）はいけません。</li>
 </ul>
-<h3 id="コンテンツ挿入"><a class="header" href="#コンテンツ挿入">コンテンツ挿入</a></h3>
+</li>
+<li><strong><code>&lt;p&gt;</code> (Paragraph)</strong>: 段落です。文章のひとかたまりを囲みます。</li>
+<li><strong><code>&lt;a&gt;</code> (Anchor)</strong>: リンクです。<code>href</code> 属性で移動先の URL を指定します。</li>
+<li><strong><code>&lt;span&gt;</code></strong>: 特別な意味を持たない「インライン」の箱です。文章の一部分だけに色をつけたいときなどに使います。</li>
+</ul>
+<h2 id="2-構造を作りグループ化するタグ"><a class="header" href="#2-構造を作りグループ化するタグ">2. 構造を作り、グループ化するタグ</a></h2>
+<p>現代の Web 制作で最も重要なのが、要素をまとめるためのタグです。</p>
 <ul>
-<li><code>&lt;img&gt;</code>: 画像。<code>src</code>属性で画像パス、<code>alt</code>属性で説明。</li>
-<li><code>&lt;button&gt;</code>: ボタン。</li>
+<li><strong><code>&lt;div&gt;</code> (Division)</strong>: 特に意味を持たない「ブロック」の箱です。CSS でレイアウトを組むための「入れ物」として、最も多用されます。</li>
+<li><strong><code>&lt;ul&gt;</code> (Unordered List) と <code>&lt;li&gt;</code> (List Item)</strong>: 箇条書き（点付きリスト）です。ナビゲーションメニューなどにもよく使われます。</li>
+<li><strong><code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code></strong>: サイトの大きな区切りを表す、意味を持ったタグです。</li>
 </ul>
-<h3 id="インプットフォーム"><a class="header" href="#インプットフォーム">インプット（フォーム）</a></h3>
+<h2 id="3-メディアとインタラクション"><a class="header" href="#3-メディアとインタラクション">3. メディアとインタラクション</a></h2>
 <ul>
-<li><code>&lt;input&gt;</code>: 文字入力欄など。</li>
-<li><code>&lt;form&gt;</code>: 入力データをサーバーへ送るためのまとまり。</li>
+<li><strong><code>&lt;img&gt;</code> (Image)</strong>: 画像を表示します。
+<ul>
+<li><code>src</code>: 画像の場所。</li>
+<li><code>alt</code>: 画像が表示されなかったときに出る説明文。<strong>アクセシビリティ（目の不自由な方への読み上げ）のために必須</strong>です。</li>
 </ul>
-<h3 id="セマンティックhtmlの意識"><a class="header" href="#セマンティックhtmlの意識">セマンティックHTMLの意識</a></h3>
-<p>何でもかんでも <code>&lt;div&gt;</code> で囲む（通称：div地獄）ことを避けたほうがよいでしょう。</p>
-<pre><code class="language-html">&lt;!-- 悪い例 --&gt;
-&lt;div class="header"&gt;見出し&lt;/div&gt;
-
-&lt;!-- 良い例 --&gt;
-&lt;header&gt;見出し&lt;/header&gt;
+</li>
+<li><strong><code>&lt;button&gt;</code></strong>: クリックできるボタンです。</li>
+</ul>
+<h2 id="セマンティック-htmlなぜタグ選びが重要なのか"><a class="header" href="#セマンティック-htmlなぜタグ選びが重要なのか">セマンティック HTML：なぜタグ選びが重要なのか？</a></h2>
+<p>昔の Web サイトは、何でもかんでも <code>&lt;div&gt;</code> で作られていました。これを <strong>「div 地獄 (div soup)」</strong> と呼びます。</p>
+<pre><code class="language-html">&lt;!-- 悪い例：全部 div なので、どこが重要か分からない --&gt;
+&lt;div class="header"&gt;私のサイト&lt;/div&gt;
+&lt;div class="content"&gt;こんにちは&lt;/div&gt;
+&lt;div class="footer"&gt;Copyright 2024&lt;/div&gt;
 </code></pre>
-<p>ブラウザや検索エンジン、音声読み上げソフトなどに対して、「ここはヘッダーですよ」「ここはメインコンテンツですよ」という <strong>意味 (Semantics)</strong> を正しく伝えることで、アクセシビリティやSEO（検索エンジン最適化）が向上します。</p>
-<p>TODO: セマンティックHTMLの重要性をより詳しく解説する記事へのリンクを貼る</p>
+<pre><code class="language-html">&lt;!-- 良い例：セマンティック（意味的）な記述 --&gt;
+&lt;header&gt;私のサイト&lt;/header&gt;
+&lt;main&gt;こんにちは&lt;/main&gt;
+&lt;footer&gt;Copyright 2024&lt;/footer&gt;
+&lt;/footer&gt;
+</code></pre>
+<p>このように、タグ本来の意味を考えて使い分けることを <strong>セマンティック HTML</strong> と呼びます。なぜこれが必要なのでしょうか？</p>
+<ol>
+<li><strong>SEO (検索エンジン最適化)</strong>: Google などの検索エンジンは、HTML の構造を見て「どこが重要な内容か」を判断します。正しいタグを使うと、検索結果で上位に表示されやすくなります。</li>
+<li><strong>アクセシビリティ</strong>: 画面読み上げソフト（スクリーンリーダー）を使っているユーザーにとって、正しいタグ構成は「情報の地図」になります。</li>
+<li><strong>開発効率</strong>: 誰が見てもどこがヘッダーでどこがメインコンテンツか一目でわかるため、チーム開発でのミスが減ります。</li>
+</ol>
+<h2 id="低レイヤーの視点タグのレンダリングコスト"><a class="header" href="#低レイヤーの視点タグのレンダリングコスト">低レイヤーの視点：タグのレンダリングコスト</a></h2>
+<p>「タグの種類によって、ブラウザの処理速度は変わるの？」という疑問があるかもしれません。
+結論から言うと、タグそのものの解析速度の違いは微々たるものです。</p>
+<p>TODO: [ブラウザエンジンの内部構造]を解説する記事へのリンクを貼る</p>
+<p>しかし、例えば <code>&lt;table&gt;</code> タグを使って複雑なレイアウトを組むと、ブラウザはすべてのセルの中身が決まるまで全体の幅を確定できず、レンダリングが遅くなる（再レイアウトが重くなる）という性質があります。
+逆に <code>&lt;div&gt;</code> や <code>セマンティックなタグ</code> を使ったシンプルな構成は、ブラウザにとって非常に計算しやすく、サクサク動くサイトに繋がります。</p>
+<h2 id="私の視点迷ったら-divでいい"><a class="header" href="#私の視点迷ったら-divでいい">私の視点：「迷ったら div」でいい</a></h2>
+<p>最初は「どのタグを使うのが正解だろう……」と悩みすぎて手が止まってしまうことがあります。
+そんな時は、<strong>「まずは div で囲って、後から適切なタグに変える」</strong> というスタンスで大丈夫です。
+最初から完璧を目指すより、まずは動く（見える）ものを作ること。慣れてきたら、少しずつ <code>&lt;section&gt;</code> や <code>&lt;article&gt;</code> といった、より細かい「意味」を意識していきましょう。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>頻繁に使うタグは 20 種類程度。</li>
+<li><code>h1</code> 〜 <code>p</code> などのテキストタグと、<code>div</code> などの構造タグを使い分ける。</li>
+<li>セマンティック HTML は、Google や人間に「意味」を伝えるために重要。</li>
+<li><code>img</code> タグの <code>alt</code> 属性は忘れずに。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>タグがわかれば、次はそれらをピンポイントで狙い撃ちして装飾するための「CSS セレクター」をマスターしましょう。特定の要素だけを自由自在に操る魔法の杖です。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element">MDN: HTML 要素リファレンス</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E3%82%BB%E3%83%91%E3%83%BC%E3%83%AC%E3%83%BC%E3%83%88%E3%83%BB%E3%83%9E%E3%83%BC%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97">セマンティック HTML (Wikipedia)</a></li>
+</ul>
 
                     </main>
 

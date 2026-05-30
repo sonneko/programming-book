@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,32 +178,67 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="cliツールのお作法"><a class="header" href="#cliツールのお作法">CLIツールのお作法</a></h1>
-<p>ターミナル上のCLI（Command Line Interface）ツールには、使いやすくするための共通の流儀があります。</p>
-<h3 id="覚えておくべき作法"><a class="header" href="#覚えておくべき作法">覚えておくべき作法</a></h3>
+<p>ターミナルという「黒い画面」でコマンドを叩くのは、最初は魔法の呪文を唱えているようで怖いかもしれません。しかし、Git をはじめとする多くの <strong>CLI (Command Line Interface)</strong> ツールには、共通の「設計思想」と「お作法」があります。</p>
+<p>この流儀を身につけることで、新しいツールに出会ったときも「たぶんこうすれば動くはずだ」という直感が働くようになります。エンジニアとしての「勘」を養うための、CLI の基本ルールを紐解いていきましょう。</p>
+<h2 id="1-ヘルプとマニュアル自力で解決する第一歩"><a class="header" href="#1-ヘルプとマニュアル自力で解決する第一歩">1. ヘルプとマニュアル：自力で解決する第一歩</a></h2>
+<p>すべての優れた CLI ツールは、自分自身の説明書を内蔵しています。</p>
 <ul>
-<li><strong>ヘルプを表示する</strong>: <code>--help</code> または <code>-h</code> オプションで使い方が表示されます。</li>
-<li><strong>パイプ (<code>|</code>) の活用</strong>: あるコマンドの出力を別のコマンドに渡す（例: <code>ls | grep .txt</code>）。</li>
-<li><strong>エイリアス (<code>alias</code>)</strong>: よく使う長いコマンドを短縮形に登録する。</li>
-<li><strong>履歴 (<code>history</code>)</strong>: 過去に実行したコマンドを再利用する。</li>
+<li><strong><code>--help</code> または <code>-h</code></strong>: ほとんどのコマンドで使えます。そのコマンドにどんなオプションがあるかを表示してくれます。
+<ul>
+<li>例：<code>git --help</code>, <code>npm install --help</code></li>
 </ul>
+</li>
+<li><strong><code>man</code> (Manual)</strong>: Linux/Mac では <code>man &lt;コマンド名&gt;</code> と打つと、詳細なマニュアルを読むことができます。</li>
+</ul>
+<p>「ググる」前にまずヘルプを見る。これが、最新の（まだネットに情報が少ない）ツールを使いこなすプロの習慣です。</p>
+<h2 id="2-unix-哲学一つのことをうまくやる"><a class="header" href="#2-unix-哲学一つのことをうまくやる">2. UNIX 哲学：一つのことをうまくやる</a></h2>
+<p>CLI ツールの多くは、<strong>「UNIX 哲学」</strong> に基づいて設計されています。</p>
 <blockquote>
-<p><strong>TODO: 標準ストリーム（stdin, stdout, stderr）とリダイレクト・パイプの仕組みについて解説している記事へのリンクを貼る</strong></p>
+<p>「一つのことを行い、またそれをうまくやれ。プログラムが共同して動くように作れ。プログラムがテキスト・ストリームを扱うように作れ。なぜなら、それが普遍的なインターフェースだからだ。」</p>
 </blockquote>
-<h3 id="詰まりポイントと解決策"><a class="header" href="#詰まりポイントと解決策">詰まりポイントと解決策</a></h3>
+<p>TODO: [UNIX 哲学の 17 の原則]を解説する記事へのリンクを貼る</p>
+<p>この哲学を象徴するのが <strong>パイプ (<code>|</code>)</strong> です。
+あるコマンドの「出力」を、別のコマンドの「入力」として繋ぐことができます。</p>
+<pre><code class="language-bash"># ファイルの一覧 (ls) から、"txt" という文字を含むものだけを探す (grep)
+ls | grep ".txt"
+</code></pre>
+<p>個々のツールはシンプルでも、それらをパイプで繋ぐことで、無限に複雑なデータ処理パイプラインを即座に構築できるのです。</p>
+<h2 id="低レイヤーの視点標準ストリームとファイル記述子"><a class="header" href="#低レイヤーの視点標準ストリームとファイル記述子">低レイヤーの視点：標準ストリームとファイル記述子</a></h2>
+<p>コンピュータの内部（OS カーネル）から見ると、プログラムとのやり取りは <strong>「標準ストリーム (Standard Streams)」</strong> という、文字データの通り道を通じて行われます。</p>
+<ol>
+<li><strong>標準入力 (stdin / FD 0)</strong>: キーボードなどからの入力を受け取る。</li>
+<li><strong>標準出力 (stdout / FD 1)</strong>: 正常な実行結果を出力する。</li>
+<li><strong>標準エラー出力 (stderr / FD 2)</strong>: エラーメッセージを出力する。</li>
+</ol>
+<p>ここで面白いのが、<strong>「すべてはファイルである」</strong> という UNIX の考え方です。
+画面への表示も、ファイルへの書き込みも、キーボードからの入力も、OS にとってはすべて「バイトが流れるパイプ（ファイル）」として抽象化されています。</p>
+<p>だからこそ、<code>ls &gt; list.txt</code> と書くだけで、画面に出るはずだった内容をファイルに「リダイレクト」できるのです。</p>
+<p>TODO: [リダイレクトとパイプの詳細]を解説する記事へのリンクを貼る</p>
+<h2 id="私の視点エイリアスで自分専用の武器を作る"><a class="header" href="#私の視点エイリアスで自分専用の武器を作る">私の視点：エイリアスで自分専用の武器を作る</a></h2>
+<p>よく使う長いコマンドを何度も打つのは時間の無駄です。そんな時は <strong>「エイリアス (alias)」</strong> を作りましょう。</p>
+<pre><code class="language-bash"># git status を gs だけで呼び出せるようにする
+alias gs='git status'
+</code></pre>
+<p>これをシェル（bash や zsh）の設定ファイルに書いておけば、あなたのターミナルは、あなたに最適化された最強の武器になります。
+「面倒くさい」と感じた瞬間に、それを自動化したり短縮したりする方法を考える。その「面倒くさがり」な性格こそが、プログラマとしての最大の才能ですよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
 <ul>
-<li><strong>パイプでの失敗</strong>: パイプ（<code>|</code>）で繋いだ後半のコマンドでエラーが出ても、標準エラー出力の確認が漏れがち。エラーを確認したい場合は <code>2&gt;&amp;1</code> でエラー出力を標準出力にリダイレクトするテクニックを使う。</li>
-<li><strong>エイリアスの衝突</strong>: 便利なエイリアスを作ったつもりが、既存のコマンドと名前が被り、本来のコマンドが使えなくなることがある。<code>type &lt;command_name&gt;</code> でエイリアスかどうか確認できる。</li>
+<li>新しいコマンドに出会ったら、まずは <code>--help</code> でオプションを確認。</li>
+<li><code>|</code> (パイプ) を使って、小さなツールを組み合わせて大きな目的を達成する。</li>
+<li><code>stdout</code> (標準出力) と <code>stderr</code> (標準エラー) の違いを意識する。</li>
+<li>UNIX 哲学（一つのことをうまくやる）は、現代のソフトウェア設計にも通じる。</li>
+<li>エイリアスを活用して、自分だけの快適な開発環境を構築しよう。</li>
 </ul>
-<h3 id="設計思想unix哲学とストリーム"><a class="header" href="#設計思想unix哲学とストリーム">設計思想：UNIX哲学とストリーム</a></h3>
-<p>UNIXのCLIツールは「一つのことをうまくやる」ことを目指して設計されています。
-ツール間でデータを繋ぐために「標準ストリーム」を利用するのが核心です。</p>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>CLI のお作法がわかったら、いよいよ 6 章の締めくくり、実践的な演習です。ターミナルと Git を使いこなし、ディレクトリの迷宮を自由自在に駆け抜けてみましょう。</p>
+<p>参考：</p>
 <ul>
-<li><strong>標準入力 (stdin)</strong>: プログラムへのデータ供給口。</li>
-<li><strong>標準出力 (stdout)</strong>: プログラムの正常な結果。</li>
-<li><strong>標準エラー出力 (stderr)</strong>: エラーメッセージ。</li>
+<li><a href="https://ja.wikipedia.org/wiki/UNIX%E5%93%B2%E5%AD%A6">UNIX 哲学 (Wikipedia)</a></li>
+<li><a href="https://qiita.com/12345/items/dcf3dd48fd44732c5d24">ターミナルを使いこなすための便利なショートカット集</a></li>
+<li><a href="https://developer.mozilla.org/ja/docs/Glossary/Standard_streams">標準ストリームの詳細 (MDN)</a></li>
 </ul>
-<p>これらをパイプライン（<code>|</code>）で繋ぐことで、個々の単純なツールを組み合わせて複雑なデータ処理パイプラインを構築できます。これはまさに、データがプログラムという関数の間を流れて変形されていくという「データフロープログラミング」の現実世界での実装です。</p>
-<p>この作法を身につけることで、CLI環境は単なる操作画面から、極めて強力で快適な開発ツールになります。</p>
+<hr>
+<p>TODO: シェルスクリプトを書いて複雑な作業を自動化する方法へのリンクを貼る</p>
 
                     </main>
 

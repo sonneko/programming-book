@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,29 +178,76 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="グリッドシステム"><a class="header" href="#グリッドシステム">グリッドシステム</a></h1>
-<p>かつてWebサイトのレイアウトを組むのは非常に困難な作業でした。テーブル（表）を悪用したり、<code>float</code> という本来は画像を文章に回り込ませるための機能を無理やり使ったりしていました。</p>
-<p>現代では、<strong>Flexbox</strong> と <strong>CSS Grid</strong> という2つの強力な武器があります。</p>
-<h3 id="flexbox-1次元のレイアウト"><a class="header" href="#flexbox-1次元のレイアウト">Flexbox (1次元のレイアウト)</a></h3>
-<p>要素を横や縦に「一列に」並べるのに適しています。</p>
+<p>Web サイトのレイアウトを組むことは、かつてはエンジニアにとって「暗黒時代」のような苦行でした。
+10 年以上前は、透明な画像を使って隙間を作ったり、本来は表（データ）のための <code>&lt;table&gt;</code> タグを無理やりレイアウトに使ったり、画像を回り込ませるための <code>float</code> を駆使して「回り込み解除」という謎の呪文を書いたりしていました。</p>
+<p>しかし、現代の私たちには <strong>Flexbox</strong> と <strong>CSS Grid</strong> という、最強の武器があります。これらを使えば、かつて数時間かかっていたレイアウトが、わずか数行で、しかも美しく完成します。</p>
+<h2 id="1-flexbox1-次元のレイアウト"><a class="header" href="#1-flexbox1-次元のレイアウト">1. Flexbox：1 次元のレイアウト</a></h2>
+<p>要素を <strong>「一列（横、または縦）」</strong> に並べるのに最も適した道具です。</p>
 <pre><code class="language-css">.container {
   display: flex;
-  justify-content: space-between; /* 要素を等間隔に配置 */
-  align-items: center; /* 上下中央揃え */
+  /* 横に並べる */
+  flex-direction: row;
+  /* 要素を両端に寄せる */
+  justify-content: space-between;
+  /* 上下の中央に揃える */
+  align-items: center;
 }
 </code></pre>
-<p>「中央揃え」という、昔は数時間の苦闘が必要だった操作が、今ではたった数行で書けます。</p>
-<h3 id="css-grid-2次元のレイアウト"><a class="header" href="#css-grid-2次元のレイアウト">CSS Grid (2次元のレイアウト)</a></h3>
-<p>行と列（格子状）のレイアウトを組むのに適しています。</p>
+<p>「中央揃え（センタリング）」は、昔の Web 制作では世界で最も難しい操作の一つとされていましたが、Flexbox の <code>justify-content: center</code> と <code>align-items: center</code> を組み合わせるだけで、完璧に解決します。</p>
+<h2 id="2-css-grid2-次元のレイアウト"><a class="header" href="#2-css-grid2-次元のレイアウト">2. CSS Grid：2 次元のレイアウト</a></h2>
+<p>要素を <strong>「格子状（行と列）」</strong> に並べるための道具です。Flexbox が「線」だとしたら、Grid は「面」を操ります。</p>
 <pre><code class="language-css">.container {
   display: grid;
-  grid-template-columns: 1fr 2fr; /* 1:2の比率で2列作る */
-  gap: 10px; /* 要素間の隙間 */
+  /* 3列のグリッドを作る（比率は 1:2:1） */
+  grid-template-columns: 1fr 2fr 1fr;
+  /* 要素間の隙間 */
+  gap: 20px;
 }
 </code></pre>
-<h3 id="抽象化の進化"><a class="header" href="#抽象化の進化">抽象化の進化</a></h3>
-<p>このように、CSSは歴史を経て、人間が直感的にレイアウトを表現できるように進化してきました。</p>
-<p>まずは「このレイアウトは1次元（Flexbox）で解決できるか？それとも2次元（Grid）が必要か？」を判断することが必要です。</p>
-<p>TODO: FlexboxとGridの使い分けを視覚的に解説する記事へのリンクを貼る</p>
+<p>「この要素は 2 マス分使う」といった指定も簡単に行えるため、複雑なニュースサイトのトップページや、タイル状のギャラリーサイトなどを作るのに最適です。</p>
+<h2 id="3-レスポンシブデザインの救世主"><a class="header" href="#3-レスポンシブデザインの救世主">3. レスポンシブデザインの救世主</a></h2>
+<p>グリッドシステムが真価を発揮するのは、<strong>「PC では横に 3 つ並べたいけど、スマホでは縦に 1 つずつ並べたい」</strong> という、画面サイズに応じたレイアウト変更をするときです。</p>
+<p>TODO: [メディアクエリ]を解説する記事へのリンクを貼る</p>
+<pre><code class="language-css">.card-list {
+  display: grid;
+  /* 画面幅に合わせて、最小 300px のカードを並べられるだけ並べる */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+</code></pre>
+<p>このような「魔法の 1 行」を書くだけで、ブラウザが画面幅を自動で判断し、要素を折り返したり広げたりしてくれます。</p>
+<h2 id="低レイヤーの視点計算の抽象化"><a class="header" href="#低レイヤーの視点計算の抽象化">低レイヤーの視点：計算の抽象化</a></h2>
+<p>なぜ <code>float</code> は難しくて、<code>flex</code> や <code>grid</code> は簡単なのでしょうか？</p>
+<p>それは、<strong>「ブラウザが計算を肩代わりしてくれているから」</strong> です。
+<code>float</code> を使っていた時代は、「要素 A の幅は 30%、余白は 5px だから、要素 B は……」と、人間がピクセル単位で緻密に計算して指示を出す必要がありました。</p>
+<p>TODO: [ブラウザのレイアウトアルゴリズム]を解説する記事へのリンクを貼る</p>
+<p>Flexbox や Grid は、人間が <strong>「どう並べたいか（意図）」</strong> を伝えると、ブラウザ内部のレンダリングエンジンが、画面の残り幅や要素の中身の大きさを考慮して、リアルタイムで最適なピクセル位置を逆算（<em>Solve Constraints</em>）してくれます。
+私たちは「物理的な座標」ではなく「論理的な関係」を記述するようになったのです。</p>
+<h2 id="私の視点flexbox-と-grid-の使い分け"><a class="header" href="#私の視点flexbox-と-grid-の使い分け">私の視点：Flexbox と Grid の使い分け</a></h2>
+<p>私はいつも、<strong>「基本は Flexbox、構造は Grid」</strong> というルールで使い分けています。</p>
+<ul>
+<li>ヘッダーのロゴとメニューを並べる、ボタンの中のアイコンと文字を並べる……といった「一方向の流れ」には Flexbox。</li>
+<li>ページ全体の大きな枠組みや、カレンダーのような「マスの目」には Grid。</li>
+</ul>
+<p>最初は Flexbox だけでも十分戦えますが、Grid を覚えると「CSS でできないことはない」という全能感に包まれますよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li><strong>Flexbox</strong>: 1 次元（列）の配置に強い。中央揃えが簡単。</li>
+<li><strong>CSS Grid</strong>: 2 次元（面）の配置に強い。複雑な分割が得意。</li>
+<li>現代のレイアウトは、ブラウザに「計算を任せる」スタイル。</li>
+<li><code>1fr</code> などの単位を使いこなして、柔軟な（レスポンシブな）設計を。</li>
+<li>まずは Flexbox をマスターし、必要に応じて Grid を取り入れよう。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>レイアウトの最強の武器を手に入れたところで、次はブラウザがどのようにしてこの複雑な計算を行い、画面を描き出しているのかという「レンダリングパイプライン」の深層に迫ります。これがわかると、脱・初心者です。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">Flexbox ガイド (CSS-Tricks)</a></li>
+<li><a href="https://css-tricks.com/snippets/css/complete-guide-grid/">CSS Grid ガイド (CSS-Tricks)</a></li>
+<li><a href="https://flexboxfroggy.com/#ja">Flexbox をゲームで学べる Flexbox Froggy</a></li>
+</ul>
+<hr>
+<p>TODO: Flexbox と Grid の使い分けをチャート化した図へのリンクを貼る</p>
 
                     </main>
 

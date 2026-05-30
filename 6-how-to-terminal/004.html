@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,33 +178,71 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="gitの基本の使い方"><a class="header" href="#gitの基本の使い方">Gitの基本の使い方</a></h1>
-<p>Gitの基本的なワークフローを覚えましょう。</p>
-<h3 id="基本コマンド"><a class="header" href="#基本コマンド">基本コマンド</a></h3>
+<p>Git の環境が整ったら、いよいよ実際にコードを管理する流れを体験しましょう。
+Git の操作は、最初は「なぜこんなに手順が多いの？」と不思議に思うかもしれません。でも、それぞれのステップには <strong>「慎重にコードを育てる」</strong> ための深い理由があります。</p>
+<p>基本の 3 つのステップ：<strong>「add」「commit」「push」</strong> を中心に、Git の日常的なワークフローを解説します。</p>
+<h2 id="1-変更を記録するまでの-3-つのエリア"><a class="header" href="#1-変更を記録するまでの-3-つのエリア">1. 変更を記録するまでの 3 つのエリア</a></h2>
+<p>Git には、あなたの変更が旅をする 3 つの場所があります。この構造を理解することが、Git 習得の最短ルートです。</p>
 <ol>
-<li><code>git init</code>: リポジトリの初期化。</li>
-<li><code>git add &lt;file&gt;</code>: 変更をステージングエリア（コミット準備）に追加。</li>
-<li><code>git commit -m "message"</code>: 変更をリポジトリに記録。</li>
-<li><code>git push</code>: リモートリポジトリ（GitHub等）に反映。</li>
+<li><strong>作業ディレクトリ (Working Directory)</strong>: あなたが今、VS Code で編集している「ナマ」のファイル群です。</li>
+<li><strong>ステージングエリア (Staging Area / Index)</strong>: 次のコミット（記録）に含めるファイルを「準備」しておく場所です。</li>
+<li><strong>リポジトリ (Repository / Local)</strong>: 変更が正式に「記録」された場所です。</li>
 </ol>
-<pre><code class="language-bash">git add .
-git commit -m "機能追加"
-git push origin main
+<h3 id="ステップ-a-git-add準備する"><a class="header" href="#ステップ-a-git-add準備する">ステップ A: <code>git add</code>（準備する）</a></h3>
+<pre><code class="language-bash">git add main.ts
 </code></pre>
-<h3 id="gitの状態遷移とステージングエリア"><a class="header" href="#gitの状態遷移とステージングエリア">Gitの状態遷移とステージングエリア</a></h3>
-<p>Gitには「作業ディレクトリ」「ステージングエリア（Index）」「リポジトリ」の3つの領域があります。
-<code>git add</code> は作業ディレクトリからステージングエリアへ変更をコピーし、<code>git commit</code> はステージングエリアの内容をスナップショットとしてリポジトリに保存します。この「ステージング」のステップがあることで、コミット内容を細かく制御できるのです。</p>
-<h3 id="詰まりポイントと解決策"><a class="header" href="#詰まりポイントと解決策">詰まりポイントと解決策</a></h3>
+<p>「このファイルの変更は、次の記録に含めたいな」と思ったら、ステージングエリアに移動させます。
+全部のファイルを一度に <code>add</code> するのではなく、関係のある変更だけを細かく選んで <code>add</code> するのがプロの技です。</p>
+<h3 id="ステップ-b-git-commit記録する"><a class="header" href="#ステップ-b-git-commit記録する">ステップ B: <code>git commit</code>（記録する）</a></h3>
+<pre><code class="language-bash">git commit -m "ログイン機能のバグを修正"
+</code></pre>
+<p>ステージングエリアにある変更を、リポジトリに永久保存します。このとき付ける <strong>「コミットメッセージ」</strong> は、未来の自分や仲間への手紙です。</p>
+<h3 id="ステップ-c-git-push共有する"><a class="header" href="#ステップ-c-git-push共有する">ステップ C: <code>git push</code>（共有する）</a></h3>
+<pre><code class="language-bash">git push origin main
+</code></pre>
+<p>ローカルに溜まった記録を、GitHub などのリモートサーバーへ送り出します。これでようやく、他の人もあなたの変更を見ることができるようになります。</p>
+<h2 id="2-状態を確認する魔法のコマンドgit-status"><a class="header" href="#2-状態を確認する魔法のコマンドgit-status">2. 状態を確認する魔法のコマンド：<code>git status</code></a></h2>
+<p>Git を操作していて、「今、どうなってるんだっけ？」と不安になったら、すぐにこのコマンドを叩きましょう。</p>
+<pre><code class="language-bash">git status
+</code></pre>
 <ul>
-<li><strong>不要なファイルの追加</strong>: <code>git add .</code> で一時ファイルや不要なファイルまでステージングしてしまう。<code>git status</code> で追加対象を確認してから <code>git add</code> する癖を。</li>
-<li><strong>コミットメッセージ</strong>: 何をしたか不明なコミットは後で困る。<code>git commit -m</code> の際は「何をしたか」を端的に記述する。</li>
-<li><strong>Gitの「取り消し」</strong>: 失敗した場合は焦らず <code>git status</code> を見る。多くの場合、解決策が提案されています。</li>
+<li>赤い文字：変更したけど、まだ <code>add</code> していないファイル。</li>
+<li>緑の文字：<code>add</code> したけど、まだ <code>commit</code> していないファイル。</li>
 </ul>
-<h3 id="技術的な深みheadとブランチ"><a class="header" href="#技術的な深みheadとブランチ">技術的な深み：HEADとブランチ</a></h3>
-<p>Gitにおける「ブランチ」とは、単なる特定のコミットを指し示す「ポインタ（参照）」に過ぎません。<code>HEAD</code> は現在作業中のコミットまたはブランチを指す特殊なポインタです。</p>
-<pre><code class="language-text">[コミットA] &lt;- [コミットB] &lt;- [コミットC (HEAD/main)]
-</code></pre>
-<p>この状態で新しいコミットを行うと、<code>main</code> ポインタが新しいコミットを指すように進みます。Gitの強力さは、これらのポインタを自由に動かすことで実現されるコミットグラフの柔軟性にあります。</p>
-<p>この「ステージング」→「コミット」→「プッシュ」の流れがGit開発の基本ですが、各ステップでデータがどこからどこへ移動し、どのように変形されているかを常に意識してください。</p>
+<p>Git は常にあなたの作業状況を監視し、次に何をすべきか（あるいは何を忘れているか）を教えてくれます。</p>
+<h2 id="低レイヤーの視点head-と参照"><a class="header" href="#低レイヤーの視点head-と参照">低レイヤーの視点：HEAD と参照</a></h2>
+<p>Git の中では、今あなたが「どの地点」にいるのかを <strong>HEAD</strong> というポインタ（矢印）が指し示しています。</p>
+<p>TODO: [Git のリファレンスと HEAD]を解説する記事へのリンクを貼る</p>
+<ul>
+<li><strong>HEAD</strong>: 「現在作業中のコミット」へのポインタ。</li>
+<li><strong>main (ブランチ)</strong>: 「そのブランチの最新のコミット」を指す、動くラベル。</li>
+</ul>
+<p>あなたがコミットをするたびに、<code>main</code> というラベルは最新のコミットへと自動的に動いていきます。Git における「ブランチ」とは、巨大なデータのコピーではなく、<strong>「特定のコミットを指しているたった 40 文字のハッシュ値が書かれたテキストファイル」</strong> に過ぎません。
+この「参照（ポインタ）」を付け替えるだけでパラレルワールド（ブランチ）を切り替えられる。この驚異的な効率性が、Git の真髄です。</p>
+<h2 id="私の視点コミットは小さく美しく"><a class="header" href="#私の視点コミットは小さく美しく">私の視点：コミットは「小さく、美しく」</a></h2>
+<p>初心者がやりがちなのが、丸一日作業して、何十箇所の変更をまとめて「いろいろ直した」というメッセージで一気にコミットすることです。
+これは、後でバグが見つかったときに地獄を見ます。</p>
+<p>TODO: [アトミックコミットの重要性]を解説する記事へのリンクを貼る</p>
+<p>理想は <strong>「アトミックコミット」</strong> です。
+「一つの意味のある変更（例：ボタンの色を変えた、誤字を直した）」ごとにコミットする。そうすれば、もし失敗しても、その最小単位だけを取り消すことができます。
+「きれいな履歴は、きれいな設計の裏返し」。コミットグラフが美しく一本の線、あるいは整然とした枝分かれになっているのを見ると、エンジニアとしての心が洗われますよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>変更は「作業場所 ＞ 準備場所 (add) ＞ 記録場所 (commit)」と移動する。</li>
+<li><code>git status</code> は、今どこにいるかを教えてくれる最強の味方。</li>
+<li><code>git push</code> で GitHub に同期する。</li>
+<li>裏側では <code>HEAD</code> やブランチという「ポインタ」が動いているだけ。</li>
+<li>コミットは細かく、メッセージは具体的に書くのがプロ。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>基本の使い方がわかったら、次はターミナル上で動く様々なツールに共通する「お作法」について学びましょう。Git 以外でも役立つ、エンジニアの「共通言語」としての CLI の知識です。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://backlog.com/ja/git-tutorial/step1/step1_1.html">Git チュートリアル: 変更を記録する</a></li>
+<li><a href="https://qiita.com/stanko/items/67636e2d14f447783938">コミットメッセージの書き方 (Qiita)</a></li>
+</ul>
+<hr>
+<p>TODO: <code>git reset</code> や <code>git revert</code> など、やり直しコマンドを解説する記事へのリンクを貼る</p>
 
                     </main>
 

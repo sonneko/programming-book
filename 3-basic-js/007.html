@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,23 +178,77 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="型の明示についてjavascriptの動的型付けと向き合う"><a class="header" href="#型の明示についてjavascriptの動的型付けと向き合う">型の明示について：JavaScriptの動的型付けと向き合う</a></h1>
-<p>JavaScriptは「動的型付け言語」です。柔軟ですが、大規模開発では型に関するバグの温床になりがちです。</p>
-<h3 id="typeof-演算子"><a class="header" href="#typeof-演算子">typeof 演算子</a></h3>
-<p>値の型を確認するには <code>typeof</code> 演算子を使います。これは単項演算子であり、関数ではありません。</p>
-<pre><code class="language-javascript">console.log(typeof 123); // "number"
+<p>JavaScript を書いていて最も驚く（そして時に困惑する）のは、一つの変数に「数字」を入れた後、同じ変数にいきなり「文字列」を入れられてしまうことです。</p>
+<pre><code class="language-javascript">let x = 10;     // 今は数値
+x = "Hello";    // 文字列になっちゃった！
 </code></pre>
-<h3 id="エラーメッセージの読み方"><a class="header" href="#エラーメッセージの読み方">エラーメッセージの読み方</a></h3>
-<p>エラーが出た際は、以下の順序で読み解くのが鉄則です。</p>
+<p>これを <strong>動的型付け (Dynamic Typing)</strong> と呼びます。自由で柔軟ですが、大規模な開発では「ここには数値が入っているはずなのに、なぜか文字列が来て計算がバグった！」という悲劇が日常茶飯事です。</p>
+<h2 id="1-自分の身を守るtypeof-演算子"><a class="header" href="#1-自分の身を守るtypeof-演算子">1. 自分の身を守る：typeof 演算子</a></h2>
+<p>値の型をチェックしたいとき、JavaScript では <code>typeof</code> を使います。</p>
+<pre><code class="language-javascript">console.log(typeof 123);         // "number"
+console.log(typeof "text");      // "string"
+console.log(typeof true);        // "boolean"
+console.log(typeof undefined);   // "undefined"
+console.log(typeof { a: 1 });    // "object"
+console.log(typeof null);        // "object" (歴史的なバグですが、こうなります)
+</code></pre>
+<p>TODO: [JavaScriptの歴史と設計ミス]を解説する記事へのリンクを貼る</p>
+<p>もし、外部から受け取ったデータを使って計算をしたいなら、いきなり計算するのではなく <code>typeof</code> でチェックする習慣をつけましょう。</p>
+<h2 id="2-暗黙の型変換という罠"><a class="header" href="#2-暗黙の型変換という罠">2. 暗黙の型変換という「罠」</a></h2>
+<p>JavaScript は親切（お節介）すぎて、型が違っても無理やり計算しようとします。</p>
+<pre><code class="language-javascript">console.log(1 + "2"); // "12" (文字列として結合される)
+console.log(10 - "2"); // 8 (なぜか数値として計算される)
+</code></pre>
+<p>この挙動を <strong>「暗黙の型変換」</strong> と呼びます。特に <code>==</code>（等価演算子）を使うと、JavaScript は型を勝手に変換して比較してしまいます。</p>
+<pre><code class="language-javascript">console.log(1 == "1"); // true (お節介！)
+</code></pre>
+<p>これを避けるために、現代の JavaScript 開発では <strong>必ず <code>===</code>（厳密等価演算子）を使う</strong> という鉄の掟があります。</p>
+<pre><code class="language-javascript">console.log(1 === "1"); // false (正解！)
+</code></pre>
+<h2 id="3-エラーメッセージはコンピュータからの手紙"><a class="header" href="#3-エラーメッセージはコンピュータからの手紙">3. エラーメッセージは「コンピュータからの手紙」</a></h2>
+<p>型が原因でエラーが起きたとき、あなたは画面を閉じてしまっていませんか？
+エラーメッセージは、あなたの敵ではなく、バグを直すための最大のヒントです。</p>
+<ul>
+<li><strong><code>ReferenceError: x is not defined</code></strong>: 変数 <code>x</code> の名前が間違っているか、定義されていません。</li>
+<li><strong><code>TypeError: Cannot read property 'name' of undefined</code></strong>: <strong>最強にして最悪のエラーです。</strong> 中身が空（<code>undefined</code>）の箱からデータを取り出そうとしました。</li>
+<li><strong><code>SyntaxError</code></strong>: カッコの閉じ忘れなど、文法が間違っています。</li>
+</ul>
+<p>エラーが出たら、以下のステップで冷静に対処しましょう。</p>
 <ol>
-<li><strong>分類</strong>：構文ミスなのか、実行時エラーなのか。</li>
-<li><strong>場所</strong>：そのファイルを開き、該当行を確認。</li>
-<li><strong>理由</strong>：<code>Null is not an object</code> や <code>No such named property</code> が多いです。該当変数の中身を <code>console.log</code> で確認しましょう。Nullエラーが出たなら、そもそもNullを使わない設計ができないか検討します。</li>
-<li><strong>スタックトレース</strong>：エラーがどこから発生したか。</li>
+<li><strong>場所を確認</strong>: <code>main.js:15</code> のように、エラーの起きたファイルと行数が書いてあります。</li>
+<li><strong>中身を疑う</strong>: その行にある変数を、直前で <code>console.log()</code> して中身を確認しましょう。</li>
+<li><strong>スタックトレースを読む</strong>: どの関数がどの関数を呼んでエラーに至ったか、という「犯行現場までの足跡」を辿ります。</li>
 </ol>
-<h3 id="暗黙的な型変換の禁止"><a class="header" href="#暗黙的な型変換の禁止">暗黙的な型変換の禁止</a></h3>
-<p>JavaScriptでは、意図しない型変換が起こるため、<strong>暗黙的な型変換（例: <code>==</code>）は絶対に使わないでください！</strong> 明示的な変換を行うパース関数（<code>parseInt</code>, <code>parseFloat</code>, <code>String()</code> など）を使いましょう。</p>
-<h3 id="jitコンパイルと型"><a class="header" href="#jitコンパイルと型">JITコンパイルと型</a></h3>
-<p>JavaScriptの実行エンジンは、JIT（Just-In-Time）コンパイルの中で、動的に静的型のような処理（型推論など）が行われている可能性があります。これにより、動的型付け言語でありながら、驚異的な速度を実現しています。</p>
+<h2 id="低レイヤーの視点jit-コンパイルと型推論"><a class="header" href="#低レイヤーの視点jit-コンパイルと型推論">低レイヤーの視点：JIT コンパイルと型推論</a></h2>
+<p>「動的型付け言語は実行が遅い」と言われていたのは、一昔前の話です。
+現代のブラウザ（Google Chrome など）に搭載されている <strong>V8 エンジン</strong> は、驚異的な工夫をしています。</p>
+<p>TODO: [V8エンジンの最適化戦略]を解説する記事へのリンクを貼る</p>
+<p>JavaScript が実行されている間、エンジンは常に監視しています。「この <code>add</code> 関数、いつも数値を引数に取っているな……」と判断すると、その関数を <strong>数値専用の高速な機械語</strong> にコンパイル（最適化）します。これを <strong>JIT (Just-In-Time) コンパイル</strong> と呼びます。</p>
+<p>しかし、もし途中で「文字列」が渡されたりすると、せっかく作った最適化コードが使えなくなり、低速な汎用コードに戻ってしまいます（デ最適化）。
+型を意識して一貫したコードを書くことは、ブラウザにとっても「速く走れる」道を作ることになるのです。</p>
+<h2 id="私の視点typescript-への招待状"><a class="header" href="#私の視点typescript-への招待状">私の視点：TypeScript への招待状</a></h2>
+<p>正直に言いましょう。JavaScript だけを使って大きなアプリを作るのは、目隠しをして綱渡りをするようなものです。
+そこで登場するのが、次の章で学ぶ <strong>TypeScript</strong> です。</p>
+<p>TypeScript は、JavaScript に「型を明示する機能」を追加した言語です。
+「ここには絶対数値を入れる！」と宣言しておけば、間違ったコードを書いた瞬間にエディタが赤線を引いて教えてくれます。
+JavaScript の「型の自由さ」に少し不安を感じ始めたら、それはあなたがプロのエンジニアへの階段を上り始めた証拠ですよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>JavaScript は「動的型付け言語」で、実行中に型が変わる。</li>
+<li><code>typeof</code> で型をチェックできるが、<code>null</code> の判定などクセがある。</li>
+<li>暗黙の型変換を避けるため、比較は常に <code>===</code> を使う。</li>
+<li>エラーメッセージは、場所と理由を教えてくれる大切な情報源。</li>
+<li>V8 エンジンは「型の一貫性」があるコードを高速に実行できる。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>型の重要性がわかったところで、次は JavaScript の真のパワーを発揮する「関数定義」と、さらに複雑な「オブジェクト型」の深い世界を探索しましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Data_structures">MDN: JavaScript のデータ型とデータ構造</a></li>
+<li><a href="https://github.com/getify/You-Dont-Know-JS">You Don’t Know JS (型と強制に関する深い解説)</a></li>
+</ul>
+<hr>
+<p>TODO: JavaScript の暗黙の型変換表へのリンクを貼る</p>
 
                     </main>
 

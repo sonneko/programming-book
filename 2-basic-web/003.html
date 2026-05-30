@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,36 +178,84 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="cssの文法"><a class="header" href="#cssの文法">cssの文法</a></h1>
-<p>HTMLが「骨組み（構造）」だとしたら、CSS (Cascading Style Sheets) は「化粧（装飾）」です。CSSを使うことで、文字の色を変えたり、要素を横に並べたり、アニメーションを加えたりすることができます。</p>
-<h3 id="基本的な書き方"><a class="header" href="#基本的な書き方">基本的な書き方</a></h3>
-<p>CSSは「どこ（セレクター）の」「何を（プロパティ）」「どうするか（値）」という形式で書きます。</p>
+<p>HTML が「骨組み（構造）」だとしたら、<strong>CSS (Cascading Style Sheets)</strong> は「化粧（装飾）」です。CSS を使うことで、文字の色を変えたり、要素を横に並べたり、アニメーションを加えたり、私たちが「Web デザイン」と呼ぶあらゆる視覚効果を実現できます。</p>
+<p>私が初めて CSS で背景色を変えたとき、自分のコードが「デザイン」に変わる瞬間にゾクゾクしたのを覚えています。</p>
+<h2 id="基本的な書き方セレクタープロパティ値"><a class="header" href="#基本的な書き方セレクタープロパティ値">基本的な書き方：セレクター、プロパティ、値</a></h2>
+<p>CSS の基本形は、以下の 3 つの要素で構成されます。</p>
 <pre><code class="language-css">h1 {
   color: blue;
   font-size: 24px;
 }
 </code></pre>
+<ol>
+<li><strong>セレクター (Selector)</strong>: 「どこを」装飾するか（ここでは <code>h1</code> タグ）。</li>
+<li><strong>プロパティ (Property)</strong>: 「何を」変えるか（ここでは <code>color</code> や <code>font-size</code>）。</li>
+<li><strong>値 (Value)</strong>: 「どう」するか（ここでは <code>blue</code> や <code>24px</code>）。</li>
+</ol>
+<p>プロパティと値の間には <code>:</code>（コロン）を置き、最後には必ず <code>;</code>（セミコロン）を付けます。この <code>;</code> を忘れると、次の行のスタイルが読み込まれず、原因不明の「スタイルが適用されない」問題に悩まされることになるので注意しましょう。</p>
+<h2 id="css-をどこに書くか3つの方法"><a class="header" href="#css-をどこに書くか3つの方法">CSS をどこに書くか？（3つの方法）</a></h2>
+<p>CSS を HTML に適用する方法は主に 3 つありますが、現場では <strong>「外部ファイル方式」</strong> が圧倒的に使われます。</p>
+<ol>
+<li>
+<p><strong>外部ファイル方式（推奨）</strong>:
+<code>.css</code> という拡張子のファイルを別途作り、HTML の <code>head</code> 内で読み込みます。</p>
+<pre><code class="language-html">&lt;link rel="stylesheet" href="style.css"&gt;
+</code></pre>
+<p>HTML（構造）と CSS（デザイン）を完全に切り分けることで、管理が非常に楽になります。</p>
+</li>
+<li>
+<p><strong>内部スタイルシート方式</strong>:
+HTML の <code>head</code> 内に <code>&lt;style&gt;</code> タグを書いて、その中に直接記述します。特定の 1 ページだけに適用したいときに使われます。</p>
+</li>
+<li>
+<p><strong>インラインスタイル方式</strong>:
+HTML タグに直接 <code>style="..."</code> 属性を書きます。</p>
+<pre><code class="language-html">&lt;p style="color: red;"&gt;この文だけ赤くする&lt;/p&gt;
+</code></pre>
+<p>緊急の修正などには便利ですが、多用すると HTML が読みづらくなる（「密結合」になる）ため、極力避けるべきとされています。</p>
+</li>
+</ol>
+<h2 id="カスケーディングスタイルの優先順位"><a class="header" href="#カスケーディングスタイルの優先順位">カスケーディング：スタイルの優先順位</a></h2>
+<p>CSS の名前にある <strong>Cascading（カスケーディング：滝のように流れる）</strong> とは、複数のスタイルが衝突したときに、どのルールを優先するかを決める仕組みのことです。</p>
+<p>例えば、ある要素に対して 3 つの場所から色が指定されていたら、どうなるでしょうか？</p>
+<pre><code class="language-css">p { color: blue; } /* ルールA */
+.red-text { color: red; } /* ルールB */
+#main-paragraph { color: green; } /* ルールC */
+</code></pre>
+<p>優先順位は、<strong>「詳細度（Specificity）」</strong> という点数計算で決まります。</p>
 <ul>
-<li><strong>セレクター (Selector)</strong>: 装飾したい対象（ここでは <code>h1</code> タグ）。</li>
-<li><strong>プロパティ (Property)</strong>: 変えたい項目（ここでは <code>color</code> や <code>font-size</code>）。</li>
-<li><strong>値 (Value)</strong>: 具体的な設定（ここでは <code>blue</code> や <code>24px</code>）。</li>
+<li><strong>ID セレクター (<code>#</code>)</strong>: 100点（最強）</li>
+<li><strong>クラス セレクター (<code>.</code>)</strong>: 10点</li>
+<li><strong>要素 セレクター (<code>p</code>)</strong>: 1点</li>
 </ul>
-<p>これら一式を <strong>宣言ブロック</strong> と呼びます。</p>
-<h3 id="どこに書くか"><a class="header" href="#どこに書くか">どこに書くか？</a></h3>
-<p>CSSを書く方法はいくつかありますが、基本的にはHTMLとは別のファイル（<code>.css</code>）に書き、HTMLから読み込みます。</p>
-<p><strong>index.html</strong></p>
-<pre><code class="language-html">&lt;head&gt;
-  &lt;link rel="stylesheet" href="style.css"&gt;
-&lt;/head&gt;
-</code></pre>
-<p><strong>style.css</strong></p>
-<pre><code class="language-css">p {
-  color: red;
-}
-</code></pre>
-<h3 id="カスケーディング-cascading"><a class="header" href="#カスケーディング-cascading">カスケーディング (Cascading)</a></h3>
-<p>CSSの名前にある「Cascading（滝のように流れる）」とは、複数のルールが衝突したときに、どのルールを優先するかを決める仕組みのことです。</p>
-<p>上から下へ流れるように適用され、より具体的な指定（セレクターの強さ）が勝つようになっています。</p>
-<p>TODO: CSSの優先順位（詳細度）の計算ルールを解説する記事へのリンクを貼る</p>
+<p>TODO: [詳細度の計算ルール]を解説する記事へのリンクを貼る</p>
+<p>もし点数が同じなら、<strong>「後から書かれたもの」</strong> が上書きして適用されます。まさに「滝」のように、上から下へ流れていき、最後に書かれたものが有効になるのです。</p>
+<h2 id="低レイヤーの視点スタイルの再計算recalc-style"><a class="header" href="#低レイヤーの視点スタイルの再計算recalc-style">低レイヤーの視点：スタイルの再計算（Recalc Style）</a></h2>
+<p>ブラウザの内部では、CSS はどのように処理されているのでしょうか。</p>
+<p>ブラウザは HTML を解析して <strong>DOM</strong> を作るのと同時に、CSS を解析して <strong>CSSOM</strong> (<em>CSS Object Model</em>) という木構造を作ります。
+そして、この 2 つを合体させて <strong>「レンダーツリー（<em>Render Tree</em>）」</strong> を構築します。</p>
+<p>TODO: [ブラウザのレンダリングパイプライン]を解説する記事へのリンクを貼る</p>
+<p>CSS を 1 行書き換えるたびに、ブラウザは「この変更は画面のどの範囲に影響するか？」を計算し直します。
+例えば、文字の色を変えるだけなら高速ですが、要素の幅（<code>width</code>）を変えると、その周囲の要素すべての位置がずれるため、再計算（<em>Layout/Reflow</em>）に大きな負荷がかかります。
+パフォーマンスの良い Web サイトを作るには、ブラウザが「楽に計算できる」ような CSS を書く視点が欠かせません。</p>
+<h2 id="私の視点css-は論理である"><a class="header" href="#私の視点css-は論理である">私の視点：CSS は「論理」である</a></h2>
+<p>よく「デザインはセンスだ」と言われますが、コーディングにおける CSS は、むしろ「数学」や「論理」に近いです。
+「なぜこの要素がここに配置されているのか」「なぜこの色が優先されているのか」は、すべてルールによって説明がつきます。</p>
+<p>感覚で書くのではなく、CSS の仕組み（ボックスモデル、詳細度、継承など）を理解して書くようになると、どんな複雑なデザインもパズルのように組み立てられるようになりますよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>CSS は「セレクター { プロパティ: 値; }」の形式で書く。</li>
+<li>HTML とは別の <code>.css</code> ファイルに書くのが現代のスタンダード。</li>
+<li>「カスケーディング」によって、優先順位が自動的に決まる。</li>
+<li>ブラウザ内部では DOM と CSSOM が合体して画面が作られる。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>文法を理解したら、次は HTML の具体的な「タグ」の種類について学んでいきましょう。どのタグを使い、どう CSS を当てるのが「正解」なのか、そのヒントをお話しします。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Learn/Getting_started_with_the_web/CSS_basics">MDN: CSS の第一歩</a></li>
+<li><a href="https://specificity.keegan.st/">CSS 詳細度計算 (ツール)</a></li>
+</ul>
 
                     </main>
 

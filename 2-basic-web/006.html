@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,38 +178,71 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="よく使うcssプロパティ"><a class="header" href="#よく使うcssプロパティ">よく使うcssプロパティ</a></h1>
-<p>CSSプロパティは膨大な数がありますが、まずはレイアウトと文字装飾に関する基本をマスターしましょう。</p>
-<h3 id="ボックスモデル"><a class="header" href="#ボックスモデル">ボックスモデル</a></h3>
-<p>CSSの最も重要な概念は、すべての要素が「箱（ボックス）」であるということです。</p>
+<p>CSS のプロパティは膨大な数があり、すべてを丸暗記するのは不可能です。プロのエンジニアも、必要に応じてリファレンスを引きながら書いています。</p>
+<p>しかし、<strong>「これだけは理解していないとレイアウトが組めない」</strong> というコアなプロパティがいくつか存在します。特に、すべての要素に共通する「ボックスモデル」の概念は、CSS 攻略の最重要ポイントです。</p>
+<h2 id="1-css-の神髄ボックスモデル"><a class="header" href="#1-css-の神髄ボックスモデル">1. CSS の神髄：ボックスモデル</a></h2>
+<p>CSS の世界では、すべての要素（見出し、画像、段落など）は <strong>「四角い箱（ボックス）」</strong> として扱われます。この箱は、以下の 4 つの層で構成されています。</p>
 <ol>
-<li><strong>width / height</strong>: 箱の幅と高さ。</li>
-<li><strong>margin</strong>: 箱の外側の余白。</li>
-<li><strong>padding</strong>: 箱の内側の余白。</li>
-<li><strong>border</strong>: 箱の枠線。</li>
+<li><strong>Content (コンテンツ)</strong>: テキストや画像が実際に表示されるエリア。</li>
+<li><strong>Padding (パディング)</strong>: コンテンツと枠線の間の <strong>「内側の余白」</strong>。</li>
+<li><strong>Border (ボーダー)</strong>: 箱を囲む <strong>「枠線」</strong>。</li>
+<li><strong>Margin (マージン)</strong>: 枠線の外側の <strong>「外側の余白」</strong>。他の要素との距離を保つのに使います。</li>
 </ol>
-<p>これらの数値をピクセル単位で微調整していくのが、コーディングの基本作業になります。</p>
-<h3 id="文字装飾"><a class="header" href="#文字装飾">文字装飾</a></h3>
+<pre><code class="language-css">.box {
+  width: 300px;
+  padding: 20px;
+  border: 5px solid black;
+  margin: 10px;
+}
+</code></pre>
+<p>TODO: [ボックスモデルの視覚的解説]を解説する記事へのリンクを貼る</p>
+<p>ここで初心者が必ずハマるのが、<strong>「箱の合計幅」</strong> の計算です。
+デフォルトでは、<code>width</code> は 1 の「コンテンツ」の幅だけを指します。つまり、上の例だと全体の幅は <code>300 + 20*2 + 5*2 = 350px</code> になります。
+これを直感的に（<code>width</code> を全体の合計幅にする）するために、最近は以下の設定を「おまじない」として最初に入れるのが主流です。</p>
+<pre><code class="language-css">* { box-sizing: border-box; }
+</code></pre>
+<h2 id="2-文字と色の装飾"><a class="header" href="#2-文字と色の装飾">2. 文字と色の装飾</a></h2>
+<p>見た目を整えるための、基本のプロパティです。</p>
 <ul>
-<li><strong>color</strong>: 文字の色。</li>
-<li><strong>font-size</strong>: 文字の大きさ。</li>
-<li><strong>font-family</strong>: フォントの種類（ゴシック体、明朝体など）。</li>
-<li><strong>text-align</strong>: 文字の揃え（left, center, right）。</li>
+<li><strong><code>color</code></strong>: 文字の色。<code>red</code> などの名前や、<code>#ff0000</code> などの 16 進数、<code>rgb(255, 0, 0)</code> で指定します。</li>
+<li><strong><code>font-size</code></strong>: 文字の大きさ。<code>px</code> 以外に <code>rem</code>（後述）などが使われます。</li>
+<li><strong><code>font-weight</code></strong>: 文字の太さ。<code>bold</code> など。</li>
+<li><strong><code>text-align</code></strong>: 行の中での文字の揃え方（<code>left</code>, <code>center</code>, <code>right</code>）。</li>
+<li><strong><code>background-color</code></strong>: 背景の色。</li>
 </ul>
-<h3 id="色と背景"><a class="header" href="#色と背景">色と背景</a></h3>
+<h2 id="3-単位の使い分けpx--rem"><a class="header" href="#3-単位の使い分けpx--rem">3. 単位の使い分け：px, %, rem</a></h2>
+<p>CSS で数値を指定するときの「単位」選びは、モダンな Web 制作では非常に重要です。</p>
 <ul>
-<li><strong>background-color</strong>: 背景色。</li>
-<li><strong>opacity</strong>: 不透明度（0〜1）。</li>
+<li><strong><code>px</code> (ピクセル)</strong>: 画面の最小単位に基づく固定値。分かりやすいですが、スマホで見ると小さすぎるといった問題が起きやすいです。</li>
+<li><strong><code>%</code></strong>: 親要素の大きさを基準とした相対値。横幅の指定などによく使われます。</li>
+<li><strong><code>rem</code> (レム)</strong>: ページ全体の基本のフォントサイズ（通常 16px）を <code>1</code> とした相対値。<strong>「アクセシビリティ」の観点から、フォントサイズにはこれを使うのが推奨されます。</strong>（ユーザーがブラウザ設定で文字を大きくしたときに追随できるため）</li>
 </ul>
-<h3 id="単位の使い分け"><a class="header" href="#単位の使い分け">単位の使い分け</a></h3>
-<p>初心者はすべて <code>px</code>（ピクセル）で書きがちですが、状況に応じて単位を使い分けた方が良い。</p>
+<h2 id="低レイヤーの視点ピクセルと解像度"><a class="header" href="#低レイヤーの視点ピクセルと解像度">低レイヤーの視点：ピクセルと解像度</a></h2>
+<p>私たちが CSS で <code>1px</code> と指定したとき、それはスマホの液晶の「1ドット」と同じだと思っていませんか？</p>
+<p>実は、iPhone などの高精細なディスプレイ（Retina ディスプレイ）では、<strong>1つの「論理ピクセル」を 2〜3 個の「物理ピクセル」で描画しています。</strong></p>
+<p>TODO: [デバイスピクセル比]を解説する記事へのリンクを貼る</p>
+<p>これを <strong>デバイスピクセル比 (DPR)</strong> と呼びます。もし画像を表示するとき、CSS で指定したサイズぴったりの画像を用意すると、スマホではボケて見えてしまいます。そのため、実際には 2 倍や 3 倍の大きさの画像を用意して、CSS でギュッと縮めて表示するのが、綺麗なサイトを作るコツなのです。</p>
+<h2 id="私の視点マージンの相殺に気をつけろ"><a class="header" href="#私の視点マージンの相殺に気をつけろ">私の視点：マージンの「相殺」に気をつけろ</a></h2>
+<p>CSS を書いていて、「上下のマージンが思ったより狭いな？」と思ったら、それは <strong>「マージンの相殺 (Margin Collapse)」</strong> が起きているかもしれません。
+縦に並んだ 2 つの要素にそれぞれ <code>margin: 20px</code> を設定したとき、合計は 40px にならず、重なり合って 20px になってしまいます。</p>
+<p>これは CSS の仕様の中でもかなりトリッキーな部分です。「なぜ？」と悩むより、「そういう仕様なんだ」と受け入れて、<code>padding</code> で調整するようにすると、ストレスが減りますよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
 <ul>
-<li><strong>px</strong>: 固定値。</li>
-<li><strong>%</strong>: 親要素に対する割合。</li>
-<li><strong>rem / em</strong>: フォントサイズを基準とした相対値。</li>
-<li><strong>vw / vh</strong>: 画面の幅・高さに対する割合。</li>
+<li>すべての要素は <code>Padding</code>, <code>Border</code>, <code>Margin</code> を持つ「ボックス」である。</li>
+<li><code>box-sizing: border-box;</code> は最初に入れておくと計算が楽。</li>
+<li>単位は固定（<code>px</code>）だけでなく、相対（<code>%</code>, <code>rem</code>）を使い分けよう。</li>
+<li>スマホでは 1px が複数のドットで描画される（DPR）。</li>
+<li>上下マージンの相殺など、CSS 特有のクセに注意。</li>
 </ul>
-<p>特に <code>rem</code> や <code>%</code> を適切に使うことで、スマートフォンのような画面サイズの異なる端末でも綺麗に見える「レスポンシブデザイン」が実現しやすくなります。</p>
-<p>TODO: CSSボックスモデルの図解を解説する記事へのリンクを貼る</p>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>プロパティを覚えたら、次はそれらを快適に記述するためのツール「Visual Studio Code」を導入しましょう。プロの環境を手に入れて、制作効率を爆上げします。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Learn/CSS/Building_blocks/The_box_model">MDN: ボックスモデル</a></li>
+<li><a href="https://qiita.com/stanko/items/67636e2d14f447783938">CSS 単位の使い分けガイド</a></li>
+</ul>
+<hr>
+<p>TODO: ボックスモデルの計算を試せるインタラクティブなサイトへのリンクを貼る</p>
 
                     </main>
 

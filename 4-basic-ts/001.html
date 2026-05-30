@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,18 +178,54 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="nodejs導入ランタイムの深層"><a class="header" href="#nodejs導入ランタイムの深層">Node.js導入：ランタイムの深層</a></h1>
-<p>TypeScriptを扱う前段階として、JavaScriptの実行環境であるNode.jsの導入が不可欠です。多くの初心者はNode.jsを単なる「JavaScriptを動かすためのアプリ」だと考えがちですが、それは少し違います。Node.jsは、ブラウザ以外でJavaScriptを実行可能にするランタイムであり、その核心はGoogle Chromeのために開発されたV8エンジンそのものです。</p>
-<h3 id="nodejsの役割と低レイヤーの現実"><a class="header" href="#nodejsの役割と低レイヤーの現実">Node.jsの役割と低レイヤーの現実</a></h3>
-<p>V8エンジンは、単なるインタプリタではありません。JavaScriptコードを直接機械語（マシンコード）に変換するJIT（Just-In-Time）コンパイラを備えています。つまり、あなたが書いたJavaScriptコードは、実行時にV8によって徹底的に最適化され、驚異的な速度でCPU上で実行されます。</p>
-<p>Node.jsの真価は、このV8に、ファイルシステムへのアクセス、ネットワーク通信、ストリーム処理といったOSの低レイヤー機能（システムコール）をラップして提供する「libuv」というライブラリを統合した点にあります。この抽象化こそが、JavaScriptでWebサーバーを構築する際に、非同期I/Oという強力な武器を可能にしている理由です。プログラミングの本質は「データの変換」です。Node.jsは、ネットワークからのバイトストリームを、あなたのアプリケーションロジックが扱うJSONデータへ、そしてまたレスポンスとして変換するパイプラインをOSレベルで支えています。</p>
-<h3 id="導入方法nvmの哲学"><a class="header" href="#導入方法nvmの哲学">導入方法：nvmの哲学</a></h3>
-<p>公式のインストール方法として、<code>nvm</code>（Node Version Manager）を利用することを強く推奨します。なぜOS標準のパッケージマネージャ（aptやbrewなど）を使わないのか？ それは、「Node.jsのバージョン」と「OSのライブラリ環境」を分離するためです。</p>
-<pre><code class="language-bash"># nvmを使ったインストール例
-nvm install --lts
-nvm use --lts
+<p>TypeScript の学習を始める前に、まずはその土台となる JavaScript の実行環境、<strong>Node.js</strong> を導入する必要があります。</p>
+<p>多くの初心者は Node.js を単なる「JavaScript を動かすためのアプリ」だと考えがちですが、それは少し違います。Node.js は、ブラウザの外側（PC の OS 上など）で JavaScript を実行可能にする <strong>ランタイム（実行環境）</strong> です。その核心には、Google Chrome のために開発された最強のエンジン <strong>V8</strong> が鎮座しています。</p>
+<h2 id="1-nodejs-の正体v8-と-libuv-の融合"><a class="header" href="#1-nodejs-の正体v8-と-libuv-の融合">1. Node.js の正体：V8 と libuv の融合</a></h2>
+<p>Node.js の仕組みを深く知ることは、なぜ TypeScript がこれほどまでに普及したのかを理解する助けになります。Node.js は、大きく分けて 2 つの巨大な技術で構成されています。</p>
+<h3 id="v8-エンジンマシンへの翻訳者"><a class="header" href="#v8-エンジンマシンへの翻訳者">V8 エンジン：マシンへの翻訳者</a></h3>
+<p>V8 は単なるインタプリタではありません。JavaScript コードを読み込み、実行時に直接機械語（マシンコード）に変換する <strong>JIT（Just-In-Time）コンパイラ</strong> を備えています。</p>
+<p>TODO: [JITコンパイル]を解説する記事へのリンクを貼る</p>
+<p>あなたが書いた JavaScript は、V8 によって徹底的に解析・最適化され、驚異的な速度で CPU 上を駆け抜けます。この「爆速」の実行エンジンをブラウザから引き剥がし、サーバーサイドで使えるようにしたのが Node.js の始まりです。</p>
+<h3 id="libuvos-との架け橋"><a class="header" href="#libuvos-との架け橋">libuv：OS との架け橋</a></h3>
+<p>JavaScript 自体には、ファイルを読み書きしたり、ネットワーク通信を行ったりする機能はありません。これらは OS（Windows, Mac, Linux）が持つ機能です。
+Node.js は、<strong>libuv</strong> というライブラリを介して、JavaScript から OS の低レイヤー機能（システムコール）を呼び出せるようにしています。</p>
+<p>プログラミングの本質は「データの変換」です。Node.js は、ネットワークから流れてくるバイトの塊を、あなたのコードが扱える JSON データへと変換し、またレスポンスとして世界へ送り出す。このパイプラインを OS レベルで支えているのです。</p>
+<h2 id="2-導入方法nvm-の哲学"><a class="header" href="#2-導入方法nvm-の哲学">2. 導入方法：nvm の哲学</a></h2>
+<p>Node.js のインストールには、公式サイトからインストーラーを落としてくるのではなく、<strong><code>nvm</code> (Node Version Manager)</strong> という管理ツールを使うことを強く推奨します。</p>
+<p>なぜわざわざ手間をかけるのでしょうか？ それは、プロジェクトによって「必要な Node.js のバージョンが違う」という現実があるからです。</p>
+<pre><code class="language-bash"># nvm を使ったインストール例
+nvm install 22        # 最新のメジャーバージョン
+nvm install --lts    # 長期サポート版 (Long Term Support)
+nvm use 22            # 使用するバージョンを切り替える
 </code></pre>
-<p>開発において「環境」は最大の敵です。あるプロジェクトではNode.js 18、別のプロジェクトではNode.js 22が必要になることは珍しくありません。nvmを使えば、バイナリのパスを簡単に切り替えられます。これは、単なる便利なツールというだけではなく、環境依存のバグという「悪夢」から自分を守るための、エンジニアリングにおける必須の防御術なのです。</p>
-<p>Node.jsは、単なる実行基盤ではなく、あなたのコードがハードウェアと対話するためのインターフェースです。まずは、この土台をしっかりと構築することから始めましょう。</p>
+<p>開発において「環境」は最大の敵です。ある古いプロジェクトでは Node.js 18 でないと動かず、新しいプロジェクトでは Node.js 22 の機能を使いたい……。そんなとき、nvm がなければ PC 全体の Node.js を入れ直す羽目になります。
+nvm を使って環境を「分離」し「管理」することは、環境依存のバグという「悪夢」から自分を守るための、エンジニアリングにおける必須の防御術なのです。</p>
+<h2 id="低レイヤーの視点シングルスレッドとイベントループ"><a class="header" href="#低レイヤーの視点シングルスレッドとイベントループ">低レイヤーの視点：シングルスレッドとイベントループ</a></h2>
+<p>Node.js の最大の特徴は、<strong>「シングルスレッド・ノンブロッキング I/O」</strong> です。</p>
+<p>TODO: [イベントループ]を解説する記事へのリンクを貼る</p>
+<p>普通の言語（Java や Python の一部など）は、1 つの接続に対して 1 つのスレッド（実行の単位）を割り当てます。しかし Node.js は、たった 1 つのスレッドで数万件の接続をさばきます。
+重い処理（ファイルの読み込みなど）を OS に放り投げ、自分は次の仕事へ。OS から「終わったよ！」と連絡（コールバック）が来たら、その続きを処理する。
+この「待ち時間を無駄にしない」賢い仕組みがあるからこそ、Node.js は大量の通信が発生するリアルタイムな Web サービスに非常に強いのです。</p>
+<h2 id="私の視点土台を固めることの重要性"><a class="header" href="#私の視点土台を固めることの重要性">私の視点：土台を固めることの重要性</a></h2>
+<p>「早く TypeScript を書きたい！」と焦る気持ちはわかります。でも、自分のコードが「どこで」「どうやって」動いているのかを知っているエンジニアと、そうでないエンジニアの間には、トラブルが起きたときに対応できる深さに決定的な差が出ます。</p>
+<p>Node.js は、あなたのコードがハードウェアと対話するためのインターフェースです。まずは、この土台をしっかりと構築し、<code>node -v</code> と打ってバージョンが表示される喜びを噛み締めることから始めましょう。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>Node.js は V8 エンジンと libuv で構成された JavaScript ランタイム。</li>
+<li>V8 は JIT コンパイルによって JS を高速な機械語に変換する。</li>
+<li>導入にはバージョン管理ツール <code>nvm</code> を使うのがプロのスタンダード。</li>
+<li>「イベントループ」による非同期 I/O が Node.js の強さの源泉。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>Node.js という土台ができたら、次は世界中の便利なライブラリをあなたのプロジェクトに取り込むための道具、<strong><code>npm</code></strong> の使い方をマスターしましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://nodejs.org/">Node.js 公式サイト</a></li>
+<li><a href="https://github.com/nvm-sh/nvm">nvm (Node Version Manager) GitHub</a></li>
+<li><a href="https://libuv.org/">libuv 公式ドキュメント (英語)</a></li>
+</ul>
+<hr>
+<p>TODO: Windows 環境で nvm-windows をセットアップする手順へのリンクを貼る</p>
 
                     </main>
 

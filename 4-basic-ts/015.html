@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,34 +178,86 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="非同期関数"><a class="header" href="#非同期関数">非同期関数</a></h1>
-<p><code>async</code> 関数と <code>await</code> キーワードを使用することで、非同期処理を非常に直感的に、まるで同期処理を記述するかのように記述できます。</p>
-<h3 id="asyncawaitの利用"><a class="header" href="#asyncawaitの利用">async/awaitの利用</a></h3>
-<pre><code class="language-typescript">// fetchData関数は、最終的に string を解決する Promise を返す
-async function fetchData(): Promise&lt;string&gt; {
+<p>前章で Promise の仕組みを学びましたが、正直に言って <code>.then()</code> や <code>.catch()</code> を延々と繋げるのは、少し読みづらいと感じませんでしたか？ 処理が複雑になればなるほど、数珠つなぎのコードは「今、どこの階層にいるのか」を見失わせます。</p>
+<p>そこで登場したのが、現代の JavaScript/TypeScript における非同期処理の決定版、<strong><code>async</code></strong> と <strong><code>await</code></strong> です。これを使うことで、非同期処理をまるで「普通の同期的なコード」のように、上から下へ流れるように書くことができます。</p>
+<h2 id="1-asyncawait-の魔法"><a class="header" href="#1-asyncawait-の魔法">1. async/await の魔法</a></h2>
+<p>まずは、同じ処理を Promise 版と async/await 版で比較してみましょう。</p>
+<pre><code class="language-typescript">// Promise 版
+function getUserData() {
+  return fetch('/api/user')
+    .then(res =&gt; res.json())
+    .then(user =&gt; console.log(user))
+    .catch(err =&gt; console.error(err));
+}
+
+// async/await 版
+async function getUserData() {
   try {
-    const response = await fetch('https://api.example.com/data');
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    return data.message;
-  } catch (error) {
-    console.error('Fetch error:', error);
-    throw error; // エラーを再スローして呼び出し元で処理させる
+    const res = await fetch('/api/user');
+    const user = await res.json();
+    console.log(user);
+  } catch (err) {
+    console.error(err);
   }
 }
 </code></pre>
+<p>どうでしょうか？ <code>async/await</code> 版の方が、どこで何を取得して、次に何をするのかが直感的にわかりますよね。</p>
 <ul>
-<li><code>async</code> キーワード: 関数が常に <code>Promise</code> を返すことを保証します。値を直接返しても、自動的に <code>Promise.resolve(値)</code> でラップされます。</li>
-<li><code>await</code> キーワード: <code>Promise</code> が解決（成功）されるまで、その関数の実行を一時停止します。結果が返されたら、その値を抽出して処理を再開します。</li>
+<li><strong><code>async</code> キーワード</strong>: 関数の前に付けると、その関数は自動的に <strong>「Promise を返す関数」</strong> になります。</li>
+<li><strong><code>await</code> キーワード</strong>: Promise の前に付けると、<strong>「その処理が終わるまで、そこで一旦停止して待つ」</strong> という魔法が発動します。処理が終わると、Promise の中身（解決された値）をそのまま取り出して変数に代入できます。</li>
 </ul>
-<h3 id="非同期処理の注意点"><a class="header" href="#非同期処理の注意点">非同期処理の注意点</a></h3>
-<p><code>async/await</code> を使用する際に注意すべき点があります。</p>
+<h2 id="2-try-catch-による美しいエラーハンドリング"><a class="header" href="#2-try-catch-による美しいエラーハンドリング">2. try-catch による美しいエラーハンドリング</a></h2>
+<p><code>async/await</code> のもう一つの大きなメリットは、エラーハンドリングです。
+Promise の <code>.catch()</code> ではなく、プログラミングでおなじみの <strong><code>try...catch</code></strong> 構文がそのまま使えます。</p>
+<pre><code class="language-typescript">async function safeFetch() {
+  try {
+    const data = await doSomethingRisky();
+    return data;
+  } catch (error) {
+    // ネットワークエラーも、JSONのパースエラーも、全部ここで捕まえられる
+    console.log("エラーが起きたけど、冷静に対処します");
+  }
+}
+</code></pre>
+<p>TODO: [例外処理のベストプラクティス]を解説する記事へのリンクを貼る</p>
+<h2 id="低レイヤーの視点ジェネレータとステートマシン"><a class="header" href="#低レイヤーの視点ジェネレータとステートマシン">低レイヤーの視点：ジェネレータとステートマシン</a></h2>
+<p>「関数が途中で止まる」なんて、コンピュータにとってそんなことが可能なのでしょうか？</p>
+<p>実は、<code>async/await</code> はコンパイラ（TypeScript コンパイラや Babel）によって、内部的には <strong>「ステートマシン（状態遷移図）」</strong> のような形に書き換えられています。</p>
+<p>TODO: [ジェネレータ関数とイテレータ]を解説する記事へのリンクを貼る</p>
 <ol>
-<li><strong>直列実行と並列実行の意識</strong>: 複数の非同期処理がある場合、すべての処理を順次 <code>await</code> してしまうと、処理時間が合計されて遅くなります。独立した処理なら、<code>Promise.all()</code> を使って並列実行すべきです。</li>
-<li><strong>エラーハンドリング</strong>: <code>await</code> を使用する際、必ず <code>try-catch</code> ブロックで囲むことを推奨します。これにより、同期コードと同じ感覚で堅牢なエラーハンドリングが実装可能です。</li>
+<li><code>await</code> に出会うと、関数はその時点のローカル変数（状態）をメモリに保存して、一旦実行を終了（中断）し、制御をイベントループに戻します。</li>
+<li>非同期処理が終わると、保存しておいた状態をメモリから復元し、<code>await</code> の直後から実行を再開します。</li>
 </ol>
-<p>非同期関数を理解することで、複雑な外部APIの呼び出しやデータベース操作を、クリーンで安全なコードとして記述できるようになります。</p>
+<p>これは CPU のレジスタを切り替える「コンテキストスイッチ」にも似た、非常に高度な制御を JavaScript エンジンが行ってくれているのです。</p>
+<h2 id="私の視点直列の罠に気をつけろ"><a class="header" href="#私の視点直列の罠に気をつけろ">私の視点：直列の罠に気をつけろ！</a></h2>
+<p><code>async/await</code> はあまりに便利すぎて、初心者が陥りやすい罠があります。それが <strong>「不必要な直列実行」</strong> です。</p>
+<pre><code class="language-typescript">// 悪い例：1つ目の取得が終わるまで、2つ目を始めない（時間がかかる）
+const user = await fetchUser();
+const posts = await fetchPosts();
+
+// 良い例：両方同時にスタートさせて、両方終わるのを待つ
+const [user, posts] = await Promise.all([fetchUser(), fetchPosts()]);
+</code></pre>
+<p><code>await</code> は「待つ」コマンドです。前の処理を待つ必要がないのに <code>await</code> を連発すると、アプリの動作がどんどん遅くなってしまいます。
+「これは待つ必要があるか？ それとも同時にできるか？」を常に自問自答できるようになると、パフォーマンスに強いエンジニアになれますよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li><code>async</code> 関数は、常に Promise を返す。</li>
+<li><code>await</code> は Promise が完了するまで実行を一時停止し、中身を取り出す。</li>
+<li><code>try-catch</code> を使うことで、非同期のエラーも同期的に処理できる。</li>
+<li>裏側では「ステートマシン」として、実行の中断と再開が行われている。</li>
+<li>独立した処理は <code>Promise.all</code> で並列化して、速度を稼ごう。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>TypeScript の非同期処理までマスターしたあなたは、もう立派な TypeScript 使いです。
+次は、この章で学んだすべての知識を総括し、さらなる高み（React やバックエンド開発）へと進むための準備を整えましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/async_function">MDN: async function</a></li>
+<li><a href="https://jakearchibald.com/2017/await-vs-return-vs-yield/">Await vs Return vs Yield (英語の深い解説)</a></li>
+</ul>
+<hr>
+<p>TODO: トップレベル await (Top-level await) の使い方を解説する記事へのリンクを貼る</p>
 
                     </main>
 

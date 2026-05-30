@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,21 +178,63 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="visualstudiocodeの導入"><a class="header" href="#visualstudiocodeの導入">VisualStudioCodeの導入</a></h1>
-<p>プログラミングはメモ帳でもできますが、効率を劇的に上げるために <strong>エディタ</strong> を使いましょう。現在、世界で最も使われているのが Microsoftの開発した <strong>Visual Studio Code (VS Code)</strong> です。</p>
-<h3 id="なぜ-vs-code-なのか"><a class="header" href="#なぜ-vs-code-なのか">なぜ VS Code なのか？</a></h3>
+<p>プログラミングは、極論すれば「メモ帳」でも書くことができます。しかし、世界中のプロのエンジニアがメモ帳でコードを書くことはありません。なぜなら、開発を劇的に速く、正確にし、何より「楽しく」してくれる最高の相棒が存在するからです。</p>
+<p>その相棒が、Microsoft が開発した <strong>Visual Studio Code (VS Code)</strong> です。</p>
+<p>私が初めて VS Code を使ったとき、今まで 1 時間かかっていたタイピングやデバッグが、わずか数分で終わるようになった衝撃は今でも忘れられません。ここでは、その導入と Web 制作を爆速にするための設定をお話しします。</p>
+<h2 id="なぜ-vs-code-が選ばれるのか"><a class="header" href="#なぜ-vs-code-が選ばれるのか">なぜ VS Code が選ばれるのか？</a></h2>
+<p>現在、世界で最も使われているコードエディタは VS Code です。その理由は、単に「無料だから」だけではありません。</p>
 <ol>
-<li><strong>シンタックスハイライト</strong>: コードに色がつき、読みやすくなる。</li>
-<li><strong>補完機能</strong>: 途中まで打つと候補を出してくれる（ミスが減る）。</li>
-<li><strong>拡張機能</strong>: 自分の好きな機能を追加できる。</li>
-<li><strong>内蔵ターミナル</strong>: 黒い画面（ターミナル）をエディタ内で開ける。</li>
+<li><strong>シンタックスハイライト</strong>:
+コードの種類に応じて色がつきます。タグの閉じ忘れやタイポ（スペルミス）が一目でわかるようになります。</li>
+<li><strong>インテリセンス（自動補完）</strong>:
+<code>bac</code> と打てば <code>background-color</code> を候補に出してくれます。全てのプロパティを覚える必要がなくなり、入力ミスもゼロになります。</li>
+<li><strong>拡張機能の豊富さ</strong>:
+自分が必要な機能をスマートフォンにアプリを入れるような感覚で追加できます。</li>
+<li><strong>内蔵ターミナル</strong>:
+黒い画面（コマンドライン）をエディタ内で直接操作できます。これは後の章で Git を使うときに非常に便利です。</li>
 </ol>
-<p>TODO: VS Codeのインストール方法（公式サイト）へのリンクを貼る</p>
-<h3 id="web制作に必須の拡張機能"><a class="header" href="#web制作に必須の拡張機能">Web制作に必須の拡張機能</a></h3>
-<p>VS Codeをインストールしたら、以下の拡張機能を導入することをお勧めします。</p>
+<p>TODO: <a href="https://code.visualstudio.com/">VS Code のインストール方法（公式サイト）</a>へのリンクを貼る</p>
+<h2 id="web-制作に必須の神拡張機能-3-選"><a class="header" href="#web-制作に必須の神拡張機能-3-選">Web 制作に必須の「神」拡張機能 3 選</a></h2>
+<p>VS Code をインストールしたら、まずは左側のアイコン（四角いブロックのマーク）から、以下の 3 つを検索してインストールしましょう。</p>
+<h3 id="1-live-server"><a class="header" href="#1-live-server">1. Live Server</a></h3>
+<p>HTML を保存するたびに、ブラウザが自動でリロード（更新）されます。
+いちいちブラウザに戻って「F5」キーを押す必要がなくなります。この快適さを知ると、もう元には戻れません。</p>
+<h3 id="2-prettier---code-formatter"><a class="header" href="#2-prettier---code-formatter">2. Prettier - Code formatter</a></h3>
+<p>コードの見た目を自動で綺麗に整えてくれます。
+インデント（字下げ）がバラバラでも、保存した瞬間にプロのような整ったコードに修正されます。「見た目の美しさはバグの少なさに直結する」と私は信じています。</p>
+<h3 id="3-japanese-language-pack-for-vs-code"><a class="header" href="#3-japanese-language-pack-for-vs-code">3. Japanese Language Pack for VS Code</a></h3>
+<p>VS Code のメニューを日本語化します。英語に自信がある人以外は、最初に入れておきましょう。</p>
+<h2 id="低レイヤーの視点エディタとパフォーマンス"><a class="header" href="#低レイヤーの視点エディタとパフォーマンス">低レイヤーの視点：エディタとパフォーマンス</a></h2>
+<p>「VS Code って重くない？」と感じる人もいるかもしれません。
+実は VS Code は、<strong>Electron</strong> という技術で作られています。これは「Web ブラウザ（Chromium）上で動くデスクトップアプリ」のようなものです。</p>
+<p>TODO: [Electronの仕組み]を解説する記事へのリンクを貼る</p>
+<p>そのため、メモ帳のようなネイティブアプリ（C++ などで作られたもの）に比べると、多くのメモリ（RAM）を消費します。しかし、現代の PC なら全く問題にならないレベルですし、その代償として「Web の技術を使って誰でも簡単に拡張機能を作れる」という最強のメリットを手に入れました。
+「メモリを贅沢に使って、人間の開発時間を短縮する」。これが現代のソフトウェア開発の基本的な考え方の一つです。</p>
+<h2 id="私の視点ショートカットキーを指で覚える"><a class="header" href="#私の視点ショートカットキーを指で覚える">私の視点：ショートカットキーを「指」で覚える</a></h2>
+<p>エディタを使いこなすコツは、マウスを捨ててショートカットキーを使うことです。</p>
 <ul>
-<li><strong>Live Server</strong>: 保存するたびにブラウザが自動更新され、制作が爆速になります。</li>
-<li><strong>Prettier</strong>: コードの見た目を自動で綺麗に整えてくれます。</li>
+<li><code>Ctrl + S</code> (保存)</li>
+<li><code>Ctrl + C</code> / <code>V</code> (コピー＆ペースト)</li>
+<li><code>Ctrl + /</code> (コメントアウト：コードを一瞬で無効化する)</li>
 </ul>
+<p>これらを「指が勝手に動く」レベルまで練習してください。タイピング速度が上がると、思考のスピードを邪魔されずにプログラミングに没頭できるようになります。それはまるで、コンピュータと直接脳がつながっているような、最高の体験ですよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>開発には「メモ帳」ではなく、専用のエディタ（VS Code）を使おう。</li>
+<li>自動補完と色付けが、ミスを減らし開発を加速させる。</li>
+<li>「Live Server」と「Prettier」は Web 制作の必須アイテム。</li>
+<li>VS Code はメモリを消費するが、それ以上の利便性がある。</li>
+<li>ショートカットキーを使いこなして、思考を加速させよう。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>プロの道具を手に入れたら、次は CSS の表現力をさらに引き出す「アニメーション」の世界を覗いてみましょう。静的なページが生き生きと動き出す瞬間は、何度見ても楽しいものです。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://code.visualstudio.com/docs">VS Code 公式ドキュメント (英語)</a></li>
+<li><a href="https://qiita.com/12345/items/67636e2d14f447783938">VS Code のショートカットキー一覧 (Windows/Mac)</a></li>
+</ul>
+<hr>
+<p>TODO: VS Code の初期設定（フォントやテーマ）を解説する記事へのリンクを貼る</p>
 
                     </main>
 

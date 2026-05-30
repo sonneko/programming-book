@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,20 +178,70 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="npmの使い方依存関係の管理と信頼性"><a class="header" href="#npmの使い方依存関係の管理と信頼性">npmの使い方：依存関係の管理と信頼性</a></h1>
-<p>npm（Node Package Manager）は、Node.jsの標準パッケージマネージャです。膨大な数のライブラリを簡単にインストール・管理できるため、現代のJavaScript開発では必須です。しかし、npmを単なるライブラリインストーラーだと思っているなら、考えを改めるべきです。npmは、あなたのプロジェクトの「完全な再現性」を保証するためのツールです。</p>
-<h3 id="node_modules-の狂気と秩序"><a class="header" href="#node_modules-の狂気と秩序"><code>node_modules</code> の狂気と秩序</a></h3>
-<p><code>npm install</code> を実行すると、<code>node_modules</code> ディレクトリに大量のファイルが展開されます。このディレクトリは、いわば現代のソフトウェア開発における「ライブラリのブラックホール」です。なぜこれほど複雑なのか？ それは、依存関係の依存関係（推移的依存関係）までを解決し、競合を防ぐために「ネストされた構造」を取る必要があるからです。</p>
-<p>これを制御するのが <code>package.json</code> です。プロジェクトの依存関係を管理する重要なファイルであり、いわば「プロジェクトの設計図」です。</p>
+<p>Node.js をインストールすると、一緒に <strong><code>npm</code> (Node Package Manager)</strong> というツールがついてきます。これは世界最大のソフトウェアレジストリ（部品庫）であり、現代の JavaScript 開発において欠かすことのできない「物流インフラ」です。</p>
+<p>「便利なライブラリをインストールするだけの道具」だと思っているなら、それは大きな誤解です。npm は、あなたのプロジェクトの <strong>「完全な再現性」</strong> を保証し、チーム全員が同じ環境で開発できるようにするための、極めて知的なツールなのです。</p>
+<h2 id="1-node_modules-の狂気と秩序"><a class="header" href="#1-node_modules-の狂気と秩序">1. node_modules の狂気と秩序</a></h2>
+<p>プロジェクトで <code>npm install</code> を実行すると、<code>node_modules</code> というフォルダが作成され、中に大量のファイルが展開されます。</p>
+<p>このフォルダは、時に「現代のソフトウェア開発におけるブラックホール」と揶揄されるほど巨大になります。なぜこれほど複雑なのでしょうか？ それは、あなたが使いたいライブラリ（A）が別のライブラリ（B）を使い、さらにそれが別のライブラリ（C）を……という <strong>「依存関係の連鎖」</strong> を、npm がすべて解決してくれているからです。</p>
+<p>TODO: [npm の依存関係解決アルゴリズム]を解説する記事へのリンクを貼る</p>
+<p>npm は、異なるライブラリ間でバージョンの競合が起きないよう、フォルダをネストさせたり平坦化したりして、緻密に管理しています。この複雑な「物流管理」を人間に代わって自動で行ってくれるのが npm の凄さです。</p>
+<h2 id="2-packagejsonプロジェクトの設計図"><a class="header" href="#2-packagejsonプロジェクトの設計図">2. package.json：プロジェクトの設計図</a></h2>
+<p>あなたのプロジェクトのルートにある <code>package.json</code> は、いわば「プロジェクトの履歴書」であり「設計図」です。</p>
 <ul>
-<li><code>dependencies</code>: 本番環境で必要なランタイムライブラリ。これがないとアプリは動きません。</li>
-<li><code>devDependencies</code>: 開発時（テストやビルドツールなど）にのみ必要なライブラリ。これらは本番環境のバイナリには含まれません。</li>
+<li><strong><code>dependencies</code></strong>: 本番環境で動くために絶対に必要なライブラリ（例: React, Axios）。</li>
+<li><strong><code>devDependencies</code></strong>: 開発やビルドの時だけ必要なツール（例: TypeScript, テストツール）。</li>
+<li><strong><code>scripts</code></strong>: <code>npm run build</code> のように、よく使う長いコマンドに短い名前（エイリアス）をつける場所。</li>
 </ul>
-<h3 id="ロックファイルの重要性"><a class="header" href="#ロックファイルの重要性">ロックファイルの重要性</a></h3>
-<p>皆さんが最も注意すべきは <code>package-lock.json</code> です。これは、「どのバージョンのパッケージが、どのハッシュ値でインストールされたか」を完全に記録するものです。</p>
-<pre><code class="language-bash"># パッケージのインストール
-npm install axios
+<pre><code class="language-json">{
+  "name": "my-app",
+  "dependencies": {
+    "axios": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "start": "ts-node main.ts"
+  }
+}
 </code></pre>
-<p>もしこのファイルがない状態でチーム開発を行うと、開発者Aと開発者Bで異なるバージョンのライブラリがインストールされ、奇妙なバグに悩まされることになります。npmを活用することで、コードの再利用性を高めるだけでなく、プロジェクトの再現性を確保し、効率的で堅牢な開発環境を構築できます。パッケージをインストールするという行為は、信頼するコードベースをあなたのパイプラインに取り込むという、非常に重い決定であることを忘れないでください。</p>
+<p>このファイルを Git で共有することで、他の人があなたのプロジェクトをクローンしたときも、<code>npm install</code> と打つだけで全く同じ環境を再現できます。</p>
+<h2 id="3-ロックファイルの重要性package-lockjson"><a class="header" href="#3-ロックファイルの重要性package-lockjson">3. ロックファイルの重要性：package-lock.json</a></h2>
+<p>皆さんが最も大切に扱わなければならないのが、<strong><code>package-lock.json</code></strong> です。</p>
+<p><code>package.json</code> には「バージョン 1.0.0 以上（<code>^1.0.0</code>）」といった緩い指定が書かれていますが、<code>package-lock.json</code> には <strong>「実際にインストールされた正確なバージョン」と「ファイルの改ざんを防ぐためのハッシュ値」</strong> が記録されています。</p>
+<p>もしこのファイルを Git に入れ忘れると、開発者 A と開発者 B で微妙に違うバージョンのライブラリが入り、「自分の PC では動くのに、彼の PC では動かない」という、エンジニアが最も恐れる不毛なデバッグ時間を過ごすことになります。</p>
+<h2 id="低レイヤーの視点パッケージとハッシュ値"><a class="header" href="#低レイヤーの視点パッケージとハッシュ値">低レイヤーの視点：パッケージとハッシュ値</a></h2>
+<p>npm がパッケージをダウンロードするとき、実はそのデータが正しいかどうかを <strong>チェックサム（ハッシュ値）</strong> で検証しています。</p>
+<p>TODO: [暗号学的ハッシュ関数]を解説する記事へのリンクを貼る</p>
+<p>インターネットの海から送られてくるライブラリが、悪意ある第三者によって書き換えられていないか、通信エラーでデータが壊れていないか。<code>package-lock.json</code> に刻まれたハッシュ値と照合することで、npm は「信頼できるコードだけ」をあなたの PC に届けているのです。
+私たちが何気なく使うライブラリの裏側には、高度なセキュリティ技術が張り巡らされています。</p>
+<h2 id="私の視点ライブラリ選びは責任である"><a class="header" href="#私の視点ライブラリ選びは責任である">私の視点：ライブラリ選びは「責任」である</a></h2>
+<p>npm には 200 万以上のパッケージがありますが、そのすべてが安全で高品質なわけではありません。</p>
+<p>「便利そうだから」と安易にライブラリを追加することは、自分のプロジェクトに他人のコード（バグや脆弱性が含まれているかもしれないもの）を招き入れるという、非常に重い決定です。</p>
+<ul>
+<li>最後に更新されたのはいつか？</li>
+<li>GitHub のスター数や、週間のダウンロード数はどのくらいか？</li>
+<li>依存しているライブラリが多すぎないか？</li>
+</ul>
+<p>これらを吟味できるようになって初めて、一人前のエンジニアと言えます。「車輪の再発明はしない」ことも大切ですが、「どの車輪を履くか」を選ぶ審美眼も同じくらい大切なのです。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>npm は単なるダウンローダーではなく、環境の「再現性」を守るインフラ。</li>
+<li><code>package.json</code> は設計図、<code>package-lock.json</code> は確定した構成図。</li>
+<li><code>node_modules</code> の複雑さは、依存関係の競合を防ぐための秩序である。</li>
+<li>チェックサムによる検証が、ライブラリの安全性を担保している。</li>
+<li>ライブラリの導入は、そのコードへの「責任」を負うことと同義。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>プロジェクトの管理方法がわかったら、いよいよ本命の <strong>TypeScript</strong> を導入しましょう。JavaScript に「型」という秩序を与えることで、開発体験がどのように変わるのかを体感してください。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://docs.npmjs.com/">npm 公式ドキュメント</a></li>
+<li><a href="https://www.npmjs.com/package/npm-check-updates">npm-check-updates (パッケージ更新を助けるツール)</a></li>
+<li><a href="https://docs.npmjs.com/cli/v8/commands/npm-cache">npm キャッシュの仕組み</a></li>
+</ul>
+<hr>
+<p>TODO: yarn や pnpm といった他のパッケージマネージャとの違いを解説する記事へのリンクを貼る</p>
 
                     </main>
 

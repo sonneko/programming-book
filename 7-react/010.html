@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,19 +178,57 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="approuterについて"><a class="header" href="#approuterについて">AppRouterについて</a></h1>
-<p>Next.jsのApp Routerは、Reactの最新機能であるServer Componentsを最大限に活用する、新世代のルーティングシステムです。</p>
-<h3 id="app-routerの利点"><a class="header" href="#app-routerの利点">App Routerの利点</a></h3>
+<p>Next.js 13 で登場し、現在主流となっている <strong>App Router</strong>。これは単なるルーティングの変更ではなく、React 誕生以来の最も巨大なアップデートである <strong>「React Server Components (RSC)」</strong> を実戦に投入するための、革命的なアーキテクチャです。</p>
+<p>これまでの Web 開発は「いかにクライアント（ブラウザ）に仕事をさせるか」を追求してきましたが、App Router はそのベクトルを再び「サーバー」へと戻しました。</p>
+<h2 id="1-サーバーコンポーネント-rsc-という新境地"><a class="header" href="#1-サーバーコンポーネント-rsc-という新境地">1. サーバーコンポーネント (RSC) という新境地</a></h2>
+<p>App Router では、すべてのコンポーネントはデフォルトで <strong>「サーバーコンポーネント」</strong> です。</p>
+<pre><code class="language-tsx">// app/page.tsx
+// この関数は「サーバー」で実行される！
+async function Page() {
+  const data = await db.query('SELECT * FROM posts'); // 直接DBを叩ける！
+  
+  return (
+    &lt;div&gt;
+      {data.map(post =&gt; &lt;Post key={post.id} {...post} /&gt;)}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>サーバーコンポーネントの凄さは、<strong>「ブラウザに JavaScript を送らなくていい」</strong> という点にあります。
+サーバーで HTML を作り、その計算に使ったライブラリやロジックはサーバーに残したまま、結果の HTML だけをブラウザに届けます。
+これにより、ユーザーの PC で実行される JavaScript の量が劇的に減り、サイトの読み込みが魔法のように速くなります。</p>
+<h2 id="2-サーバーとクライアントの共存"><a class="header" href="#2-サーバーとクライアントの共存">2. サーバーとクライアントの「共存」</a></h2>
+<p>もちろん、ボタンを押したときの反応やアニメーションなど、ブラウザで動かしたい部品もあります。その時は、ファイルの先頭に <strong><code>'use client'</code></strong> と書くことで、その部品だけを <strong>「クライアントコンポーネント」</strong> に切り替えることができます。</p>
+<p>TODO: [RSC と Client Components の使い分け基準]を解説する記事へのリンクを貼る</p>
+<p>「重いデータ処理はサーバーで」「軽快な操作はブラウザで」。この使い分けを一つのプロジェクト、一つのファイル構造の中でシームレスに行えるのが App Router の強みです。</p>
+<h2 id="低レイヤーの視点ストリーミングと-suspense"><a class="header" href="#低レイヤーの視点ストリーミングと-suspense">低レイヤーの視点：ストリーミングと Suspense</a></h2>
+<p>App Router は、<strong>「ストリーミング」</strong> という技術を使って、画面をバラバラに届けることができます。</p>
+<p>TODO: [HTTP ストリーミングと React Suspense の仕組み]を解説する記事へのリンクを貼る</p>
+<p>例えば、サイドバーはすぐに出せるけど、メインの記事一覧は DB からの取得に時間がかかる……という場合。
+これまでは「全部揃うまで真っ白」でしたが、App Router なら「サイドバーだけ先に送って、記事部分は『読込中…』と出しておき、準備ができた順に流し込む」ということが可能です。
+これは、HTTP 通信のパイプを繋ぎっぱなしにして、データが届くたびに HTML のパーツを少しずつブラウザにプッシュする、という非常に高度な通信制御を行っています。</p>
+<h2 id="私の視点アーキテクチャの回帰と進化"><a class="header" href="#私の視点アーキテクチャの回帰と進化">私の視点：アーキテクチャの回帰と進化</a></h2>
+<p>サーバーで HTML を作って送る、という手法は PHP や Ruby on Rails が 20 年前からやっていたことです。
+でも、App Router はただの先祖返りではありません。
+「サーバーサイドの堅牢さ」と「モダンフロントエンドの操作感」を、React という共通の言語で融合させた、<strong>Web 開発の「完成形」の一つ</strong> だと私は感じています。</p>
+<p>最初はサーバーとクライアントの境界線に戸惑うかもしれませんが、この「ハイブリッドな感覚」に慣れてくると、もう以前のやり方には戻れなくなりますよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
 <ul>
-<li><strong>React Server Components (RSC)</strong>: サーバー側でコンポーネントをレンダリングし、HTMLのみをクライアントへ配信。JSバンドルサイズを大幅に削減します。</li>
-<li><strong>データ取得の最適化</strong>: サーバーサイドでの直接的なDBアクセスやAPIコールが可能になり、クライアントへの不要なデータ露出を防ぎます。</li>
+<li>App Router は React Server Components を前提とした新世代のルーティング。</li>
+<li>サーバーコンポーネントは JavaScript をクライアントに送らず、読み込み速度を爆速にする。</li>
+<li>直接 DB やセキュリティの高い API を叩けるため、バックエンドとの境界が溶けていく。</li>
+<li><code>'use client'</code> を使って、必要な部分だけをインタラクティブにできる。</li>
+<li>ストリーミングによって、準備ができたパーツから順次表示できる。</li>
 </ul>
-<h3 id="技術的深みとアーキテクチャ"><a class="header" href="#技術的深みとアーキテクチャ">技術的深みとアーキテクチャ</a></h3>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>App Router という強力な基盤を手に入れたら、次はそこで使われる <strong>「特別な関数」</strong> たち――データの取得やキャッシュ、メタデータの管理を司る関数群をマスターしましょう。</p>
+<p>参考：</p>
 <ul>
-<li><strong>RSC vs RCC</strong>: Server Components（RSC）とClient Components（RCC）の境界を明確に分け、インタラクティブ性が必要な箇所のみでJSを実行するハイブリッドアーキテクチャ。</li>
-<li><strong>Suspenseとストリーミング</strong>: サーバー側でレンダリングが完了した部分から順次ストリーミングすることで、TTFB（Time to First Byte）を改善し、ユーザー体感速度を向上させます。</li>
-<li><strong>設計思想</strong>: UIのレンダリングモデルを「静的なコンテンツ」と「動的なインタラクション」に再定義し、最適な配信戦略をサーバー側で決定します。</li>
+<li><a href="https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration">Next.js 公式: App Router Incremental Adoption Guide</a></li>
+<li><a href="https://ja.react.dev/blog/2020/12/21/data-fetching-with-react-server-components">React 公式: Server Components の紹介</a></li>
 </ul>
-<p>App Routerによって、パフォーマンスと開発体験が劇的に向上しましたが、サーバー環境への理解（環境変数管理やDB接続のプーリング等）がより重要になっています。</p>
+<hr>
+<p>TODO: Next.js の Data Fetching (fetch) とキャッシュ戦略を解説する記事へのリンクを貼る</p>
 
                     </main>
 

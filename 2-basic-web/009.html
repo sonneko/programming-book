@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,36 +178,81 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="ブロック要素とインライン要素"><a class="header" href="#ブロック要素とインライン要素">ブロック要素とインライン要素</a></h1>
-<p>CSSでレイアウトを組む際に必ず直面するのが、「要素がどう並ぶか」というルールです。</p>
-<h3 id="2つの基本性質"><a class="header" href="#2つの基本性質">2つの基本性質</a></h3>
-<ol>
-<li><strong>ブロック要素 (<code>display: block</code>)</strong>
+<p>CSS でデザインを始めると、必ずと言っていいほど「なぜこの要素は横に並ばないの？」「なぜこの要素には幅が指定できないの？」という壁にぶつかります。その謎を解く鍵が、すべての HTML 要素が持っている <strong>「表示形式 (Display Type)」</strong> という性質です。</p>
+<p>古くからの Web のルールですが、これを理解しないとレイアウトを思い通りに操ることはできません。</p>
+<h2 id="1-ブロック要素-display-block"><a class="header" href="#1-ブロック要素-display-block">1. ブロック要素 (display: block)</a></h2>
+<p>画面の <strong>「かたまり（ブロック）」</strong> として振る舞う要素です。</p>
 <ul>
-<li>画面の横幅いっぱいを占領する。</li>
-<li>前後に改行が入る。</li>
-<li>例: <code>&lt;div&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code></li>
+<li><strong>特徴</strong>:
+<ul>
+<li>何も指定しなくても、横幅いっぱいに広がります。</li>
+<li>前後に自動的に改行が入ります（次の要素は必ず下の行に行きます）。</li>
+<li>幅 (<code>width</code>) や高さ (<code>height</code>) を自由に指定できます。</li>
 </ul>
 </li>
-<li><strong>インライン要素 (<code>display: inline</code>)</strong>
+<li><strong>代表的なタグ</strong>:
 <ul>
-<li>中身の文章に必要な分だけ幅を取る。</li>
-<li>横に並ぶ。</li>
-<li>幅 (<code>width</code>) や高さ (<code>height</code>) を指定できない。</li>
-<li>例: <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code></li>
+<li><code>&lt;div&gt;</code>, <code>&lt;h1&gt;</code> 〜 <code>&lt;h6&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code></li>
 </ul>
 </li>
-</ol>
-<h3 id="性質は変えられる"><a class="header" href="#性質は変えられる">性質は変えられる</a></h3>
-<p>実はこれらの性質は、CSSの <code>display</code> プロパティで自由に変更できます。</p>
+</ul>
+<p>「箱を積み上げていく」イメージでレイアウトを組むときに使います。</p>
+<h2 id="2-インライン要素-display-inline"><a class="header" href="#2-インライン要素-display-inline">2. インライン要素 (display: inline)</a></h2>
+<p>文章の <strong>「中（インライン）」</strong> に流れる要素です。</p>
+<ul>
+<li><strong>特徴</strong>:
+<ul>
+<li>中身のテキストや画像の分だけしか幅を取りません。</li>
+<li>横に空きがあれば、次の要素と横並びになります。</li>
+<li><strong>幅 (<code>width</code>) や高さ (<code>height</code>) の指定が無視されます。</strong></li>
+<li>上下のマージン (<code>margin-top</code>, <code>margin-bottom</code>) が効きません。</li>
+</ul>
+</li>
+<li><strong>代表的なタグ</strong>:
+<ul>
+<li><code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code></li>
+</ul>
+</li>
+</ul>
+<p>「文章の一部を装飾する」ための要素です。</p>
+<h2 id="性質は-css-で上書きできる"><a class="header" href="#性質は-css-で上書きできる">性質は CSS で「上書き」できる</a></h2>
+<p>「<code>span</code> はインラインだから横にしか並ばない」と諦める必要はありません。CSS の <strong><code>display</code></strong> プロパティを使えば、その性質を自由に変更できます。</p>
 <pre><code class="language-css">span {
-  display: block; /* spanなのにブロック要素のように振る舞う */
+  /* span なのにブロック要素のように振る舞わせる */
+  display: block;
+  width: 100px;
+  height: 100px;
+  background: red;
 }
 </code></pre>
-<p>最近では、これらの中間のような性質を持つ <code>inline-block</code> や、次節で解説する <code>flex</code> など、より高度な並び方の指定が主流になっています。</p>
-<h3 id="なぜこの区別があるのか"><a class="header" href="#なぜこの区別があるのか">なぜこの区別があるのか？</a></h3>
-<p>元々、HTMLは「文書（論文のようなテキスト）」を共有するために作られました。文章の中に埋め込まれる「語句（インライン）」と、文章の区切りとなる「段落（ブロック）」という区別は、文書作成における自然な形だったのです。</p>
-<p>現代のWeb制作では、この「文書のための性質」を <code>display</code> プロパティで「アプリケーションのためのレイアウト」に上書きしていく作業が中心になります。</p>
-<p>TODO: displayプロパティの各値の違いを詳しく解説する記事へのリンクを貼る</p>
+<p>また、両方の良いとこ取りをした <strong><code>display: inline-block</code></strong> という指定もよく使われます。「横に並ぶけれど、幅や高さも指定できる」という便利な性質です。</p>
+<h2 id="低レイヤーの視点なぜこの区別があるのか"><a class="header" href="#低レイヤーの視点なぜこの区別があるのか">低レイヤーの視点：なぜこの区別があるのか？</a></h2>
+<p>そもそも、なぜこんな面倒な区別があるのでしょうか？ それは Web (HTML) の成り立ちに理由があります。</p>
+<p>TODO: [Webの歴史とSGML]を解説する記事へのリンクを貼る</p>
+<p>初期の Web は、大学の論文などの「文書」を共有するためのシステムでした。
+論文には、段落（ブロック）があり、その中の特定の単語（インライン）を強調したりリンクにしたりする必要がありました。つまり、<strong>「文書をコンピュータが正しく構造化して読み取るため」</strong> の自然な区別だったのです。</p>
+<p>現代の Web サイトは、もはや「文書」ではなく「アプリケーション」に近い見た目をしていますが、ブラウザのレンダリングエンジン（Blink など）の根底には、依然としてこの「テキストを流し込む（<em>Line Breaking</em>）」というロジックが深く刻まれています。</p>
+<h2 id="私の視点css-は上書きの歴史"><a class="header" href="#私の視点css-は上書きの歴史">私の視点：CSS は「上書き」の歴史</a></h2>
+<p>最近の Web 制作では、<code>display: flex</code>（後述）の登場によって、ブロックとインラインの厳格な区別を意識する機会は少し減りました。
+しかし、「なぜかデザインが崩れる」という原因の 8 割は、インライン要素に幅を指定しようとしていたり、意図しない改行（ブロック要素）が入っていたりすることにあります。</p>
+<p>「このタグのデフォルトの display は何か？」を常に意識できるようになると、CSS のトラブルシューティング能力は飛躍的に向上しますよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li><strong>ブロック要素</strong>: 縦に積み重なる。幅・高さを指定できる。</li>
+<li><strong>インライン要素</strong>: 横に流れる。幅・高さ・上下マージンが効かない。</li>
+<li><code>display</code> プロパティで、タグ本来の性質を上書きできる。</li>
+<li>もともと Web は「論文」のための仕組みだったので、この区別が生まれた。</li>
+<li>崩れたときはまず <code>display</code> の値を確認しよう。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>ブロックとインラインという「古典的な」並び方を理解したら、いよいよ現代の Web 制作における最強の武器、<strong>「Flexbox」</strong> と <strong>「グリッドシステム」</strong> に進みましょう。これを知れば、どんな複雑なレイアウトも自由自在です。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/CSS/display">MDN: display プロパティ</a></li>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/Guide/HTML/Content_categories">HTML5 における要素の分類 (コンテンツ・モデル)</a></li>
+</ul>
+<hr>
+<p>TODO: ブロック・インライン・インラインブロックの違いを比較できるデモへのリンクを貼る</p>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,14 +178,62 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="使ってはいけない集型の海に漂うリスク"><a class="header" href="#使ってはいけない集型の海に漂うリスク">使ってはいけない集：型の海に漂うリスク</a></h1>
-<p>TypeScriptにおいて、型の安全性を損なったり、予期せぬ挙動を引き起こしたりするため避けるべき機能があります。これらは「TypeScriptの哲学に反する、あるいは動的型付けの悪習を強引に持ち込む要素」です。これらを避けることは、堅牢なデータ変換パイプラインを構築するための第一歩です。</p>
-<h3 id="避けるべき機能とその理由"><a class="header" href="#避けるべき機能とその理由">避けるべき機能とその理由</a></h3>
+<p>TypeScript は、JavaScript という荒波に「型」という堤防を築く技術です。しかし、その堤防には、意図的に穴を開けることができる「禁断の道具」がいくつか存在します。</p>
+<p>これらは、一時的には便利かもしれませんが、長期的にはあなたのプログラムを腐らせ、予期せぬエラー（ランタイムエラー）を引き起こす原因になります。
+ここでは、TypeScript を書く上で「極力避けるべきこと」と、その理由をエンジニアの視点でお話しします。</p>
+<h2 id="1-禁断の果実any-型"><a class="header" href="#1-禁断の果実any-型">1. 禁断の果実：<code>any</code> 型</a></h2>
+<p>TypeScript における最大の罪、それが <strong><code>any</code> 型</strong> の乱用です。</p>
+<pre><code class="language-typescript">// すべての型チェックを放棄する「死の宣言」
+let data: any = JSON.parse(input);
+data.methodDoesNotExist(); // コンパイルは通るが、実行時にクラッシュする
+</code></pre>
+<p><code>any</code> を使った瞬間、その変数は TypeScript の加護（型チェック）を失い、ただの JavaScript に戻ってしまいます。
+「型定義を書くのが面倒だから」「外部ライブラリの型がわからないから」といった理由で <code>any</code> を使うのは、堤防を自ら壊して津波（バグ）を招き入れるようなものです。</p>
+<p><strong>対策</strong>: どうしても型がわからないときは、代わりに <strong><code>unknown</code></strong> 型を使いましょう。<code>unknown</code> は「何か入っているけどわからない」という型なので、使う前に必ず「これは文字列か？」といった型チェックを強制してくれます。</p>
+<h2 id="2-時代遅れの遺物var-キーワード"><a class="header" href="#2-時代遅れの遺物var-キーワード">2. 時代遅れの遺物：<code>var</code> キーワード</a></h2>
+<p>JavaScript 入門で学んだ通り、<code>var</code> は絶対に使ってはいけません。</p>
+<pre><code class="language-typescript">if (true) {
+  var x = 10;
+}
+console.log(x); // 10 が表示される。ブロックの外なのに！
+</code></pre>
+<p><code>var</code> は <strong>「関数スコープ」</strong> であり、さらに <strong>「巻き上げ（Hoisting）」</strong> という非常に直感に反する挙動をします。
+現代の V8 エンジンにおいて、<code>const</code> や <code>let</code> は非常に効率的に最適化されており、バグも防げます。</p>
+<p><strong>対策</strong>: 常に <strong><code>const</code></strong> をデフォルトにし、どうしても再代入が必要な場合のみ <strong><code>let</code></strong> を使う。これが現代の鉄則です。</p>
+<h2 id="3-嘘の証言型アサーション-as-の乱用"><a class="header" href="#3-嘘の証言型アサーション-as-の乱用">3. 嘘の証言：型アサーション (<code>as</code>) の乱用</a></h2>
+<p>「本当は数値なんだけど、コンパイラが文字列だと思い込んでいるから、無理やり数値だと言い張る」。これが <strong>型アサーション</strong> です。</p>
+<pre><code class="language-typescript">const value = "123" as unknown as number; // 危険！
+</code></pre>
+<p>コンパイラは「あなたがそう言うなら信じるよ……」とエラーを引っ込めますが、実行時のデータが本当にその型である保証はどこにもありません。
+これはコンパイラに対する「嘘」であり、後で必ずしっぺ返しを食らいます。</p>
+<p><strong>対策</strong>: <code>as</code> で嘘をつくのではなく、<strong>「型ガード (Type Guard)」</strong> を使って、実行時に正しい型であることを証明しましょう。</p>
+<h2 id="低レイヤーの視点デ最適化の恐怖"><a class="header" href="#低レイヤーの視点デ最適化の恐怖">低レイヤーの視点：デ最適化の恐怖</a></h2>
+<p>JavaScript 実行エンジン（V8 など）にとって、型が頻繁に変わるコードは「最適化の敵」です。</p>
+<p>TODO: [V8のHidden ClassesとInline Caching]を解説する記事へのリンクを貼る</p>
+<p>もしあなたが <code>any</code> を多用して、ある時は数値、ある時はオブジェクト……といった具合に変数の型をコロコロ変えると、エンジンは「この変数は何が来るか予測不能だ」と判断し、高速な実行モードを諦めて低速な汎用モードに切り替えます（これを <strong>デ最適化</strong> と呼びます）。</p>
+<p>型を厳格に保つことは、単にバグを防ぐだけでなく、ハードウェアの性能を 100% 引き出すための「協力」でもあるのです。</p>
+<h2 id="私の視点自分自身を疑え"><a class="header" href="#私の視点自分自身を疑え">私の視点：自分自身を疑え</a></h2>
+<p>「このコードは絶対にバグらないはずだ」という自信があるときほど、人間は <code>any</code> や <code>as</code> を使いたくなります。
+でも、忘れないでください。人間は間違える生き物です。数ヶ月後のあなた、あるいはあなたのコードを引き継ぐ同僚は、あなたが「絶対に大丈夫」だと思った前提を忘れてしまうかもしれません。</p>
+<p>TypeScript コンパイラという「絶対に嘘をつかない、世界一厳格なレビュー担当者」を味方につける。そのために、あえて自由を捨て、型という制約の中に身を置く。それが、プロのエンジニアの矜持（プライド）です。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
 <ul>
-<li><strong><code>any</code> 型</strong>: これはTypeScriptの「逃げ道」です。全ての型チェックを無効化します。これを使った瞬間、あなたのプログラムは型安全を失い、実行時の予期せぬエラー（<code>undefined is not a function</code> など）を再び呼び込みます。なぜ使うのか？ 既存のJavaScriptライブラリとの互換性のためです。しかし、可能な限り型を定義し、どうしても必要な時以外は触れないでください。</li>
-<li><strong><code>var</code> キーワード</strong>: <code>var</code> は関数スコープであり、宣言の巻き上げ（ホイスティング）という直感に反する挙動をします。現代のV8エンジンは <code>let</code> や <code>const</code> を非常に高速に処理します。<code>const</code> を優先し、再代入が必要な場合のみ <code>let</code> を使う。これはJavaScriptのデータ変換において、変数のライフサイクルを明示的に制限するための基本原則です。</li>
-<li><strong>暗黙の型変換</strong>: <code>==</code> （等価演算子）は、左右の値を自動的に型変換してから比較します。これは非常に危険で、人間には理解しづらい比較結果を生み出します。常に <code>===</code> （厳密等価演算子）を使用してください。</li>
+<li><strong><code>any</code> 型</strong> は TypeScript の存在意義を否定する。代わりに <code>unknown</code> を。</li>
+<li><strong><code>var</code></strong> は挙動が予測不能。常に <code>const</code> と <code>let</code> を。</li>
+<li><strong>型アサーション (<code>as</code>)</strong> はコンパイラへの嘘。ランタイムエラーの温床。</li>
+<li>型の一貫性は、ブラウザの実行速度向上にも貢献する。</li>
+<li>リンター（ESLint）を導入して、これらの「悪習」を自動で禁止しよう。</li>
 </ul>
-<p>これらのルールを守ることは、静的型付けによる堅牢性を保つための前提条件です。<code>eslint</code> などのリンターを導入し、これらの違反を自動的に検知・修正する環境を構築しましょう。型安全とは、コンパイラを信用し、自分自身のコードを疑う姿勢から生まれる生まれるものです。これらを避けることは、プログラムをより予測可能にするための防衛線なのです。</p>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>「やってはいけないこと」を学んだら、次は正しく強力な道具の使い方を学びましょう。TypeScript の表現力を一気に広げる「クラス」の表記法について詳しく見ていきます。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any">TypeScript 公式: any 型</a></li>
+<li><a href="https://eslint.org/">ESLint (コードの質を自動チェックするツール)</a></li>
+<li><a href="https://www.oreilly.co.jp/books/9784873119182/">Effective TypeScript (書籍：中級者向けのお勧め本)</a></li>
+</ul>
+<hr>
+<p>TODO: <code>eslint-plugin-typescript</code> で any を禁止する設定方法へのリンクを貼る</p>
 
                     </main>
 

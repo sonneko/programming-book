@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,54 +178,107 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="if文"><a class="header" href="#if文">if文</a></h1>
-<p>ここでは制御構文の一つif文を学びます。</p>
-<pre><code class="language-python">if (真偽値):
-    Trueの時の処理
+<p>プログラムは、ただ上から下へ流れるだけではありません。状況に応じて「右へ行くか、左へ行くか」を決める必要があります。これを <strong>「条件分岐」</strong> と呼び、そのための最も基本的な道具が <strong><code>if</code>文</strong> です。</p>
+<p>私が初めて条件分岐を学んだとき、「これでようやく、コンピュータに『意志』を持たせることができる！」とワクワクしたのを覚えています。</p>
+<h2 id="基本的な使い方"><a class="header" href="#基本的な使い方">基本的な使い方</a></h2>
+<p><code>if</code>文の基本構造は以下の通りです。</p>
+<pre><code class="language-python">if 条件式:
+    # 条件が満たされた（True）の時の処理
+    print("条件を満たしました")
 </code></pre>
-<p>真偽値によって異なる処理をさせることができます。</p>
-<p>真偽値とは、<code>True</code>か<code>False</code>のどちらかを取るような型のことです。数学で言うと、それぞれ<code>真</code>か<code>偽</code>になります。</p>
-<p>例：</p>
-<pre><code class="language-python">def my_abs(number):
-    if number &lt; 0:
-        return -number
-    elif number &gt; 0:
-        return number
-    else:
-        return 0
+<p>Pythonの特徴は、条件を満たした時の処理を <strong>「インデント（行頭の空白）」</strong> で表現することです。通常、半角スペース4つを使います。</p>
+<h2 id="if-elif-else複数の分岐"><a class="header" href="#if-elif-else複数の分岐">if, elif, else：複数の分岐</a></h2>
+<p>「もし〜ならA、そうでなくて〜ならB、それ以外ならC」という風に、複数の条件を組み合わせることもできます。</p>
+<pre><code class="language-python">score = 85
+
+if score &gt;= 90:
+    print("大変素晴らしいです！")
+elif score &gt;= 70:
+    print("合格です。")
+elif score &gt;= 40:
+    print("もう少し頑張りましょう。")
+else:
+    print("不合格です。")
 </code></pre>
-<p><code>my_abs()</code>という関数は絶対値をとる関数です。</p>
-<p>ここで、不等号が登場したのでその関係について説明しておきます。</p>
-<p><code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code> <code>==</code>という5つの記号は数の比較に用いられます。</p>
+<ul>
+<li><code>if</code>: 最初の条件。</li>
+<li><code>elif</code>: “else if” の略。前の条件が外れた場合に、次の条件をチェックします。</li>
+<li><code>else</code>: すべての条件に当てはまらなかった場合の「最終手段」です。</li>
+</ul>
+<h2 id="比較演算子条件を作る道具"><a class="header" href="#比較演算子条件を作る道具">比較演算子：条件を作る道具</a></h2>
+<p>条件式には、2つの値を比べる <strong>「比較演算子」</strong> を使います。</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>記号</th><th>意味</th></tr>
+<tr><th>記号</th><th>意味</th><th>例</th></tr>
 </thead>
 <tbody>
-<tr><td><code>==</code></td><td>等しい</td></tr>
-<tr><td><code>!=</code></td><td>等しくない</td></tr>
-<tr><td><code>&lt;</code></td><td>より小さい</td></tr>
-<tr><td><code>&gt;</code></td><td>より大きい</td></tr>
-<tr><td><code>&lt;=</code></td><td>以下</td></tr>
-<tr><td><code>&gt;=</code></td><td>以上</td></tr>
+<tr><td><code>==</code></td><td>等しい</td><td><code>x == 10</code></td></tr>
+<tr><td><code>!=</code></td><td>等しくない</td><td><code>x != 0</code></td></tr>
+<tr><td><code>&lt;</code></td><td>より小さい</td><td><code>x &lt; 5</code></td></tr>
+<tr><td><code>&gt;</code></td><td>より大きい</td><td><code>x &gt; 10</code></td></tr>
+<tr><td><code>&lt;=</code></td><td>以下</td><td><code>x &lt;= 8</code></td></tr>
+<tr><td><code>&gt;=</code></td><td>以上</td><td><code>x &gt;= 0</code></td></tr>
 </tbody>
 </table>
 </div>
-<p>このようにすると2つの隣に書いてある数字から、その数字の性質についての真偽値を得ることができて、それを<code>if文</code>に入力しているようなイメージです。</p>
-<p>これは直感的には、数学的な不等式に見えますが、コンピュータ的には単なる演算子です。</p>
-<p>例えば、<code>+</code>は足し算をする演算子です。もっと具体的にいうと、「2つの数を受け取って一つの数を返すような計算」をする演算子です。対して、比較演算子例えば<code>==</code>は、「二つの任意の値を受け取って一つの真偽値を返すような計算」をする演算子です。この間にコンピュータ的に違いはありません。</p>
-<p>このようにコンピュタにおける演算子は、数学的な「演算子」とは異なります。</p>
-<p>よって別に<code>if</code>の中に不動号を置かないといけないということはなく、以下のようなこともできます。</p>
-<pre><code class="language-python">x = 10
-is_bigger = x &gt; 20
+<p>ここで注意が必要なのは、<strong>「等しい」を表すのが <code>==</code>（イコール2つ）</strong> であることです。プログラミングにおいて <code>=</code> 1つは「代入」を意味するため、区別するために2つ重ねるのが一般的です。</p>
+<h2 id="論理演算子複雑な条件を組み合わせる"><a class="header" href="#論理演算子複雑な条件を組み合わせる">論理演算子：複雑な条件を組み合わせる</a></h2>
+<p>「AかつB」「AまたはB」といった複雑な条件は、<strong>論理演算子（<code>and</code>, <code>or</code>, <code>not</code>）</strong> を使って作ることができます。</p>
+<pre><code class="language-python">age = 18
+has_license = True
 
-if is_bigger:
-    print("it's bigger than 20")
-else:
-    print("it's smaller or 20")
+if age &gt;= 18 and has_license:
+    print("車を運転できます。")
 
+if age &lt; 18 or not has_license:
+    print("車を運転できません。")
 </code></pre>
-<p><code>is_bigger</code>には、右に書いてある不等号の結果つまりは真偽値が代入されて、その中身(この場合は<code>False</code>)が<code>if文</code>の中で使用されています。</p>
+<ul>
+<li><code>and</code>: 両方の条件が正しい時に <code>True</code>。</li>
+<li><code>or</code>: どちらか片方でも正しければ <code>True</code>。</li>
+<li><code>not</code>: 判定をひっくり返します（<code>True</code> なら <code>False</code>、<code>False</code> なら <code>True</code>）。</li>
+</ul>
+<h2 id="低レイヤーの視点分岐の裏側と分岐予測"><a class="header" href="#低レイヤーの視点分岐の裏側と分岐予測">低レイヤーの視点：分岐の裏側と「分岐予測」</a></h2>
+<p>コンピュータの内部（CPU）にとって、実は <code>if</code>文は少し厄介な存在です。</p>
+<p>CPUは、次に実行する命令をあらかじめ読み込んで準備しておく「パイプライン」という仕組みを持っています。しかし、<code>if</code>文が現れると、条件が決まるまで「次にどっちの命令を実行すればいいか」が分かりません。これが原因で計算の手が止まってしまうことがあります。</p>
+<p>これを防ぐために、現代のCPUには <strong>「分岐予測（<em>Branch Prediction</em>）」</strong> という機能が備わっています。「この <code>if</code>文は、たぶん前回と同じく <code>True</code> になるだろう！」と予測して、先に計算を進めておくのです。</p>
+<p>TODO: [CPUのパイプライン]を解説する記事へのリンクを貼る</p>
+<p>予測が外れると、先に進めていた計算をすべて捨ててやり直す必要があり、これを「分岐予測ミス」と呼び、パフォーマンス低下の原因になります。綺麗なコードを書くことは、時にコンピュータにとっても優しいコードになるのです。</p>
+<h2 id="私の視点ネストを深くしすぎない"><a class="header" href="#私の視点ネストを深くしすぎない">私の視点：ネストを深くしすぎない</a></h2>
+<p><code>if</code>文の中にさらに <code>if</code>文を書くことを「ネスト（入れ子）」と言います。</p>
+<pre><code class="language-python"># 悪い例：ネストが深くて読みづらい
+if user_exists:
+    if user_active:
+        if user_has_permission:
+            do_something()
+</code></pre>
+<p>ネストが深くなると、今自分がどの条件の中にいるのか分からなくなり、バグの温床になります。そんな時は、条件を反転させて先に <code>return</code> してしまう <strong>「ガード節」</strong> というテクニックを使うのがお勧めです。</p>
+<pre><code class="language-python"># 良い例：ガード節でスッキリ
+if not user_exists:
+    return
+if not user_active:
+    return
+if not user_has_permission:
+    return
+
+do_something()
+</code></pre>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li><code>if</code>, <code>elif</code>, <code>else</code> でプログラムの流れを枝分かれさせる。</li>
+<li>比較演算子（<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>）で条件を作る。</li>
+<li>論理演算子（<code>and</code>, <code>or</code>, <code>not</code>）で条件を組み合わせる。</li>
+<li>CPUは内部で「分岐予測」を行っている。</li>
+<li>ネストを浅く保つことが、読みやすいコードへの近道。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>次は、この「条件」をさらに活用して、同じ処理を何度も繰り返す「ループ（繰り返し構文）」について学んでいきましょう。コンピュータの真骨頂は、飽きることのない単純作業の繰り返しにあります。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://docs.python.org/ja/3/tutorial/controlflow.html#if-statements">Python公式: if文</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E5%88%86%E5%B2%90%E4%BA%88%E6%B8%AC">分岐予測 (Wikipedia)</a></li>
+</ul>
 
                     </main>
 

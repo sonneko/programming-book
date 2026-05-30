@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -177,22 +177,67 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="演習"><a class="header" href="#演習">演習</a></h1>
-<p>Reactの基礎を実践的に確認するための演習です。</p>
-<h3 id="課題"><a class="header" href="#課題">課題</a></h3>
-<ol>
-<li><strong>カウンター</strong>: <code>useState</code> を使って、ボタンを押すと数字が増減するカウンターを作成してください。</li>
-<li><strong>リスト表示</strong>: 配列データを受け取り、それをリスト (<code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>) として描画するコンポーネントを作成してください。</li>
-<li><strong>副作用</strong>: <code>useEffect</code> を使って、コンポーネントがマウントされた際にAPIからデータを取得する処理を書いてください。</li>
-</ol>
-<h3 id="実践的なアドバイスとベストプラクティス"><a class="header" href="#実践的なアドバイスとベストプラクティス">実践的なアドバイスとベストプラクティス</a></h3>
+                        <h1 id="演習react-実践アプリケーション開発"><a class="header" href="#演習react-実践アプリケーション開発">演習：React 実践アプリケーション開発</a></h1>
+<p>7 章で学んだ React と Next.js の知識を総動員して、一つの小さな、しかし本質的なアプリケーションを構築しましょう。
+今回のテーマは <strong>「タスク管理（ToDo）アプリ」</strong> です。単純に思えるかもしれませんが、ここには State 管理、コンポーネント分割、副作用の扱いといった、React のエッセンスがすべて詰まっています。</p>
+<h2 id="演習ミッションtodo-アプリを完成させよ"><a class="header" href="#演習ミッションtodo-アプリを完成させよ">演習ミッション：ToDo アプリを完成させよ</a></h2>
+<p>以下の 3 つのステップで開発を進めてください。</p>
+<h3 id="ステップ-1コンポーネントの構築"><a class="header" href="#ステップ-1コンポーネントの構築">ステップ 1：コンポーネントの構築</a></h3>
 <ul>
-<li><strong>ステート管理</strong>: 複数のコンポーネントで共有すべきステートは、親コンポーネントへ持ち上げる（Lifting State Up）ことで、データの不整合を防ぎます。</li>
-<li><strong>テスティング</strong>: コンポーネントのテストには、VitestやReact Testing Library（RTL）を採用しましょう。DOMのレンダリング結果を検証することで、実装の詳細に依存しない堅牢なテストが書けます。</li>
-<li><strong>ツール活用</strong>: React DevTools をインストールして、コンポーネントの state や props の変化を可視化・追跡しましょう。</li>
-<li><strong>設計の原則</strong>: コンポーネントは常に純粋関数のようにシンプルに保ち、複雑なロジックはカスタムフックへ抽出し、責務の分離を徹底しましょう。</li>
+<li><strong>Input エリア</strong>: タスクを入力し、追加ボタンでリストに追加する。</li>
+<li><strong>List エリア</strong>: 追加されたタスクを一覧表示する。</li>
+<li><strong>Item エリア</strong>: 各タスク。完了チェックボックスと、削除ボタンを持つ。</li>
 </ul>
-<p>この演習を通じて、Reactの宣言的UIの恩恵と、ステート管理の重要性を体感してください。</p>
+<p>「一つの関数（ファイル）に全部書く」のではなく、適切にファイルを分けて作成してください。</p>
+<h3 id="ステップ-2state-の管理リフティングステートアップ"><a class="header" href="#ステップ-2state-の管理リフティングステートアップ">ステップ 2：State の管理（リフティング・ステート・アップ）</a></h3>
+<ul>
+<li>タスクの配列 (<code>todos</code>) をどこで管理すべきか考えてください。</li>
+<li>子コンポーネントから親の State を更新するために、関数を props として渡す練習をしましょう。</li>
+</ul>
+<h3 id="ステップ-3useeffect-による永続化"><a class="header" href="#ステップ-3useeffect-による永続化">ステップ 3：useEffect による永続化</a></h3>
+<ul>
+<li>ブラウザをリロードしてもタスクが消えないように、<strong>LocalStorage</strong> にデータを保存・取得する機能を <code>useEffect</code> を使って実装してください。</li>
+</ul>
+<h2 id="ヒントデバッグとプロファイリング"><a class="header" href="#ヒントデバッグとプロファイリング">ヒント：デバッグとプロファイリング</a></h2>
+<p>開発中、思い通りに動かないときは <strong>React DevTools</strong> をフル活用してください。</p>
+<p>TODO: [React DevTools のインストールと使い方]を解説する記事へのリンクを貼る</p>
+<ul>
+<li>「Components」タブで、今どのコンポーネントがどんな props を持っているかを確認する。</li>
+<li>「Profiler」タブで、どの操作が原因でどのコンポーネントが再レンダリングされたかを分析する。</li>
+</ul>
+<h2 id="低レイヤーの視点state-更新のバッチ処理"><a class="header" href="#低レイヤーの視点state-更新のバッチ処理">低レイヤーの視点：State 更新のバッチ処理</a></h2>
+<p>タスクを 1 つ追加したとき、React の内部では何が起きているでしょうか。</p>
+<p>TODO: [React の自動バッチ処理 (Automatic Batching)]を解説する記事へのリンクを貼る</p>
+<p>もし、一つのボタンクリックの中で 3 つの State を同時に更新したとしても、React 18 以降はそれらを <strong>1 回の再レンダリング</strong> にまとめてくれます（バッチ処理）。
+これは、ブラウザのリフロー回数を減らし、パフォーマンスを維持するための極めて重要な最適化です。私たちが意識せずとも、React は常に「効率」を追求してくれています。</p>
+<h2 id="私の視点設計に正解はない"><a class="header" href="#私の視点設計に正解はない">私の視点：設計に「正解」はない</a></h2>
+<p>ToDo アプリ一つとっても、作り方は千差万別です。</p>
+<ul>
+<li>全部のタスクを一つの State で持つか？</li>
+<li>それとも完了済みと未完了を分けるか？</li>
+<li>カスタムフック <code>useTodos</code> を作るか？</li>
+</ul>
+<p>プログラミングの面白さは、<strong>「目的を達成するためのルートが無限にあること」</strong> です。
+まずは自分の直感で書いてみて、後から「もっとスッキリ書けないか？」とリファクタリングしてみてください。その試行錯誤の過程こそが、あなたを本物のエンジニアへと成長させます。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>小さなコンポーネントを組み合わせて大きなアプリを作る（コンポジション）。</li>
+<li>State は「必要最小限の場所」で管理する。</li>
+<li><code>useEffect</code> を使って、外部（LocalStorage など）と同期する。</li>
+<li>DevTools を使いこなし、データの流れを可視化する。</li>
+<li>バッチ処理など、React の最適化の恩恵を理解する。</li>
+<li>完璧を求めず、まずは「動くもの」を作り、改善を繰り返す。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>お疲れ様でした！ これでフロントエンドの山場である React 章は完結です。
+次は、画面の裏側――データがどこから来て、どうやって保存されるのかを学ぶ <strong>「バックエンドとデータベース」</strong> の世界へと足を踏み入れましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://ja.react.dev/learn/sharing-state-between-components">React 公式: 状態の共有 (Lifting State Up)</a></li>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/API/Window/localStorage">LocalStorage API (MDN)</a></li>
+</ul>
+<hr>
+<p>TODO: 演習で作ったアプリを Vercel にデプロイして公開する方法へのリンクを貼る</p>
 
                     </main>
 

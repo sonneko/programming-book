@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,17 +178,64 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="カスタムフックとロジックの関数合成"><a class="header" href="#カスタムフックとロジックの関数合成">カスタムフックとロジックの関数合成</a></h1>
-<p>カスタムフックを作成することで、コンポーネントロジックを抽出して再利用可能にできます。</p>
-<h3 id="定義と設計思想"><a class="header" href="#定義と設計思想">定義と設計思想</a></h3>
-<p>関数名の先頭に <code>use</code> をつけるのが慣習であり、Reactのツールチェーン（静的解析など）がフックのルールを強制するために使用されます。</p>
-<pre><code class="language-jsx">function useCounter(initialValue) {
+<p>React の基本フック（<code>useState</code> や <code>useEffect</code>）を使えるようになると、コンポーネントの中でいろいろなことができるようになります。しかし、調子に乗っていろいろな処理を書きすぎると、コンポーネントが 100 行、200 行と肥大化し、「何を表示するための部品なのか」が分からなくなってしまいます。</p>
+<p>そんな時に真価を発揮するのが <strong>「カスタムフック」</strong> です。
+カスタムフックは、React のロジックをコンポーネントから切り出し、<strong>「名前のついた再利用可能な部品」</strong> に変える魔法です。</p>
+<h2 id="1-カスタムフックとは何か"><a class="header" href="#1-カスタムフックとは何か">1. カスタムフックとは何か？</a></h2>
+<p>一言で言えば、<strong>「React のフックを使っている、普通の JavaScript 関数」</strong> です。
+唯一のルールは、名前を <strong><code>use</code></strong> から始めること。これによって、React の静的解析ツール（リンター）が「あ、これはフックなんだな」と理解し、正しいルールで使われているかをチェックしてくれます。</p>
+<pre><code class="language-tsx">// カスタムフックの例
+function useCounter(initialValue = 0) {
   const [count, setCount] = useState(initialValue);
-  // 返り値は状態と操作関数のセット
-  return { count, increment: () =&gt; setCount(count + 1) };
+  const increment = () =&gt; setCount(prev =&gt; prev + 1);
+  const decrement = () =&gt; setCount(prev =&gt; prev - 1);
+
+  // 状態と、それを操作する関数を返す
+  return { count, increment, decrement };
+}
+
+// コンポーネントでの使用
+function App() {
+  const { count, increment } = useCounter(10);
+  return &lt;button onClick={increment}&gt;{count}&lt;/button&gt;;
 }
 </code></pre>
-<p>カスタムフックは、ReactのState管理能力を「純粋なJavaScript関数」へ拡張する手段です。これにより、コンポーネントはUIの描画に専念し、ビジネスロジックはフック内に隔離されます。この「責務の分離」は、コードのテスト容易性（ロジックをUIから切り離して単体テスト可能にする）を劇的に向上させます。</p>
-<p>また、カスタムフックは他のフックを内部で合成できるため、複雑なステート管理ロジックを宣言的に構築できます。大規模アプリケーションにおいては、このようにロジックを部品化することが、保守性を維持する上で不可欠な設計思想となっています。</p>
+<p>コンポーネント側は、<code>count</code> がどうやって増えるのかという「詳細（ロジック）」を知る必要がありません。ただフックを呼び出すだけで機能を手に入れられます。</p>
+<h2 id="2-責務の分離見た目と中身を分ける"><a class="header" href="#2-責務の分離見た目と中身を分ける">2. 責務の分離：見た目と中身を分ける</a></h2>
+<p>カスタムフックの最大のメリットは <strong>「責務の分離 (Separation of Concerns)」</strong> です。</p>
+<ul>
+<li><strong>カスタムフック</strong>: 「データがどう変わるか」「API をどう呼ぶか」という <strong>ロジック</strong> を担当。</li>
+<li><strong>コンポーネント</strong>: 「データをどう画面に出すか」という <strong>見た目</strong> を担当。</li>
+</ul>
+<p>この 2 つを分けることで、コンポーネントは驚くほどスッキリし、宣言的になります。また、同じロジックを別のコンポーネントで使い回すのも簡単です。</p>
+<h2 id="低レイヤーの視点クロージャとメモリの効率化"><a class="header" href="#低レイヤーの視点クロージャとメモリの効率化">低レイヤーの視点：クロージャとメモリの効率化</a></h2>
+<p>カスタムフックは、内部で <code>useState</code> や <code>useEffect</code> を呼んでいるだけなので、コンポーネントが再レンダリングされるたびに、フックの関数自体も再実行されます。</p>
+<p>TODO: [JavaScript のクロージャとメモリリーク]を解説する記事へのリンクを貼る</p>
+<p>ここで重要なのが、カスタムフックの中で定義した関数（上記の <code>increment</code> など）も、毎回新しく作り直されているという点です。
+ほとんどの場合は問題ありませんが、もしその関数を <code>useEffect</code> の依存配列に入れたり、子コンポーネントに渡したりする場合、<strong>「毎回違う関数だと判断される」</strong> ことで、不必要な再レンダリングを引き起こす可能性があります。
+そんな時は <code>useCallback</code> を使って関数をメモ化（保存）する、といった高度な最適化が必要になります。</p>
+<h2 id="私の視点フックはui-のための-api"><a class="header" href="#私の視点フックはui-のための-api">私の視点：フックは「UI のための API」</a></h2>
+<p>私はカスタムフックを、<strong>「コンポーネントのための専用 API」</strong> だと考えています。</p>
+<p>たとえば「ウィンドウの横幅を監視するフック」や「ブラウザの LocalStorage を同期するフック」を作っておけば、どんなコンポーネントからでも 1 行でその機能を引き出せます。
+「このコンポーネント、コードが長いな……」と感じたら、それは新しいカスタムフックが誕生する合図です。
+自分だけの便利なフック集（ツールボックス）を育てていくことは、React エンジニアとしての大きな楽しみの一つですよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>カスタムフックは、ロジックを関数として切り出し、再利用可能にする仕組み。</li>
+<li>名前は必ず <code>use</code> から始める。</li>
+<li>「見た目（コンポーネント）」と「ロジック（フック）」を分けることで保守性が上がる。</li>
+<li>内部では基本フックを組み合わせて高度な機能（合成）を作れる。</li>
+<li>パフォーマンスが気になる時は <code>useCallback</code> や <code>useMemo</code> で最適化を。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>コンポーネントの内部ロジックを整理できるようになったら、次は Web アプリ全体の構造――ページ遷移を司る <strong>「SPA (Single Page Application)」</strong> の世界へと視点を広げましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://ja.react.dev/learn/reusing-logic-with-custom-hooks">React 公式: 独自のフックの構築</a></li>
+<li><a href="https://usehooks.com/">useHooks (便利なカスタムフックが大量に公開されているサイト)</a></li>
+</ul>
+<hr>
+<p>TODO: <code>useFetch</code> のような汎用的なカスタムフックの実装例を解説する記事へのリンクを貼る</p>
 
                     </main>
 

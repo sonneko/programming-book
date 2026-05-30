@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,21 +178,91 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="型注釈プログラムの宣言的意図"><a class="header" href="#型注釈プログラムの宣言的意図">型注釈：プログラムの宣言的意図</a></h1>
-<p>TypeScriptにおける「型注釈（Type Annotation）」は、変数、引数、戻り値に型を明示的に付与する機能です。しかし、初心者が陥りがちな罠があります。「型注釈は、コンパイラに型を教えるための機能だ」という誤解です。そうではありません。型注釈は、「このデータはこうあるべきだ」という、あなた自身の「宣言的意図」をコードに刻み込む行為です。</p>
-<h3 id="構造的型付けの哲学"><a class="header" href="#構造的型付けの哲学">構造的型付けの哲学</a></h3>
-<p>TypeScriptは「構造的型付け（Structural Typing）」を採用しています。これは、JavaやC++のような名前ベース（Nominal Typing）の言語とは異なり、「そのオブジェクトがどういう構造を持っているか」で型を判定する仕組みです。</p>
-<pre><code class="language-typescript">let username: string = 'Alice';
-let age: number = 30;
-let isActive: boolean = true;
-</code></pre>
-<p>もし、あなたが <code>User</code> というオブジェクトを作った場合、その型が定義されていなくても、プロパティさえ合致していればTypeScriptはそのデータを同等とみなします。この柔軟性がJavaScriptの本質的な特性と調和しています。</p>
-<h3 id="関数シグネチャによる保証"><a class="header" href="#関数シグネチャによる保証">関数シグネチャによる保証</a></h3>
-<p>関数の型注釈は、まさにデータの変換規則そのものを定義します。</p>
-<pre><code class="language-typescript">function greet(name: string): string {
-  return `Hello, ${name}`;
+<p>TypeScript を書き始めると、変数名の後ろに <code>: string</code> や <code>: number</code> といった「おまじない」をたくさん書くことになります。これを <strong>型注釈 (Type Annotation)</strong> と呼びます。</p>
+<p>初心者が陥りがちな罠があります。「型注釈は、コンパイラに型を教えるための作業だ」という誤解です。
+そうではありません。型注釈は、<strong>「このデータはこうあるべきだ」という、あなた自身の「宣言的意図」をコードに刻み込む行為</strong> なのです。</p>
+<h2 id="1-型注釈の基本"><a class="header" href="#1-型注釈の基本">1. 型注釈の基本</a></h2>
+<p>JavaScript の変数宣言に、コロン <code>:</code> を使って型を付け加えます。</p>
+<pre><code class="language-typescript">// 基本の型
+let username: string = 'Alice';
+let age: number = 25;
+let isPremium: boolean = true;
+
+// 配列の型
+let tags: string[] = ['typescript', 'coding'];
+
+// オブジェクトの型 (Interface や Type)
+interface User {
+  id: number;
+  name: string;
 }
+
+const user: User = {
+  id: 1,
+  name: 'Bob'
+};
 </code></pre>
-<p>この関数は、「文字列を受け取り、文字列を返す」という変換規則を強制します。もし数値を渡そうとすれば、コンパイラは即座に停止します。型注釈を適切に行うことで、IDEの補完機能が強化され、開発スピードが上がるのは副次的な効果に過ぎません。真の目的は、データの変換がプログラム全体で一貫していることを保証することです。TypeScriptは「ドキュメントとしてのコード」を実現する優れた言語であり、型注釈はその最も強力な構文なのです。</p>
+<p>これによって、「<code>age</code> に文字列を入れようとする」といった、かつて JavaScript で許されていた「曖昧さ」が完全にシャットアウトされます。</p>
+<h2 id="2-構造的型付け-structural-typing"><a class="header" href="#2-構造的型付け-structural-typing">2. 構造的型付け (Structural Typing)</a></h2>
+<p>TypeScript の型システムには、他の言語（Java や C++）とは決定的に違う面白い特徴があります。それが <strong>「構造的型付け」</strong> です。</p>
+<p>TODO: [ダックタイピングと構造的型付け]を解説する記事へのリンクを貼る</p>
+<p>Java などでは、クラスの名前が一致していないと型が合いません（名前ベース）。
+しかし TypeScript では、<strong>「見た目（構造）が同じなら、同じ型とみなす」</strong> というルールを採用しています。</p>
+<pre><code class="language-typescript">interface Point {
+  x: number;
+  y: number;
+}
+
+function printPoint(p: Point) {
+  console.log(`x: ${p.x}, y: ${p.y}`);
+}
+
+// Point という型を明示していないオブジェクトでも、
+// x と y を持っていれば printPoint に渡せる！
+const myObj = { x: 10, y: 20, z: 30 };
+printPoint(myObj);
+</code></pre>
+<p>「カモのように歩き、カモのように鳴くなら、それはカモだ」というこの柔軟な設計思想のおかげで、JavaScript の自由なオブジェクト操作の良さを壊さずに、安全性を手に入れることができているのです。</p>
+<h2 id="3-型推論コンパイラの忖度"><a class="header" href="#3-型推論コンパイラの忖度">3. 型推論：コンパイラの「忖度」</a></h2>
+<p>「すべての変数に型を書くのは面倒だ！」と思うかもしれません。安心してください。TypeScript コンパイラは驚くほど賢いです。</p>
+<pre><code class="language-typescript">// 型を書かなくても、右側の値を見て string だと判断してくれる
+let message = "Hello"; 
+
+// ここで数値を入れようとすると怒ってくれる
+message = 123; // Error!
+</code></pre>
+<p>これを <strong>型推論 (Type Inference)</strong> と呼びます。
+「見ればわかること」はコンパイラに任せ、「複雑で間違えやすい部分」や「外部との境界線（関数の引数など）」にはしっかり型注釈を書く。このバランスが、心地よい TypeScript 開発のコツです。</p>
+<h2 id="低レイヤーの視点静的解析のアルゴリズム"><a class="header" href="#低レイヤーの視点静的解析のアルゴリズム">低レイヤーの視点：静的解析のアルゴリズム</a></h2>
+<p>TypeScript コンパイラが、あなたの書いた型注釈をどうやって検証しているか、少しだけ裏側を覗いてみましょう。</p>
+<p>TODO: [データフロー解析]を解説する記事へのリンクを貼る</p>
+<p>コンパイラは内部で <strong>「データフロー解析」</strong> を行っています。
+例えば <code>if</code> 文で「もし <code>user</code> が <code>null</code> でなければ」というチェックを書くと、その <code>if</code> ブロックの中では <code>user</code> の型から自動的に <code>null</code> が消え、安全にアクセスできるようになります。
+これを <strong>「型の絞り込み (Type Narrowing)」</strong> と呼びます。</p>
+<p>あなたの書いた 1 行のコードの裏で、コンパイラは膨大な数の論理パズルを解き、破綻がないかを確認し続けているのです。</p>
+<h2 id="私の視点型は未来の自分への契約書"><a class="header" href="#私の視点型は未来の自分への契約書">私の視点：型は「未来の自分への契約書」</a></h2>
+<p>私はよく、型注釈を「契約」に例えます。
+「この関数は、文字列をくれたら、数値を返すことを約束するよ」という契約を交わすわけです。</p>
+<p>契約があれば、関数の「中」を実装する人は、何が来るか心配しなくて済みます。
+関数の「外」で使う人も、何が返ってくるか確信を持って使えます。
+一人で開発していても、数ヶ月後の自分は「他人」です。型注釈という契約書を残しておくことで、未来の自分に感謝されること間違いなしですよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>型注釈はコンパイラへの命令ではなく、エンジニアの「意図」の表明。</li>
+<li>構造的型付けのおかげで、名前ではなく「形」で型を合わせられる。</li>
+<li>賢い「型推論」を使いこなし、冗長なコードを避けよう。</li>
+<li>「型の絞り込み」によって、条件分岐に応じた安全性が手に入る。</li>
+<li>型は開発者同士（あるいは未来の自分）の「契約」である。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>型を付ける楽しさがわかってきたところで、次は逆に TypeScript の世界で「絶対にやってはいけないこと」を学びます。毒入りのリンゴを食べないように、正しい知識を身につけましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.typescriptlang.org/docs/handbook/type-inference.html">TypeScript 公式: 型推論</a></li>
+<li><a href="https://typescript-book.jp/reference/values-types-variables/type-annotation">サバイバル TypeScript (型注釈の基本)</a></li>
+</ul>
+<hr>
+<p>TODO: 型注釈と型アサーション (as) の違いを解説する記事へのリンクを貼る</p>
 
                     </main>
 

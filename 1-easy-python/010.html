@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,36 +178,65 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="for文"><a class="header" href="#for文">for文</a></h1>
+<p>前回学んだ <code>while</code>文を使えば、どんな繰り返し処理も書くことができます。しかし、実際にプログラムを書いていると「特定の回数だけ繰り返す」とか「リストの要素を一つずつ取り出す」といったパターンが非常に多いことに気づきます。</p>
+<p>このような「よくある繰り返し」を、より簡潔に、安全に書くための構文が <strong><code>for</code>文</strong> です。</p>
+<h2 id="基本的な使い方回数を指定する"><a class="header" href="#基本的な使い方回数を指定する">基本的な使い方：回数を指定する</a></h2>
+<p>Pythonの <code>for</code>文は、他の言語（C言語やJavaなど）とは少し使い勝手が違います。最も一般的なのは <code>range()</code> 関数と組み合わせる方法です。</p>
 <pre><code class="language-python">for index in range(10):
-    print(str(index))
+    print(f"現在は {index} 回目です")
 </code></pre>
-<p>for文もwhileと同じく繰り返しを表す構文の一つです。例えば上記のプログラムは以下のようなプログラムと同じ挙動を示します。</p>
+<p>このプログラムは、0から9までの数字を順番に <code>index</code> に代入しながら、10回実行されます。</p>
+<p><code>while</code>文で同じことを書くとこうなります：</p>
 <pre><code class="language-python">index = 0
-print(str(index))
-index = 1
-print(str(index))
-index = 2
-print(str(index))
-# ...(中略)
-index = 9
-print(str(index))
+while index &lt; 10:
+    print(f"現在は {index} 回目です")
+    index += 1
 </code></pre>
-<p>range(10)は、0から9までの数字の羅列を「オンデマンドで」<sup class="footnote-reference" id="fr-note1-1"><a href="#footnote-note1">1</a></sup>生成する「イテレータ」という値を返すという関数です。このfor文の後ろ(<code>range(10)</code>)には、イテレータという種類の値ならなんでも入ります。
-イテレータとは、値を次々と作る「もの」のことです。
-<code>range</code>関数がイテレータなのではなく、<code>range</code>関数が返す「もの」がイテレータであるということに注意してください。</p>
-<p>イテレータについてはまだ理解できなくても大丈夫です。なかなか最初は難しい概念ですし、また勉強することになりますので。</p>
-<p>例えば、次に学ぶリストもイテレータの一種であるのでここに入れることが可能です。</p>
-<pre><code class="language-python">fruits = ["apple", "banana", "orange"] # リスト型
+<p><code>for</code>文の方が「何回繰り返すか」が一目で分かり、さらに <code>index += 1</code> のような更新処理を書き忘れて無限ループになる心配もありません。</p>
+<h2 id="イテレータという考え方"><a class="header" href="#イテレータという考え方">イテレータという考え方</a></h2>
+<p>ここで少し不思議なのが、<code>range(10)</code> の正体です。実はこれ、単なる数字ではなく、<strong>「イテレータ（<em>Iterator</em>）」</strong> と呼ばれる特別なオブジェクトを生成する関数です。</p>
+<p>イテレータとは、一言で言えば <strong>「次の値を順番に出してくれる『もの』」</strong> です。</p>
+<p><code>for</code>文は、このイテレータに対して「次の値をちょうだい」と頼み続け、値がなくなるまで処理を繰り返します。</p>
+<p>TODO: [イテレータとジェネレータ]を解説する記事へのリンクを貼る</p>
+<h2 id="実践データの集まりを処理する"><a class="header" href="#実践データの集まりを処理する">実践：データの集まりを処理する</a></h2>
+<p><code>for</code>文が最も輝くのは、複数のデータが入った「リスト（配列）」を扱うときです。</p>
+<pre><code class="language-python">fruits = ["apple", "banana", "orange", "grape"]
 
+print("お店の在庫一覧：")
 for fruit in fruits:
-    print(fruit) # apple banana orange
+    print(f"・{fruit}")
 </code></pre>
-<hr>
-<ol class="footnote-definition">
-<li id="footnote-note1">
-<p>「オンデマンドで」というのは「（事前に作るのではなく）必要になった瞬間に」という意味です。プログラミングの文脈では、「遅延評価」も同じ意味です。 <a href="#fr-note1-1">↩</a></p>
-</li>
-</ol>
+<p>このコードでは、<code>range()</code> の代わりに <code>fruits</code> というリストを直接 <code>for</code>文に渡しています。Pythonはリストから要素を一つずつ取り出し、変数 <code>fruit</code> に入れてくれます。</p>
+<p>「リストの長さを調べて、<code>range()</code> で回して、添字（インデックス）で取り出す……」といった面倒な手順は一切不要です。これを <strong>「拡張for文」</strong> や <strong>「for-in句」</strong> と呼んだりします。</p>
+<h2 id="低レイヤーの視点メモリ消費を抑える工夫"><a class="header" href="#低レイヤーの視点メモリ消費を抑える工夫">低レイヤーの視点：メモリ消費を抑える工夫</a></h2>
+<p><code>range(1000000)</code>（100万回）と書いたとき、コンピュータの中では何が起きているのでしょうか。</p>
+<p>もし <code>range</code> が 100万個の数字が入ったリストを実際に作っていたら、メモリを大量に消費してしまいます。しかし、Pythonの <code>range</code> は <strong>「遅延評価（<em>Lazy Evaluation</em>）」</strong> という仕組みを使っています。</p>
+<p>TODO: [メモリ管理とヒープ領域]を解説する記事へのリンクを貼る</p>
+<p><code>range</code> は、100万個の数字をメモリに用意するのではなく、「今の数字は 0 です」「次は 1 です」という <strong>計算ルールだけ</strong> を覚えています。<code>for</code>文から「次をちょうだい」と言われた瞬間に、次の数字を計算して作り出すのです。</p>
+<p>これを「オンデマンド（必要に応じて）生成」と呼び、これによってどれだけ大きな回数を指定しても、メモリをほとんど消費せずに実行できるのです。</p>
+<h2 id="私の視点enumerate-でインデックスも一緒に使う"><a class="header" href="#私の視点enumerate-でインデックスも一緒に使う">私の視点：<code>enumerate</code> でインデックスも一緒に使う</a></h2>
+<p><code>for fruit in fruits:</code> は便利ですが、たまに「今、何番目の要素を処理しているか（番号）」も知りたいときがあります。そんな時は <code>enumerate()</code> 関数を使うのが Python 流です。</p>
+<pre><code class="language-python">fruits = ["apple", "banana", "orange"]
+
+for i, fruit in enumerate(fruits):
+    print(f"{i + 1}番目のフルーツは {fruit} です")
+</code></pre>
+<p>これを使わずに、わざわざ <code>i = 0</code> というカウンター変数を外で作ってループ内で <code>i += 1</code> するのは、あまり「Pythonらしくない（Non-Pythonic）」とされます。便利な道具を使いこなして、スッキリとしたコードを目指しましょう。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li><code>for</code>文は「決まった回数」や「データの集まり」を処理するのに適している。</li>
+<li><code>range(n)</code> は 0 から n-1 までの値を生成する。</li>
+<li>リストを直接渡すと、要素を一つずつ取り出せる。</li>
+<li><code>range</code> は「遅延評価」によってメモリを節約している。</li>
+<li>インデックスが必要なときは <code>enumerate()</code> を使おう。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>さて、ここまで「データの集まり」としてサラッと「リスト」を紹介してきましたが、リストはプログラミングにおいて非常に奥が深く、重要なデータ構造です。次は、このリスト型の使い方をより詳しく、徹底的にマスターしていきましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://docs.python.org/ja/3/tutorial/controlflow.html#for-statements">Python公式: for文</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%BF">イテレータ (Wikipedia)</a></li>
+</ul>
 
                     </main>
 

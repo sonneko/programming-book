@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,16 +178,57 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="フックhooksのアーキテクチャ"><a class="header" href="#フックhooksのアーキテクチャ">フック（Hooks）のアーキテクチャ</a></h1>
-<p>フック（Hooks）は、関数コンポーネントにおいてStateの保持やライフサイクルイベントへのフックを可能にするための特別な関数群です。</p>
-<h3 id="実行順序とfiber内部構造"><a class="header" href="#実行順序とfiber内部構造">実行順序とFiber内部構造</a></h3>
-<p>フックはReact内部でコンポーネントごとに「連結リスト」として管理されています。そのため、条件分岐の中で実行したり、ループ内で呼ぶことは禁止されています。コンポーネントが再レンダリングされるたびに、Reactは同じ順序でフックを呼び出し、メモリ上のリストから対応するStateを取得します。この「実行順序への依存」は、フックを簡潔な関数として利用するための、Reactの内部実装（FiberのState管理）における前提条件です。</p>
-<h3 id="副作用とレンダリングの整合性"><a class="header" href="#副作用とレンダリングの整合性">副作用とレンダリングの整合性</a></h3>
-<p><code>useEffect</code> は、レンダリングパイプラインとは別に実行される「副作用」を管理します。API通信やDOM操作などの重い処理を、描画処理を阻害しないように（非同期的に）実行します。</p>
+<p>React のコンポーネントは「ただの関数」です。関数は、実行が終わればその中の変数は消えてしまいます。それなのに、なぜ React のコンポーネントは「前のカウント値」を覚えていたり、「画面が表示された後に通信する」といった複雑なことができるのでしょうか？</p>
+<p>その秘密が <strong>Hooks (フック)</strong> です。
+Hooks は、関数コンポーネントという「ただの関数」の中に、React の内部システムへアクセスするための「釣り針（フック）」を引っ掛けるような仕組みです。</p>
+<h2 id="1-usestate記憶を持つためのフック"><a class="header" href="#1-usestate記憶を持つためのフック">1. useState：記憶を持つためのフック</a></h2>
+<p>最もよく使うのが <code>useState</code> です。</p>
+<pre><code class="language-tsx">const [count, setCount] = useState(0);
+</code></pre>
+<p>この 1 行で、React はあなたのコンポーネント専用の「メモリ空間」を確保します。
+<code>setCount</code> を呼ぶと、React は「あ、このコンポーネントの状態が変わったな」と検知し、もう一度関数を実行（再レンダリング）します。このとき、<code>useState(0)</code> は 0 ではなく、<strong>「保存されていた最新の値」</strong> を返してくれるのです。</p>
+<h2 id="2-useeffect副作用きっかけのためのフック"><a class="header" href="#2-useeffect副作用きっかけのためのフック">2. useEffect：副作用（きっかけ）のためのフック</a></h2>
+<p>「画面が表示されたときに一度だけ実行したい」「データが変わったときにログを出したい」といった、レンダリング以外の処理（副作用）を扱うのが <code>useEffect</code> です。</p>
+<pre><code class="language-tsx">useEffect(() =&gt; {
+  console.log("画面に現れました！");
+
+  // クリーンアップ関数（消えるときに実行）
+  return () =&gt; console.log("消えます...");
+}, []); // この [] が「いつ実行するか」の鍵
+</code></pre>
+<p>TODO: [useEffect の依存配列の落とし穴]を解説する記事へのリンクを貼る</p>
+<h2 id="低レイヤーの視点実行順序という制約"><a class="header" href="#低レイヤーの視点実行順序という制約">低レイヤーの視点：実行順序という「制約」</a></h2>
+<p>Hooks には <strong>「ループや条件分岐の中で呼んではいけない」</strong> という絶対のルールがあります。なぜでしょうか？</p>
+<p>実は、React の内部では、各コンポーネントの Hooks が <strong>「配列（あるいは連結リスト）」</strong> として管理されています。</p>
+<p>TODO: [React Hooks の内部実装：LinkedList]を解説する記事へのリンクを貼る</p>
+<ol>
+<li>1 回目のレンダリング：<code>useState</code> が呼ばれた。配列の 0 番目に値を保存。</li>
+<li>2 回目のレンダリング：また <code>useState</code> が呼ばれた。配列の 0 番目から値を取り出す。</li>
+</ol>
+<p>もし <code>if</code> 文の中で Hooks を呼んでしまうと、前回は 3 つ呼ばれたのに今回は 2 つしか呼ばれない……といったことが起きます。すると React は「あれ？ 2 番目にあったはずの状態が 1 番目に来ているぞ！」とパニックになり、状態がぐちゃぐちゃに混ざってしまいます。
+<strong>「常に同じ順番で呼ばれること」</strong>。これが、Hooks が魔法を実現するための、物理的な代償なのです。</p>
+<h2 id="私の視点hooks-はロジックの革命である"><a class="header" href="#私の視点hooks-はロジックの革命である">私の視点：Hooks は「ロジックの革命」である</a></h2>
+<p>Hooks が登場する前の React（クラスコンポーネント）では、ロジックを再利用するのは至難の業でした。
+Hooks の本当の凄さは、<strong>「UI とは関係ない純粋なロジックを、関数として切り出せるようになったこと」</strong> にあります。</p>
+<p>「データの取得」「フォームの入力管理」「タイマーの制御」。
+これらを Hooks として切り出し、複数のコンポーネントで共有する。この <strong>「カスタムフック」</strong> という武器を手に入れたことで、React は圧倒的な開発効率を手に入れたのです。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
 <ul>
-<li><code>useState</code>: Stateの変化をトリガーにコンポーネントを再レンダリングさせる。</li>
-<li><code>useEffect</code>: Stateの変化の結果として、ブラウザの同期処理（DOM書き換えなど）が行われた「後」に処理を実行する。</li>
+<li>Hooks は関数コンポーネントに「状態」や「ライフサイクル」を与える仕組み。</li>
+<li><code>useState</code>: 状態を保存し、変更時に再レンダリングを起こす。</li>
+<li><code>useEffect</code>: レンダリングとは別の「副作用」を適切なタイミングで実行する。</li>
+<li><strong>実行順序が命</strong>: 内部でリスト管理されているため、条件分岐やループ内での使用は厳禁。</li>
+<li>カスタムフックを使うことで、ロジックを部品化して再利用できる。</li>
 </ul>
-<p>カスタムフックを用いることで、複雑な状態管理ロジックをコンポーネントから切り出し、純粋なデータ処理ロジックとして再利用可能になります。これにより、UIコンポーネント（見た目）とロジック（振る舞い）の責務を分離するという設計思想が強力に推し進められています。</p>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>Hooks の仕組みがわかったら、次はそれらを組み合わせて自分だけの魔法を作る <strong>「カスタムフック」</strong> の具体的な設計手法について学んでいきましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://ja.react.dev/learn/state-a-components-memory">React 公式: フックの導入</a></li>
+<li><a href="https://ja.react.dev/learn/rules-of-hooks">React 公式: フックのルール</a></li>
+</ul>
+<hr>
+<p>TODO: <code>useRef</code>, <code>useMemo</code>, <code>useCallback</code> といった高度なフックを解説する記事へのリンクを貼る</p>
 
                     </main>
 

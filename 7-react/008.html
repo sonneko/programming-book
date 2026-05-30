@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,21 +178,66 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="reactrouterとは"><a class="header" href="#reactrouterとは">ReactRouterとは</a></h1>
-<p>React Routerは、ReactアプリケーションにおいてブラウザのHistory APIを抽象化し、宣言的なルーティングを実現するための標準的なライブラリです。</p>
-<h3 id="基本機能"><a class="header" href="#基本機能">基本機能</a></h3>
-<p>URLの状態とReactコンポーネントツリーを同期させることで、SPA（シングルページアプリケーション）におけるシームレスな画面遷移を提供します。</p>
-<pre><code class="language-jsx">&lt;Routes&gt;
-  &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
-  &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
-&lt;/Routes&gt;
+<p>SPA（シングルページアプリケーション）では、実際のページ遷移（リロード）は行いません。しかし、ユーザーにとっては「/about にアクセスしたら会社概要が見える」「/blog/1 にアクセスしたら記事が読める」という、従来の URL と画面が 1 対 1 で対応した体験が必要です。</p>
+<p>この <strong>「URL の状態」と「表示するコンポーネント」を同期させる</strong> ためのデファクトスタンダード（事実上の標準）ツールが、<strong>React Router</strong> です。</p>
+<h2 id="1-宣言的なルーティング"><a class="header" href="#1-宣言的なルーティング">1. 宣言的なルーティング</a></h2>
+<p>React Router の最大の特徴は、ルーティングの設定もまた「React コンポーネント」として記述できる点にあります。</p>
+<pre><code class="language-tsx">import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;nav&gt;
+        &lt;Link to="/"&gt;ホーム&lt;/Link&gt;
+        &lt;Link to="/about"&gt;アバウト&lt;/Link&gt;
+      &lt;/nav&gt;
+
+      &lt;Routes&gt;
+        {/* URL に応じて表示するコンポーネントを切り替える */}
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
 </code></pre>
-<h3 id="低レイヤーの現実と設計思想"><a class="header" href="#低レイヤーの現実と設計思想">低レイヤーの現実と設計思想</a></h3>
+<p>「もし URL が <code>/about</code> なら <code>&lt;About /&gt;</code> を出してね」というルールを、JSX の中に宣言的に書くことができます。</p>
+<h2 id="2-リンクと遷移の制御"><a class="header" href="#2-リンクと遷移の制御">2. リンクと遷移の制御</a></h2>
+<p>SPA では <code>&lt;a&gt;</code> タグを使ってはいけません。なぜなら、<code>&lt;a&gt;</code> タグはブラウザに「リロードして新しいページを取りに行け」と命じてしまうからです。</p>
+<p>代わりに React Router が提供する <strong><code>&lt;Link&gt;</code></strong> コンポーネントを使います。
+<code>&lt;Link&gt;</code> はクリックされたとき、リロードを阻止し、こっそりと URL だけを書き換えて、React に「画面を切り替えて！」と伝えます。</p>
+<h2 id="低レイヤーの視点ブラウザ履歴とメモリルーティング"><a class="header" href="#低レイヤーの視点ブラウザ履歴とメモリルーティング">低レイヤーの視点：ブラウザ履歴とメモリルーティング</a></h2>
+<p>React Router には、いくつかの「ルーター」が用意されています。</p>
 <ul>
-<li><strong>ブラウザとの統合</strong>: <code>BrowserRouter</code>はHTML5のHistory APIを内部的に利用し、ページリロードなしでのURL更新を実現します。</li>
-<li><strong>メモリルーティング</strong>: <code>MemoryRouter</code>を使用することで、URLをDOM環境に依存させずにテスティングやNode.js環境でのルーティングをシミュレート可能です。</li>
-<li><strong>設計思想</strong>: ルーティングは「URLというアプリケーションの外部状態を、コンポーネントという内部状態に写像する関数」として捉えられます。</li>
+<li><strong>BrowserRouter</strong>: 最も一般的です。ブラウザの <strong>History API</strong> を使い、<code>/about</code> のような本物の URL を作ります。ただし、サーバー側で「どんな URL が来ても <code>index.html</code> を返す」という設定が必要です。</li>
+<li><strong>HashRouter</strong>: URL の後ろに <code>/#/about</code> のようにハッシュを付けます。サーバー設定がいらないため、古いサーバーや GitHub Pages などで便利です。</li>
+<li><strong>MemoryRouter</strong>: URL をブラウザのバーに表示せず、<strong>メモリの中だけで</strong> ルーティングを管理します。</li>
 </ul>
-<p>React Routerを適切に利用することで、複雑なアプリケーションのステート管理をURLに委譲し、深い階層のURL設計やクエリパラメータの制御を簡潔に行えます。</p>
+<p>TODO: [History API と popstate イベント]を解説する記事へのリンクを貼る</p>
+<p>なぜメモリ上のルーティングが必要なのでしょうか？ それは、画面（DOM）が存在しない環境、たとえば <strong>Node.js でのテスト実行</strong> や、スマホアプリ（React Native）などでルーティングをシミュレートするためです。
+「URL という文字列」を「コンポーネントの状態」に変換する。React Router はこの写像（マッピング）を、環境を問わずに行えるよう抽象化してくれているのです。</p>
+<h2 id="私の視点ルーティングはアプリの地図"><a class="header" href="#私の視点ルーティングはアプリの地図">私の視点：ルーティングは「アプリの地図」</a></h2>
+<p>私は、新しいプロジェクトに参加したとき、まず最初に React Router の設定ファイル（<code>App.tsx</code> など）を読みます。
+そこには、そのアプリにどんな画面があり、どんなデータが必要なのかという <strong>「地図」</strong> がすべて書かれているからです。</p>
+<p>TODO: [入れ子になったルーティング (Nested Routes)]を解説する記事へのリンクを貼る</p>
+<p>複雑なアプリでは、<code>/dashboard</code> の中にさらに <code>/dashboard/settings</code> がある、といった入れ子構造が登場します。React Router の <code>Outlet</code> 機能を使いこなせると、共通のナビゲーションバーを残したまま中身だけを切り替える、といった高度な画面レイアウトが驚くほど簡単に実装できるようになりますよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>React Router は URL とコンポーネントを同期させるライブラリ。</li>
+<li><code>&lt;BrowserRouter&gt;</code> で全体を包み、<code>&lt;Route&gt;</code> で条件を記述する。</li>
+<li>遷移には <code>&lt;a&gt;</code> ではなく <code>&lt;Link&gt;</code> を使う（リロードを防ぐため）。</li>
+<li>裏側では History API を操作して、ページ遷移を「擬態」している。</li>
+<li>ルーティング設計は、アプリの機能美を決定づける「地図」の作成である。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>React Router で SPA の基本を学んだら、次はさらに一歩進んで、サーバー側での処理や最適化を極限まで突き詰めた最強のフレームワーク、<strong>Next.js</strong> の世界へ。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://reactrouter.com/">React Router 公式ドキュメント (英語)</a></li>
+<li><a href="https://qiita.com/stanko/items/67636e2d14f447783938">React Router v6 の使い方 (Qiita)</a></li>
+</ul>
+<hr>
+<p>TODO: <code>useParams</code> を使って URL からパラメータ（IDなど）を取得する方法へのリンクを貼る</p>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,10 +178,65 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="oopでも関数型"><a class="header" href="#oopでも関数型">OOPでも関数型！</a></h1>
-<p>純粋な関数型言語を使わなくても、関数型プログラミングの恩恵は受けられます。
-JavaScript, TypeScript, Java, Pythonなど、現代の主流言語はすべて高階関数（map, filter, reduce）をサポートしています。</p>
-<p>「副作用を局所化する」「イミュータブル（不変）なデータを意識する」「関数をファーストクラスオブジェクトとして扱う」といったアプローチを意識するだけで、オブジェクト指向言語で書かれたコードも劇的に改善されます。
-柔軟にこれらを取り入れましょう。</p>
+<p>ここまで「純粋関数」や「Haskell」、「カリー化」といった、少しアカデミックで、ある種「浮世離れ」した話をしてきました。もしかしたら皆さんは、「自分は仕事や趣味でJavaScriptやPython、Javaを書いているから、こういうのは関係ないかな」と思っているかもしれません。</p>
+<p>でも、ちょっと待ってください。実は、現代のプログラミングにおける最大のトレンドは、<strong>「オブジェクト指向（OOP）の中に、関数型のエッセンスをどんどん取り入れること」</strong> なのです。</p>
+<h2 id="ツールとしての関数型"><a class="header" href="#ツールとしての関数型">ツールとしての関数型</a></h2>
+<p>今、あなたが使っている言語を思い出してみてください。</p>
+<ul>
+<li><strong>JavaScript / TypeScript</strong>: <code>map</code>, <code>filter</code>, <code>reduce</code> を使っていませんか？ アロー関数 <code>() =&gt; {}</code> は？ これらはすべて関数型の機能です。</li>
+<li><strong>Python</strong>: <code>lambda</code> 式やリスト内包表記、<code>itertools</code> など、関数型由来のツールが満載です。</li>
+<li><strong>Java</strong>: Java 8から「Lambda」と「Stream API」が導入され、設計の仕方がガラリと変わりました。</li>
+<li><strong>Rust</strong>: そもそも関数型言語の影響を強く受けて設計されたシステムプログラミング言語です。</li>
+</ul>
+<p>これらの言語を「オブジェクト指向言語」と呼ぶのは、今や半分正解で半分間違いです。今の主流は、両方の良いとこ取りをする「マルチパラダイム」なスタイルなのです。</p>
+<h2 id="今日から実践できる関数型の知恵"><a class="header" href="#今日から実践できる関数型の知恵">今日から実践できる「関数型」の知恵</a></h2>
+<p>特定の言語を使わなくても、私たちがコードを書くときに意識できる「関数型的なアプローチ」はたくさんあります。</p>
+<h3 id="1-ループforwhileを高階関数に置き換える"><a class="header" href="#1-ループforwhileを高階関数に置き換える">1. ループ（for/while）を「高階関数」に置き換える</a></h3>
+<p>「配列の要素を2倍にする」という処理を、泥臭い <code>for</code> 文で書くのをやめてみましょう。</p>
+<pre><code class="language-javascript">// Before: 手続き型
+const doubled = [];
+for (let i = 0; i &lt; numbers.length; i++) {
+  doubled.push(numbers[i] * 2);
+}
+
+// After: 関数型（データ変換）
+const doubled = numbers.map(n =&gt; n * 2);
+</code></pre>
+<p>「何をしているか（2倍にしてマップする）」が直接表現されている <code>map</code> の方が、意図が伝わりやすく、変数 <code>i</code> の管理ミスによるバグも防げます。</p>
+<h3 id="2-不変immutableであることをデフォルトにする"><a class="header" href="#2-不変immutableであることをデフォルトにする">2. 不変（Immutable）であることをデフォルトにする</a></h3>
+<p>変数を作るとき、安易に <code>let</code> (JS) や <code>var</code> (Java/Python) を使わず、可能な限り <code>const</code> や <code>final</code> を使いましょう。</p>
+<p>TODO: [不変性]を解説する記事へのリンクを貼る</p>
+<p>一度決めた値を変えないという制約を自分に課すだけで、プログラムの「状態」を追いかける苦労から解放されます。</p>
+<h3 id="3-ロジックを純粋に保ち副作用を端に追いやる"><a class="header" href="#3-ロジックを純粋に保ち副作用を端に追いやる">3. ロジックを「純粋」に保ち、副作用を端に追いやる</a></h3>
+<p>プログラム全体を純粋にするのは難しいですが、「計算ロジック」と「外部とのやり取り（I/O）」を分けることはできます。</p>
+<ul>
+<li>ユーザーの入力を受け取る（不純）</li>
+<li><strong>入力を元に、結果を計算する（純粋）</strong></li>
+<li>結果を画面に表示する（不純）</li>
+</ul>
+<p>この真ん中の「計算」の部分を純粋な関数として切り出すだけで、その部分はテストが非常に楽になり、バグが入り込む隙がなくなります。</p>
+<h2 id="低レイヤーの視点抽象化のコストとjitコンパイラ"><a class="header" href="#低レイヤーの視点抽象化のコストとjitコンパイラ">低レイヤーの視点：抽象化のコストとJITコンパイラ</a></h2>
+<p>「高階関数（mapなど）を使うと、普通のループより遅くなるんじゃない？」という心配をされる方もいるでしょう。確かに、関数を一つずつ呼び出すオーバーヘッドはゼロではありません。</p>
+<p>しかし、V8（JavaScriptエンジン）やJVM（Java仮想マシン）に搭載されている <strong>JIT（Just-In-Time）コンパイラ</strong> は、非常に賢いです。</p>
+<p>TODO: [JITコンパイラ]を解説する記事へのリンクを貼る</p>
+<p>頻繁に実行される <code>map</code> などの処理を見つけると、それを機械語レベルで最適なループ構造に展開（インライン化）してくれることがあります。人間が読みやすいコードを書き、難しい最適化はコンピュータに任せる――。それが現代のプログラミングの賢いやり方です。</p>
+<h2 id="私の視点境界線はどこにある"><a class="header" href="#私の視点境界線はどこにある">私の視点：境界線はどこにある？</a></h2>
+<p>「オブジェクト指向か、関数型か」という対立軸で考えるのは、もう古いのかもしれません。</p>
+<p>大切なのは、「状態をどう管理するか」という課題に対して、その時々で最適な道具を選ぶことです。複雑なデータ構造を整理するときはオブジェクト指向の「カプセル化」が役に立ち、複雑なデータ変換を記述するときは関数型の「パイプライン」が役に立ちます。</p>
+<p>私が目指しているのは、特定の教義（ドグマ）に縛られるのではなく、あらゆるパラダイムから知恵を盗み、最高のコードを書く「ハイブリッドなエンジニア」です。皆さんも、この本で学んだ関数型の視点を、ぜひ普段のプログラミングにこっそり忍び込ませてみてください。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>現代の主要言語は、すべて関数型の機能を備えている。</li>
+<li><code>map</code> / <code>filter</code> の活用、不変性の意識、副作用の分離が第一歩。</li>
+<li>パフォーマンスへの影響は、現代のコンパイラがかなりの部分をカバーしてくれる。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>これで「関数型言語」のセクションは終了です。次は、さらに具体的な技術の裏側――APIの使い方や、サーバーの選び方など、より実践的な「付録」の世界へ進んでいきましょう！</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://qiita.com/stanko/items/67636e2d14f447783938">Frontend Functional Programming (思想の解説)</a></li>
+<li><a href="https://www.oracle.com/jp/technical-resources/articles/java/ma14-java-se-8-streams.html">Java 8 Stream API チュートリアル</a></li>
+</ul>
 
                     </main>
 

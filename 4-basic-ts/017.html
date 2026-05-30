@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -177,40 +177,99 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="演習"><a class="header" href="#演習">演習</a></h1>
-<p>TypeScriptの基礎知識を実践的に確認するための演習です。これらの課題は、実際の開発現場で遭遇するシナリオを簡略化したものです。</p>
-<h3 id="課題リスト"><a class="header" href="#課題リスト">課題リスト</a></h3>
+                        <h1 id="演習typescript-実践トレーニング"><a class="header" href="#演習typescript-実践トレーニング">演習：TypeScript 実践トレーニング</a></h1>
+<p>4 章で学んだ TypeScript の知識を総動員して、いくつかの実践的な課題に挑戦してみましょう。
+「わかったつもり」を「できる」に変えるには、実際にキーボードを叩き、コンパイラに怒られ、それを修正するプロセスが不可欠です。</p>
+<h2 id="課題-1インターフェースによるデータ構造の設計"><a class="header" href="#課題-1インターフェースによるデータ構造の設計">課題 1：インターフェースによるデータ構造の設計</a></h2>
+<h3 id="ミッション"><a class="header" href="#ミッション">ミッション</a></h3>
+<p>オンラインショップの「商品」と「ユーザー」を管理するシステムの一部を作ります。</p>
 <ol>
 <li>
-<p><strong>インターフェースの定義と活用</strong>:</p>
+<p><strong>インターフェースの定義</strong>:</p>
 <ul>
-<li><code>User</code> インターフェースを定義してください。名前（string）、年齢（number）、オプションでメールアドレス（string）を持つようにします。</li>
-<li>このインターフェースを実装したユーザーデータを作成する関数を作成してください。</li>
+<li><code>Product</code> インターフェースを作成してください。
+<ul>
+<li><code>id</code>: 文字列 (一意なID)</li>
+<li><code>name</code>: 文字列</li>
+<li><code>price</code>: 数値</li>
+<li><code>category</code>: ‘food’ | ‘electronics’ | ‘other’ (Union型を使ってみましょう)</li>
+</ul>
+</li>
+<li><code>Cart</code> インターフェースを作成してください。
+<ul>
+<li><code>items</code>: <code>Product</code> の配列</li>
+<li><code>totalPrice</code>: 数値</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
-<p><strong>クラスの継承とポリモーフィズム</strong>:</p>
+<p><strong>関数の実装</strong>:</p>
 <ul>
-<li><code>Shape</code> 抽象クラスを作成し、<code>getArea()</code> 抽象メソッドを持たせてください。</li>
-<li><code>Shape</code> を継承した <code>Circle</code> クラスと <code>Square</code> クラスを作成してください。</li>
-<li>形状の配列を渡すと、それぞれの面積の合計を返す関数 <code>calculateTotalArea</code> を実装してください。</li>
-</ul>
-</li>
-<li>
-<p><strong>非同期処理の書き換えとエラーハンドリング</strong>:</p>
-<ul>
-<li><code>setTimeout</code> を使用した古いコールバックベースの非同期関数を、<code>Promise</code> を返す関数に書き換えてください。</li>
-<li>最後に、その Promise を使用して、<code>async/await</code> と <code>try-catch</code> を用いた堅牢な呼び出し処理を実装してください。</li>
+<li><code>Product</code> の配列を受け取り、合計金額を計算して <code>Cart</code> オブジェクトを返す関数 <code>createCart(products: Product[]): Cart</code> を作成してください。</li>
 </ul>
 </li>
 </ol>
-<h3 id="成功のためのヒントと指針"><a class="header" href="#成功のためのヒントと指針">成功のためのヒントと指針</a></h3>
+<h2 id="課題-2抽象クラスと継承による通知システム"><a class="header" href="#課題-2抽象クラスと継承による通知システム">課題 2：抽象クラスと継承による「通知システム」</a></h2>
+<h3 id="ミッション-1"><a class="header" href="#ミッション-1">ミッション</a></h3>
+<p>ユーザーにメッセージを送るためのシステムを、オブジェクト指向の考え方で設計します。</p>
+<ol>
+<li><strong>抽象クラス <code>Notifier</code></strong>:
 <ul>
-<li><code>tsconfig.json</code> で <code>strict: true</code> を有効にすると、より厳密な型チェックが行われ、TypeScriptの真価を発揮できます。</li>
-<li>オブジェクト指向の設計では、「インターフェースで振る舞いを定義し、クラスで実装する」という依存関係の逆転の原則を意識してください。</li>
-<li><code>async/await</code> を使用する際は、呼び出し元で必ずエラーがキャッチされるように考慮してください。</li>
+<li><code>send(message: string): void</code> という抽象メソッドを持ちます。</li>
 </ul>
-<p>これらの課題を通じて、型システムとオブジェクト指向設計、非同期処理の実践的な感覚を養ってください。完成したら、コンパイルして <code>tsc</code> でエラーが出ないことを確認してみましょう。</p>
+</li>
+<li><strong>具象クラスの実装</strong>:
+<ul>
+<li><code>EmailNotifier</code>: <code>send</code> を呼ぶと、コンソールに <code>Emailを送信中: [メッセージ]</code> と出力します。</li>
+<li><code>SNSNotifier</code>: <code>send</code> を呼ぶと、コンソールに <code>SNSに投稿中: [メッセージ]</code> と出力します。</li>
+</ul>
+</li>
+<li><strong>ポリモーフィズムの活用</strong>:
+<ul>
+<li><code>Notifier</code> の配列を受け取り、すべての通知手段で同じメッセージを一斉送信する関数 <code>broadcast(notifiers: Notifier[], message: string)</code> を実装してください。</li>
+</ul>
+</li>
+</ol>
+<h2 id="課題-3非同期処理の近代化-promise--asyncawait"><a class="header" href="#課題-3非同期処理の近代化-promise--asyncawait">課題 3：非同期処理の近代化 (Promise &amp; Async/Await)</a></h2>
+<h3 id="ミッション-2"><a class="header" href="#ミッション-2">ミッション</a></h3>
+<p>古い形式のコードを、モダンな <code>async/await</code> 形式に書き換えます。</p>
+<ol>
+<li><strong>Promise 化</strong>:
+<ul>
+<li><code>setTimeout</code> を使い、3秒後にランダムな数値を返す古い関数を、Promise を返す <code>fetchRandomNumber(): Promise&lt;number&gt;</code> に書き換えてください。</li>
+</ul>
+</li>
+<li><strong>Async/Await とエラー処理</strong>:
+<ul>
+<li><code>fetchRandomNumber</code> を呼び出し、結果が 0.5 以上なら「成功」、以下なら「失敗」としてエラーを投げる <code>processNumber()</code> 関数を <code>async/await</code> を使って作成してください。</li>
+<li>呼び出し元では必ず <code>try-catch</code> でエラーを捕捉し、適切にメッセージを表示してください。</li>
+</ul>
+</li>
+</ol>
+<h2 id="低レイヤーの視点tsc-による検証の証拠"><a class="header" href="#低レイヤーの視点tsc-による検証の証拠">低レイヤーの視点：tsc による検証の「証拠」</a></h2>
+<p>演習に取り組む際、ぜひ <code>tsc</code> コマンドを実行して、生成された JavaScript ファイル (<code>.js</code>) の中身を確認してみてください。</p>
+<p>TODO: [TypeScriptとJavaScriptの比較]を解説する記事へのリンクを貼る</p>
+<ul>
+<li><code>interface</code> は跡形もなく消えています。</li>
+<li><code>abstract class</code> はただの <code>class</code> になり、抽象メソッドは消えています。</li>
+<li><code>async/await</code> は、ターゲットとするバージョンによっては複雑な <code>switch</code> 文と <code>while</code> ループの塊に化けているかもしれません。</li>
+</ul>
+<p>この「消滅」と「変換」のプロセスを自分の目で見ることで、TypeScript が「開発者のためだけの、極めて高度な補助輪」であることを実感できるはずです。</p>
+<h2 id="私の視点-strict-モードから逃げない"><a class="header" href="#私の視点-strict-モードから逃げない">私の視点： strict モードから逃げない</a></h2>
+<p>演習を行うときは、<code>tsconfig.json</code> の <strong><code>strict: true</code></strong> を必ず有効にしてください。
+「<code>null</code> である可能性がある」といったエラーが出るかもしれません。そのときは、<code>if (data !== null)</code> のようにチェックを追加して、コンパイラを納得させてください。</p>
+<p>そのひと手間こそが、バグのない堅牢なシステムを作るための「筋肉」になります。最初は面倒かもしれませんが、慣れてくると「チェックしないと気持ち悪い」と思えるようになりますよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>インターフェースで「データの形」を定義する。</li>
+<li>抽象クラスで「共通の振る舞い」を定義し、継承で具体化する。</li>
+<li><code>Promise.all</code> や <code>async/await</code> を使いこなし、時間の流れを制御する。</li>
+<li><code>tsc</code> が出力する JS を読み、型の消滅を体感する。</li>
+<li><code>strict</code> モードの厳格さを楽しみ、安全なコードを書く習慣をつける。</li>
+</ul>
+<hr>
+<p>TODO: 演習の解答例をまとめた GitHub リポジトリへのリンクを貼る</p>
 
                     </main>
 

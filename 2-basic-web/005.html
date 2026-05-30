@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,39 +178,86 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="cssセレクター"><a class="header" href="#cssセレクター">cssセレクター</a></h1>
-<p>セレクターは、CSSを適用するターゲットを特定するための強力な道具です。</p>
-<h3 id="基本的なセレクター"><a class="header" href="#基本的なセレクター">基本的なセレクター</a></h3>
-<ol>
-<li><strong>要素セレクター</strong>: タグ名で指定。
-<pre><code class="language-css">p { color: gray; }
+<p>CSS の文法を学んだとき、「セレクターは『どこを』装飾するかを指定するもの」だとお話ししました。しかし、実際の Web サイト制作では、単に <code>h1</code> や <code>p</code> といったタグ名だけで指定することは稀です。</p>
+<p>特定のボタンだけを赤くしたり、リストの 3 番目だけを太字にしたり……。そんな「狙った要素をピンポイントで捕まえる」ための高度なテクニックをマスターしましょう。</p>
+<h2 id="1-三種の神器要素クラスid"><a class="header" href="#1-三種の神器要素クラスid">1. 三種の神器：要素、クラス、ID</a></h2>
+<p>もっとも基本的なセレクターは、以下の 3 つです。</p>
+<h3 id="要素セレクター"><a class="header" href="#要素セレクター">要素セレクター</a></h3>
+<p>タグ名そのものを指定します。</p>
+<pre><code class="language-css">p { color: gray; } /* すべての p タグに適用 */
 </code></pre>
-</li>
-<li><strong>クラスセレクター</strong>: HTMLで <code>class="name"</code> と書いたものに指定。先頭に <code>.</code> を付ける。最も多用します。
-<pre><code class="language-css">.main-text { font-weight: bold; }
+<h3 id="クラスセレクター"><a class="header" href="#クラスセレクター">クラスセレクター</a></h3>
+<p>HTML で <code>class="name"</code> と名付けた要素に適用します。先頭に <code>.</code>（ドット）を付けます。
+<strong>これが最も多用されます。</strong> なぜなら、同じクラス名を複数の要素に付けられるので、スタイルを使い回せるからです。</p>
+<pre><code class="language-css">.highlight { background: yellow; }
 </code></pre>
-</li>
-<li><strong>IDセレクター</strong>: HTMLで <code>id="name"</code> と書いたものに指定。先頭に <code>#</code> を付ける。ページ内に1つだけ。
-<pre><code class="language-css">#unique-button { background: red; }
+<h3 id="id-セレクター"><a class="header" href="#id-セレクター">ID セレクター</a></h3>
+<p>HTML で <code>id="name"</code> と名付けた要素に適用します。先頭に <code>#</code>（ハッシュ）を付けます。
+1 ページに 1 つしか存在してはいけないというルールがあり、優先順位が非常に高いのが特徴です。</p>
+<pre><code class="language-css">#main-header { font-size: 32px; }
 </code></pre>
-</li>
-</ol>
-<h3 id="組み合わせ階層"><a class="header" href="#組み合わせ階層">組み合わせ・階層</a></h3>
-<p>セレクターを組み合わせることで、より詳細なターゲットを狙えます。</p>
+<h2 id="2-関係性で捕まえる子孫と子"><a class="header" href="#2-関係性で捕まえる子孫と子">2. 関係性で捕まえる：子孫と子</a></h2>
+<p>要素の構造（木構造）を利用して指定する方法です。</p>
 <ul>
-<li><strong>子孫セレクター</strong>: <code>A B</code> (Aの中にあるBすべて)</li>
-<li><strong>子セレクター</strong>: <code>A &gt; B</code> (Aの直下にあるBだけ)</li>
-<li><strong>複数指定</strong>: <code>A, B</code> (AとBの両方)</li>
+<li><strong>子孫セレクター (<code>A B</code>)</strong>: A の中にある B すべてを指定。
+<pre><code class="language-css">div p { color: red; } /* div の中にある p タグすべて（孫やひ孫も含む） */
+</code></pre>
+</li>
+<li><strong>子セレクター (<code>A &gt; B</code>)</strong>: A の直下にある B だけを指定。
+<pre><code class="language-css">ul &gt; li { list-style: none; } /* ul のすぐ下にある li だけ */
+</code></pre>
+</li>
 </ul>
-<h3 id="擬似クラス-pseudo-classes"><a class="header" href="#擬似クラス-pseudo-classes">擬似クラス (Pseudo-classes)</a></h3>
-<p>「マウスが乗ったとき」や「1番目の要素」など、特定の状態を指定できます。</p>
-<pre><code class="language-css">button:hover {
-  background: orange;
+<h2 id="3-状態や順番で捕まえる擬似クラス"><a class="header" href="#3-状態や順番で捕まえる擬似クラス">3. 状態や順番で捕まえる：擬似クラス</a></h2>
+<p>「ユーザーがマウスを乗せたとき」や「奇数番目の要素」など、HTML の構造だけでは表現できない「状態」を指定するのが <strong>擬似クラス (Pseudo-classes)</strong> です。</p>
+<pre><code class="language-css">/* マウスが乗ったとき */
+button:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
 
-li:first-child {
-  color: blue;
+/* リンクを訪問済みのとき */
+a:visited {
+  color: purple;
+}
+
+/* 3 番目の要素だけ */
+li:nth-child(3) {
+  color: orange;
+}
+
+/* 奇数番目だけ */
+li:nth-child(odd) {
+  background: #f0f0f0;
 }
 </code></pre>
+<h2 id="低レイヤーの視点セレクターのマッチングコスト"><a class="header" href="#低レイヤーの視点セレクターのマッチングコスト">低レイヤーの視点：セレクターの「マッチング」コスト</a></h2>
+<p>ブラウザが CSS を適用するとき、実は「右から左へ」解析していることをご存知でしょうか？</p>
+<p>例えば <code>div ul li</code> というセレクターがあったとき、ブラウザはまず画面上のすべての <code>li</code> 要素を探し、その親が <code>ul</code> かどうかを確認し、さらにその親が <code>div</code> かどうかを確認します。</p>
+<p>TODO: [ブラウザのCSS解析エンジン]を解説する記事へのリンクを貼る</p>
+<p>そのため、<code>div div div p</code> のように深すぎる子孫セレクターは、ブラウザにとって検索コストが高くなります。
+現代のブラウザは非常に高速なので、これだけでサイトが重くなることは稀ですが、<strong>「クラス名一つで指定する (<code>.my-list-item</code>)」</strong> のが、メンテナンス性だけでなく、ブラウザにとっても最も効率的な指定方法なのです。</p>
+<h2 id="私の視点id-セレクターを封印してみる"><a class="header" href="#私の視点id-セレクターを封印してみる">私の視点：ID セレクターを封印してみる</a></h2>
+<p>私が初心者の頃は ID を使いがちでしたが、実は現代のプロの開発では <strong>「ID セレクターを CSS で使わない」</strong> というルールを設けることが多いです。</p>
+<p>理由は、ID の優先順位（詳細度）が高すぎて、後からスタイルを上書きしたくなったときに <code>!important</code> などの無理やりな手段を使わざるを得なくなるからです。
+基本はすべて「クラス」で設計し、ID は JavaScript で要素を特定するためだけに使う。そんな設計を意識すると、CSS の管理がグッと楽になりますよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>基本は <code>要素</code>, <code>.クラス</code>, <code>#ID</code> の 3 種類。</li>
+<li>関係性（<code>A B</code>, <code>A &gt; B</code>）を使いこなすと HTML がスッキリする。</li>
+<li><code>:hover</code> などの擬似クラスで、動きのあるデザインを実現できる。</li>
+<li>ブラウザはセレクターを「右から左」に解析する。</li>
+<li>優先順位を制御しやすくするため、基本は「クラス」を使おう。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>セレクターでターゲットを決めたら、次は具体的に「どう飾るか」というプロパティの知識を深めましょう。特に、すべてのレイアウトの基本となる「ボックスモデル」を攻略します。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/CSS/CSS_Selectors">MDN: CSS セレクター</a></li>
+<li><a href="https://flukeout.github.io/">CSS セレクターゲーム (練習サイト：CSS Diner)</a></li>
+</ul>
+<hr>
+<p>TODO: セレクターの練習ができる外部サイトへのリンクを貼る</p>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,19 +178,51 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="nextjsとは"><a class="header" href="#nextjsとは">Next.jsとは</a></h1>
-<p>Next.jsは、Reactをベースにしたフレームワークで、本番環境での開発に必要な機能（ルーティング、レンダリング手法、最適化）があらかじめ組み込まれています。</p>
-<h3 id="主な特徴"><a class="header" href="#主な特徴">主な特徴</a></h3>
+<p>「React は学んだ。でも、本番で使える Web アプリを作るには、まだ足りない……」。
+ルーティング、画像の最適化、SEO 対策、サーバーとの連携。これらをすべて自前で構築するのは、気の遠くなるような作業です。</p>
+<p>そこで登場するのが、React をベースにした最強のフレームワーク <strong>Next.js</strong> です。
+Next.js は、React だけでは手が届きにくかった「パフォーマンス」と「開発体験」の課題を、一挙に解決してくれます。現在、モダンなフロントエンド開発において、React を使うなら Next.js を使う、というのが事実上の標準になっています。</p>
+<h2 id="1-レンダリングのフルコース"><a class="header" href="#1-レンダリングのフルコース">1. レンダリングの「フルコース」</a></h2>
+<p>Next.js の最大の特徴は、コンテンツに合わせて最適なレンダリング手法（画面の作り方）を選べることです。</p>
 <ul>
-<li><strong>レンダリングの柔軟性</strong>: SSR（サーバーサイドレンダリング）、SSG（静的サイト生成）、ISR（インクリメンタル静的再生）をサポートし、パフォーマンスとSEOを最適化。</li>
-<li><strong>ファイルベースルーティング</strong>: ファイルシステム自体がルーティング設定となります。</li>
+<li><strong>SSR (Server Side Rendering)</strong>: リクエストがあるたびに、サーバーで HTML を作りたてで送ります。最新の情報が必要なサイト（ニュースなど）に向いています。</li>
+<li><strong>SSG (Static Site Generation)</strong>: ビルド時（アプリを公開する前）に、あらかじめ HTML をすべて作っておきます。爆速で表示でき、SEO にも最強です（ブログなど）。</li>
+<li><strong>ISR (Incremental Static Regeneration)</strong>: SSG をしつつ、バックグラウンドで一定時間ごとに HTML を更新します。「速さ」と「新しさ」のいいとこ取りです。</li>
 </ul>
-<h3 id="技術的深みと低レイヤーの現実"><a class="header" href="#技術的深みと低レイヤーの現実">技術的深みと低レイヤーの現実</a></h3>
+<p>「全部 JavaScript で作る (SPA)」という極端なやり方から、必要な部分だけをサーバーに任せる柔軟なやり方へ。Next.js は Web の歴史を総括したような進化を遂げています。</p>
+<h2 id="2-ゼロコンフィギュレーション設定不要"><a class="header" href="#2-ゼロコンフィギュレーション設定不要">2. ゼロ・コンフィギュレーション（設定不要）</a></h2>
+<p>Next.js をインストールした瞬間から、多くの強力な機能が「当たり前」のように使えます。</p>
 <ul>
-<li><strong>Hydrationプロセス</strong>: サーバーで生成された静的HTMLに対し、クライアント側でJSを適用し、インタラクティブにするプロセス。この際のデータ整合性が鍵となります。</li>
-<li><strong>エッジコンピューティング</strong>: Vercel等のインフラを活用し、ユーザーに近いエッジサーバーでレンダリングすることで、レイテンシを極限まで削減します。</li>
-<li><strong>データシリアライズ</strong>: サーバーからクライアントへデータを渡す際、JSオブジェクトをJSONとしてシリアライズし、ブラウザで再構築する際のパフォーマンスコストを考慮する必要があります。</li>
+<li><strong>ファイルベースルーティング</strong>: <code>app</code> フォルダにファイルを置くだけで、それがそのまま URL（ルーティング）になります。</li>
+<li><strong>画像の自動最適化</strong>: <code>&lt;Image /&gt;</code> コンポーネントを使うだけで、ブラウザに合わせて画像をリサイズし、次世代フォーマット（WebP）に変換してくれます。</li>
+<li><strong>高速なビルド</strong>: Rust で書かれた高速なコンパイラ（SWC）を内蔵しており、開発中の待ち時間が極限まで削られています。</li>
 </ul>
-<p>現代のReact開発では、Next.jsを採用することで、これらのインフラレイヤーの複雑さをフレームワークに隠蔽し、機能開発に集中することが可能です。</p>
+<h2 id="低レイヤーの視点ハイドレーション-hydration"><a class="header" href="#低レイヤーの視点ハイドレーション-hydration">低レイヤーの視点：ハイドレーション (Hydration)</a></h2>
+<p>サーバーで HTML を作って送る（SSR/SSG）場合、ブラウザに届いた時点ではただの「静的なドキュメント」です。ボタンを押しても反応しません。</p>
+<p>TODO: [Hydration：静的な HTML に命を吹き込むプロセス]を解説する記事へのリンクを貼る</p>
+<p>ブラウザは HTML を表示した後、裏側で JavaScript を実行し、既存の HTML に対して React のイベントハンドラなどを「流し込み」ます。このプロセスを <strong>ハイドレーション（水分補給）</strong> と呼びます。
+カラカラに乾いた静的な HTML に、JavaScript という「水」を与えて、インタラクティブなアプリとして復活させる。この緻密な連係プレーが、Next.js の爆速な体験を支えているのです。</p>
+<h2 id="私の視点nextjs-はweb-の正解を教えてくれる"><a class="header" href="#私の視点nextjs-はweb-の正解を教えてくれる">私の視点：Next.js は「Web の正解」を教えてくれる</a></h2>
+<p>私が Next.js を使っていて感じるのは、「Next.js のルールに従って書くだけで、自然と『良い Web サイト』が出来上がってしまう」という感覚です。</p>
+<p>SEO、アクセシビリティ、読み込み速度。これらはエンジニアが個別に努力すべきことでしたが、Next.js はそれらをフレームワークの機能として組み込んでしまいました。
+「車輪の再発明」に時間を使うのではなく、あなたが本当に作りたい「価値（サービス）」に集中させてくれる。それこそが、Next.js が世界中で愛される理由ですよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>Next.js は React を本番環境で使うためのフルスタックフレームワーク。</li>
+<li>SSR, SSG, ISR など、最適なレンダリング手法を選択できる。</li>
+<li>ファイルを置くだけでルーティングができるなど、開発体験が非常に高い。</li>
+<li>ハイドレーションによって、高速な表示と高い操作性を両立している。</li>
+<li>パフォーマンス最適化（画像やフォント）が標準で組み込まれている。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>Next.js の全体像が見えたら、次は最新の Next.js 13 以降で導入された革新的な機能 <strong>「App Router」</strong> と <strong>「Server Components」</strong> について詳しく学びましょう。これまでの Web 開発の常識が再び塗り替えられます。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://nextjs.org/docs">Next.js 公式ドキュメント</a></li>
+<li><a href="https://nextjs-ja-translation-docs.vercel.app/">Next.js 日本語チュートリアル</a></li>
+</ul>
+<hr>
+<p>TODO: Vercel を使って Next.js アプリを 1 分でデプロイする方法へのリンクを貼る</p>
 
                     </main>
 

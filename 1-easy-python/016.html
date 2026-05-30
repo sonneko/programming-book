@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,32 +178,56 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="展望"><a class="header" href="#展望">展望</a></h1>
-<p>お疲れ様でした！これで「1章 Python初級編」は完了です。</p>
-<h2 id="この章で学んだこと"><a class="header" href="#この章で学んだこと">この章で学んだこと</a></h2>
-<p>この章を通して、あなたはプログラミングの「骨組み」となる以下の概念を学びました。</p>
+<p>お疲れ様でした！これで「1章 Python初級編」はすべて完了です。
+ここまで読み進め、実際にコードを動かしてきたあなたは、すでにプログラミングの「入り口」を確実に通り抜けました。</p>
+<p>私が初めてプログラムを動かしたとき、画面に文字が出ただけで世界が変わったような気がしました。あなたも今、同じような感覚を味わっているでしょうか？</p>
+<h2 id="この章で手に入れた武器たち"><a class="header" href="#この章で手に入れた武器たち">この章で手に入れた「武器」たち</a></h2>
+<p>この章を通して、あなたは一生モノの技術となる、以下の強力な概念を学びました。</p>
+<ol>
+<li><strong>変数（Variable）</strong>: 情報を一時的に記憶し、名前をつけて管理する。</li>
+<li><strong>型（Type）</strong>: 数値、文字列、リスト……コンピュータにデータの意味を教える。</li>
+<li><strong>制御構文（Control Flow）</strong>: <code>if</code> で分岐し、<code>while</code> や <code>for</code> で繰り返す。</li>
+<li><strong>コレクション（Collection）</strong>: リストや辞書を使って、大量のデータを構造化する。</li>
+<li><strong>関数（Function）</strong>: 処理に名前をつけてまとめ、再利用可能にする。</li>
+<li><strong>設計の思想</strong>: 変化に強い、読みやすいコードを書くための考え方。</li>
+</ol>
+<p>これらは、Python特有の知識ではありません。これからあなたが JavaScript を学ぼうが、Rust を学ぼうが、あるいは数十年後に生まれる新しい言語を学ぼうが、形を変えて必ず登場する <strong>「プログラミングの普遍的な真理」</strong> です。</p>
+<h2 id="低レイヤーの視点コンピュータが見ている世界"><a class="header" href="#低レイヤーの視点コンピュータが見ている世界">低レイヤーの視点：コンピュータが見ている世界</a></h2>
+<p>私たちは Python という非常に人間に近い（抽象度の高い）言葉で命令を書いてきました。
+しかし、この章で学んだことの裏側では、常にコンピュータの物理的な仕組みが動いています。</p>
 <ul>
-<li><strong>変数</strong>: データを一時的に保存する箱。</li>
-<li><strong>型</strong>: データが何であるか（数か、文字か）という定義。</li>
-<li><strong>制御構文（if, while, for）</strong>: プログラムの流れを制御し、条件分岐や繰り返しを行う方法。</li>
-<li><strong>リスト</strong>: 複数のデータを効率よく扱う方法。</li>
-<li><strong>関数</strong>: 処理をまとめ、名前をつけて抽象化する方法。</li>
+<li>変数は「メモリ（RAM）」の特定の番地に置かれます。</li>
+<li>制御構文は、CPU の「プログラムカウンタ」を書き換えるジャンプ命令になります。</li>
+<li>型の違いは、CPU が一度に処理するビット数や、メモリ上のレイアウトの違いになります。</li>
 </ul>
-<p>これらはPythonに限らず、JavaScript, TypeScript, Rust, C言語… あらゆるプログラミング言語に共通する、いわば「読み書き」の基本です。</p>
+<p>TODO: [OSとハードウェアの境界]を解説する記事へのリンクを貼る</p>
+<p>プログラミングを学ぶということは、コンピュータという「論理の塊」と対話する方法を学ぶことでもあります。あなたが書いたコードが、最終的に電子の粒となってハードウェアを駆け抜ける……そんな想像をしてみると、プログラミングがもっと楽しくなるはずです。</p>
 <h2 id="pythonの次にあるもの"><a class="header" href="#pythonの次にあるもの">Pythonの「次」にあるもの</a></h2>
-<p>Pythonは非常に強力な言語で、ここからさらに深く学び、データ分析やAI開発に進む道もあります。しかし、この本の目的は「コンピュータシステムの本質」を体系的に理解することです。</p>
-<p>次章からは、私たちが毎日使っている <strong>「Webサイト」</strong> がどのように動いているのかという視点から、さらに広い世界へ踏み出していきます。</p>
+<p>Pythonは非常に懐の深い言語です。このまま Python を深掘りして、以下のような道に進むこともできます。</p>
+<ul>
+<li><strong>AI・データサイエンス</strong>: <code>NumPy</code> や <code>PyTorch</code> を使って、人工知能や統計分析の世界へ。</li>
+<li><strong>自動化・スクレイピング</strong>: 面倒な事務作業や Web からの情報収集を自動化。</li>
+<li><strong>バックエンド開発</strong>: <code>Django</code> や <code>FastAPI</code> で、Web サービスの裏側を作る。</li>
+</ul>
+<p>しかし、この本の旅は、ここで Python を極めることではありません。
+私たちの次なる目標は、<strong>「世界中のコンピュータがつながる仕組み」</strong>、すなわち <strong>Web</strong> の世界を解き明かすことです。</p>
+<h2 id="次のステージweb制作基礎"><a class="header" href="#次のステージweb制作基礎">次のステージ：Web制作基礎</a></h2>
+<p>次章からは、あなたが毎日見ている Web サイトが、どのように作られ、どのようにブラウザに届いているのかを学びます。</p>
 <p>具体的には：</p>
 <ul>
-<li><strong>2章</strong>: Webサイトの見た目を作る <code>HTML</code> と <code>CSS</code></li>
-<li><strong>3章</strong>: ブラウザ上で動きをつける <code>JavaScript</code></li>
-<li><strong>4章</strong>: より安全に、速く開発するための <code>TypeScript</code></li>
+<li><strong>2章</strong>: Web の骨組みを作る <code>HTML</code> と、デザインを司る <code>CSS</code>。</li>
+<li><strong>3章</strong>: ブラウザの中でプログラムを動かす <code>JavaScript</code>。</li>
+<li><strong>4章</strong>: 大規模な開発を支える <code>TypeScript</code>。</li>
 </ul>
-<p>と進んでいきます。</p>
-<h2 id="最後にコンピュータとの対話"><a class="header" href="#最後にコンピュータとの対話">最後に：コンピュータとの対話</a></h2>
-<p>プログラミングは、コンピュータとの対話です。コンピュータは驚くほど高速で正確ですが、同時に驚くほど融通が効きません。
-あなたが書いた一文字のタイプミスで、プログラムは止まってしまいます。しかし、それはコンピュータがあなたの命令を「正しく解釈しようとしている」裏返しでもあります。</p>
-<p>この「厳格な世界」での対話に慣れていくことで、あなたは論理的な思考力と、複雑な問題を解き明かす「エンジニアの視点」を手に入れることができるはずです。</p>
-<p>準備はいいですか？次はWebの世界でお会いしましょう！</p>
+<p>Python で学んだ「変数」や「関数」の知識が、Web の世界でどのように姿を変えて現れるのか。そして、世界を裏で支える「レンダリングエンジン」や「ネットワークプロトコル」の正体とは何なのか。</p>
+<p>準備はいいですか？ あなたのエンジニアとしての旅は、まだ始まったばかりです。</p>
+<p>次は、第 2 章「Web 制作基礎」でお会いしましょう！</p>
+<h3 id="参考pythonをさらに学びたい人へ"><a class="header" href="#参考pythonをさらに学びたい人へ">参考：Pythonをさらに学びたい人へ</a></h3>
+<ul>
+<li><a href="https://docs.python.org/ja/3/tutorial/index.html">Python公式 チュートリアル</a></li>
+<li><a href="https://docs.python.org/ja/3/reference/index.html">Python チュートリアル (言語リファレンス)</a></li>
+<li><a href="https://atcoder.jp/">AtCoder (プログラミングコンテスト)</a> — ロジックを鍛えるのに最適です。</li>
+</ul>
 
                     </main>
 

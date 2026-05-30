@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,26 +178,83 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="propsとchildrenの扱い"><a class="header" href="#propsとchildrenの扱い">propsとchildrenの扱い</a></h1>
-<p>Reactコンポーネントにおける <code>props</code> は、親から子へデータを渡すための手段です。JavaScriptの言語仕様上、これは単なるオブジェクトのプロパティ参照に過ぎませんが、Reactの宣言的プログラミングモデルにおいては、データ伝搬の「単一方向（Unidirectional Data Flow）」を実現する重要な基盤となります。</p>
-<h3 id="propsの役割と最適化"><a class="header" href="#propsの役割と最適化">propsの役割と最適化</a></h3>
-<p>propsはコンポーネント関数への引数として渡されます。</p>
-<pre><code class="language-jsx">function Welcome(props) {
-  return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;
-}
-</code></pre>
-<p>Reactは親コンポーネントの再レンダリング時にpropsの比較（浅い比較/shallow equality）を行い、変更があった場合のみ子コンポーネントを再実行します。propsを巨大なオブジェクトにせず、必要な値のみに絞ることで、不要な再レンダリングを抑止し、JSメインスレッドの負荷を軽減できます。</p>
-<h3 id="childrenプロパティとコンポジション"><a class="header" href="#childrenプロパティとコンポジション">childrenプロパティとコンポジション</a></h3>
-<p><code>children</code> は、コンポーネントの開始タグと終了タグの間に囲まれた要素を指す特別なpropsです。</p>
-<pre><code class="language-jsx">function Wrapper({ children }) {
-  // childrenはそのままJSXのツリー構造の一部として配置される
-  return &lt;div className="wrapper"&gt;{children}&lt;/div&gt;;
+<p>React コンポーネントは「部品」です。部品である以上、外からデータを受け取って動きを変えたり、他の部品を中に組み込んだりできる必要があります。そのための仕組みが <strong>props</strong> と <strong>children</strong> です。</p>
+<p>これらを使いこなすことで、あなたのコードは「コピペの繰り返し」から「洗練された再利用可能な設計」へと進化します。</p>
+<h2 id="1-props親から子へのメッセージ"><a class="header" href="#1-props親から子へのメッセージ">1. props：親から子へのメッセージ</a></h2>
+<p><strong>props</strong> は、関数の引数のようなものです。親コンポーネントが子コンポーネントを呼び出す際、属性のような形でデータを渡します。</p>
+<pre><code class="language-tsx">// 子コンポーネント
+function UserProfile({ name, age }: { name: string, age: number }) {
+  return (
+    &lt;div&gt;
+      &lt;p&gt;名前: {name}&lt;/p&gt;
+      &lt;p&gt;年齢: {age}&lt;/p&gt;
+    &lt;/div&gt;
+  );
 }
 
-&lt;Wrapper&gt;
-  &lt;p&gt;囲まれた要素&lt;/p&gt;
-&lt;/Wrapper&gt;
+// 親コンポーネント
+function App() {
+  return &lt;UserProfile name="アリス" age={25} /&gt;;
+}
 </code></pre>
-<p>このパターンは「コンポジション（合成）」と呼ばれます。継承を使わず、明示的なコンポーネントのネストによってUIを構築することで、各コンポーネントが自身の責務（責務の分離）に集中し、疎結合な設計を実現しています。<code>children</code> は単純なプロパティでありながら、Reactの再利用性を高める鍵となっています。</p>
+<p>React におけるデータの流れは <strong>「単一方向（トップダウン）」</strong> です。
+水が高いところから低いところへ流れるように、データは常に親から子へと流れます。この制約があるおかげで、「このデータはどこから来たのか？」という原因究明が非常に楽になります。</p>
+<h2 id="2-childrenコンポーネントの中身を包み込む"><a class="header" href="#2-childrenコンポーネントの中身を包み込む">2. children：コンポーネントの「中身」を包み込む</a></h2>
+<p>特定のタグで囲んだ中身をそのまま受け取りたいときに使うのが、特別な props である <strong><code>children</code></strong> です。</p>
+<pre><code class="language-tsx">function Card({ children }: { children: React.ReactNode }) {
+  return (
+    &lt;div className="card-frame"&gt;
+      {children}
+    &lt;/div&gt;
+  );
+}
+
+// 呼び出し側
+&lt;Card&gt;
+  &lt;h2&gt;注目記事&lt;/h2&gt;
+  &lt;p&gt;この記事の内容は...&lt;/p&gt;
+&lt;/Card&gt;
+</code></pre>
+<p>このパターンを <strong>「コンポジション（合成）」</strong> と呼びます。
+<code>Card</code> コンポーネントは中身が何であるかを知る必要はありません。ただ「枠」を提供することに専念し、中身は使う側が自由に決める。この「責務の分離」こそが、美しい設計の第一歩です。</p>
+<h2 id="低レイヤーの視点参照の比較shallow-compare"><a class="header" href="#低レイヤーの視点参照の比較shallow-compare">低レイヤーの視点：参照の比較（Shallow Compare）</a></h2>
+<p>React が「再レンダリング（画面の描き直し）」をするかどうかを判断するとき、props の中身をどう見ているのでしょうか。</p>
+<p>実は React は、パフォーマンスを稼ぐために <strong>「浅い比較 (Shallow Compare)」</strong> という手法を使っています。</p>
+<p>TODO: [JavaScriptのプリミティブとオブジェクトの比較]を解説する記事へのリンクを貼る</p>
+<ul>
+<li><code>number</code> や <code>string</code> などの値が変われば、再レンダリングします。</li>
+<li><code>object</code> や <code>array</code> の場合、中身が変わっていても <strong>「メモリ上の住所（参照）」</strong> が同じなら、React は「変わっていない」と判断して再描画をスキップすることがあります。</li>
+</ul>
+<p>だからこそ、React では「元のオブジェクトを書き換える」のではなく、「新しいオブジェクトを作って渡す」ことが重要なのです。住所が変われば、React は確実に変更を検知できるからです。</p>
+<h2 id="私の視点props-drillingバケツリレーを避ける"><a class="header" href="#私の視点props-drillingバケツリレーを避ける">私の視点：Props Drilling（バケツリレー）を避ける</a></h2>
+<p>アプリが大きくなると、一番上の親から、5 階層下の子まで、props をひたすら中継して渡す「バケツリレー」が発生しがちです。</p>
+<pre><code class="language-tsx">&lt;Parent&gt;
+  &lt;Child data={data}&gt;
+    &lt;GrandChild data={data}&gt;
+      &lt;TargetComponent data={data} /&gt;
+    &lt;/GrandChild&gt;
+  &lt;/Child&gt;
+&lt;/Parent&gt;
+</code></pre>
+<p>これはコードの保守性を著しく下げます。そんな時は、先ほど学んだ <code>children</code> を使って、親が直接目的のコンポーネントを配置する設計に変更したり、後で学ぶ <strong>Context API</strong> を検討しましょう。
+「誰がどのデータを知るべきか」を整理することは、プログラミングにおいて最も知的なパズルの一つですよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>props は親から子へデータを渡すための仕組み（引数のようなもの）。</li>
+<li><code>children</code> を使うと、中身を自由に流し込める「枠」を作れる（コンポジション）。</li>
+<li>React のデータフローは常に「上から下」の一方向。</li>
+<li>再レンダリングの判定は「参照の比較」で行われるため、不変性が大事。</li>
+<li>バケツリレー（Props Drilling）が起きたら、設計を見直すサイン。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>props と children でコンポーネントの見た目を整えられるようになったら、次は React の核心である「思想」と「データフロー」のさらなる深層へ。なぜこの不便とも思える制約が、大規模開発を救うのかをお話しします。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://ja.react.dev/learn/passing-props-to-a-component">React 公式: コンポーネントに props を渡す</a></li>
+<li><a href="https://ja.react.dev/learn/composition-vs-inheritance">React 公式: コンポジション vs 継承</a></li>
+</ul>
+<hr>
+<p>TODO: TypeScript で props に型を付ける際のベストプラクティスを解説する記事へのリンクを貼る</p>
 
                     </main>
 

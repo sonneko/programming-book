@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,15 +178,77 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="カリー化"><a class="header" href="#カリー化">カリー化</a></h1>
-<p>カリー化とは、複数の引数をとる関数を、引数を1つだけとる関数の連鎖に変換するテクニックです。</p>
-<pre><code class="language-haskell">-- 通常の関数
+<p>「カリー化（Currying）」――。初めてこの名前を聞いたとき、私は「えっ、カレー（Curry）？」と美味しそうな想像をしてしまいました。でも、実はこの名前、数理論理学者のハスケル・カリー（Haskell Curry）氏に由来しています。</p>
+<p>カリー化は、関数型プログラミングにおいて「関数のパーツ化」を極限まで押し進めるための、非常にエレガントなテクニックです。</p>
+<h2 id="カリー化とは何か"><a class="header" href="#カリー化とは何か">カリー化とは何か？</a></h2>
+<p>一言で言えば、カリー化とは**「複数の引数をとる関数を、『引数を1つだけとる関数』の連鎖に作り変えること」**です。</p>
+<p>例えば、2つの数値を足す <code>add(x, y)</code> という関数を考えてみましょう。</p>
+<pre><code class="language-python"># 普通の関数（Python）
+def add(x, y):
+    return x + y
+
+print(add(2, 3)) # 5
+</code></pre>
+<p>これをカリー化すると、以下のようになります。</p>
+<pre><code class="language-python"># カリー化された関数
+def add_curried(x):
+    def inner(y):
+        return x + y
+    return inner
+
+# 呼び出し方
+add_two = add_curried(2) # まず「2を足す関数」ができる
+result = add_two(3)      # それに3を渡すと5になる
+print(result) # 5
+
+# まとめて呼ぶ場合
+print(add_curried(2)(3)) # 5
+</code></pre>
+<p>「わざわざ面倒な書き方をしなくても……」と思うかもしれませんが、この <code>add_two</code> のように「引数の一部だけを先に渡して、新しい関数を作る」ことができるのが、カリー化の最大のメリットです。これを**部分適用（Partial Application）**と呼びます。</p>
+<h2 id="なぜカリー化が嬉しいのか"><a class="header" href="#なぜカリー化が嬉しいのか">なぜカリー化が嬉しいのか？</a></h2>
+<p>カリー化の本質は「ロジックの再利用」にあります。</p>
+<p>例えば、Web開発で「特定のログレベルを付けてメッセージを出力する関数」を作りたいとします。</p>
+<pre><code class="language-javascript">// JavaScriptでの例
+const logger = (level) =&gt; (message) =&gt; {
+  console.log(`[${level}] ${message}`);
+};
+
+const infoLog = logger("INFO");
+const errorLog = logger("ERROR");
+
+infoLog("システムを起動しました"); // [INFO] システムを起動しました
+errorLog("メモリが不足しています"); // [ERROR] メモリが不足しています
+</code></pre>
+<p>このように、汎用的な関数（<code>logger</code>）から、特定の用途に特化した関数（<code>infoLog</code>）を量産できるのです。これは、関数を「部品」として組み合わせていく関数型プログラミングの思想と完璧にマッチします。</p>
+<h2 id="低レイヤーの視点クロージャの魔法"><a class="header" href="#低レイヤーの視点クロージャの魔法">低レイヤーの視点：クロージャの魔法</a></h2>
+<p>カリー化を実現している裏側の仕組みは、以前学んだ「クロージャ（Closure）」です。</p>
+<p>TODO: [クロージャ]を解説する記事へのリンクを貼る</p>
+<p><code>add_curried(2)</code> を実行したとき、内部で作られた関数（<code>inner</code>）は、その時の変数 <code>x=2</code> を「記憶」したまま関数の外に飛び出します。コンピュータのメモリ上では、この <code>inner</code> 関数のコードへのポインタと、記憶された変数 <code>x</code> のセットが保持されています。</p>
+<p>コンパイラやインタプリタは、この「関数の種」のようなデータをヒープ領域に確保し、後で呼び出されたときに <code>x</code> を取り出せるように管理しているのです。</p>
+<h2 id="haskellにおけるカリー化"><a class="header" href="#haskellにおけるカリー化">Haskellにおけるカリー化</a></h2>
+<p>Haskellという言語では、なんと<strong>デフォルトですべての関数がカリー化されています</strong>。</p>
+<pre><code class="language-haskell">-- Haskellでは
 add x y = x + y
 
--- カリー化された関数
-add x = \y -&gt; x + y
+-- これを add 2 3 と呼ぶのは、内部的には (add 2) 3 と同じ
 </code></pre>
-<p>これにより、関数の部分適用が可能になり、高階関数との相性が飛躍的に向上します。
-ロジックの再利用性が高まる重要な概念です。</p>
+<p>Haskellの関数の型定義を見ると <code>Int -&gt; Int -&gt; Int</code> のようになっています。これは「Intを受け取って、『Intを受け取ってIntを返す関数』を返す」という意味です。最初からカリー化が前提の設計になっているため、関数の組み合わせが非常にスムーズに行えます。</p>
+<h2 id="私の視点数学的な美しさ"><a class="header" href="#私の視点数学的な美しさ">私の視点：数学的な美しさ</a></h2>
+<p>カリー化を理解すると、世界が少し違って見えます。「3つの値を処理する」という複雑な現象を、「1つの値を処理する」という単純なステップの積み重ねに分解できるからです。これは、複雑な問題を小さな問題に分けるというエンジニアリングの基本原則そのものです。</p>
+<p>最初は <code>f(x)(y)(z)</code> という書き方に違和感を覚えるかもしれませんが、慣れてくると「関数を特化させていく」プログラミングの楽しさに気づけるはずです。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>カリー化は、多引数関数を「1引数関数の連鎖」に変えること。</li>
+<li>「部分適用」によって、汎用的な関数から専門的な関数を簡単に作れる。</li>
+<li>その裏側では「クロージャ」というメモリ管理の仕組みが動いている。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>次は、関数型プログラミングのもう一つの柱である「データ志向」について考えてみましょう。プログラムを「モノ」の集まりではなく、「データの流れ（パイプライン）」として捉える視点を手に入れます。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AA%E3%83%BC%E5%8C%96">Wikipedia: カリー化</a></li>
+<li><a href="https://ja.javascript.info/currying-partials">JSでのカリー化の活用</a></li>
+</ul>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,21 +178,77 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="オブジェクト型データの構造化とプロトタイプ継承"><a class="header" href="#オブジェクト型データの構造化とプロトタイプ継承">オブジェクト型：データの構造化とプロトタイプ継承</a></h1>
-<p>JavaScriptにおけるオブジェクトは、複数の値や振る舞いを一つの単位としてまとめることができる、最も強力で中心的なデータ構造です。</p>
-<h3 id="オブジェクト指向的要素thisの扱い"><a class="header" href="#オブジェクト指向的要素thisの扱い">オブジェクト指向的要素：thisの扱い</a></h3>
-<p>オブジェクト指向の要素としてよく使われるのが <code>this</code> です。関数がどのオブジェクトから呼び出されたかによって <code>this</code> の指す対象（コンテキスト）が変わります。</p>
-<pre><code class="language-javascript">const user = {
-  name: 'Alice',
-  greet() {
-    console.log(`Hello, my name is ${this.name}`);
+<p>JavaScript を「ただのスクリプト言語」から「プロフェッショナルな開発ツール」へと昇華させているのが、この <strong>オブジェクト (Object)</strong> という概念です。</p>
+<p>「コレクション型」の章では、オブジェクトを「キーと値のペアを保存する箱」として紹介しました。しかし、JavaScript におけるオブジェクトはそれだけではありません。データだけでなく、<strong>「振る舞い（関数）」</strong> をも自分の中に持つことができるのです。</p>
+<h2 id="1-データとメソッド自分自身の状態を知る"><a class="header" href="#1-データとメソッド自分自身の状態を知る">1. データとメソッド：自分自身の状態を知る</a></h2>
+<p>オブジェクトの中に定義された関数のことを <strong>メソッド (Method)</strong> と呼びます。メソッドの中では、特別な変数 <strong><code>this</code></strong> を使うことで、自分自身のデータを参照できます。</p>
+<pre><code class="language-javascript">const player = {
+  name: '勇者',
+  hp: 100,
+  maxHp: 100,
+  // これがメソッド
+  heal(amount) {
+    this.hp = Math.min(this.hp + amount, this.maxHp);
+    console.log(`${this.name}は回復した！残りHP: ${this.hp}`);
   }
 };
-user.greet(); // Alice
+
+player.heal(20);
 </code></pre>
-<h3 id="apiドキュメントの読み方"><a class="header" href="#apiドキュメントの読み方">APIドキュメントの読み方</a></h3>
-<p>MDN Web Docsなどで、オブジェクトやそのメソッドはプロトタイプメソッド（<code>Array.prototype.map()</code> など）として記述されます。これは、その型の全オブジェクトがそのメソッドを持っていることを意味します。APIドキュメントを読む際は、この表記に慣れましょう。</p>
-<h3 id="厳格モード-strict-mode"><a class="header" href="#厳格モード-strict-mode">厳格モード (Strict Mode)</a></h3>
-<p>JavaScriptには「厳格モード（Strict Mode）」があります。ファイルの先頭に <code>'use strict';</code> を記述することで、安全でないコード（未宣言の変数への代入など）に対してエラーを投げるようになります。モダンなJavaScript環境では、基本的には意識せずとも有効になっています。</p>
+<p>この「データとその操作方法を一箇所にまとめる」という考え方は、大規模なプログラムを整理する <strong>オブジェクト指向プログラミング (OOP)</strong> の基礎となります。</p>
+<h2 id="2-破壊的な操作と非破壊的な操作"><a class="header" href="#2-破壊的な操作と非破壊的な操作">2. 破壊的な操作と非破壊的な操作</a></h2>
+<p>オブジェクトのデータを更新するとき、初心者は直接書き換えがちです。</p>
+<pre><code class="language-javascript">const user = { name: 'Alice' };
+user.name = 'Bob'; // 破壊的操作 (直接書き換え)
+</code></pre>
+<p>しかし、これまでに何度も触れてきた通り、モダンな開発では <strong>「非破壊的な操作」</strong> が好まれます。</p>
+<pre><code class="language-javascript">const user = { name: 'Alice', age: 25 };
+
+// スプレッド構文を使って、名前だけ違う「新しい」オブジェクトを作る
+const updatedUser = { ...user, name: 'Bob' };
+</code></pre>
+<p>なぜわざわざ新しいオブジェクトを作るのでしょうか？
+それは、もし複数の場所で <code>user</code> を参照していた場合、片方で勝手に書き換えると、もう片方の処理が予期せぬ挙動を起こす（バグになる）からです。</p>
+<h2 id="3-プロトタイプ継承javascript-の裏側"><a class="header" href="#3-プロトタイプ継承javascript-の裏側">3. プロトタイプ継承：JavaScript の裏側</a></h2>
+<p>JavaScript のオブジェクトには、<strong>「プロトタイプ (Prototype)」</strong> という、他の言語（Java や C++）にはないユニークな仕組みがあります。</p>
+<p>TODO: [プロトタイプチェーン]を解説する記事へのリンクを貼る</p>
+<p>例えば、あなたが作った適当なオブジェクトで、定義もしていない <code>.toString()</code> というメソッドが呼べるのはなぜでしょうか？
+それは、すべてのオブジェクトが背後に「親オブジェクト（プロトタイプ）」を持っており、自分にない機能は親に聞きに行くからです。</p>
+<p>この「親から機能を受け継ぐ」仕組みを <strong>継承</strong> と呼びます。現代の JavaScript では <code>class</code> という構文を使ってより綺麗に書けますが、その裏側では今もこのプロトタイプという仕組みが動いています。</p>
+<h2 id="低レイヤーの視点隠しクラス-hidden-classes"><a class="header" href="#低レイヤーの視点隠しクラス-hidden-classes">低レイヤーの視点：隠しクラス (Hidden Classes)</a></h2>
+<p>JavaScript のオブジェクトは、実行中に自由にプロパティを増やしたり消したりできます。</p>
+<pre><code class="language-javascript">const obj = {};
+obj.a = 1;
+obj.b = 2;
+</code></pre>
+<p>これは便利ですが、コンピュータにとっては最悪の状況です。メモリ上のどこにどのデータがあるか予測できないからです。</p>
+<p>V8 エンジンは、この問題を解決するために <strong>「隠しクラス (Hidden Classes)」</strong> という仕組みを導入しました。
+内部的に、プロパティの並び順が同じオブジェクトを同じ「クラス」として分類し、メモリ上のオフセット（距離）を計算して固定します。</p>
+<p>TODO: [V8エンジンのインラインキャッシュ]を解説する記事へのリンクを貼る</p>
+<p>エンジニアとして意識すべきことは一つです。<strong>「オブジェクトのプロパティは、できるだけ最初から決まった順番で定義すること」</strong>。これだけで、ブラウザの最適化が効きやすくなり、実行速度が向上します。</p>
+<h2 id="私の視点厳格モード-strict-mode"><a class="header" href="#私の視点厳格モード-strict-mode">私の視点：厳格モード (Strict Mode)</a></h2>
+<p>JavaScript には、昔の「ゆるすぎる」挙動を制限し、ミスを防ぐための <strong><code>'use strict';</code> (厳格モード)</strong> があります。</p>
+<p>モダンな開発環境（ES Modules や各種フレームワーク）では、デフォルトでこのモードが有効になっています。
+例えば、スペルミスで未定義の変数に代入しようとすると、昔の JavaScript は勝手にグローバル変数を作ってしまいましたが、厳格モードならエラーを投げてくれます。
+「エラーは怖いものではなく、私たちを守ってくれるガードレールである」。この視点を持つと、開発がぐっと楽になりますよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>オブジェクトは「データ」と「メソッド（振る舞い）」を一つにまとめる。</li>
+<li><code>this</code> を使うことで、オブジェクト内のデータを参照できる。</li>
+<li><code>...</code>（スプレッド構文）を使った「非破壊的な更新」を心がける。</li>
+<li>JavaScript は「プロトタイプ継承」という独自の仕組みで動いている。</li>
+<li>ブラウザの高速化のために、オブジェクトの構造は一貫させる。</li>
+<li>厳格モードを活用して、安全なコードを書く。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>オブジェクトの扱いをマスターしたら、いよいよ Web ブラウザならではの世界―― HTML 要素を自由自在に操る <strong>「DOM 操作」</strong> の本丸に攻め込みましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Learn/JavaScript/Objects/Basics">MDN: オブジェクトの基本</a></li>
+<li><a href="https://qiita.com/stanko/items/67636e2d14f447783938">JavaScript の『this』は結局何なのか</a></li>
+</ul>
+<hr>
+<p>TODO: プロトタイプチェーンの図解を解説する記事へのリンクを貼る</p>
 
                     </main>
 

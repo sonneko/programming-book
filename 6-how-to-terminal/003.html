@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,31 +178,68 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="githubへの登録とgitのインストール"><a class="header" href="#githubへの登録とgitのインストール">GitHubへの登録とGitのインストール</a></h1>
-<p>GitをPCに導入し、GitHubというホスティングサービスを活用することで、コードのバックアップとチーム連携が可能になります。</p>
-<h3 id="インストール手順"><a class="header" href="#インストール手順">インストール手順</a></h3>
-<ol>
-<li><strong>Gitのインストール</strong>: 公式サイトまたはパッケージマネージャ (<code>brew install git</code>, <code>sudo apt install git</code> など) からインストールします。</li>
-<li><strong>GitHubアカウント作成</strong>: GitHub.comにサインアップします。</li>
-<li><strong>SSH設定</strong>: ローカルのPCとGitHubをSSH接続することで、安全な通信が可能になります。</li>
-</ol>
-<blockquote>
-<p><strong>TODO: 公開鍵認証（SSH）の仕組みについて解説している記事へのリンクを貼る</strong></p>
-</blockquote>
-<h3 id="詰まりポイントと解決策"><a class="header" href="#詰まりポイントと解決策">詰まりポイントと解決策</a></h3>
+<p>Git の仕組みを学んだら、次はその力を 100% 引き出すための環境を整えましょう。
+自分の PC に Git をインストールし、世界最大のコード共有プラットフォームである <strong>GitHub</strong> と連携させることで、あなたの開発ライフは一気に「プロ」の領域へと突入します。</p>
+<h2 id="1-開発のハブgithub-とは"><a class="header" href="#1-開発のハブgithub-とは">1. 開発のハブ：GitHub とは？</a></h2>
+<p>Git はあくまで「自分の PC 上で履歴を管理するツール」です。一方の GitHub は、その履歴を <strong>「インターネット上に保管し、公開・共有するためのサービス」</strong> です。</p>
+<p>単なるバックアップ先ではありません。</p>
 <ul>
-<li><strong>SSH鍵のパスフレーズ忘れ</strong>: 鍵生成時に設定したパスフレーズを忘れると、次回からSSH接続できなくなる。安全な場所で管理すること。</li>
-<li><strong>Gitユーザー設定ミス</strong>: <code>git config</code> で名前やメールアドレスを間違えてコミットすると、GitHub上で正しいアカウントと紐付かない。<code>git config --list</code> で確認。</li>
-<li><strong>リモートURLの混同</strong>: HTTPSとSSHでリモートURLが異なる。どちらを使っているか確認し、SSHを使う場合は適切な秘密鍵が登録されているか確認する。</li>
+<li>世界中の開発者が書いたコード（オープンソース）を読んだり、使ったりできる。</li>
+<li>自分のコードを他人にレビュー（チェック）してもらう。</li>
+<li>バグの報告（Issue）や、機能の提案（Pull Request）を行う。</li>
 </ul>
-<h3 id="なぜgithubを使うのか"><a class="header" href="#なぜgithubを使うのか">なぜGitHubを使うのか</a></h3>
-<p>Gitは分散型なのでローカルだけでも使えますが、GitHubのようなプラットフォームがなければ、チーム開発での「共有リポジトリ」のハブが存在しません。さらにGitHubは、プルリクエスト、Issue、GitHub Actionsなどのエコシステムを備えており、Gitを単なる履歴管理から「開発コラボレーションツール」に進化させています。</p>
-<h3 id="設計思想設定階層"><a class="header" href="#設計思想設定階層">設計思想：設定階層</a></h3>
-<p>Gitの設定には <code>system</code> (システム全体)、<code>global</code> (ユーザーごと)、<code>local</code> (リポジトリごと) の階層があり、後者が前者を上書きする仕組みで柔軟性を確保しています。</p>
-<p>インストール後は、必ず以下の設定を済ませておきましょう。</p>
-<pre><code class="language-bash">git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
+<p>GitHub を使うことは、世界中のエンジニアが集まる巨大なコミュニティに参加することと同義です。</p>
+<h2 id="2-インストールと初期設定の儀式"><a class="header" href="#2-インストールと初期設定の儀式">2. インストールと初期設定の儀式</a></h2>
+<p>まずは自分の PC で Git が動くようにしましょう。</p>
+<ul>
+<li><strong>Windows</strong>: <a href="https://gitforwindows.org/">Git for Windows</a> をインストールします。</li>
+<li><strong>Mac</strong>: ターミナルで <code>git --version</code> と打つと、インストールを促されるか、既に入っていることが確認できます。</li>
+</ul>
+<p>インストール後、<strong>「誰がこの変更をしたか」</strong> という署名を登録します。これは履歴に残る非常に重要な情報です。</p>
+<pre><code class="language-bash">git config --global user.name "あなたの名前"
+git config --global user.email "あなたのメールアドレス"
 </code></pre>
-<p>ここで指定した名前とメールアドレスが、コミット履歴に残ります。身分証明書のようなものなので、正確に設定してください。</p>
+<p>TODO: [Git Config の設定階層（System, Global, Local）]を解説する記事へのリンクを貼る</p>
+<h2 id="3-安全な通信の鍵ssh-設定"><a class="header" href="#3-安全な通信の鍵ssh-設定">3. 安全な通信の鍵：SSH 設定</a></h2>
+<p>PC から GitHub にコードをアップロード（Push）するとき、毎回パスワードを入力するのは面倒ですし、セキュリティ上もあまり良くありません。そこで <strong>SSH (Secure Shell)</strong> という仕組みを使います。</p>
+<ol>
+<li>自分の PC で「鍵のペア（秘密鍵と公開鍵）」を作ります。</li>
+<li>「公開鍵」だけを GitHub に登録します。</li>
+<li>通信の際、GitHub が「君、本物の鍵（秘密鍵）持ってる？」と確認し、持っていればアクセスを許可します。</li>
+</ol>
+<p>TODO: [公開鍵暗号と SSH の仕組み]を解説する記事へのリンクを貼る</p>
+<p>この設定は初心者にとって最初の難関ですが、これを乗り越えることで「安全なネットワーク通信」の基礎を学ぶことができます。</p>
+<h2 id="低レイヤーの視点ハッシュ値による身分証明"><a class="header" href="#低レイヤーの視点ハッシュ値による身分証明">低レイヤーの視点：ハッシュ値による身分証明</a></h2>
+<p>Git で設定する <code>user.email</code> は、なぜ重要なのでしょうか？
+Git のコミット ID（例: <code>abc1234...</code>）は、<strong>「変更内容 + 親コミットの ID + 著者情報 + 日時」</strong> をすべて混ぜ合わせてハッシュ計算した結果です。</p>
+<p>著者の名前やメールアドレスが 1 文字でも変われば、生成されるコミット ID も完全に変わってしまいます。
+つまり、Git において著者の情報は「ただのメモ」ではなく、その履歴の正当性を証明するための <strong>「データの一部」</strong> なのです。</p>
+<h2 id="私の視点github-はあなたの履歴書になる"><a class="header" href="#私の視点github-はあなたの履歴書になる">私の視点：GitHub はあなたの「履歴書」になる</a></h2>
+<p>これからのエンジニアにとって、GitHub のプロフィールページは、どんな履歴書よりも雄弁にあなたの技術力を語ります。</p>
+<p>「まだ初心者だから恥ずかしい」なんて思う必要はありません。</p>
+<ul>
+<li>どんな技術に興味を持ち、どんな学習を重ねてきたか。</li>
+<li>失敗したコードをどう直してきたか。</li>
+<li>他人のコードに対してどう接しているか。</li>
+</ul>
+<p>それらすべてが GitHub には記録されます。今日から Git の練習を始めるその一歩が、数年後のあなたを素晴らしいチームへと導く「道しるべ」になるはずですよ。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>Git はローカル用、GitHub はクラウド（共有）用。</li>
+<li>インストール後は <code>git config</code> で署名を忘れずに。</li>
+<li>SSH 設定を行うことで、安全かつ快適に GitHub と通信できる。</li>
+<li>著者情報はコミットハッシュを構成する重要なデータの一部。</li>
+<li>GitHub はエンジニアとしての成長を記録する最高のプラットフォーム。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>環境が整ったら、次は Git の具体的なコマンドを叩いてみましょう。<code>add</code>, <code>commit</code>, <code>push</code>……。この 3 つの呪文を覚えるだけで、あなたのコードは世界とつながります。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://docs.github.com/ja/authentication/connecting-to-github-with-ssh">GitHub への SSH 接続設定ガイド (公式)</a></li>
+<li><a href="https://qiita.com/toshi-click/items/dcf3dd48fd44732c5d24">Git for Windows のインストール手順 (Qiita)</a></li>
+</ul>
+<hr>
+<p>TODO: GitHub アカウントを 2 要素認証 (2FA) で保護する方法へのリンクを貼る</p>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,11 +178,54 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="spasingle-page-applicationの構造と価値"><a class="header" href="#spasingle-page-applicationの構造と価値">SPA（Single Page Application）の構造と価値</a></h1>
-<p>SPAは、ページ全体を再読み込みすることなく、必要な箇所だけを動的に書き換えることで、ネイティブアプリのような操作感を実現するWebアプリケーションの形態です。</p>
-<h3 id="ブラウザのレンダリングパイプラインとspa"><a class="header" href="#ブラウザのレンダリングパイプラインとspa">ブラウザのレンダリングパイプラインとSPA</a></h3>
-<p>従来のサーバーサイドレンダリング（MPA）では、ページ遷移のたびにHTML全体を取得し、ブラウザのパースとレンダリングがゼロからやり直されていました。SPAでは、一度読み込んだJS環境の中でデータのみを非同期に取得し、Reactが仮想DOMを用いて必要なDOM要素のみを効率的に更新します。これにより、ページ遷移のコスト（レイアウト計算、スタイル計算の再実行）が劇的に削減されます。</p>
-<h3 id="クライアントサイドルーティングの技術"><a class="header" href="#クライアントサイドルーティングの技術">クライアントサイドルーティングの技術</a></h3>
-<p>SPAにおいては、ブラウザのURL更新をフックにJS側で表示するコンポーネントを切り替える「クライアントサイドルーティング」が行われます。これはブラウザのHistory APIを巧みに利用しており、ページ遷移なしでURLを操作し、かつ戻るボタンなどのネイティブ機能との整合性を保つという高度なUI設計がなされています。Reactは、このSPAの複雑な状態（ルーティング、画面遷移）をコンポーネント階層の一部として宣言的に管理するための理想的なランタイムを提供しています。</p>
+<p>かつての Web サイトは、リンクをクリックするたびに画面が白くなり、数秒待ってから新しいページが表示されるのが当たり前でした。しかし、現代の Twitter(X) や Gmail を見てください。ページ全体が切り替わるのではなく、アプリのようにサクサクと必要な部分だけが変化します。</p>
+<p>この体験を実現しているのが <strong>SPA (Single Page Application)</strong> です。
+React が真価を発揮するのは、まさにこの SPA という形態のアプリケーションを作る時です。</p>
+<h2 id="1-spa-の仕組みリロードしないという革命"><a class="header" href="#1-spa-の仕組みリロードしないという革命">1. SPA の仕組み：リロードしないという革命</a></h2>
+<p>従来の Web サイト（MPA: Multi Page Application）と SPA の最大の違いは、<strong>「誰が画面を作っているか」</strong> です。</p>
+<ul>
+<li><strong>従来のサイト (MPA)</strong>: リンクを踏むたびにサーバーに「新しい HTML をください」と頼みます。サーバーは 0 から HTML を作り、ブラウザはそれを受け取って画面全体を描き直します。</li>
+<li><strong>SPA</strong>: 最初に 1 回だけ、空っぽに近い HTML と大量の <strong>JavaScript</strong> を読み込みます。その後の画面遷移は、JavaScript が DOM を直接書き換えることで行います。サーバーからは「データ（JSON）」だけを最小限に受け取ります。</li>
+</ul>
+<p>「ページは 1 枚（Single Page）だけで、中身を入れ替え続けている」から、SPA なのです。</p>
+<h2 id="2-メリット滑らかさと通信量の削減"><a class="header" href="#2-メリット滑らかさと通信量の削減">2. メリット：滑らかさと通信量の削減</a></h2>
+<p>SPA にすることで、劇的なメリットが生まれます。</p>
+<ol>
+<li><strong>UX (ユーザー体験) の向上</strong>: ページ全体のリロード（白い画面）がないため、ネイティブアプリのようなヌルヌルとした操作感が得られます。</li>
+<li><strong>サーバー負荷の低減</strong>: 重い HTML を毎回送る必要がなくなり、純粋なデータだけをやり取りすれば良くなります。</li>
+<li><strong>状態の維持</strong>: 音楽を再生しながら別のページに移動する、といった「ページを跨いだ状態の保持」が可能になります。</li>
+</ol>
+<h2 id="低レイヤーの視点history-api-とルーティングの擬態"><a class="header" href="#低レイヤーの視点history-api-とルーティングの擬態">低レイヤーの視点：History API とルーティングの擬態</a></h2>
+<p>「ページ遷移をしていないのに、なぜ URL が変わるの？」と不思議に思いませんか？
+実は、SPA はブラウザの <strong>History API</strong> という機能を使って、<strong>「ページ遷移をしたふり」</strong> をしています。</p>
+<p>TODO: [History API とブラウザ履歴の仕組み]を解説する記事へのリンクを貼る</p>
+<p>通常、URL を書き換えるとブラウザはリロードしてしまいますが、<code>history.pushState</code> というコマンドを使うと、リロードさせずに URL だけを書き換え、履歴に残すことができます。
+ブラウザの「戻る」ボタンが押されたときも、SPA はそれを検知して JavaScript で画面を元の状態に戻します。
+つまり、SPA はブラウザというプラットフォームの上に構築された、壮大な「手品」のようなシステムなのです。</p>
+<h2 id="私の視点spa-の代償seo-と初期読み込み"><a class="header" href="#私の視点spa-の代償seo-と初期読み込み">私の視点：SPA の代償（SEO と初期読み込み）</a></h2>
+<p>SPA は最高に見えますが、タダではありません。</p>
+<p>TODO: [SPA の課題：SEO と LCP の最適化]を解説する記事へのリンクを貼る</p>
+<p>一番の弱点は、<strong>「最初の読み込みが重い」</strong> ことです。
+アプリの全機能が入った巨大な JavaScript ファイルを最初にダウンロードする必要があるため、ネット環境が悪いと「最初の画面が出るまで」に時間がかかります。
+また、初期状態が空っぽの HTML なので、検索エンジンのロボット（クローラー）が内容を正しく読み取れない、という SEO 上の問題もかつてはありました。</p>
+<p>これらの弱点を克服するために、<strong>Next.js</strong> のような「サーバーでもレンダリングする (SSR)」技術が生まれました。技術は常に、課題と解決の繰り返しで進化しているのです。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>SPA はページ遷移をリロードなしで行い、アプリのような体験を提供する。</li>
+<li>JavaScript が DOM を直接書き換えることで、高速な画面更新を実現する。</li>
+<li>サーバーとはデータ (JSON) だけをやり取りする。</li>
+<li>History API を使うことで、リロードなしで URL を変更している。</li>
+<li>初期読み込みの重さや SEO が課題だが、SSR などの技術で解決されつつある。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>SPA の概念がわかったら、次は具体的に「どうやって URL と画面を連動させるか」を解決するライブラリ <strong>React Router</strong> について学びましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/API/History_API">MDN: History API</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/シングルページアプリケーション">Single Page Application (Wikipedia)</a></li>
+</ul>
+<hr>
+<p>TODO: クライアントサイドレンダリング (CSR) とサーバーサイドレンダリング (SSR) の違いを詳しく解説する記事へのリンクを貼る</p>
 
                     </main>
 

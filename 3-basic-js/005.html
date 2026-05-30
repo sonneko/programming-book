@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,36 +178,100 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="switch文制御の分岐と最適化"><a class="header" href="#switch文制御の分岐と最適化">switch文：制御の分岐と最適化</a></h1>
-<p><code>switch</code> 文は、一つの式の値に基づいて、複数のケース（分岐）を扱うための制御構造です。<code>if-else if</code> を連ねるよりも、特定の値を比較する場合にはコードの見通しが良くなる場合があります。</p>
-<h3 id="基本的な構文"><a class="header" href="#基本的な構文">基本的な構文</a></h3>
-<pre><code class="language-javascript">const fruit = 'apple';
+<p>「もし A なら……」「そうでなくて B なら……」「それとも C なら……」。
+条件分岐が増えてくると、<code>if-else if</code> を延々と書き連ねることになります。コードが縦に長くなり、読みづらくなっていく……そんな時に登場するのが <strong><code>switch</code> 文</strong> です。</p>
+<p><code>switch</code> 文は、ある一つの変数の「値」に注目して、処理を枝分かれさせるのに最適な構文です。</p>
+<h2 id="1-基本的な構文と-break-の重要性"><a class="header" href="#1-基本的な構文と-break-の重要性">1. 基本的な構文と break の重要性</a></h2>
+<p>まずは、標準的な <code>switch</code> 文の形を見てみましょう。</p>
+<pre><code class="language-javascript">const color = 'red';
 
-switch (fruit) {
-  case 'apple':
-    console.log('りんごです');
+switch (color) {
+  case 'red':
+    console.log('止まれ！');
     break;
-  case 'banana':
-    console.log('バナナです');
+  case 'yellow':
+    console.log('注意！');
+    break;
+  case 'green':
+    console.log('進め！');
     break;
   default:
-    console.log('その他の果物です');
+    console.log('信号の故障です');
 }
 </code></pre>
-<h3 id="switch文の挙動と注意点フォールスルー"><a class="header" href="#switch文の挙動と注意点フォールスルー">switch文の挙動と注意点：フォールスルー</a></h3>
-<p><code>switch</code> 文の最も重要な特徴であり、かつバグの温床となるのが「フォールスルー（Fall-through）」です。各 <code>case</code> の後に <code>break</code> 文を記述しないと、そのケースの処理が終わった後、続くすべてのケースの処理が（条件を無視して）実行されてしまいます。</p>
-<p>「意味論的に同じ選択肢のあるswitch文は、一つにまとめるべき」であり、また「長いswitchは、インターフェースを使うべき時かも」しれません。（インターフェースの方はまだ理解するには早いので、後で解説します）</p>
-<h3 id="switch文の代替案オブジェクトとmap"><a class="header" href="#switch文の代替案オブジェクトとmap">switch文の代替案：オブジェクトとMap</a></h3>
-<p>現代のJavaScript開発では、複雑な <code>switch</code> 文よりも、オブジェクトリテラルや <code>Map</code> を使ったマッピングの方が、コードが簡潔で拡張性が高いとみなされることが多いです。</p>
-<pre><code class="language-javascript">// オブジェクトリテラルによるマッピング
-const fruitMessages = {
-  apple: 'りんごです',
-  banana: 'バナナです',
-  default: 'その他の果物です'
+<p>ここで最も重要なのが <strong><code>break</code></strong> です。これを忘れると、<strong>フォールスルー (Fall-through)</strong> という現象が起きます。
+もし <code>red</code> のケースで <code>break</code> を書き忘れると、コンソールには「止まれ！」だけでなく、次の <code>yellow</code> の処理である「注意！」まで表示されてしまいます。JavaScript は <code>break</code> に出会うまで、次の <code>case</code> を無視して実行し続けるからです。</p>
+<h2 id="2-複数のケースをまとめる"><a class="header" href="#2-複数のケースをまとめる">2. 複数のケースをまとめる</a></h2>
+<p>フォールスルーを逆手に取って、複数の条件で同じ処理をさせたい場合は以下のように書けます。</p>
+<pre><code class="language-javascript">const day = '土曜日';
+
+switch (day) {
+  case '土曜日':
+  case '日曜日':
+    console.log('お休みです！');
+    break;
+  case '月曜日':
+  case '火曜日':
+  case '水曜日':
+  case '木曜日':
+  case '金曜日':
+    console.log('仕事の日です...');
+    break;
+  default:
+    console.log('存在しない曜日です');
+}
+</code></pre>
+<h2 id="3-switch-文の限界厳密等価判定"><a class="header" href="#3-switch-文の限界厳密等価判定">3. switch 文の限界：厳密等価判定</a></h2>
+<p><code>switch</code> 文の判定は、常に <strong><code>===</code>（厳密等価演算子）</strong> で行われます。つまり、型まで一致していなければなりません。</p>
+<pre><code class="language-javascript">const value = "1";
+
+switch (value) {
+  case 1: // 数値の 1
+    console.log("数値です");
+    break;
+  default:
+    console.log("不一致です"); // こちらが実行される
+}
+</code></pre>
+<p>TODO: [等価演算子と厳密等価演算子]を解説する記事へのリンクを貼る</p>
+<h2 id="低レイヤーの視点ジャンプテーブルによる高速化"><a class="header" href="#低レイヤーの視点ジャンプテーブルによる高速化">低レイヤーの視点：ジャンプテーブルによる高速化</a></h2>
+<p>なぜ <code>if-else if</code> ではなく <code>switch</code> を使うのでしょうか？ 単に見やすいからだけではありません。実は、多くのプログラム実行エンジンにとって、<code>switch</code> は最適化しやすい構造なのです。</p>
+<p>TODO: [コンパイラの最適化技術]を解説する記事へのリンクを貼る</p>
+<p>ケースの数が多い（たとえば 10 個以上など）場合、実行エンジンは「ジャンプテーブル」というものを作成します。
+<code>if</code> 文の場合、上から順番に一つずつ「これは真か？」とチェックしていく必要がありますが、<code>switch</code> なら値をもとに計算を行い、一気に該当する処理のアドレスへ「ジャンプ」できます。</p>
+<p>つまり、選択肢が非常に多い場合、<code>switch</code> 文の方が実行速度が速くなる可能性があるのです。</p>
+<h2 id="私の視点オブジェクトリテラルによる代替"><a class="header" href="#私の視点オブジェクトリテラルによる代替">私の視点：オブジェクトリテラルによる代替</a></h2>
+<p>現代の JavaScript 開発では、複雑な <code>switch</code> 文を「データ」として扱う手法がよく好まれます。</p>
+<pre><code class="language-javascript">// オブジェクトを使ったマッピング
+const signalMessages = {
+  red: '止まれ！',
+  yellow: '注意！',
+  green: '進め！',
 };
 
-const fruit = 'apple';
-console.log(fruitMessages[fruit] || fruitMessages.default);
+const color = 'red';
+// switch を使わずにメッセージを取り出す
+console.log(signalMessages[color] || '信号の故障です');
 </code></pre>
+<p>この書き方（ルックアップテーブル）のメリットは、処理（ロジック）とデータ（メッセージ）を分離できることです。条件が増えてもオブジェクトに 1 行足すだけですし、コード全体のネストも浅くなります。</p>
+<p>「この <code>switch</code> 文、長すぎないかな？」と思ったら、それはオブジェクトや Map を使うべきサインかもしれません。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li><code>switch</code> 文は、特定の「値」による多方向の分岐に適している。</li>
+<li><code>break</code> を忘れると、下のケースまで実行される「フォールスルー」が起きる。</li>
+<li>判定は型まで含めた <code>===</code> で行われる。</li>
+<li>内部的には「ジャンプテーブル」によって高速化されることがある。</li>
+<li>複雑な分岐は、オブジェクトリテラルに置き換えることも検討しよう。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>制御構造をマスターしたら、次はそれらの処理で扱う「データの集まり」――コレクション型（配列とオブジェクト）の世界を深く学んでいきましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/switch">MDN: switch 文</a></li>
+<li><a href="https://refactoring.com/catalog/replace-conditional-with-polymorphism.html">リファクタリング：switch 文をポリモーフィズムに置き換える</a></li>
+</ul>
+<hr>
+<p>TODO: switch 文と if 文のベンチマーク比較をしている記事へのリンクを貼る</p>
 
                     </main>
 

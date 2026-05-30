@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
+            window.path_to_searchindex_js = "../searchindex-80c48dba.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,36 +178,104 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="基本の制御構造プログラムの流れを操る"><a class="header" href="#基本の制御構造プログラムの流れを操る">基本の制御構造：プログラムの流れを操る</a></h1>
-<p>プログラムの流れを制御することは、開発の基礎です。JavaScriptでは、条件分岐とループ処理を用いて処理の実行順序を柔軟に制御し、動的なロジックを実装します。</p>
-<h3 id="条件分岐の視点何が起きるか"><a class="header" href="#条件分岐の視点何が起きるか">条件分岐の視点：何が起きるか</a></h3>
-<p>読者がPythonの制御構文を把握していると仮定し、冗長な説明は省きます。プログラムを読む際は、上から順に追うのではなく、「このif文が真の時に何が実行され、偽の時に何がスキップされるか」という視点でコードを見つめてください。これが、TypeScriptでの型の絞り込みが起きるか、起きないかを予測する力につながります。</p>
-<pre><code class="language-javascript">const age = 20;
+<p>プログラムがただ上から下へと流れるだけなら、それは単なる「指示書」に過ぎません。JavaScript（そしてあらゆるプログラミング言語）の真骨頂は、状況に応じて処理を分けたり、同じことを何度も繰り返したりする <strong>「制御構造」</strong> にあります。</p>
+<p>Python を学んだ皆さんなら、<code>if</code> や <code>for</code> の概念はすでに知っているはずです。ここでは JavaScript 特有の書き方や、エンジニアとして意識すべき「思考の型」について深掘りしていきましょう。</p>
+<h2 id="1-条件分岐if-文と真偽値の闇"><a class="header" href="#1-条件分岐if-文と真偽値の闇">1. 条件分岐：if 文と真偽値の「闇」</a></h2>
+<p>JavaScript の <code>if</code> 文は、基本的な見た目は Python と似ていますが、カッコ <code>()</code> と波カッコ <code>{}</code> を使うのが特徴です。</p>
+<pre><code class="language-javascript">const score = 85;
 
-// 上から順に追うのではなく、条件とブロックに注目
-if (age &gt;= 18) {
-  console.log('成人です');
+if (score &gt;= 90) {
+  console.log('秀');
+} else if (score &gt;= 80) {
+  console.log('優');
 } else {
-  console.log('未成年です');
+  console.log('可');
 }
 </code></pre>
-<h3 id="三項演算子の可読性"><a class="header" href="#三項演算子の可読性">三項演算子の可読性</a></h3>
-<p>三項演算子（<code>condition ? exprIfTrue : exprIfFalse</code>）を用いる場合、条件式が複雑になったり、<code>exprIfTrue</code> や <code>exprIfFalse</code> が長くなる場合は、<code>()</code> をつけないと非常に読みにくくなります。</p>
-<pre><code class="language-javascript">// 読みにくい
-const message = isAdult ? "あなたは成人です、おめでとうございます。" : "あなたは未成年です、あと数年の辛抱です。";
-
-// 読みやすい
-const message = isAdult ? ("あなたは成人です、おめでとうございます。") : ("あなたは未成年です、あと数年の辛抱です。");
-</code></pre>
-<h3 id="ループ処理とイテレータメソッド"><a class="header" href="#ループ処理とイテレータメソッド">ループ処理とイテレータメソッド</a></h3>
-<p>JavaScriptでは、手続き的な <code>for</code> 文だけでなく、関数型のイテレータメソッドを多用します。</p>
+<p>ここで注意したいのが、JavaScript 特有の <strong>「真偽値の判定ルール（Truthy / Falsy）」</strong> です。JavaScript では、<code>true/false</code> 以外の値も、<code>if</code> 文の中では自動的にどちらかに分類されます。</p>
 <ul>
-<li><strong><code>forEach</code></strong>: 配列の各要素に対して処理を行います。</li>
-<li><strong><code>map</code></strong>: 配列の各要素を変形して新しい配列を作成します。</li>
+<li><strong>Falsy (偽とみなされるもの)</strong>: <code>false</code>, <code>0</code>, <code>""</code>（空文字）, <code>null</code>, <code>undefined</code>, <code>NaN</code></li>
+<li><strong>Truthy (真とみなされるもの)</strong>: 上記以外すべて（<code>[]</code> や <code>{}</code> も真です！）</li>
 </ul>
-<p>これらのメソッドを用いることで、コードの意図がより明確に表現できます。</p>
-<h3 id="制御構造のベストプラクティス"><a class="header" href="#制御構造のベストプラクティス">制御構造のベストプラクティス</a></h3>
-<p>プログラムの可読性を高めるためには、複雑な条件式を <code>if</code> 文の中に直接書くのではなく、意味のある名前の変数や関数に抽出することをお勧めします。</p>
-<p>制御構造はプログラミングの骨格です。ただ動くコードを書くのではなく、後から読み返したときにロジックが瞬時に理解できる、清潔なコード構造を目指しましょう。</p>
+<p>TODO: [TruthyとFalsy]を解説する記事へのリンクを貼る</p>
+<p>「空の配列 <code>[]</code> は中身がないから偽だろう」と勘違いしてバグを生むのは、JavaScript 初心者が必ず通る道です。</p>
+<h2 id="2-三項演算子1-行でスマートに書く"><a class="header" href="#2-三項演算子1-行でスマートに書く">2. 三項演算子：1 行でスマートに書く</a></h2>
+<p>簡単な条件分岐なら、<code>if</code> 文を使わずに <strong>「三項演算子」</strong> を使うのが JavaScript 流です。</p>
+<pre><code class="language-javascript">const age = 20;
+const status = age &gt;= 18 ? "成人" : "未成年";
+</code></pre>
+<p>非常に便利ですが、複雑な条件を 1 行に詰め込みすぎると、一気に読みづらくなります。</p>
+<pre><code class="language-javascript">// 読みにくい例
+const result = a &gt; b ? (c &gt; d ? "A" : "B") : "C";
+
+// 読みやすくする工夫
+const result = (a &gt; b) 
+  ? (c &gt; d ? "A" : "B") 
+  : "C";
+</code></pre>
+<p>「短く書くこと」よりも「後から読んだときに 1 秒で理解できること」を優先しましょう。</p>
+<h2 id="3-ループfor-文と関数型の波"><a class="header" href="#3-ループfor-文と関数型の波">3. ループ：for 文と「関数型」の波</a></h2>
+<p>JavaScript にも Python のような <code>for</code> 文がありますが、現代のフロントエンド開発では、手続き的な <code>for</code> 文よりも <strong>「配列のメソッド」</strong> を使うことが圧倒的に多いです。</p>
+<pre><code class="language-javascript">const fruits = ["apple", "banana", "orange"];
+
+// 古い書き方（手続き型）
+for (let i = 0; i &lt; fruits.length; i++) {
+  console.log(fruits[i]);
+}
+
+// 現代的な書き方（宣言型/関数型）
+fruits.forEach(fruit =&gt; {
+  console.log(fruit);
+});
+</code></pre>
+<p>なぜメソッドを使うのか？ それは、「今何番目か（変数 <code>i</code>）」という管理をブラウザ側に任せられるからです。人間が管理する変数が減れば減るほど、バグが入り込む隙間も減っていきます。</p>
+<h2 id="低レイヤーの視点分岐予測とパイプライン"><a class="header" href="#低レイヤーの視点分岐予測とパイプライン">低レイヤーの視点：分岐予測とパイプライン</a></h2>
+<p>コンピュータの CPU レベルで見ると、<code>if</code> 文（分岐命令）は非常にコストの高い処理です。</p>
+<p>TODO: [CPUの分岐予測]を解説する記事へのリンクを貼る</p>
+<p>現代の CPU は、命令を先読みして実行する「パイプライン」という仕組みを持っています。しかし、<code>if</code> 文があると「次はどっちの命令を読み込めばいいか」が確定しません。
+そのため CPU は「たぶんこっちだろう」と予測して実行を進めますが、予測が外れると、先読みした計算をすべて捨ててやり直すことになります（これを <strong>パイプラインストール</strong> と呼びます）。</p>
+<p>効率的なコードを書くということは、単に文字数を減らすことではなく、CPU にとって「予測しやすい」論理構造を作るということでもあるのです。</p>
+<h2 id="私の視点ガード節でネストを破壊する"><a class="header" href="#私の視点ガード節でネストを破壊する">私の視点：ガード節で「ネスト」を破壊する</a></h2>
+<p>良いコードを書くコツとして、私はいつも <strong>「ガード節（Guard Clause）」</strong> を推奨しています。</p>
+<pre><code class="language-javascript">// 悪い例：どんどん右にズレていく（ネストが深い）
+function checkUser(user) {
+  if (user) {
+    if (user.isActive) {
+      if (user.isAdmin) {
+        doSomething();
+      }
+    }
+  }
+}
+
+// 良い例：ダメなパターンを先に追い出す
+function checkUser(user) {
+  if (!user) return;
+  if (!user.isActive) return;
+  if (!user.isAdmin) return;
+
+  doSomething();
+}
+</code></pre>
+<p>ネスト（波カッコの深さ）が深いコードは、人間の脳のメモリを大量に消費します。条件を満たさないケースをさっさと <code>return</code> して追い出すことで、メインの処理が常に「左端」に並ぶようになり、読みやすさが劇的に向上します。</p>
+<h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
+<ul>
+<li>JavaScript の <code>if</code> 文はカッコ <code>{}</code> を使う。</li>
+<li>Truthy / Falsy のルール（特に <code>[]</code> や <code>0</code>）に注意。</li>
+<li>三項演算子は、可読性が落ちない範囲で使う。</li>
+<li>ループは <code>forEach</code> や <code>map</code> などのメソッドを使うのが現代流。</li>
+<li>CPU の「分岐予測」を意識した、予測しやすいロジックを心がける。</li>
+<li>ガード節を使ってネストを浅く保つ。</li>
+</ul>
+<h3 id="展望"><a class="header" href="#展望">展望</a></h3>
+<p>条件分岐がわかったら、次はたくさんの分岐をきれいに整理するための <code>switch</code> 文、そしてそれを超えた「オブジェクトによるマッピング」というテクニックについて学んでいきましょう。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Control_flow_and_error_handling">MDN: 制御フローとエラー処理</a></li>
+<li><a href="https://github.com/ryanmcdermott/clean-code-javascript">Clean Code JavaScript (GitHub)</a></li>
+</ul>
+<hr>
+<p>TODO: JavaScript のループメソッド（filter, find など）を網羅した記事へのリンクを貼る</p>
 
                     </main>
 
