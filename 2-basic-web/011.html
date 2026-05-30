@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-53346933.js";
+            window.path_to_searchindex_js = "../searchindex-614e838c.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-b1f5f0ac.js"></script>
+        <script src="../toc-15d77bbc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -179,7 +179,7 @@
                     <main>
                         <h1 id="ブラウザのレンダリングパイプラインとレイアウトの仕組み"><a class="header" href="#ブラウザのレンダリングパイプラインとレイアウトの仕組み">ブラウザのレンダリングパイプラインとレイアウトの仕組み</a></h1>
 <p>CSSを書いていると、「なぜか思った通りの配置にならない」という場面に直面することがあります。これは、ブラウザがどのようにHTMLを「ピクセル」に変換しているのか、その裏側のルールを知ることで解決できます。</p>
-<p>この章の内容は少し発展的です。今すぐ完璧に理解する必要はありません。今後CSSのレイアウトで詰まった時に、辞書のように見返してみてください。</p>
+<p>この内容は少し発展的です。今すぐ完璧に理解する必要はありません。今後CSSのレイアウトで詰まった時に、辞書のように見返してみてください。</p>
 <h2 id="1-全体像レンダリングパイプラインにおけるlayoutの位置づけ"><a class="header" href="#1-全体像レンダリングパイプラインにおけるlayoutの位置づけ">1. 全体像：レンダリングパイプラインにおけるLayoutの位置づけ</a></h2>
 <p>ブラウザがHTML/CSSを受け取ってから画面にピクセルを描画するまで、裏側では以下のパイプラインが一直線に走っています。Layoutはその中盤の「物理的な形を与える」フェーズです。</p>
 <ol>
@@ -226,7 +226,7 @@
 <li><strong>起動条件:</strong> デフォルトのブロック要素（div, pなど）、または overflow: hidden, display: flow-root などが指定された要素の内部。</li>
 <li><strong>配置ルール:</strong>
 要素は<strong>上から下へ</strong>垂直に積み重なります。デフォルトでは、子要素は親の横幅（Available Width）をめいっぱい占有しようとします。</li>
-<li><strong>裏側の特徴:</strong>
+<li><strong>特徴:</strong>
 「マージンの崩壊（Margin Collapsing）」はこのエンジン特有の処理コードです。BFCの内部は完全に独立した空間になり、外側のレイアウトに影響を与えません（浮動要素 float の回り込みをクリアするのもこのエンジンです）。</li>
 </ul>
 <h3 id="②-inline-formatting-context-ifc-文字の流し込み印刷"><a class="header" href="#②-inline-formatting-context-ifc-文字の流し込み印刷">② Inline Formatting Context (IFC) —「文字の流し込み印刷」</a></h3>
@@ -234,7 +234,7 @@
 <li><strong>起動条件:</strong> span, em, テキストノードなど。</li>
 <li><strong>配置ルール:</strong>
 要素は<strong>左から右へ</strong>水平に並びます。親の右端に到達すると、自動的に「改行」されて次の行（Line Box）が作られます。</li>
-<li><strong>裏側の特徴:</strong>
+<li><strong>特徴:</strong>
 サイズ計算が「文字のフォントサイズや行高（line-height）」に完全に依存します。そのため、インライン要素に width や height を指定しても、IFCの計算コード側がそれを「無視（スキップ）」するように実装されています。</li>
 </ul>
 <h3 id="③-flex-formatting-context-ffc-ゴム紐の一次元伸縮"><a class="header" href="#③-flex-formatting-context-ffc-ゴム紐の一次元伸縮">③ Flex Formatting Context (FFC) —「ゴム紐の一次元伸縮」</a></h3>
@@ -242,7 +242,7 @@
 <li><strong>起動条件:</strong> display: flex または inline-flex。</li>
 <li><strong>配置ルール:</strong>
 主軸（Main Axis）に沿って要素を並べます。</li>
-<li><strong>裏側の特徴（2パス計算）:</strong>
+<li><strong>特徴:</strong>
 Flexboxの裏側では、ブラウザは最低2回（あるいはそれ以上）要素を測り直しています。</li>
 </ul>
 <ol>
@@ -254,14 +254,14 @@ Flexboxの裏側では、ブラウザは最低2回（あるいはそれ以上）
 <li><strong>起動条件:</strong> display: grid。</li>
 <li><strong>配置ルール:</strong>
 縦・横の2次元の格子（Grid Track）を定義し、そこに要素をはめ込みます。</li>
-<li><strong>裏側の特徴:</strong>
-まず親要素側で「縦何ピクセル、横何ピクセルのマス目を作るか」の構造（Gridレジストリ）を解決します。その後、子要素をその座標空間の「何番目の線から何番目の線まで」に配置するかをマッピングします。fr という単位は、全体の幅から固定幅を引いた「残りのパン」を分け合う計算ロジックが走っています。</li>
+<li><strong>特徴:</strong>
+まず親要素側で「縦何ピクセル、横何ピクセルのマス目を作るか」の構造（Gridレジストリ）を解決します。その後、子要素をその座標空間の「何番目の線から何番目の線まで」に配置するかをマッピングします。fr という単位は、全体の幅から固定幅を引いた残りを分け合う計算ロジックが走っています。</li>
 </ul>
 <h2 id="4-特殊システムout-of-flow通常の流れから外れた配置"><a class="header" href="#4-特殊システムout-of-flow通常の流れから外れた配置">4. 特殊システム：Out-of-flow（通常の流れから外れた配置）</a></h2>
 <p>上記の4つのシステムは「通常の流し込み（In-flow）」と呼ばれ、お互いに押し合いへし合いして位置を決めます。しかし、これらを無視して「ワープ」するシステムがあります。</p>
 <p>これが position: absolute や position: fixed です。</p>
 <ul>
-<li><strong>裏側の処理:</strong>
+<li><strong>処理:</strong>
 ブラウザがLayout Treeを走査している最中に position: absolute を見つけると、それを通常の流し込み計算から「取り除き（Out-of-flow）」、専用の未解決リストにプールします。</li>
 <li><strong>解決のタイミング:</strong>
 通常の要素のレイアウトがすべて終わった後、その要素の「基準点（containing block：relativeが付いた先祖、またはビューポート）」の最終座標を元に、top, right, bottom, left から一発で絶対座標を算出します。周りの要素をドミノ倒しのように押し退ける計算（リフロー）が発生しないため、計算負荷の毛色が異なります。</li>
