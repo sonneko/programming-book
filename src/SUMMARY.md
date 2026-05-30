@@ -169,6 +169,13 @@
 - [データ志向](12-functional/004.md)
 - [OOPでも関数型！](12-functional/005.md)
 
+# 14.グラフィックス
+- [GPUの並列処理とシェーダー](14-graphics/001.md)
+- [3Dを支える数学](14-graphics/002.md)
+- [3Dモデルとテキストの描画](14-graphics/003.md)
+- [ゲームループとECS](14-graphics/004.md)
+- [3D描画の最適化とシステム](14-graphics/005.md)
+
 # 付録1-各種APIの使い方
 - [LINEMessagingAPI](supple-1-api/001.md)
 - [GoogleDriveAPI](supple-1-api/002.md)
