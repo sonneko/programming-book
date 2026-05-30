@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,55 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="go言語"><a class="header" href="#go言語">Go言語</a></h1>
+<p>21 世紀のインフラを支える新星、<strong>Go（ゴー、通称 Golang）</strong>。
+2009 年に Google のエンジニアたちによって開発されたこの言語は、現代の複雑なソフトウェア開発における「シンプルさ」と「効率性」を極限まで追求した、非常にスマートな言語です。</p>
+<p>「コンピュータの性能は上がったのに、なぜコンパイルはこんなに遅いんだ？」「並列処理をもっと簡単に書きたい！」——そんな天才エンジニアたちの切実な悩みから Go は生まれました。</p>
+<h2 id="go-の最大の特徴究極のシンプルさ"><a class="header" href="#go-の最大の特徴究極のシンプルさ">Go の最大の特徴：究極のシンプルさ</a></h2>
+<p>Go の設計思想は一貫しています。それは <strong>「余計な機能を入れないこと」</strong> です。
+他の言語にあるような「クラスの継承」や「例外処理（try-catch）」といった機能すら、Go は「複雑すぎる」という理由で削ぎ落としました。</p>
+<pre><code class="language-go">// Go の FizzBuzz
+package main
+
+import "fmt"
+
+func main() {
+    for i := 1; i &lt;= 100; i++ {
+        if i % 15 == 0 {
+            fmt.Println("FizzBuzz")
+        } else if i % 3 == 0 {
+            fmt.Println("Fizz")
+        } else if i % 5 == 0 {
+            fmt.Println("Buzz")
+        } else {
+            fmt.Println(i)
+        }
+    }
+}
+</code></pre>
+<p>一見すると、C 言語や Java に似た普通の文法に見えますが、実は一つ一つの仕様が非常に洗練されています。誰が書いても同じようなコードになる。この「読みやすさ」が、大規模なチーム開発において強力な武器になります。</p>
+<h2 id="なぜ-go-はエンジニアに愛されるのか"><a class="header" href="#なぜ-go-はエンジニアに愛されるのか">なぜ Go はエンジニアに愛されるのか？</a></h2>
+<ol>
+<li><strong>爆速のコンパイル</strong>: どんなに巨大なプロジェクトでも、数秒でコンパイルが終わります。開発者の待ち時間が減り、ストレスフリーな開発が可能です。</li>
+<li><strong>強力な並列処理 (Goroutine)</strong>: 「goroutine（ゴルーチン）」という仕組みを使うことで、何万もの処理を同時に実行するプログラムを驚くほど簡単に、そして軽量に書くことができます。</li>
+<li><strong>シングルバイナリ</strong>: コンパイルすると、実行に必要なすべてが詰まった一つのファイル（バイナリ）が出来上がります。サーバーにそのファイルを一つ置くだけで動くため、デプロイが非常に楽です。</li>
+<li><strong>標準ライブラリの充実</strong>: Web サーバーを作る機能などが標準で備わっており、外部のライブラリに頼らなくても本格的なシステムが構築できます。</li>
+</ol>
+<h2 id="主な用途クラウドとバックエンド"><a class="header" href="#主な用途クラウドとバックエンド">主な用途：クラウドとバックエンド</a></h2>
+<p>Docker や Kubernetes といった、現代のクラウド技術（インフラ）の根幹を支えるソフトウェアの多くが Go で書かれています。また、メルカリや LINE、メルペイといった日本の有名企業のバックエンド（サーバー側）でも、Go は主力言語として採用されています。</p>
+<h2 id="go-を学ぶ知的なメリット"><a class="header" href="#go-を学ぶ知的なメリット">Go を学ぶ「知的なメリット」</a></h2>
+<p>Go を学ぶと、<strong>「インターフェース」</strong> を使った柔軟な設計の真髄を学ぶことができます。
+Go には Java のような「継承」はありませんが、代わりに「このメソッドを持っているなら、それはこの型として扱っていいよ」というゆるい繋がり（ダックタイピング的なインターフェース）を採用しています。</p>
+<p>これは、「何をすべきか（振る舞い）」を定義することこそが、良いプログラム設計の鍵であるという、非常に高度なエッセンスを教えてくれます。</p>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>Go は、派手な機能はないけれど、使い込むほどにその「良さ」が染みてくる、道具箱のような言語です。</p>
+<p>「複雑なものに立ち向かうために、あえてシンプルであり続ける」。その哲学に共感するなら、Go はあなたにとって最高の相棒になるはずです。Python や JavaScript を覚えた後、より堅牢で、より高速なサーバーサイドの世界へ足を踏み入れたいなら、迷わず Go を選んでみてください。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://go.dev/">The Go Programming Language (英語)</a>
+<a href="https://go-tour-jp.appspot.com/">A Tour of Go (日本語版)</a> - ブラウザ上で Go を学べる公式チュートリアル。</p>
+<p>発展（任意）：
+<a href="https://www.oreilly.co.jp/books/9784873118468/">Go 言語による並行処理</a> - ゴルーチンについて深く学ぶための本。
+<a href="https://pkg.go.dev/std">Standard Library - Go Packages</a></p>
 
                     </main>
 

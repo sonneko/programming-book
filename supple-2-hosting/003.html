@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,44 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="googlecloud"><a class="header" href="#googlecloud">GoogleCloud</a></h1>
+<p>Google が自社の膨大なサービス（検索、YouTube、Gmail など）を支えるために構築した、世界最高峰のインフラ。そのインフラを私たち一般の開発者が利用できるようにしたのが <strong>Google Cloud（旧 GCP: Google Cloud Platform）</strong> です。</p>
+<p>正直に言いましょう。Google Cloud は、これまで紹介してきたレンタルサーバーや VPS とは「次元が違う」サービスです。機能が多すぎて最初は圧倒されるかもしれませんが、モダンなエンジニアを目指すなら、遅かれ早かれここ（または AWS）を通ることになります。</p>
+<h2 id="クラウドの本質オンデマンドの抽象化リソース"><a class="header" href="#クラウドの本質オンデマンドの抽象化リソース">クラウドの本質：オンデマンドの抽象化リソース</a></h2>
+<p>Google Cloud のようなクラウドサービスの本質は、あらゆるリソース（CPU、メモリ、ディスク、ネットワーク、データベース、さらには AI モデルまで）を、必要なときに、必要な分だけ、API 経由で即座に呼び出せる「抽象化されたインフラ」であることです。</p>
+<p>物理的なサーバーを借りるという感覚よりも、巨大な「コンピュータのプール」から一部の能力を切り出して使う、という感覚に近いです。</p>
+<h2 id="初心者がまず覚えるべき-3-つのサービス"><a class="header" href="#初心者がまず覚えるべき-3-つのサービス">初心者がまず覚えるべき 3 つのサービス</a></h2>
+<p>Google Cloud には数百のサービスがありますが、まずはこの 3 つを知っておけば十分です。</p>
+<ol>
+<li><strong>Compute Engine (GCE)</strong>: 仮想マシン（VM）。カゴヤの VPS と同じように、Linux OS を自由に扱えます。</li>
+<li><strong>Cloud Run</strong>: 近年最も注目されているサービス。あなたの書いたコード（コンテナ）をアップロードするだけで、アクセスがあるときだけ自動でサーバーが立ち上がり、アクセスがなければゼロ（無料）になります。これを <strong>サーバーレス</strong> と呼びます。</li>
+<li><strong>Cloud Storage (GCS)</strong>: 無制限のデータを保存できるストレージ。Google Drive API の章で学んだことの、より大規模・システム向けの版です。</li>
+</ol>
+<h2 id="google-cloud-が選ばれる理由"><a class="header" href="#google-cloud-が選ばれる理由">Google Cloud が選ばれる理由</a></h2>
+<ol>
+<li><strong>圧倒的なネットワーク速度</strong>: Google は世界中に自前の海底ケーブルを張り巡らせています。そのため、Google Cloud 内のデータ転送は非常に高速で安定しています。</li>
+<li><strong>データ分析と AI への強み</strong>: BigQuery という超高速なデータ分析基盤や、Gemini API を含む Vertex AI など、Google の得意分野がそのまま利用できます。</li>
+<li><strong>モダンな開発フローとの親和性</strong>: GitHub と連携して、コードをプッシュするだけで自動的に Web サービスが更新される仕組みが簡単に作れます。</li>
+</ol>
+<h2 id="google-cloud-を使う上での覚悟"><a class="header" href="#google-cloud-を使う上での覚悟">Google Cloud を使う上での「覚悟」</a></h2>
+<p>Google Cloud は非常に強力ですが、初心者にはいくつかの壁があります。</p>
+<ul>
+<li><strong>料金体系の複雑さ</strong>: 「月額 ◯◯ 円」ではなく、すべてが「使った分だけ」の従量課金です。設定を間違えて巨大なサーバーを立ち上げっぱなしにすると、翌月に驚くような請求が来ることがあります（必ず <strong>予算アラート</strong> を設定しましょう）。</li>
+<li><strong>用語の難しさ</strong>: IAM、VPC、Subnet、Load Balancer… ネットワークやセキュリティの専門用語が次々と出てきます。</li>
+<li><strong>UI の変化が激しい</strong>: 管理画面（コンソール）の見た目や機能名が頻繁に変わります。「ネットの記事と画面が違う！」というのは日常茶飯事です。</li>
+</ul>
+<h2 id="無料枠を使い倒そう"><a class="header" href="#無料枠を使い倒そう">無料枠を使い倒そう</a></h2>
+<p>幸いなことに、Google Cloud には強力な <strong>無料枠（Always Free）</strong> があります。
+特定のリージョン（場所）にある小さな仮想マシンや、Cloud Run の一定回数までの利用は、一生無料（条件あり）で使い続けることができます。また、新規登録時には 300 ドル分（約 4〜5 万円分）の無料クレジットが付与されることが多いため、これを使って各種サービスを実験してみるのが最も賢い学習方法です。</p>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>Google Cloud は、単なる「置き場所」ではなく、あなたのプログラムを世界規模で動かすための「巨大なツールボックス」です。</p>
+<p>まずは、<a href="https://console.cloud.google.com/">Google Cloud Console</a> にアクセスし、プロジェクトを作成することから始めてください。10 章で学ぶ「コンパイル」や「OS の仕組み」を知っていれば、クラウドが提供する抽象化の凄さが、より深く理解できるはずです。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://cloud.google.com/?hl=ja">Google Cloud 公式サイト</a>
+<a href="https://cloud.google.com/free?hl=ja">Google Cloud 無料プログラム</a></p>
+<p>発展（任意）：
+<a href="https://cloud.google.com/run?hl=ja">Cloud Run 概要 | Google Cloud</a>
+<a href="https://cloud.google.com/iam/docs/overview?hl=ja">IAM（認証と認可）の基本を理解する</a></p>
 
                     </main>
 

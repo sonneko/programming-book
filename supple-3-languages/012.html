@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,61 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="マークダウン言語"><a class="header" href="#マークダウン言語">マークダウン言語</a></h1>
+<p>この本の原稿は、すべて <strong>「Markdown（マークダウン）」</strong> という言語で書かれています。
+マークアップ言語（HTML など）が「コンピュータのための記述」であるのに対し、マークダウンは <strong>「人間が書きやすく、読みやすく、かつ構造も守れる」</strong> という、プログラマの理想を形にしたような言語です。</p>
+<p>プログラマが日常的に書くドキュメント、メモ、ブログ、README ファイル… そのほとんどすべてに、今はマークダウンが使われています。私がこの本を執筆する際も、マークダウンのおかげで「文章の内容」に 100% 集中することができました。</p>
+<h2 id="マークダウンの哲学書きやすさこそ正義"><a class="header" href="#マークダウンの哲学書きやすさこそ正義">マークダウンの哲学：書きやすさこそ正義</a></h2>
+<p>HTML で「見出し」を書くには、<code>&lt;h1&gt;見出し&lt;/h1&gt;</code> と書く必要があります。
+これを一日中書いていると、指が疲れてしまいますし、閉じタグ（<code>&lt;/h1&gt;</code>）を忘れてレイアウトが崩れるといったミスも起きます。マークダウンならこうです。</p>
+<pre><code class="language-markdown"># 見出し
+</code></pre>
+<p>これだけで、HTML の <code>&lt;h1&gt;</code> に相当する意味を持ちます。
+「読みやすさ（Readability）」を最優先に設計されており、たとえ HTML に変換しなくても、生のテキストのままでも十分に意味が通じます。メールやチャットで、自然に <code>#</code> や <code>*</code> を使って箇条書きを書くような感覚で、構造化された文書が出来上がります。</p>
+<h2 id="基本的な文法これだけ覚えれば十分"><a class="header" href="#基本的な文法これだけ覚えれば十分">基本的な文法：これだけ覚えれば十分</a></h2>
+<p>これだけ覚えれば、あなたも今日からマークダウンマスターです。</p>
+<ul>
+<li><strong>見出し</strong>: <code>#</code> を頭につける（<code>#</code> の数が増えるほど小さい見出しになる）。</li>
+<li><strong>強調</strong>: <code>**太字**</code> や <code>*斜体*</code>。</li>
+<li><strong>リスト</strong>: <code>-</code> や <code>*</code> を頭につける。</li>
+<li><strong>リンク</strong>: <code>[テキスト](URL)</code>。</li>
+<li><strong>画像</strong>: <code>![代替テキスト](画像のURL)</code>。</li>
+<li><strong>コードブロック</strong>: バッククォート 3 つ（ ``` ）で囲む。これがプログラマには最も重宝されます。</li>
+</ul>
+<pre><code class="language-markdown"># 私の好きなもの
+1. **プログラミング**
+2. 読書
+3. [GitHub](https://github.com) を眺めること
+</code></pre>
+<h2 id="なぜプログラマはマークダウンを愛するのか"><a class="header" href="#なぜプログラマはマークダウンを愛するのか">なぜプログラマはマークダウンを愛するのか？</a></h2>
+<ol>
+<li><strong>マウスがいらない</strong>: Word のように、文字を太字にするためにマウスで範囲選択してボタンをクリックする必要がありません。キーボードから手を離さずに、構造化された文章が書けます。これは、コーディングと同じリズムで文章が書けることを意味します。</li>
+<li><strong>バージョン管理がしやすい</strong>: ただのテキストファイルなので、Git で「どこを修正したか」を一行単位で管理できます。複数人でドキュメントを共同編集する際にも、衝突（コンフリクト）を簡単に解決できます。</li>
+<li><strong>どこでも動く</strong>: GitHub, Slack, Notion, Discord, VSCode, Obsidian… 現代のあらゆるエンジニアリングツールがマークダウンを標準サポートしています。一度覚えたスキルが、すべてのツールで使えます。</li>
+<li><strong>美しい変換</strong>: この本のように、マークダウンから HTML や PDF, 電子書籍（EPUB）へと簡単に美しく変換（レンダリング）できます。</li>
+</ol>
+<h2 id="軽量マークアップ言語の仲間"><a class="header" href="#軽量マークアップ言語の仲間">軽量マークアップ言語の仲間</a></h2>
+<p>マークダウンは「軽量マークアップ言語」というジャンルに属します。他にも以下のような仲間がいます。</p>
+<ul>
+<li><strong>AsciiDoc</strong>: より大規模で複雑な本の執筆などに適しており、非常に多機能です。</li>
+<li><strong>Re:VIEW</strong>: 日本の技術系同人誌などでよく使われる、電子書籍（EPUB）制作に特化した言語です。</li>
+<li><strong>CommonMark</strong>: マークダウンの方言を統一しようとする、標準化のプロジェクトです。</li>
+</ul>
+<h2 id="学習のアドバイス"><a class="header" href="#学習のアドバイス">学習のアドバイス</a></h2>
+<p>マークダウンは、学ぶというより「慣れる」ものです。
+まずは自分のメモ帳をマークダウン形式（拡張子 <code>.md</code>）にしてみることから始めてください。VSCode などのエディタを使えば、左側に編集画面、右側にプレビュー画面を表示しながら楽しく書くことができます。</p>
+<p>また、GitHub で自分のプロジェクトを作ったら、必ず <code>README.md</code> を書いてみてください。そこにプロジェクトの概要や使い方を美しくまとめることは、他の開発者への最高の「おもてなし」になります。</p>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>マークダウンは、思考を妨げない言語です。
+頭の中にあるアイデアを、一番速く、一番自然な形でアウトプットするための道具。それがマークダウンです。</p>
+<p>この本を読み終え、あなたが自分のプロジェクトを GitHub に公開するとき、その顔となる <code>README.md</code> を最高にかっこいいマークダウンで書き上げてください。その時、あなたは真の意味でプログラマのコミュニティの一員になり、言葉とコードの両方で世界と繋がることができるのです。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://www.markdownguide.org/">Markdown ガイド (英語)</a>
+<a href="https://www.markdown.jp/">日本語Markdownユーザー会</a></p>
+<p>発展（任意）：
+<a href="https://github.github.com/gfm/">GitHub Flavored Markdown (GFM)</a> - GitHub で独自に拡張されたマークダウンの仕様。
+<a href="https://rust-lang.github.io/mdBook/">mdBook 公式サイト</a> - この本を作っているツールのドキュメント。
+<a href="https://azure.microsoft.com/ja-jp/products/visual-studio-code/">VSCode で Markdown を書く</a></p>
 
                     </main>
 

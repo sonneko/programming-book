@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,58 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="java言語"><a class="header" href="#java言語">Java言語</a></h1>
+<p>世界で最も有名なプログラミング言語の一つ、<strong>Java（ジャバ）</strong>。
+「名前は聞いたことがある」「コーヒーのマークのやつでしょ？」という人も多いはずです。Java は 1995 年の誕生以来、四半世紀以上にわたってエンジニアの世界で絶対的な地位を築いてきました。</p>
+<p>前章の「Android 開発」でも触れましたが、Java は単なるモバイル用言語ではありません。むしろ、銀行のシステムや大企業の基幹業務など、<strong>「絶対に止まってはいけない、極めて高い信頼性が求められる場所」</strong> で真価を発揮する言語です。</p>
+<h2 id="java-の最大の特徴厳格なオブジェクト指向"><a class="header" href="#java-の最大の特徴厳格なオブジェクト指向">Java の最大の特徴：厳格なオブジェクト指向</a></h2>
+<p>Java を一言で表すなら「ルールに厳しい、真面目な言語」です。
+Python や JavaScript では適当に書いても動いてしまうようなコードも、Java では「型が違う！」「クラスが定義されていない！」と厳しく叱られます。</p>
+<pre><code class="language-java">// Java の FizzBuzz
+public class FizzBuzz {
+    public static void main(String[] args) {
+        for (int i = 1; i &lt;= 100; i++) {
+            if (i % 15 == 0) {
+                System.out.println("FizzBuzz");
+            } else if (i % 3 == 0) {
+                System.out.println("Fizz");
+            } else if (i % 5 == 0) {
+                System.out.println("Buzz");
+            } else {
+                System.out.println(i);
+            }
+        }
+    }
+}
+</code></pre>
+<p>コードを見ると、<code>public class</code> や <code>public static void main</code> といった「おまじない」のような長い記述が必要であることが分かります。これは、プログラムのすべての要素を「オブジェクト（物）」として厳格に管理しようとする、Java の設計思想の現れです。</p>
+<h2 id="なぜ-java-はこれほど普及したのか"><a class="header" href="#なぜ-java-はこれほど普及したのか">なぜ Java はこれほど普及したのか？</a></h2>
+<ol>
+<li><strong>プラットフォーム非依存</strong>: 「JVM（Java 仮想マシン）」のおかげで、同じコードが Windows でも Mac でも、はたまた巨大なスーパーコンピュータの上でも全く同じように動きます。</li>
+<li><strong>豊富なライブラリ</strong>: 歴史が長いため、世界中のエンジニアが作った「便利な部品（ライブラリ）」が膨大に存在します。何かを作ろうとしたとき、ゼロから作る必要はほとんどありません。</li>
+<li><strong>静的型付けによる安全性</strong>: コンパイル時に多くのミスを見つけてくれるため、数千人規模で一つのプログラムを作るような巨大なプロジェクトでも、品質を保つことができます。</li>
+</ol>
+<h2 id="javaとjavascriptは全くの別物"><a class="header" href="#javaとjavascriptは全くの別物">「Java」と「JavaScript」は全くの別物</a></h2>
+<p>ここで初心者が最も混乱するポイントを整理しておきます。
+<strong>「Java と JavaScript は、メロンとメロンパンくらい違います。」</strong></p>
+<ul>
+<li><strong>Java</strong>: コンパイルが必要。主にサーバー側や Android で動く。厳格。</li>
+<li><strong>JavaScript</strong>: ブラウザ上で動く。動的型付け。柔軟。</li>
+</ul>
+<p>名前が似ているのは、JavaScript が生まれた当時、Java があまりにも有名だったため、その人気にあやかって（マーケティング目的で）名付けられたという歴史的経緯があります。文法こそ少し似ていますが、その設計思想や動く場所は全くの別物です。</p>
+<h2 id="今java-を学ぶ意味"><a class="header" href="#今java-を学ぶ意味">今、Java を学ぶ意味</a></h2>
+<p>「最近は Python や Rust の方が流行っているんじゃないの？」と思うかもしれません。確かに、新しい流行は常にあります。しかし、世界中の膨大なシステムが今でも Java で動いており、それらをメンテナンスし、進化させるための Java エンジニアの需要は、今後何十年もなくなることはないでしょう。</p>
+<p>また、Java を学ぶことは、プログラミングの王道である <strong>「オブジェクト指向」</strong> の考え方を徹底的に身につけることに繋がります。Java で培った「厳格な設計力」は、他のどんな言語を学ぶ際にも必ずあなたの助けになります。</p>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>Java は、現代社会を裏側から支える「巨大なインフラ」のような言語です。
+派手なアニメーションを作ったり、AI で絵を描いたりするのは他の言語に任せ、Java は黙々と、正確に、そして頑丈にプログラムを動かし続けます。</p>
+<p>「エンジニアとして一生モノの、揺るぎない基礎体力をつけたい」。そう思うなら、Java という高い壁に挑戦してみる価値は十分にあります。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://www.oracle.com/jp/java/">Java 公式サイト (Oracle)</a>
+<a href="https://docs.oracle.com/javase/jp/8/docs/api/index.html">Java ドキュメント (日本語)</a></p>
+<p>発展（任意）：
+<a href="https://spring.io/">Spring Framework</a> - Java の世界で最も使われている Web フレームワーク。
+<a href="https://www.maruzen-publishing.co.jp/item/b303038.html">Effective Java</a> - Java エンジニアの聖書と呼ばれる名著。</p>
 
                     </main>
 

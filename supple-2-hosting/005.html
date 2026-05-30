@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,47 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="vercel"><a class="header" href="#vercel">Vercel</a></h1>
+<p>フロントエンドエンジニアにとっての「魔法の杖」、それが <strong>Vercel（ヴァーセル）</strong> です。
+もしあなたが React や Next.js を使って Web アプリを作っているなら、Vercel は間違いなく最高のデプロイ先になります。</p>
+<p>これまでに紹介したレンタルサーバーやクラウドサービスが「汎用的な道具」だとすれば、Vercel は「フロントエンド開発を極限まで快適にするために研ぎ澄された専用ツール」です。私は初めて Vercel に触れたとき、「今まで手作業でやっていたデプロイの苦労は何だったんだ！」と衝撃を受けました。</p>
+<h2 id="vercel-の凄さデプロイの概念が変わる"><a class="header" href="#vercel-の凄さデプロイの概念が変わる">Vercel の凄さ：デプロイの概念が変わる</a></h2>
+<p>Vercel を使うと、サーバーの設定やファイルのアップロードといった作業が、あなたの視界から完全に消え去ります。</p>
+<ol>
+<li><strong>GitHub 連携</strong>: 自分の GitHub リポジトリと Vercel を連携させます。</li>
+<li><strong>プッシュするだけ</strong>: あなたが PC で <code>git push</code> をした瞬間、Vercel がそれを検知し、自動でビルドを開始し、数分後には世界中に公開されます。</li>
+<li><strong>プレビュー機能</strong>: ブランチを作成してプッシュすると、そのブランチ専用の確認用 URL が自動で発行されます。本番環境を壊すことなく、変更内容をブラウザで確認できる。これがチーム開発においてどれほど革命的か、一度体験すると元には戻れません。</li>
+</ol>
+<h2 id="内部で起きていることエッジとサーバーレス"><a class="header" href="#内部で起きていることエッジとサーバーレス">内部で起きていること：エッジとサーバーレス</a></h2>
+<p>「サーバーの設定がいらないなんて、裏ではどうなっているの？」と疑問に思うかもしれません。Vercel は裏側で AWS などの巨大なインフラを使いつつ、それを私たちが使いやすいように高度にラップ（包み隠す）しています。</p>
+<p>具体的には、あなたの Next.js アプリの各ページや API ルートは、自動的に <strong>サーバーレス関数（Serverless Functions）</strong> や <strong>エッジ関数（Edge Functions）</strong> に変換されます。これによって、世界中のユーザーに最も近い場所から、高速にコンテンツを届けることができるのです。この「自動で関数に分割される」という仕組みこそが、Vercel の技術力の結晶です。</p>
+<h2 id="vercel-が選ばれる理由"><a class="header" href="#vercel-が選ばれる理由">Vercel が選ばれる理由</a></h2>
+<ol>
+<li><strong>Next.js との親和性</strong>: Vercel は Next.js の開発元でもあるため、最新機能が常に世界で最も早く、最も安定して動作します。</li>
+<li><strong>パフォーマンス</strong>: 何も設定しなくても、画像最適化やキャッシュ管理が自動で行われ、爆速の Web サイトが手に入ります。</li>
+<li><strong>開発者体験 (DX)</strong>: ログの確認、ドメインの設定、環境変数の管理などが、信じられないほど直感的な UI で行えます。</li>
+</ol>
+<h2 id="魔法には代償もある"><a class="header" href="#魔法には代償もある">「魔法」には代償もある</a></h2>
+<p>Vercel は非常に便利ですが、エンジニアとして知っておくべき注意点もあります。</p>
+<ul>
+<li><strong>ブラックボックス化</strong>: あまりにも簡単にデプロイできてしまうため、裏側で Web サーバー（Nginx など）がどう動いているのか、ネットワークがどう繋がっているのかを意識しなくなってしまいます。</li>
+<li><strong>料金の跳ね上がり</strong>: 無料枠（Hobby プラン）は非常に寛容ですが、商用利用や大規模なアクセスがある場合、料金が急激に高くなることがあります。特に帯域幅（転送量）による課金には注意が必要です。</li>
+<li><strong>Node.js 以外の制限</strong>: 基本的に JavaScript/TypeScript のエコシステムに特化しているため、Python や Go でガッツリとバックエンドを構築するような用途には、他のクラウドサービスのほうが適している場合があります。</li>
+</ul>
+<h2 id="ゼロコンフィグ設定なしの哲学"><a class="header" href="#ゼロコンフィグ設定なしの哲学">ゼロ・コンフィグ（設定なし）の哲学</a></h2>
+<p>Vercel が掲げている思想の一つに <strong>Zero Config</strong> があります。「開発者はコードを書くことだけに集中すべきであり、インフラの設定に時間を費やすべきではない」という考え方です。</p>
+<p>これは非常に現代的な思想であり、AI 時代においてスピード感が求められる開発において、理にかなっています。しかし、本書を読んでいるあなたには、Vercel が見せてくれる美しい画面の裏側で、10 章で学ぶような「メモリの確保」や「プロトコル」のやり取りが行われていることを、心の片隅に留めておいてほしいのです。魔法を使えるようになることは素晴らしいですが、その魔法のタネを知っている魔法使いのほうが、トラブルが起きたときにはるかに頼りになります。</p>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>Vercel は、あなたのアイデアを最も早く形にし、世界に届けるための最短経路です。
+React や Next.js を学んだら、まずは自分の作品を Vercel にデプロイしてみてください。世界中の誰もがあなたの URL にアクセスし、あなたの作ったものが動く。その感動を味わうのに、難しいコマンドは一つも必要ありません。</p>
+<p>まずは <a href="https://vercel.com/dashboard">Vercel のダッシュボード</a> にログインし、GitHub のリポジトリをインポートすることから始めてみてください。あなたのプログラミング人生において、最も幸福な瞬間の一つが訪れるはずです。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://vercel.com/">Vercel 公式サイト</a>
+<a href="https://vercel.com/docs">Vercel ドキュメント</a></p>
+<p>発展（任意）：
+<a href="https://nextjs.org/docs/deployment">Next.js を Vercel にデプロイする</a>
+<a href="https://vercel.com/pricing">Vercel の料金体系（Hobby プランの制限）</a>
+<a href="https://zenn.dev/p/vercel_jp">Vercel Japan User Group (Zenn)</a> - 日本語での活発な知見共有が行われています。</p>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,62 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="関数型言語"><a class="header" href="#関数型言語">関数型言語</a></h1>
+<p>「プログラミングは、命令のリストである」。多くの人がそう思っています。
+しかし、その常識を根本から覆すのが <strong>「関数型言語（Functional Programming Languages）」</strong> です。</p>
+<p>関数型言語の世界では、プログラミングは「命令」ではなく <strong>「データの変換」</strong> です。数学の関数と同じように、ある入力を受け取って、新しい結果を返す。その「写像（マッピング）」を組み合わせていくことで、複雑なプログラムを構築します。</p>
+<p>12 章で詳しく学びますが、ここではその入り口となる 2 つの言語を紹介します。</p>
+<h2 id="1-haskell-ハスケル"><a class="header" href="#1-haskell-ハスケル">1. Haskell (ハスケル)</a></h2>
+<p>「純粋関数型言語」の代名詞であり、多くのプログラマにとっての「畏怖の対象」でもある言語です。</p>
+<h3 id="特徴数学的な純粋さ"><a class="header" href="#特徴数学的な純粋さ">特徴：数学的な純粋さ</a></h3>
+<p>Haskell には、変数の値を書き換える（代入する）という概念がありません。また、ループ（for 文）もありません。
+「えっ、どうやってプログラムを書くの？」と思うでしょう。答えは <strong>「再帰」</strong> と <strong>「高階関数」</strong> です。</p>
+<pre><code class="language-haskell">-- Haskell の FizzBuzz
+fizzbuzz n
+  | n `mod` 15 == 0 = "FizzBuzz"
+  | n `mod` 3  == 0 = "Fizz"
+  | n `mod` 5  == 0 = "Buzz"
+  | otherwise       = show n
+
+main = mapM_ (putStrLn . fizzbuzz) [1..100]
+</code></pre>
+<p>この美しく、簡潔な記述。命令を並べるのではなく、データの変換ルールを定義していることが分かります。</p>
+<h2 id="2-lisp--clojure-リスプ--クロージャ"><a class="header" href="#2-lisp--clojure-リスプ--クロージャ">2. Lisp / Clojure (リスプ / クロージャ)</a></h2>
+<p>1958 年に誕生した、現役で使われている言語としては 2 番目に古い歴史を持つ言語の一族です。</p>
+<h3 id="特徴コードとデータが同じ形をしている"><a class="header" href="#特徴コードとデータが同じ形をしている">特徴：コードとデータが同じ形をしている</a></h3>
+<p>Lisp の最大の特徴は、大量の「括弧 <code>()</code> 」です。</p>
+<pre><code class="language-clojure">;; Clojure (Lisp系) の Hello World
+(println "Hello World")
+
+;; FizzBuzz の一部
+(if (= (mod i 15) 0) "FizzBuzz" ...)
+</code></pre>
+<p>プログラムそのものが「リスト」というデータ形式で表現されているため、<strong>「プログラムを書き換えるプログラム」</strong> を作るのが驚くほど簡単です。この強力な機能は「マクロ」と呼ばれ、AI（人工知能）研究の初期から愛されてきました。</p>
+<h2 id="関数型言語を学ぶメリット"><a class="header" href="#関数型言語を学ぶメリット">関数型言語を学ぶメリット</a></h2>
+<p>なぜ、わざわざ難しい関数型言語を学ぶ必要があるのでしょうか？</p>
+<ol>
+<li><strong>バグの削減</strong>: 「状態（変数の中身）」が変わらないため、バグの入り込む余地が劇的に減ります。</li>
+<li><strong>並列処理に強い</strong>: データの書き換えが起きないため、複数の CPU で同時に計算を行っても、データの不整合が起きません。</li>
+<li><strong>抽象的な思考力</strong>: 関数型言語を学ぶと、他の言語（Python や JS）を書くときにも、「この処理はもっと簡潔に変換として書けるのではないか？」という視点を持てるようになります。</li>
+</ol>
+<h2 id="現代の言語への影響"><a class="header" href="#現代の言語への影響">現代の言語への影響</a></h2>
+<p>実は、あなたが今使っている言語も、関数型言語の影響を強く受けています。</p>
+<ul>
+<li>JavaScript の <code>map</code>, <code>filter</code>, <code>reduce</code></li>
+<li>Python の <code>リスト内包表記</code></li>
+<li>Java や C# の <code>ラムダ式</code></li>
+<li>Swift や Rust の <code>パターンマッチング</code></li>
+</ul>
+<p>これらはすべて、関数型言語から「輸入」された便利な機能です。つまり、関数型言語を学ぶことは、現代プログラミングの「源流」を辿る旅でもあるのです。</p>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>関数型言語は、最初は「異世界の言語」のように感じるかもしれません。しかし、その「知的な衝撃」こそが、あなたのエンジニアとしての思考を一段階上のレベルへと引き上げてくれます。</p>
+<p>12 章でその深淵に触れるのを楽しみにしてください。きっと、昨日までのプログラミングとは全く違う景色が見えてくるはずです。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://www.haskell.org/">Haskell 公式サイト (英語)</a>
+<a href="https://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0">関数型プログラミング - Wikipedia</a></p>
+<p>発展（任意）：
+<a href="http://learnyouahaskell.com/chapters">すごいHaskellたのしく学ぼう！</a> - 初心者向けの有名な Haskell 入門サイト（日本語訳あり）。
+<a href="https://mitpress.mit.edu/sites/default/files/sicp/index.html">Structure and Interpretation of Computer Programs (SICP)</a> - Lisp を使ってプログラミングの本質を学ぶ「魔術師本」。</p>
 
                     </main>
 

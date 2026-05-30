@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,65 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="スクリプト系言語"><a class="header" href="#スクリプト系言語">スクリプト系言語</a></h1>
+<p>「スクリプト系言語」という言葉に厳密な定義はありませんが、一般的には <strong>「コンパイルという面倒な手順を踏まずに、書いたらすぐに実行できる、人間にとって読みやすい言語」</strong> のことを指します。</p>
+<p>Python や JavaScript もこの仲間です。これらの言語は、開発のスピードが極めて速く、書きやすいため、初心者からプロのエンジニアまで幅広く愛されています。</p>
+<p>ここでは、Python と JavaScript 以外で、エンジニアなら知っておくべき 2 つのスクリプト系言語を紹介します。</p>
+<h2 id="1-ruby-ルビー"><a class="header" href="#1-ruby-ルビー">1. Ruby (ルビー)</a></h2>
+<p>まつもとゆきひろ（Matz）氏という日本人が開発した、世界中で使われている言語です。</p>
+<h3 id="特徴プログラミングを楽しむための言語"><a class="header" href="#特徴プログラミングを楽しむための言語">特徴：プログラミングを楽しむための言語</a></h3>
+<p>Ruby の最大の哲学は <strong>「Enjoy Programming」</strong> です。コンピュータのためではなく、人間が楽しく、直感的に書けるように設計されています。「エンジニアがストレスなく、自分の思いをコードに乗せられるように」という Matz 氏の優しさが、言語の至る所から感じられます。</p>
+<pre><code class="language-ruby"># Ruby の FizzBuzz 例
+1.upto(100) do |i|
+  if i % 15 == 0
+    puts "FizzBuzz"
+  elsif i % 3 == 0
+    puts "Fizz"
+  elsif i % 5 == 0
+    puts "Buzz"
+  else
+    puts i
+  end
+end
+</code></pre>
+<p><code>1.upto(100)</code>（1 から 100 まで上がれ）という書き方、英語の文章みたいで面白いですよね。Ruby を書いていると、まるでコンピュータと「お喋り」をしているような感覚になります。</p>
+<h3 id="主な用途web-開発"><a class="header" href="#主な用途web-開発">主な用途：Web 開発</a></h3>
+<p><strong>Ruby on Rails</strong> という非常に強力な Web フレームワーク（アプリの雛形）が登場したことで、Ruby はスタートアップ企業などの Web 開発で爆発的に普及しました。「クックパッド」や「GitHub」も、初期の段階では Ruby で作られていました。開発効率が極めて高いため、少人数で素早くサービスを立ち上げるのに最適です。</p>
+<h2 id="2-php-ピーエイチピー"><a class="header" href="#2-php-ピーエイチピー">2. PHP (ピー・エイチ・ピー)</a></h2>
+<p>Web サイトの裏側を支える、Web 専用のスクリプト言語です。</p>
+<h3 id="特徴web-のための実用主義"><a class="header" href="#特徴web-のための実用主義">特徴：Web のための実用主義</a></h3>
+<p>PHP は最初から「HTML に直接プログラムを埋め込む」ことを目的として作られました。そのため、Web サーバーへの導入が非常に簡単で、多くのレンタルサーバー（XServer など）で標準サポートされています。</p>
+<pre><code class="language-php">&lt;?php
+// PHP の Hello World 例
+echo "Hello World";
+?&gt;
+</code></pre>
+<h3 id="主な用途wordpress-と-web-システム"><a class="header" href="#主な用途wordpress-と-web-システム">主な用途：WordPress と Web システム</a></h3>
+<p>世界中の Web サイトの 4 割以上を占めると言われる <strong>WordPress</strong> は、PHP で書かれています。そのため、Web 制作の現場では PHP を避けて通ることはできません。また、Laravel というモダンなフレームワークの登場により、大規模な Web サービスの開発でも再び注目を集めています。</p>
+<h2 id="スクリプト言語の裏側インタプリタ"><a class="header" href="#スクリプト言語の裏側インタプリタ">スクリプト言語の裏側：インタプリタ</a></h2>
+<p>スクリプト言語は、なぜコンパイルが不要なのでしょうか？
+それは、<strong>「インタプリタ（通訳者）」</strong> というプログラムが、あなたの書いたコードを一行ずつ読み取り、その場で CPU が理解できる形に変換して実行しているからです。</p>
+<ul>
+<li><strong>メリット</strong>: 書いてすぐに動かせる。エラーの箇所が分かりやすい。</li>
+<li><strong>デメリット</strong>: コンパイルする言語（C や Rust）に比べると、実行速度が少し遅い。</li>
+</ul>
+<p>しかし、現代のコンピュータは十分に高速なため、大抵の Web アプリやツールであれば、スクリプト言語の速度で全く問題ありません。むしろ、人間の「考える時間」や「書く時間」を短縮できるメリットの方が、多くの場面で上回ります。</p>
+<h2 id="どのスクリプト言語を選ぶべき"><a class="header" href="#どのスクリプト言語を選ぶべき">どのスクリプト言語を選ぶべき？</a></h2>
+<ul>
+<li><strong>AI やデータ分析をしたい</strong>: Python 一択です。</li>
+<li><strong>Web サイトに動きをつけたい</strong>: JavaScript が必須です。</li>
+<li><strong>Web 制作（WordPress など）を仕事にしたい</strong>: PHP が強いです。</li>
+<li><strong>楽しく、直感的にコードを書きたい</strong>: Ruby がお勧めです。</li>
+</ul>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>スクリプト系言語は、あなたのアイデアを最も手軽に形にしてくれる「魔法の筆」です。まずは一つ（例えば Python）を極め、その後に他の言語を覗いてみてください。文法の違いに「お、この言語はこんな工夫がされているのか！」と気づけるようになれば、プログラミングがどんどん楽しくなってくるはずです。</p>
+<p>「コンピュータをどう動かすか」よりも「何を解決したいか」に集中できるのが、スクリプト言語の最大の魅力です。ぜひ、自分に合った「筆」を見つけてみてください。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://www.ruby-lang.org/ja/">Ruby 公式サイト</a>
+<a href="https://www.php.net/manual/ja/intro-whatis.php">PHP 公式サイト</a></p>
+<p>発展（任意）：
+<a href="https://railsguides.jp/">Ruby on Rails ガイド</a>
+<a href="https://e-words.jp/w/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%97%E3%83%AA%E3%82%BF.html">インタプリタとコンパイラの違い | IT用語辞典 e-Words</a> - 基本的な概念を学ぶのに最適な解説記事です。</p>
 
                     </main>
 

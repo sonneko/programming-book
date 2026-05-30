@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,61 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="net系言語"><a class="header" href="#net系言語">.NET系言語</a></h1>
+<p>Microsoft が開発し、Windows の世界を中心に発展してきた <strong>.NET（ドットネット）</strong>。
+かつては Windows 専用の技術でしたが、現在では <strong>.NET 8</strong>（およびそれ以降）として完全にオープンソース化され、Mac でも Linux でも、そして iOS や Android でも動く、世界最強クラスの開発プラットフォームへと進化しました。</p>
+<p>その中心に位置するのが、美しさと実用性を兼ね備えた言語、<strong>C#（シーシャープ）</strong> です。</p>
+<h2 id="1-c-シーシャープ"><a class="header" href="#1-c-シーシャープ">1. C# (シーシャープ)</a></h2>
+<p>2000 年に登場した、Microsoft の看板言語です。</p>
+<h3 id="特徴java-のライバルであり究極の優等生"><a class="header" href="#特徴java-のライバルであり究極の優等生">特徴：Java のライバルであり、究極の優等生</a></h3>
+<p>C# は、Java と非常によく似た文法を持っていますが、Java が保守的であるのに対し、C# は積極的に新しい機能をどんどん取り入れてきました。その結果、「Java よりも書きやすく、Python よりも高速で、Rust よりも親しみやすい」という、非の打ち所がない万能言語へと成長しました。</p>
+<pre><code class="language-csharp">// C# の Hello World (最新の書き方)
+using System;
+
+Console.WriteLine("Hello World");
+
+// FizzBuzz
+for (int i = 1; i &lt;= 100; i++)
+{
+    var output = (i % 3 == 0, i % 5 == 0) switch
+    {
+        (true, true) =&gt; "FizzBuzz",
+        (true, _)    =&gt; "Fizz",
+        (_, true)    =&gt; "Buzz",
+        _            =&gt; i.ToString()
+    };
+    Console.WriteLine(output);
+}
+</code></pre>
+<p><code>switch</code> 式（パターンマッチング）など、非常にモダンで洗練された記述が可能です。</p>
+<h3 id="主な用途ゲームwebエンタープライズ"><a class="header" href="#主な用途ゲームwebエンタープライズ">主な用途：ゲーム、Web、エンタープライズ</a></h3>
+<ul>
+<li><strong>ゲーム開発</strong>: 世界で最も使われているゲームエンジン <strong>Unity</strong> の開発言語は C# です。『ポケモン GO』や『原神』も、C# で作られています。</li>
+<li><strong>Web 開発</strong>: ASP.NET Core というフレームワークを使い、超高速な Web サーバーを構築できます。</li>
+<li><strong>デスクトップアプリ</strong>: Windows のソフトを作るなら、今でも C# が第一選択肢です。</li>
+</ul>
+<h2 id="2-visual-basic-net"><a class="header" href="#2-visual-basic-net">2. Visual Basic (.NET)</a></h2>
+<p>かつて、初心者向けのプログラミング言語として一世を風靡した言語です。</p>
+<h3 id="特徴英語に近い読みやすさ"><a class="header" href="#特徴英語に近い読みやすさ">特徴：英語に近い読みやすさ</a></h3>
+<p><code>If...Then...End If</code> のように、記号よりも単語を多用する文法が特徴です。現在は C# に主役を譲っていますが、Excel のマクロ（VBA）などにその面影を強く残しています。</p>
+<h2 id="3-f-エフシャープ"><a class="header" href="#3-f-エフシャープ">3. F# (エフシャープ)</a></h2>
+<p>12 章で学ぶ「関数型プログラミング」の思想を .NET に持ち込んだ言語です。</p>
+<h3 id="特徴データの変換に特化した数学的な美しさ"><a class="header" href="#特徴データの変換に特化した数学的な美しさ">特徴：データの変換に特化した、数学的な美しさ</a></h3>
+<p><code>|&gt;</code>（パイプライン演算子）を使ってデータを次々と加工していくスタイルが得意で、データ分析や金融システムなどで高く評価されています。</p>
+<h2 id="net-の共通土台中間言語il"><a class="header" href="#net-の共通土台中間言語il">.NET の共通土台：中間言語（IL）</a></h2>
+<p>Java が JVM 上で動くのと同様に、C# や F# も <strong>CLR (Common Language Runtime)</strong> という共通の土台の上で動きます。
+コンパイルされると「共通中間言語 (CIL)」という形になり、それが実行時に CPU ごとの機械語に変換されます。</p>
+<p>この仕組みのおかげで、C# で書いたライブラリを F# から呼び出す、といった言語をまたいだ連携が非常にスムーズに行えます。</p>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>.NET 系言語、特に <strong>C#</strong> を学ぶことは、エンジニアとしてのキャリアにおいて非常に強力な「安定資産」になります。
+「Windows アプリを作りたい」という人はもちろん、「Unity でゲームを作りたい」「本格的な Web 開発をしたい」という人にとっても、C# は最高に満足度の高い選択肢となるでしょう。</p>
+<p>Microsoft という巨大企業のバックアップがありつつ、コミュニティによってオープンに進化し続ける。そんな .NET の世界は、これからプログラミングを志す皆さんを、広い懐で迎え入れてくれます。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://dotnet.microsoft.com/ja-jp/">.NET 公式サイト</a>
+<a href="https://learn.microsoft.com/ja-jp/dotnet/csharp/">C# のドキュメント | Microsoft Learn</a></p>
+<p>発展（任意）：
+<a href="https://unity.com/ja">Unity 公式サイト</a>
+<a href="https://ufcpp.net/">C# によるプログラミング入門 (ufcpp.net)</a> - C# 学習者のための、日本で最も詳しい個人サイト。</p>
 
                     </main>
 

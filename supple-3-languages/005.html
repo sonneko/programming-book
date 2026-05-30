@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,63 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="android開発の言語"><a class="header" href="#android開発の言語">Android開発の言語</a></h1>
+<p>世界で最も多くのシェアを誇るモバイル OS、<strong>Android</strong>。そのアプリ開発には、Google が推奨する 2 つの主要な言語があります。</p>
+<p>かつては <strong>Java</strong> が絶対的な王者でしたが、現在では <strong>Kotlin</strong> という、よりモダンで効率的な言語が Google によって「第一推奨言語（Kotlin First）」と位置づけられています。</p>
+<h2 id="1-kotlin-コトリン"><a class="header" href="#1-kotlin-コトリン">1. Kotlin (コトリン)</a></h2>
+<p>2011 年に JetBrains 社（有名な開発ツールメーカー）によって発表された言語です。</p>
+<h3 id="特徴java-をより簡潔に安全にした現代の旗手"><a class="header" href="#特徴java-をより簡潔に安全にした現代の旗手">特徴：Java をより簡潔に、安全にした現代の旗手</a></h3>
+<p>Kotlin は、Java と完全に互換性を保ちつつ、Java の弱点を克服するために設計されました。コード量が大幅に削減され、Swift と同様に <code>NullPointerException</code>（プログラムをクラッシュさせる最大の原因）を未然に防ぐ仕組みが組み込まれています。</p>
+<pre><code class="language-kotlin">// Kotlin の Hello World
+fun main() {
+    println("Hello World")
+}
+
+// FizzBuzz
+fun main() {
+    for (i in 1..100) {
+        when {
+            i % 15 == 0 -&gt; println("FizzBuzz")
+            i % 3 == 0 -&gt; println("Fizz")
+            i % 5 == 0 -&gt; println("Buzz")
+            else -&gt; println(i)
+        }
+    }
+}
+</code></pre>
+<p>Java に比べて非常にスッキリしており、Python や JavaScript を学んだ後でも馴染みやすい文法です。</p>
+<h3 id="主な用途android-開発のデファクトスタンダード"><a class="header" href="#主な用途android-開発のデファクトスタンダード">主な用途：Android 開発のデファクトスタンダード</a></h3>
+<p>現在、Android アプリの新規開発のほとんどは Kotlin で行われています。Google の公式ドキュメントやサンプルコードも、まずは Kotlin で提供されるようになっています。</p>
+<h2 id="2-java-ジャバ"><a class="header" href="#2-java-ジャバ">2. Java (ジャバ)</a></h2>
+<p>Android 誕生の瞬間から、長らく開発を支えてきた巨塔です。</p>
+<h3 id="特徴厳格重厚かつ堅牢"><a class="header" href="#特徴厳格重厚かつ堅牢">特徴：厳格、重厚、かつ堅牢</a></h3>
+<p>Java は非常に厳格なオブジェクト指向言語です。「何をするにもクラス（Class）が必要」という特徴があり、初心者には少しコードが長く（冗長に）感じられるかもしれません。</p>
+<pre><code class="language-java">// Java の Hello World
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}
+</code></pre>
+<p>しかし、その厳格さゆえに、大規模な開発でもバグを防ぎやすく、世界中の企業システムで採用されている信頼感があります。</p>
+<h2 id="開発に必要なものandroid-studio"><a class="header" href="#開発に必要なものandroid-studio">開発に必要なもの：Android Studio</a></h2>
+<p>Android アプリを開発するには、Google が提供している <strong>Android Studio</strong> という開発ツールを使います。Mac はもちろん、Windows や Linux でも開発が可能です。Apple 開発と違って、ハードウェアの制約が少ないのは Android 開発の大きなメリットの一つです。</p>
+<h2 id="jvmjava-仮想マシンという魔法"><a class="header" href="#jvmjava-仮想マシンという魔法">JVM（Java 仮想マシン）という魔法</a></h2>
+<p>Kotlin も Java も、実は共通の土台の上で動いています。それが <strong>JVM (Java Virtual Machine)</strong> です。
+プログラムを CPU が直接理解できる機械語にするのではなく、一度「中間コード」にコンパイルし、それを JVM という通訳者が実行します。</p>
+<p>これにより、「一度書けば、どこでも動く（Write Once, Run Anywhere）」という Java の理想が実現されています。あなたが書いた Kotlin のコードも、裏側では Java のコードと同じように JVM の命令に変換されて Android 上で動いているのです。</p>
+<h2 id="マルチプラットフォームへの広がり"><a class="header" href="#マルチプラットフォームへの広がり">マルチプラットフォームへの広がり</a></h2>
+<p>最近では <strong>Kotlin Multiplatform (KMP)</strong> という技術が登場し、Android だけでなく iOS や Web の開発も一つの Kotlin コードで共有できるようになりつつあります。この「横断的な開発」は、今後のアプリ開発のトレンドとして非常に注目されています。</p>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>Android 開発は、オープンで多様性に富んだ世界です。
+「まずは手堅く、業界標準の Java を触っておく」のも良いですが、これから新しく始めるなら、ぜひ <strong>Kotlin</strong> の扉を叩いてみてください。その書きやすさと、モダンな機能の数々に驚くはずです。</p>
+<p>Android スマホを手に、自分の書いたコードで画面を動かす。その瞬間、あなたはただのスマホユーザーから、モバイル社会を創造するエンジニアへと変貌を遂げるのです。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://developer.android.com/?hl=ja">Android デベロッパー 公式サイト</a>
+<a href="https://kotlinlang.org/">Kotlin 公式サイト (英語)</a></p>
+<p>発展（任意）：
+<a href="https://developer.android.com/courses/fundamentals-training/toc-v2?hl=ja">Android アプリ開発の基礎 | Google Developers</a>
+<a href="https://kotlinlang.org/docs/multiplatform.html">Kotlin Multiplatform 概要</a></p>
 
                     </main>
 

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,62 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="geminiapi"><a class="header" href="#geminiapi">GeminiAPI</a></h1>
+<p>AI の進化は止まるところを知りません。Google が提供する最新の AI モデル <strong>Gemini</strong> は、その高い知能を <strong>Gemini API</strong> を通じて私たちのプログラムから利用することができます。</p>
+<p>Gemini API を使えば、テキストの生成、要約、翻訳、プログラムコードの作成、さらには画像や動画の解析まで、驚くほど簡単に実装できてしまいます。かつては数ヶ月かかっていたような高度な機能を、数行のコードで実現できるようになったのです。これはエンジニアにとって、魔法のような時代と言えるでしょう。</p>
+<h2 id="gemini-api-の特徴"><a class="header" href="#gemini-api-の特徴">Gemini API の特徴</a></h2>
+<p>Gemini API には、いくつかのモデル（サイズのバリエーション）があります。</p>
+<ul>
+<li><strong>Gemini 1.5 Pro</strong>: 高度な推論が可能で、非常に長いコンテキスト（一度に扱える情報量）を扱える最高性能モデル。</li>
+<li><strong>Gemini 1.5 Flash</strong>: 軽量で高速。大量のリクエストを処理する場合や、レスポンスの速さが求められる用途に最適。</li>
+</ul>
+<p>特筆すべきは、Gemini 1.5 シリーズが持つ <strong>「100万トークンを超える長いコンテキスト窓」</strong> です。これは、数百ページの本、あるいは数時間の動画を一度に AI に読み込ませ、その内容について質問できることを意味します。他の AI モデルとは一線を画す、Gemini の最大の強みです。</p>
+<h2 id="api-キーの取得google-ai-studio"><a class="header" href="#api-キーの取得google-ai-studio">API キーの取得：Google AI Studio</a></h2>
+<p>Gemini API を使い始めるのは非常に簡単です。
+<a href="https://aistudio.google.com/">Google AI Studio</a> にアクセスし、Google アカウントでログインするだけで、API キーを即座に発行できます。</p>
+<p>現在、<strong>「Free of charge（無料枠）」</strong> が非常に充実しており、個人の開発やテスト目的であれば、かなりの回数を無料で利用することができます。ただし、無料枠では入力したデータが Google のモデル改善のために利用される可能性があるため、機密情報を入力する際は注意が必要です。</p>
+<h2 id="プロンプトエンジニアリングai-への指示の出し方"><a class="header" href="#プロンプトエンジニアリングai-への指示の出し方">プロンプトエンジニアリング：AI への指示の出し方</a></h2>
+<p>API を通じて AI に指示を出すテキストのことを <strong>プロンプト</strong> と呼びます。AI から期待通りの出力を得るためには、このプロンプトを工夫することが非常に重要です。これを <strong>プロンプトエンジニアリング</strong> と呼びます。</p>
+<p>良いプロンプトのポイントは以下の通りです。</p>
+<ol>
+<li><strong>役割（ロール）を与える</strong>: 「あなたは優秀な Python プログラマです」といった設定。</li>
+<li><strong>具体例（Few-shot）を示す</strong>: 「入力: A → 出力: B」のように、期待する形式の例をいくつか見せる。</li>
+<li><strong>制約を設ける</strong>: 「100文字以内で回答してください」「JSON 形式だけで出力してください」など。</li>
+</ol>
+<h2 id="コードによる実装例"><a class="header" href="#コードによる実装例">コードによる実装例</a></h2>
+<p>Python を使う場合、公式のライブラリ（<code>google-generativeai</code>）を使うことで、数行で AI との対話を実現できます。</p>
+<pre><code class="language-python">import google.generativeai as genai
+
+# APIキーの設定
+genai.configure(api_key="YOUR_GEMINI_API_KEY")
+
+# モデルの初期化
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+# テキスト生成
+response = model.generate_content("プログラミングを始めたばかりの学生に、応援メッセージを書いてください。")
+
+print(response.text)
+</code></pre>
+<p>これだけで、AI が生成した心温まるメッセージが返ってきます。画像についても、画像データと一緒に「この画像には何が写っていますか？」というテキストを送るだけで解析が可能です。</p>
+<h2 id="システム命令system-instruction"><a class="header" href="#システム命令system-instruction">システム命令（System Instruction）</a></h2>
+<p>最近のアップデートで、モデルに対して「常に守るべきルール」を定義できる <strong>System Instruction</strong> 機能が追加されました。これを使うことで、ユーザーの入力にかかわらず、常に特定の口調で話させたり、特定の形式で出力させたりといった制御がより確実に行えるようになりました。</p>
+<h2 id="gemini-api-で広がる世界"><a class="header" href="#gemini-api-で広がる世界">Gemini API で広がる世界</a></h2>
+<ul>
+<li><strong>AI チューター</strong>: 分からないコードを貼り付けると、優しく解説してくれるボット。</li>
+<li><strong>自動要約ツール</strong>: 長い記事や YouTube 動画の内容を、3 行でまとめてくれるツール。</li>
+<li><strong>クリエイティブ支援</strong>: あなたが書いた小説の続きを一緒に考えたり、キャラクターのイラスト案をテキストで生成したりする。</li>
+<li><strong>マルチモーダル連携</strong>: スマートフォンのカメラで撮った冷蔵庫の中身から、作れるレシピを提案するアプリ。</li>
+</ul>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>Gemini API は、あなたのプログラムに「脳」を与えるようなものです。これまでのプログラミングは、すべての条件分岐（if 文）を人間が書く必要がありました。しかし AI を組み込むことで、「なんとなくの意味」を理解し、曖昧な入力に対しても賢く応答するシステムが作れるようになります。</p>
+<p>AI 時代において、AI を「使う側」になるか「使われる側」になるかの境界線は、こうした API を自らの手で動かしてみたかどうかにあります。まずは Google AI Studio で、AI との対話をプログラムから制御する感覚を掴んでみてください。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://ai.google.dev/gemini-api/docs?hl=ja">Gemini API overview | Google AI for Developers</a>
+<a href="https://ai.google.dev/gemini-api/docs/quickstart?hl=ja">Gemini API Quickstart for Python</a></p>
+<p>発展（任意）：
+<a href="https://aistudio.google.com/">Google AI Studio</a>
+<a href="https://ai.google.dev/gemini-api/docs/prompting-bases?hl=ja">Prompting basics | Gemini API</a></p>
 
                     </main>
 

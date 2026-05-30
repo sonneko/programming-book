@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,52 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="xserver"><a class="header" href="#xserver">XServer</a></h1>
+<p>Web サービスを世界に公開しようと思ったとき、まず候補に挙がるのが「レンタルサーバー」です。その中でも、日本国内で圧倒的なシェアと信頼を誇るのが <strong>XServer（エックスサーバー）</strong> です。</p>
+<p>「レンタルサーバーって、ちょっと古臭いイメージがあるな…」と思うプログラミング学習者もいるかもしれません。最近では AWS や Vercel といったモダンなサービスが目立ちますが、XServer のような伝統的なレンタルサーバーには、今でも選ばれるだけの強力な理由があります。</p>
+<h2 id="レンタルサーバーの本質マルチテナント型の共有サーバー"><a class="header" href="#レンタルサーバーの本質マルチテナント型の共有サーバー">レンタルサーバーの本質：マルチテナント型の共有サーバー</a></h2>
+<p>XServer はいわゆる <strong>共有レンタルサーバー</strong> です。一台の非常に高性能な物理サーバーを、数百、数千のユーザーで分割して利用します。</p>
+<p>これをプログラミングの視点で見ると、「OS のユーザー権限によって分離された環境」で自分のプログラムを動かしていることになります。自分で OS をインストールしたり、セキュリティパッチを当てたりする必要はありません。それらはすべて XServer の熟練したエンジニアたちが裏側でやってくれています。あなたはただ、HTML や PHP のファイルをアップロードするだけで良いのです。</p>
+<h2 id="xserver-が選ばれる理由"><a class="header" href="#xserver-が選ばれる理由">XServer が選ばれる理由</a></h2>
+<ol>
+<li><strong>圧倒的な安定性と速度</strong>: 「国内シェア No.1」は伊達ではありません。サーバーの稼働率は 99.99% 以上を維持しており、NVMe SSD の採用などハードウェアへの投資も惜しみなく行われています。</li>
+<li><strong>充実のサポート</strong>: 万が一設定が分からなくなっても、日本語での丁寧なサポートが受けられます。これは、英語のドキュメントと格闘しがちなエンジニアにとって、実は大きな安心材料になります。</li>
+<li><strong>オールインワンの利便性</strong>: ドメインの取得、メールアドレスの作成、SSL（HTTPS）の設定、バックアップなどが、一つの管理パネルからマウス操作だけで完結します。</li>
+</ol>
+<h2 id="xserver-で動かせるもの"><a class="header" href="#xserver-で動かせるもの">XServer で動かせるもの</a></h2>
+<p>レンタルサーバーといえば <strong>WordPress</strong> というイメージが強いですが、それだけではありません。</p>
+<ul>
+<li><strong>静的な Web サイト</strong>: HTML/CSS/JavaScript で書かれたサイト。</li>
+<li><strong>PHP プログラム</strong>: 多くの Web サービスの裏側で動いている言語です。Laravel などのモダンなフレームワークも動作します。</li>
+<li><strong>CGI (Python / Ruby / Perl)</strong>: XServer では Python も動作します。ただし、バックエンドで常にプロセスを立ち上げておくような用途（Node.js の Express など）には向いておらず、リクエストがあったときだけ起動する「スクリプト」としての動作が基本になります。</li>
+</ul>
+<h2 id="xserver-の管理パネルサーバーパネル"><a class="header" href="#xserver-の管理パネルサーバーパネル">XServer の管理パネル「サーバーパネル」</a></h2>
+<p>XServer の最大の特徴は、独自の管理画面である「サーバーパネル」の使いやすさです。</p>
+<ul>
+<li><strong>自動インストール機能</strong>: WordPress などの有名なソフトウェアを、数クリックで導入できます。</li>
+<li><strong>WAF（Web Application Firewall）</strong>: Web アプリケーションの脆弱性を突いた攻撃を自動でブロックしてくれる機能も、標準で備わっています。</li>
+</ul>
+<p>「インフラの知識はないけれど、とにかく自分の作ったサービスを公開したい！」という方にとって、これほど心強い味方はありません。</p>
+<h2 id="開発フローftp-から-git-連携へ"><a class="header" href="#開発フローftp-から-git-連携へ">開発フロー：FTP から Git 連携へ</a></h2>
+<p>昔ながらのレンタルサーバーでは、ファイルをアップロードするために <strong>FTP（File Transfer Protocol）</strong> という仕組みを使っていました。今でも使われていますが、プログラマであれば <strong>Git 連携</strong> を使うのがスマートです。</p>
+<p>XServer には SSH でログインすることも可能です（プランによります）。サーバーに <code>git</code> をインストールし、GitHub から最新のコードを <code>git pull</code> するようなフローを組むことで、モダンな開発環境に近い運用が可能になります。</p>
+<h2 id="注意点共用サーバーの制限"><a class="header" href="#注意点共用サーバーの制限">注意点：共用サーバーの「制限」</a></h2>
+<p>共有サーバーである以上、一人がリソースを独占することは許されません。</p>
+<ul>
+<li>非常に重い計算処理を長時間走らせる。</li>
+<li>短時間に数千万件のアクセスが集中する。</li>
+<li>巨大なファイルを不特定多数に配信する。</li>
+</ul>
+<p>こうした用途には向いておらず、場合によってはサーバー側で制限がかかることがあります。もし、あなたのサービスが爆発的に成長し、サーバーを自由にカスタマイズしたくなったら、その時はじめて VPS（仮想専用サーバー）やクラウドへの移行を検討すれば良いのです。</p>
+<h2 id="まとめ初心者の最初の拠点として"><a class="header" href="#まとめ初心者の最初の拠点として">まとめ：初心者の最初の「拠点」として</a></h2>
+<p>XServer は、インフラの複雑な管理からあなたを解放し、Web コンテンツの作成に集中させてくれるサービスです。月額 1,000 円程度で、自分専用のドメインを持ち、安定した Web サーバーを運用できる。この「安心感」は、初めて世界に向けてサービスを発信する初心者にとって、何物にも代えがたい価値があります。</p>
+<p>「まずは自分の Web サイトをしっかり公開してみたい」という方は、XServer からスタートしてみるのが、挫折しない最短ルートかもしれません。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://www.xserver.ne.jp/">エックスサーバー 公式サイト</a>
+<a href="https://www.xserver.ne.jp/manual/">マニュアル | エックスサーバー</a></p>
+<p>発展（任意）：
+<a href="https://www.xserver.ne.jp/manual/man_server_ssh.php">エックスサーバーでSSHを利用する方法</a>
+<a href="https://www.xserver.ne.jp/manual/man_server_xaccelerator.php">PHP高速化設定（xアクセラレータ）について</a></p>
 
                     </main>
 

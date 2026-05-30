@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,59 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="apple開発の言語"><a class="header" href="#apple開発の言語">Apple開発の言語</a></h1>
+<p>あなたが手に持っている iPhone、あるいは Mac や iPad。これらのデバイス上で動くアプリは、どのようにして作られているのでしょうか。Apple 製品の開発には、Apple が推奨する特定の言語があります。</p>
+<p>かつては <strong>Objective-C</strong> という、少し古くてクセの強い言語が主流でしたが、現在は <strong>Swift</strong> という、モダンで非常に書きやすい言語が主役です。</p>
+<h2 id="1-swift-スウィフト"><a class="header" href="#1-swift-スウィフト">1. Swift (スウィフト)</a></h2>
+<p>2014 年に Apple が発表した、比較的新しいプログラミング言語です。</p>
+<h3 id="特徴モダン高速安全"><a class="header" href="#特徴モダン高速安全">特徴：モダン、高速、安全</a></h3>
+<p>Swift は、「モダンな言語の良いとこ取り」をしたような設計になっています。Python のような読みやすさと、C++ や Rust に匹敵する実行速度、そして null（Swift では nil と呼びます）によるクラッシュを防ぐ安全性を兼ね備えています。</p>
+<pre><code class="language-swift">// Swift の Hello World
+print("Hello World")
+
+// FizzBuzz
+for i in 1...100 {
+    if i % 15 == 0 {
+        print("FizzBuzz")
+    } else if i % 3 == 0 {
+        print("Fizz")
+    } else if i % 5 == 0 {
+        print("Buzz")
+    } else {
+        print(i)
+    }
+}
+</code></pre>
+<p>コードを見ると、Python や JavaScript に似ていて親しみやすいことが分かると思います。</p>
+<h3 id="主な用途apple-エコシステム全般"><a class="header" href="#主な用途apple-エコシステム全般">主な用途：Apple エコシステム全般</a></h3>
+<p>iPhone (iOS), iPad (iPadOS), Mac (macOS), Apple Watch (watchOS), Apple TV (tvOS) すべてのアプリ開発に使われます。また、最近では <strong>SwiftUI</strong> という強力な UI フレームワークが登場し、非常に少ないコード量で美しい画面を作れるようになりました。</p>
+<h2 id="2-objective-c-オブジェクティブシー"><a class="header" href="#2-objective-c-オブジェクティブシー">2. Objective-C (オブジェクティブ・シー)</a></h2>
+<p>Swift が登場するまで、20 年以上にわたって Apple 開発を支えてきた言語です。</p>
+<h3 id="特徴c-言語にオブジェクト指向を足したもの"><a class="header" href="#特徴c-言語にオブジェクト指向を足したもの">特徴：C 言語にオブジェクト指向を足したもの</a></h3>
+<p>名前の通り C 言語をベースにしていますが、文法が非常に特殊で、プログラミング初心者にはかなり難解です。</p>
+<pre><code class="language-objectivec">// Objective-C の Hello World (一部抜粋)
+NSLog(@"Hello World");
+</code></pre>
+<p>文字列の前に <code>@</code> がついていたり、メソッドを呼ぶのに <code>[object method:param]</code> のように四角い括弧 <code>[]</code> を使ったりするのが特徴です。</p>
+<p>現在、新しく Objective-C を学ぶ必要性は低くなっていますが、古いアプリ（レガシーコード）のメンテナンスでは今でも使われています。</p>
+<h2 id="開発に必要なものmac-と-xcode"><a class="header" href="#開発に必要なものmac-と-xcode">開発に必要なもの：Mac と Xcode</a></h2>
+<p>Apple 用のアプリを開発するためには、基本的には <strong>Mac</strong> が必須です。そして、Apple が提供している <strong>Xcode</strong> という巨大な開発ツール（IDE）を使って開発を行います。</p>
+<p>Windows や Linux でも Swift 自体を動かすことはできますが、iPhone アプリをビルドして App Store に公開するためには Mac が必要になる、という点に注意してください。</p>
+<h2 id="apple-開発の魅力"><a class="header" href="#apple-開発の魅力">Apple 開発の魅力</a></h2>
+<ol>
+<li><strong>ユーザー体験 (UX) へのこだわり</strong>: Apple のデザインガイドライン（Human Interface Guidelines）に従うことで、直感的で美しいアプリが作れます。</li>
+<li><strong>ハードウェアとの密接な連携</strong>: FaceID, カメラ, センサー, AR (拡張現実) といった高性能なハードウェア機能を、API を通じて簡単に利用できます。</li>
+<li><strong>App Store の存在</strong>: 自分が作ったアプリを世界中に配信し、収益化する仕組みが整っています。</li>
+</ol>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>Swift は、Apple 製品を愛する人にとって、自分のアイデアを形にするための最高の「魔法」です。非常に洗練された言語なので、Python の次に学ぶ言語としても強くお勧めできます。</p>
+<p>もしあなたが「iPhone で動くアプリを自分の手で作ってみたい！」と思うなら、Swift の学習は、あなたのエンジニア人生において最もエキサイティングな挑戦の一つになるでしょう。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://www.swift.org/">Swift 公式サイト (英語)</a>
+<a href="https://developer.apple.com/jp/xcode/swiftui/">SwiftUI - Apple Developer</a></p>
+<p>発展（任意）：
+<a href="https://www.apple.com/jp/swift/">Swift を学ぼう（日本語ドキュメント）</a>
+<a href="https://developer.apple.com/design/human-interface-guidelines/">Human Interface Guidelines - Apple Developer</a></p>
 
                     </main>
 

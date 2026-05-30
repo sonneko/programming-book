@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-4d6c1c9a.js";
+            window.path_to_searchindex_js = "../searchindex-a0dec3f1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-15d77bbc.js"></script>
@@ -178,6 +178,41 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="cloudflare"><a class="header" href="#cloudflare">CloudFlare</a></h1>
+<p>「インターネットをもっと安全に、もっと速く」。そんな壮大な目標を掲げているのが <strong>Cloudflare（クラウドフレア）</strong> です。
+元々は Web サイトを攻撃（DDoS 攻撃など）から守るためのサービスとして有名になりましたが、現在では Vercel と並ぶ、あるいはそれ以上の強力な開発プラットフォームへと進化しています。</p>
+<p>プログラミングを学ぶ上で、Cloudflare を知ることは「インターネットのネットワーク構造」そのものを学ぶことに直結します。</p>
+<h2 id="cloudflare-pages-と-workers"><a class="header" href="#cloudflare-pages-と-workers">Cloudflare Pages と Workers</a></h2>
+<p>開発者が Cloudflare を使う際、中心となるのは以下の 2 つのサービスです。</p>
+<ol>
+<li><strong>Cloudflare Pages</strong>: 静的サイト（HTML/CSS/JS）や、Next.js などのフロントエンドフレームワークをデプロイするためのサービスです。Vercel と同じように GitHub 連携で自動デプロイが可能です。</li>
+<li><strong>Cloudflare Workers</strong>: 世界中に配置された Cloudflare のサーバー（エッジ）上で、あなたの JavaScript コードを実行するサービスです。</li>
+</ol>
+<h2 id="エッジコンピューティングの極致"><a class="header" href="#エッジコンピューティングの極致">エッジコンピューティングの極致</a></h2>
+<p>Vercel の章でも「エッジ」という言葉を出しましたが、Cloudflare はその元祖とも言える存在です。
+一般的なクラウドサーバーが「東京」や「バージニア」といった特定の地点にあるのに対し、Cloudflare Workers は世界 300 以上の都市にあるサーバーすべてで同時に動きます。</p>
+<p>これを可能にしているのは、Node.js などの重いランタイムではなく、Google Chrome のエンジンである <strong>V8</strong> の <strong>Isolate</strong> という技術です。これによって、ミリ秒以下の爆速な起動時間と、極めて少ないメモリ消費を実現しています。まさに低レイヤー技術の応用による勝利と言えます。</p>
+<h2 id="cloudflare-が選ばれる理由"><a class="header" href="#cloudflare-が選ばれる理由">Cloudflare が選ばれる理由</a></h2>
+<ol>
+<li><strong>無料枠がとんでもなく広い</strong>: 驚くべきことに、Cloudflare Pages の商用利用も、Workers のかなりの回数までの実行も、無料で提供されています。帯域幅（転送量）による課金がないのも、個人開発者にとっては神のような存在です。</li>
+<li><strong>最強のセキュリティ</strong>: 世界中のインターネットトラフィックの数割が Cloudflare を通過していると言われており、その膨大なデータを元にした防御力は世界最強クラスです。</li>
+<li><strong>KV や D1 といったデータストア</strong>: Workers と連携して使える、超高速なキーバリューストア（KV）や SQL データベース（D1）も提供されており、フロントエンドからバックエンドまで Cloudflare だけで完結します。</li>
+</ol>
+<h2 id="開発の難所nodejs-との互換性"><a class="header" href="#開発の難所nodejs-との互換性">開発の難所：Node.js との互換性</a></h2>
+<p>Cloudflare Workers は前述の通り V8 エンジン上で直接動くため、Node.js のすべての機能が使えるわけではありません（現在は改善が進んでいますが）。そのため、Node.js に依存した一部のライブラリが動かない、といったトラブルに遭遇することがあります。</p>
+<p>しかし、この制約があるからこそ、「いかに軽量で、いかに効率的なコードを書くか」という、プログラマとしての腕の見せ所が生まれるのです。</p>
+<h2 id="ドメイン管理の定番"><a class="header" href="#ドメイン管理の定番">ドメイン管理の定番</a></h2>
+<p>プログラマがドメイン（<code>example.com</code> など）を取得した際、その管理（DNS）を Cloudflare に任せるのは、もはや「業界の定番」となっています。管理画面が使いやすく、設定の反映が驚くほど速いからです。</p>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<p>Cloudflare は、インフラの「その先」を見せてくれるサービスです。
+「サーバーがどこにあるか」を意識させない <strong>エッジコンピューティング</strong> の世界。そこでは、あなたの書いた数行のコードが、瞬時に地球上のあらゆる場所に複製され、ユーザーのすぐ側で実行されます。</p>
+<p>「とにかく安く（あるいは無料で）、かつ世界最高クラスの速度と安全性を手に入れたい」というワガママな願いを叶えてくれるのが、Cloudflare というプラットフォームです。まずは Cloudflare Pages を使って、自分の Web サイトを「世界中のエッジ」に届けてみてください。</p>
+<hr>
+<p>参考（必須）：
+<a href="https://www.cloudflare.com/ja-jp/">Cloudflare 公式サイト</a>
+<a href="https://developers.cloudflare.com/pages/">Cloudflare Pages documentation</a></p>
+<p>発展（任意）：
+<a href="https://developers.cloudflare.com/workers/">Cloudflare Workers documentation</a>
+<a href="https://www.cloudflare.com/network/">Cloudflare のグローバルネットワーク（地図）</a></p>
 
                     </main>
 
