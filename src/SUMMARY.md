@@ -46,7 +46,7 @@
 - [関数定義](3-basic-js/008.md)
 - [オブジェクト型](3-basic-js/009.md)
 - [DOM操作](3-basic-js/010.md)
-- [シンボルの記法](3-basic-js/011.md)
+- [リテラルの記法](3-basic-js/011.md)
 - [演習](3-basic-js/012.md)
 - [まとめ](3-basic-js/013.md)
 
