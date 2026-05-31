@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-3b2092c3.js";
+            window.path_to_searchindex_js = "../searchindex-23e3499a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2f1643ab.js"></script>
@@ -177,31 +177,45 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="他の言語のオブジェクト指向"><a class="header" href="#他の言語のオブジェクト指向">他の言語のオブジェクト指向</a></h1>
-<p>TypeScriptのオブジェクト指向プログラミング（OOP）は、JavaやC#といった静的型付け言語と非常に似た概念で設計されています。しかし、JavaScriptの動的な性質の上に構築されているため、いくつかの興味深い違いと特徴があります。</p>
-<h3 id="伝統的言語とtypescriptの比較"><a class="header" href="#伝統的言語とtypescriptの比較">伝統的言語とTypeScriptの比較</a></h3>
+                        <h1 id="他の言語のオブジェクト指向typescriptとの比較"><a class="header" href="#他の言語のオブジェクト指向typescriptとの比較">他の言語のオブジェクト指向：TypeScriptとの比較</a></h1>
+<p>TypeScriptのオブジェクト指向プログラミング（OOP）を学んでいると、JavaやC#といった「エンタープライズ系」と呼ばれる言語の概念と非常に似ていることに気づくでしょう。これは偶然ではなく、TypeScriptの開発リーダーがC#の設計者でもあるアンダース・ヘルスバーグ氏であることも大きく関係しています。</p>
+<p>しかし、TypeScriptはJavaScriptという「動的な海」の上に建つ「静的な城」のような存在です。そのため、伝統的なクラスベース言語とは異なる、独特の面白さがあります。</p>
+<h3 id="javaやcとの決定的な違い"><a class="header" href="#javaやcとの決定的な違い">JavaやC#との決定的な違い</a></h3>
+<p>JavaやC#のような伝統的な言語では、クラスは「型」そのものであり、実行時（ランタイム）にもその型情報が厳格に残ります。これを**「公称型（Nominal Typing）」**と呼びます。例えば、「User」クラスと「Admin」クラスが全く同じプロパティを持っていても、それらは別の型として扱われ、混ぜることはできません。</p>
+<p>一方、TypeScriptは**「構造的部分型（Structural Typing）」**という考え方を採用しています。これは、「見た目が同じなら、同じ型として扱って良い」という非常に柔軟なルールです。
+「アヒル（インターフェース）のように鳴き、アヒルのように歩くなら、それはアヒルだ」という、いわゆる <strong>ダック・タイピング</strong> を型システムで表現したものです。</p>
+<h3 id="言語ごとのoopの特徴"><a class="header" href="#言語ごとのoopの特徴">言語ごとのOOPの特徴</a></h3>
+<p>各言語がオブジェクト指向をどのように捉えているか、簡単に見てみましょう。</p>
 <ul>
-<li><strong>Java/C#</strong>: クラスベースの純粋なオブジェクト指向言語であり、コンパイル時に型システムが厳格にチェックされます。継承、インターフェース、アクセス修飾子などが言語仕様の核心として深く組み込まれています。</li>
-<li><strong>TypeScript</strong>: JavaScriptのプロトタイプベースの継承メカニズムの上に、クラスやインターフェースという強力な抽象化レイヤを重ねています。これにより、JSの柔軟性を保ちつつ、堅牢なOOP構造を導入できます。</li>
+<li><strong>Java / C#</strong>: 純粋なクラスベースOOP。すべてがクラスから始まります。「カプセル化」や「継承」のルールが非常に厳格で、大規模開発において軍隊のような秩序をもたらします。</li>
+<li><strong>C++</strong>: オブジェクト指向に加え、メモリ管理やテンプレート（ジェネリクス）といった低レイヤーの操作が可能です。「多重継承」という、複数の親クラスを持てる強力かつ危険な機能も持っています。</li>
+<li><strong>Python / Ruby</strong>: クラスはありますが、非常に動的です。実行中にクラスの定義を書き換えたり、メソッドを後から追加したりすることが可能です（モンキーパッチ）。自由度は高いですが、秩序を保つのは開発者の規律に委ねられます。</li>
+<li><strong>Go / Rust</strong>: 実は「クラス」という単語が存在しません（Rustには構造体 <code>struct</code> があります）。しかし、インターフェースやトレイトという仕組みを使って、オブジェクト指向的な「振る舞いの抽象化」を実現しています。最近のトレンドは、継承を排除し、これらの仕組みを活用する方向にあります。</li>
 </ul>
-<h3 id="クラス定義と便利な機能"><a class="header" href="#クラス定義と便利な機能">クラス定義と便利な機能</a></h3>
-<p>TypeScriptでは、他の言語でお馴染みのアクセス修飾子（<code>public</code>, <code>private</code>, <code>protected</code>）をサポートしており、プロパティの可視性を制御できます。</p>
-<pre><code class="language-typescript">class Employee {
-  // コンストラクタの引数で修飾子を付けると、自動的にプロパティとして定義される（短縮記法）
-  constructor(
-    public name: string,
-    private id: number,
-    protected department: string
-  ) {}
-
-  public getDetails(): string {
-    return `${this.name} (ID: ${this.id}) - ${this.department}`;
-  }
+<h3 id="typescript特有のシンタックスシュガー"><a class="header" href="#typescript特有のシンタックスシュガー">TypeScript特有の「シンタックスシュガー」</a></h3>
+<p>TypeScriptには、他言語のエンジニアが羨むような便利な書き方があります。</p>
+<pre><code class="language-typescript">class User {
+  // コンストラクタ引数に public などを付けるだけで、プロパティの定義と代入が完了！
+  constructor(public name: string, private age: number) {}
 }
+
+// 伝統的な書き方ならこれだけ必要でした：
+// class User {
+//   public name: string;
+//   private age: number;
+//   constructor(name: string, age: number) {
+//     this.name = name;
+//     this.age = age;
+//   }
+// }
 </code></pre>
-<p>この「コンストラクタの引数でのプロパティ宣言」は、TypeScript特有の非常に便利な短縮記法です。</p>
-<h3 id="抽象クラスとインターフェース"><a class="header" href="#抽象クラスとインターフェース">抽象クラスとインターフェース</a></h3>
-<p>さらにTypeScriptは <code>abstract</code> キーワードもサポートしています。これにより、インスタンス化できない抽象クラスを作成し、継承先での実装を強制できます。また、インターフェース（<code>interface</code>）は実装を持たず、クラスの「契約」としてのみ機能します。他のOOP言語を学んだ人にとって、TypeScriptのクラス定義は非常に馴染み深いものになるはずです。</p>
+<h3 id="まとめtypescriptの立ち位置"><a class="header" href="#まとめtypescriptの立ち位置">まとめ：TypeScriptの立ち位置</a></h3>
+<p>TypeScriptは、Javaのような「厳格な秩序」と、JavaScriptのような「素早い開発」の、ちょうど良い中間地点に位置しています。</p>
+<p>他の言語を学ぶ際、TypeScriptで学んだ「インターフェース」や「継承」の知識はそのまま通用します。しかし、それぞれの言語がどのような「思想」でそれらの道具を採用しているかを知ることで、あなたのエンジニアとしての視座はより高くなるでしょう。</p>
+<hr>
+<p>参考（任意）：
+<a href="https://typescript-jp.gitbook.io/deep-dive/type-system/structural-typing">構造的部分型と名名的部分型 (TypeScript Deep Dive)</a>
+<a href="https://ja.wikipedia.org/wiki/%E3%83%80%E3%83%83%E3%82%AF%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%94%E3%83%B3%E3%82%B0">ダック・タイピング (Wikipedia)</a></p>
 
                     </main>
 
