@@ -181,6 +181,28 @@
 - [人間という脆弱性と現代の攻撃手法](13-security-network/009.md)
 - [壊れた信頼：サプライチェーン攻撃とOSSの未来](13-security-network/010.md)
 
+# 15.統計・AI
+- [統計・AIの世界へようこそ](15-statistics-ai/001.md)
+- [基本的な統計と推論](15-statistics-ai/002.md)
+- [古典制御論の視点](15-statistics-ai/003.md)
+- [現代制御論の視点](15-statistics-ai/004.md)
+- [カルマンフィルタと状態推定](15-statistics-ai/005.md)
+- [ベイズ推定と柔軟な思考](15-statistics-ai/006.md)
+- [数値計算の極意（RK4）](15-statistics-ai/007.md)
+- [勾配降下法と最適化](15-statistics-ai/008.md)
+- [ガウス過程とベイズ最適化](15-statistics-ai/009.md)
+- [記号的AIの歴史](15-statistics-ai/010.md)
+- [ニューラルネットワークの夜明け](15-statistics-ai/011.md)
+- [誤差逆伝播法の魔法](15-statistics-ai/012.md)
+- [畳み込み演算と画像処理](15-statistics-ai/013.md)
+- [古典的自然言語処理の智慧](15-statistics-ai/014.md)
+- [Attentionメカニズムと革命](15-statistics-ai/015.md)
+- [大規模言語モデル（LLM）の衝撃](15-statistics-ai/016.md)
+- [ノイズから生まれる生成AI](15-statistics-ai/017.md)
+- [遺伝的アルゴリズムと進化](15-statistics-ai/018.md)
+- [強化学習と「報酬」の本質](15-statistics-ai/019.md)
+- [統計・AIが拓く未来の哲学](15-statistics-ai/020.md)
+
 # 付録1-各種APIの使い方
 - [LINEMessagingAPI](supple-1-api/001.md)
 - [GoogleDriveAPI](supple-1-api/002.md)
