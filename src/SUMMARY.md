@@ -169,6 +169,18 @@
 - [データ志向](12-functional/004.md)
 - [OOPでも関数型！](12-functional/005.md)
 
+# 13.セキュリティとネットワーク
+- [OSI参照モデルとプロトコルの哲学](13-security-network/001.md)
+- [ルーティングとネットワークの構築](13-security-network/002.md)
+- [DNSとドメインの管理](13-security-network/003.md)
+- [モダンな高レイヤープロトコルとWebAPIの設計](13-security-network/004.md)
+- [Web3を支える基盤技術：P2Pと分散ネットワーク](13-security-network/005.md)
+- [ブロックチェーンとトラストレス・システムの論理](13-security-network/006.md)
+- [高度な暗号学とWeb3時代の実行モデル](13-security-network/007.md)
+- [実践的なセキュリティとブラウザの仕組み](13-security-network/008.md)
+- [人間という脆弱性と現代の攻撃手法](13-security-network/009.md)
+- [壊れた信頼：サプライチェーン攻撃とOSSの未来](13-security-network/010.md)
+
 # 14.グラフィックス
 - [現代を動かすグラフィックスの世界](14-graphics/001.md)
 - [CPUとGPU：設計思想の衝突](14-graphics/002.md)
@@ -186,6 +198,28 @@
 - [ゲームループ：リアルタイムシステムの心臓](14-graphics/014.md)
 - [ECSとデータ指向設計](14-graphics/015.md)
 - [最適化の技法：16msの壁を超える](14-graphics/016.md)
+
+# 15.統計・AI
+- [統計・AIの世界へようこそ](15-statistics-ai/001.md)
+- [基本的な統計と推論](15-statistics-ai/002.md)
+- [古典制御論の視点](15-statistics-ai/003.md)
+- [現代制御論の視点](15-statistics-ai/004.md)
+- [カルマンフィルタと状態推定](15-statistics-ai/005.md)
+- [ベイズ推定と柔軟な思考](15-statistics-ai/006.md)
+- [数値計算の極意（RK4）](15-statistics-ai/007.md)
+- [勾配降下法と最適化](15-statistics-ai/008.md)
+- [ガウス過程とベイズ最適化](15-statistics-ai/009.md)
+- [記号的AIの歴史](15-statistics-ai/010.md)
+- [ニューラルネットワークの夜明け](15-statistics-ai/011.md)
+- [誤差逆伝播法の魔法](15-statistics-ai/012.md)
+- [畳み込み演算と画像処理](15-statistics-ai/013.md)
+- [古典的自然言語処理の智慧](15-statistics-ai/014.md)
+- [Attentionメカニズムと革命](15-statistics-ai/015.md)
+- [大規模言語モデル（LLM）の衝撃](15-statistics-ai/016.md)
+- [ノイズから生まれる生成AI](15-statistics-ai/017.md)
+- [遺伝的アルゴリズムと進化](15-statistics-ai/018.md)
+- [強化学習と「報酬」の本質](15-statistics-ai/019.md)
+- [統計・AIが拓く未来の哲学](15-statistics-ai/020.md)
 
 # 付録1-各種APIの使い方
 - [LINEMessagingAPI](supple-1-api/001.md)
