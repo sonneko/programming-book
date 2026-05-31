@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-23e3499a.js";
+            window.path_to_searchindex_js = "../searchindex-3b2092c3.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2f1643ab.js"></script>
@@ -177,39 +177,39 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="オブジェクト指向の用語整理迷子にならないための羅針盤"><a class="header" href="#オブジェクト指向の用語整理迷子にならないための羅針盤">オブジェクト指向の用語整理：迷子にならないための羅針盤</a></h1>
-<p>オブジェクト指向を学び始めると、呪文のような専門用語が次々と登場し、混乱してしまうことがあります。しかし、これらは単なる言葉遊びではなく、エンジニア同士が複雑な設計について議論するための「共通言語」です。</p>
-<p>ここで一度、TypeScriptの文脈に沿って、重要な用語を整理しておきましょう。</p>
-<h3 id="1-基本的な要素"><a class="header" href="#1-基本的な要素">1. 基本的な要素</a></h3>
+                        <h1 id="オブジェクト指向の用語整理"><a class="header" href="#オブジェクト指向の用語整理">オブジェクト指向の用語整理</a></h1>
+<p>オブジェクト指向を正しく理解し、堅牢なアプリケーションを設計するための基本的な用語を整理します。これらを理解しておくことは、TypeScriptでコードを書く際の共通言語となります。</p>
 <ul>
-<li><strong>クラス (Class)</strong>: オブジェクトの「設計図」です。どんなデータ（プロパティ）を持ち、どんな振る舞い（メソッド）をするのかを定義します。</li>
-<li><strong>インスタンス (Instance)</strong>: 設計図から実際に作られた「実体」です。<code>const myCar = new Car()</code> としたときの <code>myCar</code> がインスタンスです。</li>
-<li><strong>コンストラクタ (Constructor)</strong>: インスタンスが生成される瞬間に実行される、初期化用の関数です。</li>
+<li><strong>クラス (Class)</strong>: オブジェクトの設計図です。プロパティとメソッドをまとめて、再利用可能な単位を作成します。</li>
+<li><strong>インスタンス (Instance)</strong>: 設計図（クラス）から <code>new</code> 演算子を使用して生成された具体的な実体です。</li>
+<li><strong>プロパティ (Property)</strong>: オブジェクトが持つ状態（変数）です。</li>
+<li><strong>メソッド (Method)</strong>: オブジェクトが持つ振る舞い（関数）です。</li>
+<li><strong>継承 (Inheritance)</strong>: 既存のクラスの機能を引き継いで、新しい機能を追加したり変更したりしたクラスを作成することです（<code>extends</code> キーワード）。</li>
+<li><strong>ポリモーフィズム (Polymorphism)</strong>: 同じメソッド名であっても、オブジェクトの種類によって異なる動作をすることです（例：<code>Animal</code> クラスを継承した <code>Dog</code> と <code>Cat</code> で <code>speak()</code> メソッドの内容が異なる）。</li>
+<li><strong>インターフェース (Interface)</strong>: オブジェクトが従うべき契約です。クラスがどのようなメソッドやプロパティを持つべきか定義します（<code>implements</code> キーワード）。</li>
 </ul>
-<h3 id="2-オブジェクトの構成要素"><a class="header" href="#2-オブジェクトの構成要素">2. オブジェクトの構成要素</a></h3>
-<ul>
-<li><strong>プロパティ (Property)</strong>: オブジェクトが持つ「属性」や「状態」です。クラスの中の変数だと考えてください。</li>
-<li><strong>メソッド (Method)</strong>: オブジェクトができる「動作」や「計算」です。クラスの中の関数です。</li>
-<li><strong>フィールド (Field)</strong>: プロパティとほぼ同義ですが、特にクラス内で宣言された変数を指してこう呼ぶことが多いです。</li>
-</ul>
-<h3 id="3-三大要素α"><a class="header" href="#3-三大要素α">3. 三大要素（＋α）</a></h3>
-<ul>
-<li><strong>カプセル化 (Encapsulation)</strong>: 内部のデータを隠し、外部からは許可されたメソッドのみを通じて操作させることです。<code>private</code> や <code>protected</code> といったアクセス修飾子を使って実現します。</li>
-<li><strong>継承 (Inheritance)</strong>: あるクラスの機能をベースにして、新しいクラスを作ることです（<code>extends</code>）。「親クラス（基底クラス）」の性質を「子クラス（派生クラス）」が引き継ぎます。</li>
-<li><strong>ポリモーフィズム (Polymorphism / 多態性)</strong>: 同じ名前のメソッドを呼び出しても、相手のクラスによって中身が切り替わることです。呼び出し側は相手の正体を詳しく知らなくても、期待通りの動作をさせることができます。</li>
-<li><strong>抽象化 (Abstraction)</strong>: 複雑な内部実装を隠し、必要なインターフェース（窓口）だけを見せることです。抽象クラス（<code>abstract class</code>）やインターフェース（<code>interface</code>）がこの役割を担います。</li>
-</ul>
-<h3 id="4-設計の道具"><a class="header" href="#4-設計の道具">4. 設計の道具</a></h3>
-<ul>
-<li><strong>インターフェース (Interface)</strong>: 「このメソッドとこのプロパティを必ず持っていなさい」という「契約（ルール）」です。クラスに <code>implements</code> させることで、一定の品質を保証します。</li>
-<li><strong>アクセス修飾子 (Access Modifiers)</strong>: <code>public</code>（誰でもOK）、<code>private</code>（自分だけ）、<code>protected</code>（自分と子供だけ）といった、見える範囲（スコープ）を制限するキーワードです。</li>
-</ul>
-<h3 id="用語の海を泳ぎ切るために"><a class="header" href="#用語の海を泳ぎ切るために">用語の海を泳ぎ切るために</a></h3>
-<p>これらの用語をすべて一度に暗記する必要はありません。大切なのは、コードを書いている最中に「あ、これはポリモーフィズムを使っているな」とか「ここはカプセル化が甘いからバグになりそうだな」と、学んだ概念と現実のコードを紐付けることです。</p>
-<p>特にTypeScriptでは、**「インターフェース」**を使いこなせることが脱・初心者への近道です。実装（どうやるか）よりも契約（何をやるか）を重視する姿勢こそが、美しいオブジェクト指向設計の第一歩となります。</p>
-<hr>
-<p>発展（任意）：
-<a href="https://qiita.com/t_nakayama0714/items/954316d6918366487e32">オブジェクト指向の「継承」「カプセル化」「ポリモーフィズム」を理解する (外部記事)</a></p>
+<h3 id="実践例これらの用語の組み合わせ"><a class="header" href="#実践例これらの用語の組み合わせ">実践例:これらの用語の組み合わせ</a></h3>
+<pre><code class="language-typescript">interface Speakable {
+  speak(): void;
+}
+
+class Animal implements Speakable {
+  constructor(public name: string) {}
+  speak() {
+    console.log(`${this.name} makes a sound.`);
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    console.log(`${this.name} barks.`);
+  }
+}
+
+const myDog: Animal = new Dog('Buddy'); // ポリモーフィズムの利用
+myDog.speak(); // 'Buddy barks.' と出力される
+</code></pre>
+<p>これらの用語は、チーム開発において設計上の対話を行う際に共通言語となります。特にTypeScriptでは、インターフェースを多用することで、堅牢で疎結合なコードを実現することが推奨されています。</p>
 
                     </main>
 

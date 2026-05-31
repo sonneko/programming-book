@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-23e3499a.js";
+            window.path_to_searchindex_js = "../searchindex-3b2092c3.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2f1643ab.js"></script>
@@ -177,53 +177,32 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="esmoduleとcommonjsモジュールシステムの歴史と現代の正解"><a class="header" href="#esmoduleとcommonjsモジュールシステムの歴史と現代の正解">ESmoduleとCommonJS：モジュールシステムの歴史と現代の正解</a></h1>
-<p>JavaScriptを学んでいると、コードを別のファイルに分割して読み込む際に、二通りの書き方に出会うはずです。一つは <code>require</code> を使う方法、もう一つは <code>import</code> を使う方法です。</p>
-<p>「なぜ二つもあるの？」と混乱するかもしれませんが、これはJavaScriptが歩んできた苦難の歴史の産物です。TypeScriptで開発を行う上でも、この二つの違いを理解しておくことは、トラブルを回避するために非常に重要です。</p>
-<h3 id="1-commonjs-cjs"><a class="header" href="#1-commonjs-cjs">1. CommonJS (CJS)</a></h3>
-<p>Node.jsが誕生した当初、標準として採用されたのが <strong>CommonJS</strong> です。</p>
-<pre><code class="language-javascript">// エクスポート側
-const add = (a, b) =&gt; a + b;
-module.exports = { add };
-
-// インポート側
-const { add } = require('./math');
-</code></pre>
-<p>CommonJSは、読み込みが「同期的（実行が終わるまで待つ）」に行われるのが特徴です。これはサーバーサイド（Node.js）では問題ありませんでしたが、ネットワークを介してファイルを読み込むブラウザ環境では、読み込み待ちが発生して画面が固まってしまうため、相性が良くありませんでした。</p>
-<h3 id="2-es-modules-esm"><a class="header" href="#2-es-modules-esm">2. ES Modules (ESM)</a></h3>
-<p>JavaScriptの言語仕様（ECMAScript）として、公式に定義された現代的なモジュールシステムが <strong>ES Modules</strong> です。</p>
-<pre><code class="language-typescript">// エクスポート側
+                        <h1 id="esmoduleとcommonjs"><a class="header" href="#esmoduleとcommonjs">ESmoduleとcommonJS</a></h1>
+<p>JavaScriptには、コードを機能ごとに分割し、再利用するための仕組みが二つ存在します。TypeScript環境では、これら双方を扱う必要がありますが、現代の開発においてどちらを選択すべきかを理解しておくことは重要です。</p>
+<h3 id="モジュールシステムの変遷"><a class="header" href="#モジュールシステムの変遷">モジュールシステムの変遷</a></h3>
+<ul>
+<li><strong>CommonJS</strong>: Node.jsが初期から採用しているモジュールシステムです。<code>require</code> と <code>module.exports</code> を使用します。同期的な読み込みを行うため、ブラウザ環境では効率が悪いという課題がありました。</li>
+<li><strong>ES Modules (ESM)</strong>: ECMAScriptで標準化された現代的なモジュールシステムです。<code>import</code> と <code>export</code> を使用します。静的な構造を持つため、バンドラー（WebpackやViteなど）による最適化が容易です。</li>
+</ul>
+<h3 id="どちらを使うべきか"><a class="header" href="#どちらを使うべきか">どちらを使うべきか</a></h3>
+<p>現代のTypeScript開発では、<strong>ES Modules (ESM)</strong> の使用を強く推奨します。</p>
+<pre><code class="language-typescript">// エクスポート
 export const add = (a: number, b: number) =&gt; a + b;
 
-// インポート側
+// インポート
 import { add } from './math';
 </code></pre>
-<p>ESMは、読み込みが「静的」かつ「非同期」に行われます。これの何が嬉しいかというと、プログラムを動かす前にどのファイルが何を必要としているかを完璧に把握できるため、ViteやWebpackといった「バンドラー」と呼ばれるツールが、使っていないコードを削ぎ落とす（ツリーシェイキング）といった強力な最適化を行えるようになります。</p>
-<h3 id="typescriptでの正解"><a class="header" href="#typescriptでの正解">TypeScriptでの「正解」</a></h3>
-<p>現代のTypeScript開発においては、<strong>ES Modules (ESM)</strong> を使うのが圧倒的な正解です。</p>
-<p>TypeScriptコンパイラは、あなたの書いた最新の <code>import/export</code> 構文を、設定次第で CommonJS にも ESM にも変換できます。この挙動を制御するのが <code>tsconfig.json</code> です。</p>
+<p>ESMはブラウザとNode.jsの両方で利用可能になりつつあり、TypeScriptによる静的な型チェックと非常に相性が良いです。</p>
+<h3 id="tsconfigjsonの設定"><a class="header" href="#tsconfigjsonの設定">tsconfig.jsonの設定</a></h3>
+<p>TypeScriptでモジュールを扱う場合、<code>tsconfig.json</code> の設定が重要です。</p>
 <pre><code class="language-json">{
   "compilerOptions": {
-    "module": "ESNext",         // 最終的にどの形式で出力するか
-    "moduleResolution": "node", // インポート先のファイルを探すアルゴリズム
-    "esModuleInterop": true     // ESMとCommonJSの混在を許容するおまじない
+    "module": "ESNext",
+    "moduleResolution": "node"
   }
 }
 </code></pre>
-<h3 id="なぜ今さら-commonjs-を知る必要があるのか"><a class="header" href="#なぜ今さら-commonjs-を知る必要があるのか">なぜ今さら CommonJS を知る必要があるのか？</a></h3>
-<p>「ESMが正解なら、CommonJSは忘れればいいのでは？」と思うかもしれません。しかし、現実はそう甘くありません。</p>
-<p>あなたがnpmでインストールしようとする古いライブラリの多くは、まだ CommonJS で書かれています。これらを ESM のコードから読み込もうとすると、時としてエラー（「Default Exportがありません」など）が発生します。その際に、背後で二つのシステムが衝突しているという知識があれば、冷静に対処できるはずです。</p>
-<h3 id="まとめ未来へ進むために"><a class="header" href="#まとめ未来へ進むために">まとめ：未来へ進むために</a></h3>
-<ol>
-<li>自分のコードを書くときは、常に <strong>ES Modules (<code>import/export</code>)</strong> を使う。</li>
-<li>Node.jsの新しいバージョンでは、<code>package.json</code> に <code>"type": "module"</code> と書くことで ESM がデフォルトになる。</li>
-<li>古いライブラリとの互換性に困ったら、<code>esModuleInterop</code> 設定を確認する。</li>
-</ol>
-<p>歴史を知ることは、未来のトラブルを解決する力になります。</p>
-<hr>
-<p>参考（任意）：
-<a href="https://qiita.com/soarflat/items/4a302988350979401d6d">ES Modules入門 - Qiita</a>
-<a href="https://zenn.dev/shisama/articles/nodejs-esm-current-status">Node.jsにおけるES Modulesの動向 (外部記事)</a></p>
+<p>これらの設定により、TypeScriptコンパイラはコードをどのようにモジュールとして解釈し、最終的にどのような形式（CommonJS向けか、ESM向けか）で出力するかを決定します。古いライブラリを使う場合はCommonJSとの混在が必要になることもありますが、新しいプロジェクトでは積極的にESMを採用しましょう。</p>
 
                     </main>
 
