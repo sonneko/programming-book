@@ -4,7 +4,27 @@ language = "ja"
 src = "src"
 title = "sonneko-programming-book"
 description = "sonnekoのプログラミング入門書"
+multilingual = false
 
 [output.html]
 git-repository-url = "https://github.com/sonneko/programming-book"
 input-404 = "not-found.md"
+mathjax-support = true
+
+[output.linkcheck]
+follow-web-links = false
+strict = true
+
+[preprocessor.sitemap]
+command = "mdbook-sitemap-generator"
+site_url = "https://programming-book-sonneko.aoristos.net"
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+[preprocessor.admonish]
+command = "mdbook-admonish"
+assets_version = "3.0.2"
+
+[preprocessor.external-links]
+command = "mdbook-external-links"

@@ -14,10 +14,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup mdBook
-        uses: peaceiris/actions-mdbook@v1
-        with:
-          mdbook-version: 'latest'
+      - name: Install Stable Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Enable Rust Caching
+        uses: swatinem/rust-cache@v2
+
+      - name: Install Tools
+        run: |
+          cargo install mdbook
+          cargo install mdbook-sitemap-generator
+          cargo install mdbook-linkcheck
+          cargo install mdbook-mermaid
+          cargo install mdbook-admonish
+          cargo install mdbook-external-links
 
       - name: Build mdBook
         run: mdbook build
