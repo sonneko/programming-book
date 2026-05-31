@@ -4,7 +4,6 @@ language = "ja"
 src = "src"
 title = "sonneko-programming-book"
 description = "sonnekoのプログラミング入門書"
-multilingual = false
 
 [output.html]
 git-repository-url = "https://github.com/sonneko/programming-book"
