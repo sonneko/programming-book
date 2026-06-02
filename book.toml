@@ -21,9 +21,5 @@ site_url = "https://programming-book-sonneko.aoristos.net"
 [preprocessor.mermaid]
 command = "mdbook-mermaid"
 
-[preprocessor.admonish]
-command = "mdbook-admonish"
-assets_version = "3.0.2"
-
 [preprocessor.external-links]
 command = "mdbook-external-links"
