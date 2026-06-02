@@ -14,17 +14,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install mdBook and plugins
-        uses: taiki-e/install-action@v2
+      - name: Cache mdBook binaries
+        id: cache-binaries
+        uses: actions/cache@v4
         with:
-          tool: >
-            mdbook,
-            mdbook-sitemap-generator,
-            mdbook-linkcheck,
-            mdbook-mermaid,
-            mdbook-admonish,
-            mdbook-external-links
+          path: ~/.cargo/bin/
+          key: ${{ runner.os }}-mdbook-plugins-v1
 
+      - name: Install Rust Toolchain
+        if: steps.cache-binaries.outputs.cache-hit != 'true'
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-binstall
+        if: steps.cache-binaries.outputs.cache-hit != 'true'
+        uses: cargo-bins/cargo-binstall@main
+
+      - name: Install mdBook and plugins
+        if: steps.cache-binaries.outputs.cache-hit != 'true'
+        run: |
+          cargo binstall -y mdbook
+          cargo binstall -y mdbook-sitemap-generator
+          cargo binstall -y mdbook-linkcheck
+          cargo binstall -y mdbook-mermaid
+          cargo binstall -y mdbook-admonish
+          cargo binstall -y mdbook-external-links
+          
       - name: Build mdBook
         run: mdbook build
 
