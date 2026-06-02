@@ -15,7 +15,7 @@ follow-web-links = false
 strict = true
 
 [preprocessor.sitemap]
-command = "mdbook-sitemap-generator"
+command = "mdbook-sitemap"
 site_url = "https://programming-book-sonneko.aoristos.net"
 
 [preprocessor.mermaid]
