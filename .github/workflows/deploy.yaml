@@ -36,7 +36,8 @@ jobs:
           cargo binstall -y mdbook-sitemap
           cargo binstall -y mdbook-linkcheck
           cargo binstall -y mdbook-mermaid
-          cargo binstall -y mdbook-external-links
+          # cargo binstall -y mdbook-admonish
+          # cargo binstall -y mdbook-external-links
           
       - name: Build mdBook
         run: mdbook build
