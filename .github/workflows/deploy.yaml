@@ -33,7 +33,7 @@ jobs:
         if: steps.cache-binaries.outputs.cache-hit != 'true'
         run: |
           cargo binstall -y mdbook
-          cargo binstall -y mdbook-sitemap-generator
+          cargo binstall -y mdbook-sitemap
           cargo binstall -y mdbook-linkcheck
           cargo binstall -y mdbook-mermaid
           cargo binstall -y mdbook-admonish
