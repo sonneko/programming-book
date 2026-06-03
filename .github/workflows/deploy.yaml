@@ -22,13 +22,11 @@ jobs:
       - name: Install Nodejs
         uses: actions/setup-node@v6
 
-      - name: Copy file from ./public
-        run: |
-          mkdir book
-          mv ./public/* ./book
-
       - name: Build mdBook
         run: mdbook build
+
+      - name: Copy file from ./public
+        run: mv ./public/* ./book
 
       - name: Run custom tools
         run: cd ./script && npm i && node ./process-html.js
