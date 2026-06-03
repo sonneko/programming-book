@@ -14,34 +14,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Cache mdBook binaries
-        id: cache-binaries
-        uses: actions/cache@v4
+      - name: Install mdBook
+        uses: taiki-e/install-action@v2
         with:
-          path: ~/.cargo/bin/
-          key: ${{ runner.os }}-mdbook-plugins-v1
+          tool: mdbook
 
-      - name: Install Rust Toolchain
-        if: steps.cache-binaries.outputs.cache-hit != 'true'
-        uses: dtolnay/rust-toolchain@stable
+      - name: Install Nodejs
+        uses: actions/setup-node@v6
 
-      - name: Install cargo-binstall
-        if: steps.cache-binaries.outputs.cache-hit != 'true'
-        uses: cargo-bins/cargo-binstall@main
-
-      - name: Install mdBook and plugins
-        if: steps.cache-binaries.outputs.cache-hit != 'true'
-        run: |
-          cargo binstall -y mdbook
-          cargo binstall -y mdbook-sitemap
-          cargo binstall -y mdbook-linkcheck
-          cargo binstall -y mdbook-mermaid
-          
       - name: Build mdBook
         run: mdbook build
 
       - name: Copy file from ./public
         run: mv ./public/* ./book
+
+      - name: Run custom tools
+        run: cd ./script && npm i && node ./process-html.js
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

@@ -8,15 +8,3 @@ description = "sonnekoのプログラミング入門書"
 [output.html]
 git-repository-url = "https://github.com/sonneko/programming-book"
 input-404 = "not-found.md"
-mathjax-support = true
-
-[output.linkcheck]
-follow-web-links = false
-warning-policy = "error"
-
-[preprocessor.sitemap]
-command = "mdbook-sitemap"
-base-url = "https://programming-book-sonneko.aoristos.net"
-
-[preprocessor.mermaid]
-command = "mdbook-mermaid"
