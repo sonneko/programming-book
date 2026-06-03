@@ -5,7 +5,7 @@ const cheerio = require('cheerio');
 // ==========================================
 // 設定項目
 // ==========================================
-const BOOK_DIR = path.join(__dirname, 'book');
+const BOOK_DIR = path.join(__dirname, '../book');
 const SITE_URL = 'https://programming-book-sonneko.aoristos.net';
 const OUTPUT_SITEMAP = path.join(BOOK_DIR, 'sitemap.xml');
 
