@@ -8,3 +8,4 @@ description = "sonnekoのプログラミング入門書"
 [output.html]
 git-repository-url = "https://github.com/sonneko/programming-book"
 input-404 = "not-found.md"
+additional-js = ["fzf.umd.js", "elasticlunr.js"]
