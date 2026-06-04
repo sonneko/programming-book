@@ -123,14 +123,6 @@ async function main() {
     fs.writeFileSync(OUTPUT_SITEMAP, sitemapXml, 'utf-8');
     console.log(` Sitemaps.xml が生成されました: ${path.relative(__dirname, OUTPUT_SITEMAP)}`);
 
-    // 5. 外部リンクの404チェック実行
-    console.log('\n外部リンクのステータスチェックを開始します（非同期実行）...');
-    const checkPromises = Array.from(externalLinksToCheck).map(item => {
-        const { url, file } = JSON.parse(item);
-        return checkLink(url, file);
-    });
-
-    await Promise.all(checkPromises);
     console.log('\nすべての処理が完了しました！');
 }
 
