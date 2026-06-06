@@ -33,10 +33,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-74ab8c05.js";
+            window.path_to_searchindex_js = "../searchindex-625a3743.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-2f1643ab.js"></script>
+        <script src="../toc-7dd80726.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -176,9 +176,9 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="関数の使用"><a class="header" href="#関数の使用">関数の使用</a></h1>
-<p>Pythonや他には<code>関数</code>という概念があります。プログラミングにおける関数は数学における<code>関数</code>とは最初は全く別のものとして考えておいてください。</p>
+<p>Pythonや他には<code>関数</code>=<em>function</em>という概念があります。プログラミングにおける関数は、最初は、数学における<code>関数</code>とは全く別のものとして考えておいてください。</p>
 <h2 id="関数の書き方"><a class="header" href="#関数の書き方">関数の書き方</a></h2>
-<p>関数とは、入力を受け取って出力するようなものです。以下の例では <code>left</code>と<code>right</code>を受け取って<code>output</code>を返しています。</p>
+<p>関数とは、入力=<em>input</em>を受け取って出力=<em>output</em>するようなものです。以下の例では <code>left</code>と<code>right</code>を受け取って<code>output</code>を返しています。</p>
 <pre><code class="language-python">def add(left, right):
     output = left + right
     return output
@@ -186,17 +186,30 @@
 output = add(1, 2)
 print(output) # 3が出力される
 </code></pre>
-<p><code>def</code>は<strong>関数を定義する</strong>という記号で、その後に関数の名前がきます。これは比較的自由に決めることができます。</p>
-<p>その後、<strong>受け取るもののリスト(パラメータ)</strong> がきます。リストはあなたが決めた変数名を<code>,</code>区切りで記入してください。</p>
-<p>それを書くことができたら<code>:</code>で締めくくって、その後関数の中身を書いていきます。ここにこの関数が実行する命令を書いていきます。複数行になって構いません。この関数の中身を書く範囲は右端を<strong>タブ</strong>もしくは<strong>半角の空白4つ</strong>で埋める必要があります。これを<strong>インデント</strong>と言います。</p>
-<p>命令が終わって何かを返す必要があるのであれば<code>return</code>でそのすぐ後に来たものを返し即座にその関数の処理を終了します。</p>
+<p><code>def</code>は関数を定義するという記号で、その後に関数の名前がきます。この名前付けのルールは基本的には変数と同じです。変数の名前付けルールについては前回を参照してください。</p>
+<p>その後、受け取るものリスト(パラメータ)がきます。リストはあなたが決めた変数名を<code>,</code>区切りで記入してください。</p>
+<p>パラメータは、変数の定義と考えてください。ただし、初期化=<em>initialize</em>する必要はなくて、自動的に呼び出された時に与えられた値が代入されるイメージです。</p>
+<p>例えば以下のコードは…</p>
+<pre><code class="language-python">def your_func(a):
+    print(a)
+
+your_func(10)
+</code></pre>
+<pre><code class="language-python">def your_func(a = 10) {
+    print(a)
+}
+</code></pre>
+<p>になるイメージです。この代入されているという感覚はプログラムを直感的に理解するときに重要なので、体に染みつけておきましょう。</p>
+<p>それを書くことができたら<code>:</code>で締めくくって、その後関数の中身を書いていきます。ここにこの関数が実行する命令を書いていきます。複数行になって構いません。この関数の中身を書く範囲は右端をタブ=<code>\t</code>もしくは半角の空白4つで埋める必要があります。これをインデントと言います。</p>
+<p>命令が終わって何かを返す必要があるのであれば<code>return</code>でそのすぐ後に来たものを返し=<em>return</em>即座にその関数の処理を終了します。</p>
 <blockquote>
 <p>注意点として、<code>return</code>が実行されるとその後の処理は実行されません。</p>
 <pre><code class="language-python">def return_zero():
    return 0
    print("You can't find me.")
 </code></pre>
-<p>例えばこの場合は<code>print("You can't find me.")</code>は実行されません。</p>
+<p>例えばこの場合は<code>print("You can't find me.")</code>は実行されません。
+このような場合、<code>print関数</code>の呼び出し行は、デッドコード=<em>dead code</em>と呼ばれ、決して実行されないコードという意味です。</p>
 </blockquote>
 <p>関数の記法：</p>
 <pre><code class="language-python"># 関数を定義する
@@ -218,7 +231,7 @@ print(output)
 </code></pre>
 <p>「outputという変数はトップレベルで定義されていません。」というエラーが出るかと思います。関数内部で定義した変数はその関数の外から見ることができません。</p>
 <p>この場合「output変数の有効範囲はadd関数の中身である」ということができます。</p>
-<p>この変数の有効範囲のことを<strong>スコープ</strong>と言います。また、関数の中の変数を<strong>ローカル変数</strong>・関数の外の変数を<strong>グローバル変数</strong>と言います。</p>
+<p>この変数の有効範囲のことをスコープ=<em>scope</em>と言います。また、関数の中の変数をローカル変数=<em>local variable</em>・関数の外の変数をグローバル変数=<em>global variable</em>と言います。</p>
 <p>しかし、新たに変数を作って覆い隠すことは可能です。</p>
 <pre><code class="language-python">def do_nothing():
     a = 10
@@ -237,7 +250,7 @@ def do_nothing():
 
 print(a) # 10と出力される
 </code></pre>
-<p>Pythonプログラム全体で利用可能な変数のスコープを特別に<code>トップレベルスコープ</code>と呼びます。</p>
+<p>Pythonプログラム全体で利用可能な変数のスコープを特別に<code>トップレベルスコープ</code>=<em>top level scope</em>と呼びます。</p>
 <blockquote>
 <h3 id="コラム"><a class="header" href="#コラム">コラム</a></h3>
 <p>このローカル変数という考え方は数学にも登場します。もしかすると、こちらを知っていたらスッと理解できるかもしれません。</p>
@@ -247,10 +260,10 @@ $$
 $$
 \sum_{k} a_{k} = \sum_{l} a_{l}
 $$
-これらの数式でいう、x, t, k, lがローカル変数です。ローカル変数はただのプレイスホルダーなので、名前を変えても全く問題ありません。</p>
+これらの数式でいう、x, t, k, lがローカル変数です。ローカル変数はただのプレイスホルダー=<em>place holder</em>なので、名前を変えても全く問題ありません。</p>
 </blockquote>
 <h4 id="なぜ関数を作るのか"><a class="header" href="#なぜ関数を作るのか">なぜ関数を作るのか？</a></h4>
-<p>プログラミングには <strong>DRY (Don’t Repeat Yourself)</strong> という原則があります。「同じことを二度書くな」という意味です。</p>
+<p>プログラミングには DRY (Don’t Repeat Yourself)という原則があります。「同じことを二度書くな」という意味です。</p>
 <blockquote>
 <p>このような原則はこの後たくさん出てきますから、その都度覚えていきましょう。</p>
 </blockquote>

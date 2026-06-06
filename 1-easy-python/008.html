@@ -33,10 +33,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-74ab8c05.js";
+            window.path_to_searchindex_js = "../searchindex-625a3743.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-2f1643ab.js"></script>
+        <script src="../toc-7dd80726.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -200,8 +200,7 @@ if x &gt; 10 and x &lt; 20:
     print("x is between 10 and 20.")
 </code></pre>
 <p><code>x &gt; 10</code>の結果と、<code>x &lt; 20</code>の結果が<code>and</code>で結ばれることで、どちらも<code>True</code>である時のみ最終的な結果が<code>True</code>になるようにできます。</p>
-<p>なぜ他の言語で<code>10 &lt; x &lt; 20</code>と書けないかというと、多くの言語では「左から順番に」計算されるからです。
-つまり、まず<code>10 &lt; x</code>が計算されて真偽値（True/False）になり、次に<code>[真偽値] &lt; 20</code>という、数と真偽値を比べるというおかしな計算になってしまうからです。Pythonではこれを特別に数学と同じように扱えるようにしてくれています。</p>
+<p>なぜ他の言語で<code>10 &lt; x &lt; 20</code>と書けないかは、前回説明した関数としての演算子の性質を思い出すことで理解できます。<code>10 &lt; x</code>は真偽値を返すので、<code>(真偽値) &lt; 20</code>となってしまい、関数としては型エラー的なものが発生しますね。</p>
 <p>他にもどちらかが<code>True</code>ならばもう一方がどうであっても<code>True</code>になるという<code>or</code>も使うことができます。</p>
 <pre><code class="language-python">x = 32
 output = x &lt; 10 or x &gt; 20
@@ -210,7 +209,7 @@ print(output) # False
 <p>この例では、10未満もしくは20より大きいことを確認しています。</p>
 <p>Pythonでは、<code>and</code>や<code>or</code>という言葉をそのまま使います。他の多くの言語（C言語やJavaScriptなど）では、<code>and</code>の代わりに<code>&amp;&amp;</code>、<code>or</code>の代わりに<code>||</code>という記号を使いますが、Pythonではこれらは使えないので注意しましょう。</p>
 <blockquote>
-<h3 id="コラムショートサーキット短絡評価の知恵"><a class="header" href="#コラムショートサーキット短絡評価の知恵">コラム：ショートサーキット（短絡評価）の知恵</a></h3>
+<h3 id="コラム短絡評価short-circuit"><a class="header" href="#コラム短絡評価short-circuit">コラム：短絡評価=<em>short circuit</em></a></h3>
 <p><code>and</code> や <code>or</code> には、**「結果がわかった時点で計算をやめる」**という賢い性質があります。これをショートサーキットと呼びます。</p>
 <p>例えば、<code>A and B</code> という計算において、もし <code>A</code> が <code>False</code> だったら、 <code>B</code> が何であっても全体の結果は必ず <code>False</code> になりますよね？ そのため、Pythonは <code>B</code> の部分を見ることなく、すぐに <code>False</code> を返します。</p>
 <p>これは単なる効率化だけでなく、エラーを避けるテクニックとしても使われます。</p>

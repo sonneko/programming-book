@@ -33,10 +33,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-74ab8c05.js";
+            window.path_to_searchindex_js = "../searchindex-625a3743.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-2f1643ab.js"></script>
+        <script src="../toc-7dd80726.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -176,10 +176,10 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="while文"><a class="header" href="#while文">while文</a></h1>
-<p>「同じメッセージを100回表示して」「リストの中身を全部合計して」……そんな単純な繰り返し作業こそ、コンピュータが最も得意とする分野です。人間がやれば飽きてミスをしますが、コンピュータは文句一つ言わずに、正確に実行し続けます。</p>
-<p>この「繰り返し」を実現するための第一の道具が <strong><code>while</code>文</strong> です。</p>
+<p>「同じメッセージを100回表示して」「リストの中身を全部合計して」……そんな単純な繰り返し作業こそ、コンピュータが最も得意とする分野です。人間やLLMがやれば飽きてミスをしますが、コンピュータは文句一つ言わずに、正確に実行し続けます。</p>
+<p>この「繰り返し」を実現するための第一の道具が<code>while</code>文です。</p>
 <h2 id="while文の基本構造"><a class="header" href="#while文の基本構造"><code>while</code>文の基本構造</a></h2>
-<p><code>while</code>文は、指定した条件が <strong><code>True</code>（真）である限り</strong>、中の処理を何度も実行します。</p>
+<p><code>while</code>文は、指定した条件が <code>True</code>（真）である限り、中の処理を何度も実行します。逆にいうと、<code>Flase</code>になった瞬間ループを停止します。</p>
 <pre><code class="language-python">while 条件式:
     # 条件が正しい間、ここが繰り返される
     繰り返したい処理
@@ -188,9 +188,9 @@
 <pre><code class="language-python">while True:
     print("止まらないよ！")
 </code></pre>
-<p><code>True</code> は常に <code>True</code> なので、このプログラムは強制終了（Ctrl+C など）しない限り、永遠に動き続けます。</p>
+<p><code>True</code> は常に <code>True</code> なので、このプログラムは強制終了（Ctrl+C など）しない限り、ずっと動き続けます。</p>
 <h2 id="回数を指定して繰り返す"><a class="header" href="#回数を指定して繰り返す">回数を指定して繰り返す</a></h2>
-<p>「100回繰り返したい」という場合は、現在の回数を数えるための <strong>「カウンター変数」</strong> を用意するのが一般的です。</p>
+<p>「100回繰り返したい」という場合に、現在の回数を数えるための「カウンター変数」を用意することが昔はありました。今は悪手ですが、ループの理解には打って付けです。</p>
 <pre><code class="language-python">index = 0 # 今何回目かを数える箱
 
 while index &lt; 100:
@@ -207,27 +207,20 @@ print("終わりました！")
 <li>また <code>1 &lt; 100</code> をチェックします……。</li>
 <li><code>index</code> が <code>100</code> になった瞬間、<code>100 &lt; 100</code> は <code>False</code> になるので、ループを抜けます。</li>
 </ol>
-<p>ここで重要なのが、<strong><code>index = index + 1</code> を忘れないこと</strong>です。これを忘れると、<code>index</code> は永遠に <code>0</code> のままなので、先ほどの無限ループになってしまいます。</p>
-<h2 id="低レイヤーの視点ジャンプ命令とフラグレジスタ"><a class="header" href="#低レイヤーの視点ジャンプ命令とフラグレジスタ">低レイヤーの視点：ジャンプ命令とフラグレジスタ</a></h2>
-<p>CPUのレベルで見ると、<code>while</code>文はどのように動いているのでしょうか？</p>
-<p>CPUには「次に実行する命令のアドレス」を指す <strong>プログラムカウンタ（<em>PC</em>）</strong> というレジスタがあります。通常、命令が一つ終わるたびに PC は次の命令へ進みます。</p>
-<p><code>while</code>文の終わりに来たとき、CPUは <strong>「ジャンプ命令（<em>JMP</em>）」</strong> を実行します。これにより、PC の値を強制的にループの先頭のアドレスに書き戻すのです。</p>
-<p>TODO: [CPUの命令実行サイクル]を解説する記事へのリンクを貼る</p>
-<p>また、条件分岐（<code>index &lt; 100</code>）の判定には、CPU内部の <strong>「フラグレジスタ」</strong> が使われます。直前の比較演算の結果、値がマイナスになったか、ゼロになったかといった情報を記録し、そのフラグを見て「ジャンプするかしないか」を判断しているのです。</p>
-<h2 id="プログラミングの習慣0から数える"><a class="header" href="#プログラミングの習慣0から数える">プログラミングの習慣：0から数える</a></h2>
+<h2 id="0から数える"><a class="header" href="#0から数える">0から数える</a></h2>
 <p>上記の例で <code>index</code> を <code>0</code> から始めたことに違和感を覚えたかもしれません。
 「1回目、2回目……」と数えるなら <code>1</code> から始めたほうが自然に思えます。</p>
-<p>しかし、プログラミングの世界（特にC言語の伝統を引き継ぐ言語）では、<strong>「数字は0から始める」</strong> のが鉄則です。</p>
+<p>しかし、一般的なでは、<strong>「数字は0から始める」</strong> のが鉄則です。</p>
 <ul>
 <li>100個のデータがあるとき、番号は <code>0</code> から <code>99</code> までになります。</li>
 <li>100個必要なときは、条件式を <code>index &lt; 100</code> と書きます。</li>
 </ul>
-<p>これに慣れておくと、次に学ぶ「リスト（配列）」の扱いや、他のプログラミング言語（JavaScriptやCなど）を学ぶときに非常にスムーズになります。最初は「おまじない」だと思って、0から数える癖をつけておきましょう。</p>
-<h2 id="私の視点break-と-continue"><a class="header" href="#私の視点break-と-continue">私の視点：<code>break</code> と <code>continue</code></a></h2>
+<p>後でわかりますが、こっちの方が自然で扱いやすいです。</p>
+<h2 id="break-と-continue"><a class="header" href="#break-と-continue"><code>break</code> と <code>continue</code></a></h2>
 <p>ループをさらに細かく制御するためのキーワードも紹介しておきます。</p>
 <ul>
-<li><strong><code>break</code></strong>: 進行中のループをその場で強制終了します。</li>
-<li><strong><code>continue</code></strong>: 今回の処理をスキップして、すぐに次の回のチェックに戻ります。</li>
+<li><code>break</code>: 進行中のループをその場で強制終了します。</li>
+<li><code>continue</code>: 今回の処理をスキップして、すぐに次の回のチェックに戻ります。</li>
 </ul>
 <pre><code class="language-python"># 奇数だけを表示する（偶数のときはスキップする）
 i = 0
@@ -237,21 +230,17 @@ while i &lt; 10:
         continue
     print(i)
 </code></pre>
-<p>これらを使いこなせると、より複雑なロジックをスッキリ記述できるようになります。</p>
+<p>これらを使いこなせると、より複雑なロジックをスッキリ記述できるようになります。ただし、可読性を下げるというデメリットも存在します。現在のトレンドでは、そもそも繰り返しは使わないのがベストです。これについては後で解説します。</p>
 <h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
 <ul>
 <li><code>while</code>文は条件が <code>True</code> の間、処理を繰り返す。</li>
-<li>カウンター変数を使って回数を制御するのが基本。</li>
-<li><code>index = index + 1</code>（更新処理）を忘れると無限ループになる。</li>
-<li>CPUは内部で「ジャンプ命令」を使って繰り返しを実現している。</li>
-<li>数字は <code>0</code> から数え始めるのがエンジニアのスタンダード。</li>
+<li>数字は <code>0</code> から数え始めるのがスタンダードで自然。</li>
 </ul>
 <h3 id="展望"><a class="header" href="#展望">展望</a></h3>
-<p><code>while</code>文は非常に自由度が高いですが、回数が決まっている繰り返しには、もっと便利な <strong><code>for</code>文</strong> という構文があります。次は、Pythonで最もよく使われる繰り返し構文である <code>for</code>文について学んでいきましょう。</p>
+<p><code>while</code>文は非常に自由度が高いですが、ある意味繰り返し的でない <strong><code>for</code>文</strong> という構文があります。次は、Pythonで最もよく使われる繰り返し構文である <code>for</code>文について学んでいきましょう。</p>
 <p>参考：</p>
 <ul>
 <li><a href="https://docs.python.org/ja/3/reference/compound_stmts.html#the-while-statement" target="_blank" rel="noopener noreferrer">Python公式: while文</a></li>
-<li><a href="https://ja.wikipedia.org/wiki/%E7%84%A1%E9%99%90%E3%83%AB%E3%83%BC%E3%83%97" target="_blank" rel="noopener noreferrer">無限ループ (Wikipedia)</a></li>
 </ul>
 
                     </main>
