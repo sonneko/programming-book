@@ -4,6 +4,6 @@
 
 [このリンクからトップに戻ることができます]("/")
 
-URLがどのようなパス構造になっているか知りたければ、[ここ](https://github.com/sonneko/programming-book/tree/gh-pages)に静的配信されているファイルが全て置いてありますからご覧ください。
+URLがどのようなパス構造になっているか知りたければ、[ここ](https://github.com/sonneko/programming-book/tree/gh-pages)に静的配信されているファイルを全て置いてありますからご覧ください。
 
 GitHubの機能によりレポジトリのクローンはもちろん、マークダウンファイルをまとめたzipファイルをダウンロードしたりすることもできます。
