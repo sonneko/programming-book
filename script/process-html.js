@@ -94,7 +94,6 @@ async function main() {
         // 変更があった場合のみファイルを上書き保存
         if (isModified) {
             fs.writeFileSync(filePath, $.html(), 'utf-8');
-            console.log(`📝 属性を追加しました: ${relativePath}`);
         }
 
         // 3. サイトマップ対象のURLを蓄積（除外リストにないもの）
