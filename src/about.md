@@ -41,8 +41,9 @@ ITという分野は、非常に深く広いもので、横断的な深い知識
 
 また、私自身へのメッセージは、以下を利用してください。
 
-[XのDM](https://x.com/_sonneko)
-[githubでIssueを作成する](https://github.com/sonneko/sonneko/issues)
+- [XのDM](https://x.com/_sonneko)
+- [githubでIssueを作成する](https://github.com/sonneko/sonneko/issues)
+- sonneko`[at]`aoristos.net（`[at]`を`@`に置き換えてください。）
 
 ※プログラミングに関しての質問は受け付けておりません。
 
