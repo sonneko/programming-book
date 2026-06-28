@@ -8,3 +8,6 @@ description = "sonnekoのプログラミング入門書"
 [output.html]
 git-repository-url = "https://github.com/sonneko/programming-book"
 additional-js = ["assets/fzf.umd.js", "assets/elasticlunr.js"]
+
+[output.sitemap]
+base-url = "https://programming-book-sonneko.aoristos.net/"

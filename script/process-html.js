@@ -108,20 +108,6 @@ async function main() {
             sitemapUrls.push(`${SITE_URL}/${urlPath}`);
         }
     }
-
-    // 4. サイトマップ (sitemap.xml) の作成
-    console.log('\nGoogle対応サイトマップを作成中...');
-    const now = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-    let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
-    
-    sitemapUrls.forEach(url => {
-        sitemapXml += `  <url>\n    <loc>${url}</loc>\n    <lastmod>${now}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
-    });
-    sitemapXml += `</urlset>`;
-    
-    fs.writeFileSync(OUTPUT_SITEMAP, sitemapXml, 'utf-8');
-    console.log(` Sitemaps.xml が生成されました: ${path.relative(__dirname, OUTPUT_SITEMAP)}`);
-
     console.log('\nすべての処理が完了しました！');
 }
 

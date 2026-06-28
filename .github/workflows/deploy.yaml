@@ -28,6 +28,9 @@ jobs:
       - name: Copy file from ./public
         run: mv ./public/* ./book
 
+      - name: Install mdbook plugin
+        run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/sonneko/mdbook-sitemap/releases/latest/download/mdbook-sitemap-installer.sh | sh
+
       - name: Run custom tools
         run: cd ./script && npm i && node ./process-html.js
 
