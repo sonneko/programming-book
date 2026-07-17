@@ -32,13 +32,13 @@ jobs:
         run: mdbook build
 
       - name: Copy file from ./public
-        run: cp -r ./src/* ./book/
+        run: mv ./public/* ./book
 
       - name: Run custom tool
         run: cd ./script && node ./process-html.js
 
-      - name: Move markdown files to /book
-        run: mv ./src/** ./book
+      - name: Copy markdown files to /book
+        run: cp -r ./src/* ./book/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
