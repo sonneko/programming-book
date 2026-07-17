@@ -42,8 +42,7 @@ function main() {
       let content = fs.readFileSync(filePath, 'utf8');
       let isUpdated = false;
 
-      // 「¥」または「\」で囲まれた半角英数字・アンダースコア・ハイフンにマッチ
-      const regex = /[¥\\]([a-zA-Z0-9_-]+)[¥\\]/g;
+      const regex = /[¥]([a-zA-Z0-9_-]+)[¥]/g;
 
       const updatedContent = content.replace(regex, (match, key) => {
         if (key in replacementData) {
