@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-node@v6
 
       - name: Repomix
-        run: cd ./src && npx repomix --output ../public/repomix.xml
+        run: cd ./src && npx repomix --output ../public/repomix.txt
 
       - name: Run custom tool
         run: cd ./script && npm i && node ./process-md.js
