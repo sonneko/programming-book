@@ -32,7 +32,7 @@ jobs:
         run: mdbook build
 
       - name: Copy file from ./public
-        run: mv ./public/* ./book
+        run: cp -r ./src/* ./book/
 
       - name: Run custom tool
         run: cd ./script && node ./process-html.js
