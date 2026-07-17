@@ -21,9 +21,12 @@ jobs:
 
       - name: Install Nodejs
         uses: actions/setup-node@v6
-      
-      - name: Install mdbook plugin
-        run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/sonneko/mdbook-sitemap/releases/latest/download/mdbook-sitemap-installer.sh | sh
+
+      - name: Repomix
+        run: cd ./src && npx repomix --output repomix.xml
+
+      - name: Run custom tool
+        run: cd ./script && npm i && node ./process-md.js
 
       - name: Build mdBook
         run: mdbook build
@@ -31,8 +34,11 @@ jobs:
       - name: Copy file from ./public
         run: mv ./public/* ./book
 
-      - name: Run custom tools
-        run: cd ./script && npm i && node ./process-html.js
+      - name: Run custom tool
+        run: cd ./script && node ./process-html.js
+
+      - name: Move markdown files to /book
+        run: mv ./src/** ./book
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
