@@ -20,13 +20,17 @@ jobs:
           tool: mdbook
 
       - name: Install Nodejs
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24.x'
+          cache: "npm"
+          cache-dependency-path: "./script/package-lock.json"
 
       - name: Repomix
         run: cd ./src && npx repomix --output ../public/repomix.txt
 
       - name: Run custom tool
-        run: cd ./script && npm i && node ./process-md.js
+        run: cd ./script && npm ci && node ./process-md.js
 
       - name: Build mdBook
         run: mdbook build
