@@ -32,7 +32,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ff2409e4.js";
+            window.path_to_searchindex_js = "../searchindex-fd276ccb.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7dd80726.js"></script>
@@ -187,7 +187,7 @@
 <pre><code class="language-python">while True:
     print("止まらないよ！")
 </code></pre>
-<p><code>True</code> は常に <code>True</code> なので、このプログラムは強制終了（Ctrl+C など）しない限り、ずっと動き続けます。</p>
+<p><code>True</code> は常に <code>True</code> なので、このプログラムは強制終了（Ctrl+C など）しない限り、ずっと動き続けます。これは、デバッグ作業を止める危険な因子になりえます。<code>while</code>もいいですが、あとで紹介する<code>for</code>を積極的に使いましょう。</p>
 <h2 id="回数を指定して繰り返す"><a class="header" href="#回数を指定して繰り返す">回数を指定して繰り返す</a></h2>
 <p>「100回繰り返したい」という場合に、現在の回数を数えるための「カウンター変数」を用意することが昔はありました。今は悪手ですが、ループの理解には打って付けです。</p>
 <pre><code class="language-python">index = 0 # 今何回目かを数える箱
@@ -214,7 +214,7 @@ print("終わりました！")
 <li>100個のデータがあるとき、番号は <code>0</code> から <code>99</code> までになります。</li>
 <li>100個必要なときは、条件式を <code>index &lt; 100</code> と書きます。</li>
 </ul>
-<p>後でわかりますが、こっちの方が自然で扱いやすいです。</p>
+<p>慣れると、こっちの方が自然で扱いやすいです。スタートは0で、イコールなしの不等号で繰り返す回数を書くと、覚えましょう。</p>
 <h2 id="break-と-continue"><a class="header" href="#break-と-continue"><code>break</code> と <code>continue</code></a></h2>
 <p>ループをさらに細かく制御するためのキーワードも紹介しておきます。</p>
 <ul>

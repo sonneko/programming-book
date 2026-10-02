@@ -32,7 +32,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-ff2409e4.js";
+            window.path_to_searchindex_js = "../searchindex-fd276ccb.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7dd80726.js"></script>
@@ -204,14 +204,14 @@ for fruit in fruits:
     print(f"・{fruit}")
 </code></pre>
 <p>このコードでは、<code>range()</code> の代わりに <code>fruits</code> というリストを直接 <code>for</code>文に渡しています。Pythonはリストから要素を一つずつ取り出し、変数 <code>fruit</code> に入れてくれます。これができるのは、リストが「次の値をちょうだい」と言って実際に次の値をくれるものデアルという条件を満たしているからです。</p>
-<h2 id="私の視点enumerate-でインデックスも一緒に使う"><a class="header" href="#私の視点enumerate-でインデックスも一緒に使う">私の視点：<code>enumerate</code> でインデックスも一緒に使う</a></h2>
+<h2 id="ちょいテク-enumerate-でインデックスも一緒に使う"><a class="header" href="#ちょいテク-enumerate-でインデックスも一緒に使う">ちょいテク: <code>enumerate</code> でインデックスも一緒に使う</a></h2>
 <p><code>for fruit in fruits:</code> は便利ですが、たまに「今、何番目の要素を処理しているか（番号）」も知りたいときがあります。そんな時は <code>enumerate()</code> 関数を使うのも一考です。</p>
 <pre><code class="language-python">fruits = ["apple", "banana", "orange"]
 
 for i, fruit in enumerate(fruits):
     print(f"{i + 1}番目のフルーツは {fruit} です")
 </code></pre>
-<p>要は<code>enumerate</code>とは、<code>fruits</code>という文字列をもたらす=<em>yield</em>イテレータを、数字と文字列のセットをもたらすイテレータに変換するための関数です。</p>
+<p>要は<code>enumerate</code>とは、<code>fruits</code>という文字列をもたらす=<em>yield</em>イテレータを、数字と文字列の組み合わせをもたらすイテレータに変換するための関数です。</p>
 <h3 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h3>
 <ul>
 <li><code>for</code>文は「決まった回数」や「データの集まり」を処理するのに適している。</li>
@@ -225,7 +225,6 @@ for i, fruit in enumerate(fruits):
 <p>参考：</p>
 <ul>
 <li><a href="https://docs.python.org/ja/3/tutorial/controlflow.html#for-statements" target="_blank" rel="noopener noreferrer">Python公式: for文</a></li>
-<li><a href="https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%BF" target="_blank" rel="noopener noreferrer">イテレータ (Wikipedia)</a></li>
 </ul>
 
                     </main>

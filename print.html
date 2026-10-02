@@ -33,7 +33,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-ff2409e4.js";
+            window.path_to_searchindex_js = "searchindex-fd276ccb.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-7dd80726.js"></script>
@@ -795,7 +795,7 @@ if len(my_list) &gt; 0 and my_list[0] == 100:
 <pre><code class="language-python">while True:
     print("止まらないよ！")
 </code></pre>
-<p><code>True</code> は常に <code>True</code> なので、このプログラムは強制終了（Ctrl+C など）しない限り、ずっと動き続けます。</p>
+<p><code>True</code> は常に <code>True</code> なので、このプログラムは強制終了（Ctrl+C など）しない限り、ずっと動き続けます。これは、デバッグ作業を止める危険な因子になりえます。<code>while</code>もいいですが、あとで紹介する<code>for</code>を積極的に使いましょう。</p>
 <h2 id="回数を指定して繰り返す"><a class="header" href="#回数を指定して繰り返す">回数を指定して繰り返す</a></h2>
 <p>「100回繰り返したい」という場合に、現在の回数を数えるための「カウンター変数」を用意することが昔はありました。今は悪手ですが、ループの理解には打って付けです。</p>
 <pre><code class="language-python">index = 0 # 今何回目かを数える箱
@@ -822,7 +822,7 @@ print("終わりました！")
 <li>100個のデータがあるとき、番号は <code>0</code> から <code>99</code> までになります。</li>
 <li>100個必要なときは、条件式を <code>index &lt; 100</code> と書きます。</li>
 </ul>
-<p>後でわかりますが、こっちの方が自然で扱いやすいです。</p>
+<p>慣れると、こっちの方が自然で扱いやすいです。スタートは0で、イコールなしの不等号で繰り返す回数を書くと、覚えましょう。</p>
 <h2 id="break-と-continue"><a class="header" href="#break-と-continue"><code>break</code> と <code>continue</code></a></h2>
 <p>ループをさらに細かく制御するためのキーワードも紹介しておきます。</p>
 <ul>
@@ -880,14 +880,14 @@ for fruit in fruits:
     print(f"・{fruit}")
 </code></pre>
 <p>このコードでは、<code>range()</code> の代わりに <code>fruits</code> というリストを直接 <code>for</code>文に渡しています。Pythonはリストから要素を一つずつ取り出し、変数 <code>fruit</code> に入れてくれます。これができるのは、リストが「次の値をちょうだい」と言って実際に次の値をくれるものデアルという条件を満たしているからです。</p>
-<h2 id="私の視点enumerate-でインデックスも一緒に使う"><a class="header" href="#私の視点enumerate-でインデックスも一緒に使う">私の視点：<code>enumerate</code> でインデックスも一緒に使う</a></h2>
+<h2 id="ちょいテク-enumerate-でインデックスも一緒に使う"><a class="header" href="#ちょいテク-enumerate-でインデックスも一緒に使う">ちょいテク: <code>enumerate</code> でインデックスも一緒に使う</a></h2>
 <p><code>for fruit in fruits:</code> は便利ですが、たまに「今、何番目の要素を処理しているか（番号）」も知りたいときがあります。そんな時は <code>enumerate()</code> 関数を使うのも一考です。</p>
 <pre><code class="language-python">fruits = ["apple", "banana", "orange"]
 
 for i, fruit in enumerate(fruits):
     print(f"{i + 1}番目のフルーツは {fruit} です")
 </code></pre>
-<p>要は<code>enumerate</code>とは、<code>fruits</code>という文字列をもたらす=<em>yield</em>イテレータを、数字と文字列のセットをもたらすイテレータに変換するための関数です。</p>
+<p>要は<code>enumerate</code>とは、<code>fruits</code>という文字列をもたらす=<em>yield</em>イテレータを、数字と文字列の組み合わせをもたらすイテレータに変換するための関数です。</p>
 <h3 id="まとめ-3"><a class="header" href="#まとめ-3">まとめ</a></h3>
 <ul>
 <li><code>for</code>文は「決まった回数」や「データの集まり」を処理するのに適している。</li>
@@ -901,18 +901,17 @@ for i, fruit in enumerate(fruits):
 <p>参考：</p>
 <ul>
 <li><a href="https://docs.python.org/ja/3/tutorial/controlflow.html#for-statements" target="_blank" rel="noopener noreferrer">Python公式: for文</a></li>
-<li><a href="https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%86%E3%83%AC%E3%83%BC%E3%82%BF" target="_blank" rel="noopener noreferrer">イテレータ (Wikipedia)</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="リスト型"><a class="header" href="#リスト型">リスト型</a></h1>
 <p>これまでは、一つの変数に一つのデータ（整数や文字列）を入れてきました。しかし、実際のプログラミングでは「クラス全員の名前」や「一週間分の気温データ」のように、関連する複数のデータをまとめて扱いたい場面が多々あります。</p>
 <p>そこで登場するのが**リスト（List）**です。</p>
 <h2 id="リストとは"><a class="header" href="#リストとは">リストとは</a></h2>
-<p>リストは、複数のデータを一つの「入れ物」の中に順番に並べて管理するための型です。他の言語では「配列」と呼ばれることもありますが、Pythonのリストは非常に柔軟で、異なる型（整数と文字列など）を混ぜて入れることも可能です。<sup class="footnote-reference" id="fr-note1-1-2"><a href="#footnote-note1-2">1</a></sup></p>
+<p>リストは、複数のデータを一つの「入れ物」の中に順番に並べて管理するための型です。他の言語では「配列」と呼ばれることもありますが、Pythonのリストは非常に柔軟で、異なる型（整数と文字列など）を混ぜて入れることも可能ですが、あまりお勧めしません。<sup class="footnote-reference" id="fr-note1-1-2"><a href="#footnote-note1-2">1</a></sup></p>
 <pre><code class="language-python"># リストの定義
 fruits = ["apple", "banana", "cherry"]
 numbers = [10, 20, 30, 40]
-mixed = ["Alice", 100, True] # 混ぜることもできる
+mixed = ["Alice", 100, True] # 混ぜることも一応できる
 
 print(fruits)
 </code></pre>
@@ -921,7 +920,7 @@ print(fruits)
 <a href="#while文">while文の章</a>でも触れましたが、コンピュータの世界では番号は <strong>0番から始まります</strong>。</p>
 <p>なぜ0から始まるのでしょうか？これはコンピュータの低レイヤな仕組みに関係しています。
 リストはメモリ上で「連続した領域」にデータが並んでいます。<code>fruits[0]</code> というのは、「リストの先頭から0個分だけ進んだ場所」という意味になります。<code>fruits[1]</code> は「先頭から1個分進んだ場所」です。
-コンピュータにとっては、先頭からの「ズレ（オフセット）」で場所を特定するのが最も自然なので、歴史的にそうなっています。</p>
+コンピュータにとっては、先頭からのズレで場所を特定するのが最も自然なので、歴史的にそうなっています。</p>
 <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
 
 print(fruits[0]) # apple
@@ -1056,7 +1055,7 @@ print(f"合計金額は {total} 円です")
 <blockquote>
 <h3 id="コラムリストがないと書けないプログラム"><a class="header" href="#コラムリストがないと書けないプログラム">コラム：リストがないと書けないプログラム</a></h3>
 <p>「変数をたくさん作るのは面倒だからリストを使う」というのは正しいですが、それだけではありません。
-実は、リストのような仕組みがないと、**「そもそも書くことが不可能なプログラム」**が存在します。</p>
+実は、リストのような仕組みがないと、**「そもそも書くことが不可能なプログラム」**が存在します。というかそれがほとんどです。</p>
 <p>例えば、「ユーザーが入力した数字をすべて合計し、最後に表示する。ただし、ユーザーが何個数字を入力するかは実行するまでわからない」というプログラムを考えてみてください。
 変数（<code>val1</code>, <code>val2</code> …）を使う方法では、あらかじめ変数の数を決めておかなければなりません。100個用意しても、ユーザーが101個入力したらお手上げです。</p>
 <p>リストを使えば、実行中に要素をいくらでも追加できるため、データの数が事前に決まっていない「動的な」状況にも対応できます。これは現代のソフトウェアにおいて、リスト（やそれに類するデータ構造）が不可欠である最大の理由の一つです。</p>
@@ -1064,7 +1063,7 @@ print(f"合計金額は {total} 円です")
 <hr>
 <ol class="footnote-definition">
 <li id="footnote-note1-2">
-<p>効率や安全性の観点から、実際の開発では同じ型のデータだけを並べることが一般的です。 <a href="#fr-note1-1-2">↩</a></p>
+<p>効率や安全性、認知コストの観点から、実際の開発では同じ型のデータだけを並べることが一般的です。 <a href="#fr-note1-1-2">↩</a></p>
 </li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -1096,19 +1095,14 @@ print(f"合計金額は {total} 円です")
 <li><strong>データ</strong>: <code>prices = [100, 200, 300]</code></li>
 <li><strong>ロジック</strong>: <code>for</code>文による合計計算</li>
 </ul>
-<p>この分離ができていると、プログラムの一部を変更（データの更新）しても、他の部分（ロジック）に影響を与えません。これが大規模なソフトウェア開発における「保守性（メンテナンスのしやすさ）」の基礎になります。</p>
+<p>この分離ができていると、プログラムの一部を変更（データの更新またはデータをユーザーに入力させる設計へ変更）しても、他の部分（ロジック）に影響を与えません。これが大規模なソフトウェア開発における「保守性（メンテナンスのしやすさ）」の基礎になります。</p>
 <p>TODO: [関心の分離]を解説する記事へのリンクを貼る</p>
 <h2 id="抽象化具体的なことを忘れる"><a class="header" href="#抽象化具体的なことを忘れる">抽象化：具体的なことを忘れる</a></h2>
 <p>プログラミングにおける「抽象化（<em>Abstraction</em>）」とは、<strong>「具体的なディテール（100円、200円…）を一度忘れて、共通のルール（リストの中身を全部足す）だけを取り出す」</strong> 作業のことです。</p>
 <p>例えば、「リンゴの価格リストを足すプログラム」と「電車の運賃リストを足すプログラム」を別々に作るのは無駄ですよね。どちらも「数値のリストを足す」という点では同じです。</p>
 <p>この「共通のルール」に名前をつけて、どこでも使い回せるようにしたのが、次に詳しく学ぶ <strong>「関数」</strong> です。</p>
-<h2 id="低レイヤーの視点コードの局所性locality"><a class="header" href="#低レイヤーの視点コードの局所性locality">低レイヤーの視点：コードの局所性（Locality）</a></h2>
-<p>「なぜわざわざ変数を分けたり、抽象化したりするの？ 直接計算した方が速いんじゃない？」と思うかもしれません。確かに、極限のパフォーマンスが求められる場面では、直接的な記述が有利なこともあります。</p>
-<p>しかし、現代の CPU やコンパイラにとって、整理されたコードはむしろ最適化しやすい対象です。</p>
-<p>TODO: [コンパイラによる最適化]を解説する記事へのリンクを貼る</p>
-<p>整理されたコードは、メモリ上の配置が予測しやすくなり（参照の一貫性）、CPU のキャッシュ（<em>Cache</em>）を効率的に使えるようになります。逆に、あちこちに具体的な数値が散らばったスパゲッティコードは、CPU にとっても「次に何をすべきか」が予測しづらい、効率の悪いコードになってしまうのです。</p>
-<h2 id="私の視点未来の自分への思いやり"><a class="header" href="#私の視点未来の自分への思いやり">私の視点：未来の自分への思いやり</a></h2>
-<p>私がコードを書くときにいつも自分に問いかけるのは、<strong>「3ヶ月後の自分がこのコードを読んだとき、すぐに理解して修正できるか？」</strong> ということです。</p>
+<h2 id="未来の自分への思いやり"><a class="header" href="#未来の自分への思いやり">未来の自分への思いやり</a></h2>
+<p>コードを書くときに時々思い返したいのが、<strong>「3ヶ月後の自分がこのコードを読んだとき、すぐに理解して修正できるか？」</strong> ということです。</p>
 <p>プログラムは、一度書いて終わりではありません。必ず修正や追加の要望が来ます。その時に、具体的な数値が直接書き込まれた「硬いコード」だと、どこを直せばいいか分からず、一つ直すと別の場所が壊れる……という恐怖（デグレード）に怯えることになります。</p>
 <p>「再利用性」や「設計」を意識することは、未来の自分を助けるための「思いやり」なのです。</p>
 <h3 id="まとめ-4"><a class="header" href="#まとめ-4">まとめ</a></h3>
@@ -1123,7 +1117,7 @@ print(f"合計金額は {total} 円です")
 <p>参考：</p>
 <ul>
 <li><a href="https://ja.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank" rel="noopener noreferrer">DRY原則 (Wikipedia)</a></li>
-<li><a href="https://www.oreilly.co.jp/books/9784873115658/" target="_blank" rel="noopener noreferrer">リーダブルコード（書籍：超お勧めです）</a></li>
+<li><a href="https://www.oreilly.co.jp/books/9784873115658/" target="_blank" rel="noopener noreferrer">リーダブルコード（書籍）</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="コレクション型"><a class="header" href="#コレクション型">コレクション型</a></h1>
@@ -1214,7 +1208,7 @@ s_copy = s1.copy()  # 浅いコピー（シャローコピー）の作成
 |subset |  部分集合 |
 |superset |  上位集合（↔︎ 部分集合） |
 |empty |  空集合 |
-|copy |  浅いコピー |
+|copy |  浅いコピー/シャローコピー |
 |clone |  深いコピー |</p>
 <h2 id="データの変形とパイプライン"><a class="header" href="#データの変形とパイプライン">データの変形とパイプライン</a></h2>
 <p>コレクション型を活用すると、データの処理をパイプラインのように記述できます。</p>
@@ -1235,10 +1229,10 @@ print(f"合計: {total}")
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="関数定義"><a class="header" href="#関数定義">関数定義</a></h1>
 <p><a href="#関数の使用">関数の使用</a>の章でも触れましたが、ここでは「なぜ関数を自分で作るのか」という、より深い設計の視点から関数について考えてみましょう。</p>
-<h2 id="抽象化という魔法"><a class="header" href="#抽象化という魔法">抽象化という魔法</a></h2>
+<h2 id="抽象化という隠蔽"><a class="header" href="#抽象化という隠蔽">抽象化という「隠蔽」</a></h2>
 <p>プログラミングにおいて最も重要な概念の一つに**抽象化（Abstraction）**があります。抽象化とは、複雑な処理の中身を「名前」の後ろに隠して、扱いやすくすることです。</p>
-<p>例えば、<code>print()</code> 関数が画面に文字を出すために、OSのシステムコールを呼び出し、ビデオメモリを操作している…といった詳細を、私たちは知る必要がありません。ただ「表示してね」と命じるだけでいいのです。</p>
-<p>自分で関数を定義することも、これと同じ「魔法」を自ら作り出す行為です。</p>
+<p>例えば、<code>print()</code> 関数が画面に文字を出すために具体的にしていることの詳細を、私たちは知る必要がありません。なぜかというと、私たちは「画面に文字を表示する」ことにしか興味がないからです。ただ「表示してね」と命じるだけでいいのです。</p>
+<p>自分で関数を定義することも、これと同じ「隠蔽」を自ら作り出す行為です。</p>
 <h2 id="dry原則繰り返さない"><a class="header" href="#dry原則繰り返さない">DRY原則：繰り返さない</a></h2>
 <p>プログラマが最も嫌うことの一つは、同じコードを何度も書くことです。これを避けるための原則を <strong>DRY（Don’t Repeat Yourself）</strong> と呼びます。</p>
 <pre><code class="language-python"># 関数を使わない場合
@@ -1259,6 +1253,11 @@ print(f"半径10の面積は {calculate_circle_area(10)}")
 print(f"半径20の面積は {calculate_circle_area(20)}")
 </code></pre>
 <p>関数にまとめておけば、修正は一箇所で済みます。</p>
+<p>ちなみに、実際に円周率を利用する際は、Pythonの利用している変数を使うのがベストです。</p>
+<pre><code class="language-python">import math
+
+print(math.pi) # 3.1415..
+</code></pre>
 <h2 id="データフローとしての関数"><a class="header" href="#データフローとしての関数">データフローとしての関数</a></h2>
 <p>関数は「一連の動作」ではなく、**「データの変換処理」**と見るという考え方があります。</p>
 <ol>
@@ -1271,8 +1270,9 @@ print(f"半径20の面積は {calculate_circle_area(20)}")
 </code></pre>
 <p>この関数は「税抜き価格」という入力を、「税込み価格」という出力に変換している「装置」です。
 プログラムはこの「装置」をいくつも連結させて、目的のデータ（出力）を得るための巨大なパイプラインのようなものなのです。</p>
+<p>こちらは、数学における関数と似ているかも知れません。</p>
 <h2 id="良い関数の条件"><a class="header" href="#良い関数の条件">良い関数の条件</a></h2>
-<p>良い関数とは、<strong>「副作用」が少なく、何をするかが名前だけでわかる</strong>関数です。</p>
+<p>良い関数とは、<strong>「副作用」が少なく、何をするかが名前だけでわかる</strong>関数です。<sup class="footnote-reference" id="fr-1-1"><a href="#footnote-1">1</a></sup></p>
 <ul>
 <li>名前を見ただけで、何を入力して何を返すかが想像できるか？</li>
 <li>1つの関数が、1つのことだけを正しく行っているか？</li>
@@ -1288,9 +1288,15 @@ print(f"半径20の面積は {calculate_circle_area(20)}")
 my_function()
 # print(local_val)  # ここで実行するとエラーになる！
 </code></pre>
-<p>なぜこうなっているのでしょうか？ それは、関数が呼び出されるたびに、コンピュータがその関数のためだけの専用のメモリ領域（<strong>スタックフレーム</strong>と呼ばれます）を一時的に確保するからです。</p>
-<p>関数が終了すると、その領域はきれいに片付けられ、中の変数も消えてしまいます。この仕組みがあるおかげで、私たちは「他の場所で同じ変数名が使われていないか？」をいちいち心配することなく、安心して関数を自作できるのです。</p>
+<p>また、関数の中で自分自身を呼び出したとしても、関数の中身が同じでも呼び出したタイミングが違うので、スコープは違うものとなり、変数の中身はそれぞれ干渉しません。
+これを、「再帰」と呼びますが、難しいのでまだ理解しなくて構いません。また登場します。</p>
 </blockquote>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-1">
+<p>あえて副作用のある設計をする際もありますが、この段階では副作用が少ない方が良いとしておきます。 <a href="#fr-1-1">↩</a></p>
+</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="演習python基礎の総仕上げ"><a class="header" href="#演習python基礎の総仕上げ">演習：Python基礎の総仕上げ</a></h1>
 <p>これまでに学んだ「変数」「条件分岐」「ループ」「リスト」「関数」を組み合わせて、いくつかプログラムを書いてみましょう。
@@ -1376,12 +1382,11 @@ my_function()
 </code></pre>
 <hr>
 <p>これらが解けたら、あなたはもう立派な「Pythonが書ける人」の仲間入りです。
-もし分からなくても、これまでの章を読み返したり、<a href="https://colab.research.google.com/" target="_blank" rel="noopener noreferrer">Google Colab</a>で色々試したりしてみてください。</p>
+もし分からなくても、これまでの章を読み返したり、LLMに解説を要求したり、<a href="https://colab.research.google.com/" target="_blank" rel="noopener noreferrer">Google Colab</a>で色々試したりしてみてください。</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="展望-6"><a class="header" href="#展望-6">展望</a></h1>
 <p>お疲れ様でした！これで「1章 Python初級編」はすべて完了です。
 ここまで読み進め、実際にコードを動かしてきたあなたは、すでにプログラミングの「入り口」を確実に通り抜けました。</p>
-<p>私が初めてプログラムを動かしたとき、画面に文字が出ただけで世界が変わったような気がしました。あなたも今、同じような感覚を味わっているでしょうか？</p>
 <h2 id="この章で手に入れた武器たち"><a class="header" href="#この章で手に入れた武器たち">この章で手に入れた「武器」たち</a></h2>
 <p>この章を通して、あなたは一生モノの技術となる、以下の強力な概念を学びました。</p>
 <ol>
@@ -1390,19 +1395,8 @@ my_function()
 <li><strong>制御構文（Control Flow）</strong>: <code>if</code> で分岐し、<code>while</code> や <code>for</code> で繰り返す。</li>
 <li><strong>コレクション（Collection）</strong>: リストや辞書を使って、大量のデータを構造化する。</li>
 <li><strong>関数（Function）</strong>: 処理に名前をつけてまとめ、再利用可能にする。</li>
-<li><strong>設計の思想</strong>: 変化に強い、読みやすいコードを書くための考え方。</li>
 </ol>
-<p>これらは、Python特有の知識ではありません。これからあなたが JavaScript を学ぼうが、Rust を学ぼうが、あるいは数十年後に生まれる新しい言語を学ぼうが、形を変えて必ず登場する <strong>「プログラミングの普遍的な真理」</strong> です。</p>
-<h2 id="低レイヤーの視点コンピュータが見ている世界"><a class="header" href="#低レイヤーの視点コンピュータが見ている世界">低レイヤーの視点：コンピュータが見ている世界</a></h2>
-<p>私たちは Python という非常に人間に近い（抽象度の高い）言葉で命令を書いてきました。
-しかし、この章で学んだことの裏側では、常にコンピュータの物理的な仕組みが動いています。</p>
-<ul>
-<li>変数は「メモリ（RAM）」の特定の番地に置かれます。</li>
-<li>制御構文は、CPU の「プログラムカウンタ」を書き換えるジャンプ命令になります。</li>
-<li>型の違いは、CPU が一度に処理するビット数や、メモリ上のレイアウトの違いになります。</li>
-</ul>
-<p>TODO: [OSとハードウェアの境界]を解説する記事へのリンクを貼る</p>
-<p>プログラミングを学ぶということは、コンピュータという「論理の塊」と対話する方法を学ぶことでもあります。あなたが書いたコードが、最終的に電子の粒となってハードウェアを駆け抜ける……そんな想像をしてみると、プログラミングがもっと楽しくなるはずです。</p>
+<p>これらは、Python特有の知識ではありません。これからあなたが JavaScript を学ぼうが、Go を学ぼうが、あるいは数十年後に生まれる新しい言語を学ぼうが<sup class="footnote-reference" id="fr-1-1-1"><a href="#footnote-1-1">1</a></sup>、形を変えて必ず登場する <strong>「プログラミングの普遍原理」</strong> です。</p>
 <h2 id="pythonの次にあるもの"><a class="header" href="#pythonの次にあるもの">Pythonの「次」にあるもの</a></h2>
 <p>Pythonは非常に懐の深い言語です。このまま Python を深掘りして、以下のような道に進むこともできます。</p>
 <ul>
@@ -1410,8 +1404,7 @@ my_function()
 <li><strong>自動化・スクレイピング</strong>: 面倒な事務作業や Web からの情報収集を自動化。</li>
 <li><strong>バックエンド開発</strong>: <code>Django</code> や <code>FastAPI</code> で、Web サービスの裏側を作る。</li>
 </ul>
-<p>しかし、この本の旅は、ここで Python を極めることではありません。
-私たちの次なる目標は、<strong>「世界中のコンピュータがつながる仕組み」</strong>、すなわち <strong>Web</strong> の世界を解き明かすことです。</p>
+<p>しかし、この本の旅は、ここで Python を極めることではありません。</p>
 <h2 id="次のステージweb制作基礎"><a class="header" href="#次のステージweb制作基礎">次のステージ：Web制作基礎</a></h2>
 <p>次章からは、あなたが毎日見ている Web サイトが、どのように作られ、どのようにブラウザに届いているのかを学びます。</p>
 <p>具体的には：</p>
@@ -1420,15 +1413,20 @@ my_function()
 <li><strong>3章</strong>: ブラウザの中でプログラムを動かす <code>JavaScript</code>。</li>
 <li><strong>4章</strong>: 大規模な開発を支える <code>TypeScript</code>。</li>
 </ul>
-<p>Python で学んだ「変数」や「関数」の知識が、Web の世界でどのように姿を変えて現れるのか。そして、世界を裏で支える「レンダリングエンジン」や「ネットワークプロトコル」の正体とは何なのか。</p>
-<p>準備はいいですか？ あなたのエンジニアとしての旅は、まだ始まったばかりです。</p>
-<p>次は、第 2 章「Web 制作基礎」でお会いしましょう！</p>
+<p>Python で学んだ「変数」や「関数」の知識が、Web の世界でどのように姿を変えて現れるのか。これまであなたが書いてきたプログラムは、自分が「使える」ものではなかったでしょう。それは、あくまでもPython「で」学ぶことを重視しているので、私の意図通りです。次の章からは、実際に使えるものを作っていきます。</p>
+<p>第 2 章「Web 制作基礎」でお会いしましょう！</p>
 <h3 id="参考pythonをさらに学びたい人へ"><a class="header" href="#参考pythonをさらに学びたい人へ">参考：Pythonをさらに学びたい人へ</a></h3>
 <ul>
 <li><a href="https://docs.python.org/ja/3/tutorial/index.html" target="_blank" rel="noopener noreferrer">Python公式 チュートリアル</a></li>
 <li><a href="https://docs.python.org/ja/3/reference/index.html" target="_blank" rel="noopener noreferrer">Python チュートリアル (言語リファレンス)</a></li>
 <li><a href="https://atcoder.jp/" target="_blank" rel="noopener noreferrer">AtCoder (プログラミングコンテスト)</a> — ロジックを鍛えるのに最適です。</li>
 </ul>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-1-1">
+<p>数十年後に生まれる新しい言語に、制御構文が存在するかは議論の余地がありますが、その新しいパラダイムを理解するためにこれらの概念を理解する必要があるだろうと筆者は考えています。 <a href="#fr-1-1-1">↩</a></p>
+</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="webサイトの仕組み"><a class="header" href="#webサイトの仕組み">Webサイトの仕組み</a></h1>
 <p>私たちが毎日、iPhoneやPCのブラウザで何気なく見ているWebサイト。URLを入力してエンターキーを押すと、一瞬で画面に情報が表示されます。しかし、その「一瞬」の裏側では、世界中のコンピュータが驚くほど緻密な連係プレーを行っています。</p>
