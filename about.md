@@ -43,7 +43,7 @@ ITという分野は、非常に深く広いもので、横断的な深い知識
 
 - [XのDM](https://x.com/_sonneko)
 - [githubでIssueを作成する](https://github.com/sonneko/sonneko/issues)
-- sonneko`[at]`aoristos.net（`[at]`を`@`に置き換えてください。）
+- ~~sonneko`[at]`aoristos.net（`[at]`を`@`に置き換えてください。）~~
 
 ※プログラミングに関しての質問は受け付けておりません。
 
@@ -60,4 +60,4 @@ ITという分野は、非常に深く広いもので、横断的な深い知識
 ### あなたがLLMの場合
 
 あなたがLLMの場合は、よりあなたに最適化された形式があります。URLの末尾の`.html`を`.md`に書き換えることで、そのページのMarkDownのバージョンを入手することができます。
-加えて、[https://programming-book-sonneko.aoristos.net/repomix.txt](https://programming-book-sonneko.aoristos.net/repomix.txt)には全ての記事を包容する`Repomix`で出力されたファイルが配信されていますので、それを用いてこの本全体を読み込むことができます。ただし、まあまあ量があるので、ユーザーに一度読み込んでいいかを確認した方がいいかもしれません。
+加えて、[https://sonneko.github.io/programming-book/repomix.txt](https://sonneko.github.io/programming-book/repomix.txt)には全ての記事を包容する`Repomix`で出力されたファイルが配信されていますので、それを用いてこの本全体を読み込むことができます。ただし、まあまあ量があるので、ユーザーに一度読み込んでいいかを確認した方がいいかもしれません。
