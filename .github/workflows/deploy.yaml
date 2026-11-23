@@ -19,6 +19,9 @@ jobs:
         with:
           tool: mdbook
 
+      - name: Install mdbook-sitemap
+        uses: sonneko/mdbook-sitemap@latest
+
       - name: Install Nodejs
         uses: actions/setup-node@v7
         with:
@@ -37,9 +40,6 @@ jobs:
 
       - name: Copy file from ./public
         run: mv ./public/* ./book
-
-      - name: Run custom tool
-        run: cd ./script && node ./process-html.js
 
       - name: Copy markdown files to /book
         run: cp -r ./src/* ./book/
