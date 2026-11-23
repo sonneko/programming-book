@@ -23,7 +23,7 @@ jobs:
         run: mdbook --version
 
       - name: Install mdbook-sitemap
-        uses: sonneko/mdbook-sitemap@main
+        uses: sonneko/mdbook-sitemap@v0.1.5
 
       - name: Install Nodejs
         uses: actions/setup-node@v7
