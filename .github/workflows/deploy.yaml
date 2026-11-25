@@ -19,9 +19,6 @@ jobs:
         with:
           tool: mdbook
 
-      - name: Check mdbook version
-        run: mdbook --version
-
       - name: Install mdbook-sitemap
         uses: sonneko/mdbook-sitemap@v0.1.5
 
@@ -42,16 +39,16 @@ jobs:
         run: mdbook build
 
       - name: Copy file from ./public
-        run: mv ./public/* ./book
+        run: mv ./public/* ./book/html/
 
       - name: Copy markdown files to /book
-        run: cp -r ./src/* ./book/
+        run: cp -r ./src/* ./book/html/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./book
+          publish_dir: ./book/html
           publish_branch: gh-pages
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
